@@ -1,0 +1,98 @@
+﻿@model Admin
+@{
+    ViewData["Title"] = "Admin Login";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style>
+        h1 {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        form {
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        div {
+            margin: 15px 0;
+            background-color: #f9f9f9;
+            padding: 5px;
+            border-radius: 6px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+        }
+
+        input {
+            width: 50%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .button-container {
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+            button:hover {
+                background-color: #45a049;
+            }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Login form</h1>
+    <form asp-action="Login" method="post">
+        <div>
+            <label asp-for="adminemail">Admin Email</label>
+            <input type="email" id="adminemail" name="adminemail" />
+            <span asp-validation-for="adminemail" class="text-danger"></span>
+
+        </div>
+        <div>
+            <label asp-for="adminpassword">Admin Password</label>
+            <input type="password" id="adminpassword" name="adminpassword" />
+            <span asp-validation-for="adminpassword" class="text-danger"></span>
+
+
+        </div>
+        <div class="button-container">
+            <button asp-action="AV">Login</button>
+            <button asp-action="Index">Cancel</button>
+        </div>
+    </form>
+</body>
+</html>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

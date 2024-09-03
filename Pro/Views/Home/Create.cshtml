@@ -1,0 +1,109 @@
+﻿@model CreateOrder
+@{
+    ViewData["Title"] = "Create";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style>
+        h1 {
+            color: #2f4f4f;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        form {
+            width: 50%;
+            margin: 0 auto;
+            background: #f4f4f4;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #000;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button {
+            width: 50%;
+            padding: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #2f4f4f;
+            color: #fff;
+            cursor: pointer;
+            display: inline-block;
+            margin: 10px 0;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .button:hover {
+            background: #000;
+        }
+    </style>
+</head>
+<body>
+    <h1>Create</h1>
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="All"></div>
+        <div>
+            <label asp-for="orederDate">Order Date</label>
+            <input asp-for="orederDate" />
+        </div>
+        <div>
+            <label asp-for="orderCost">Order Cost</label>
+            <input asp-for="orderCost" />
+        </div>
+        <div>
+            <label asp-for="orderDeliveryDate">Order Delivery Date</label>
+            <input asp-for="orderDeliveryDate" />
+        </div>
+        <div>
+            <label asp-for="username">User Name</label>
+            <input asp-for="username" />
+        </div>
+        <div>
+            <label asp-for="useraddress">Address</label>
+            <input asp-for="useraddress" />
+        </div>
+        <div>
+            <label asp-for="userphone">Phone</label>
+            <input asp-for="userphone" />
+        </div>
+        <div>
+            <label asp-for="usergender">Gender</label>
+            <input asp-for="usergender" />
+        </div>
+        <div>
+            <label asp-for="itemName">Item Name</label>
+            <input asp-for="itemName" />
+        </div>
+        <div>
+            <label asp-for="itemPrice">Price</label>
+            <input asp-for="itemPrice" />
+        </div>
+        <div class="button-container">
+            <input type="submit" value="Create" class="button" />
+            <a href="@Url.Action("AV")" class="button">Cancel</a>
+      </div>
+    </form>
+</body>
+</html>
