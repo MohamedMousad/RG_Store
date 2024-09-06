@@ -62,7 +62,7 @@
 </head>
 <body>
     <h1>Create</h1>
-    <form asp-action="Create" method="post">
+    <form asp-action="Create" asp-controller= "Order" method="post">
         <div asp-validation-summary="All"></div>
         <div>
             <label asp-for="orederDate">Order Date</label>
@@ -99,6 +99,10 @@
         <div>
             <label asp-for="itemPrice">Price</label>
             <input asp-for="itemPrice" />
+        </div>
+                <div>
+            <label asp-for="itemImage">Image</label>
+            <input asp-for="itemImage" />
         </div>
         <div class="button-container">
             <input type="submit" value="Create" class="button" />
