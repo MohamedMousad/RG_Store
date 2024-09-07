@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -30,6 +30,8 @@
 
   <ItemGroup>
     <None Include="Views\Home\V.cshtml" />
+    <None Include="wwwroot\css\.DS_Store" />
+    <None Include="wwwroot\js\.DS_Store" />
   </ItemGroup>
 
   <ItemGroup>
