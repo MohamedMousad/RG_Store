@@ -1,16 +1,9 @@
-﻿using EmployeeSystem.DAL.DB;
-using EmployeeSystem.DAL.Entities;
-using EmployeeSystem.DAL.Repo.Abstraction;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RG_Store.DAL.Repo.Abstraction;
 
 namespace EmployeeSystem.DAL.Repo.Implementation
 {
     public class ItemRepo : IItemRepo
-    {
+    {/*
         private readonly ApplicationDbContext _context = new ApplicationDbContext();
         public bool Create(Department department)
         {
@@ -44,6 +37,6 @@ namespace EmployeeSystem.DAL.Repo.Implementation
         }
 
         public IQueryable<Department> GetAll() => _context.Departments;
-        public Department GetById(int id) => _context.Departments.Where(e => e.Id == id).FirstOrDefault();
+        public Department GetById(int id) => _context.Departments.Where(e => e.Id == id).FirstOrDefault();*/
     }
 }

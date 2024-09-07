@@ -9,9 +9,9 @@ namespace EmployeeSystem.DAL.Repo.Abstraction
 {
     public interface IUserRepo
     {
-        IQueryable<Department> GetAll();
+/*        IQueryable<Department> GetAll();
         Department GetById(int id);
         bool Edit(Department department);
-        bool Create(Department department);
+        bool Create(Department department);*/
     }
 }
