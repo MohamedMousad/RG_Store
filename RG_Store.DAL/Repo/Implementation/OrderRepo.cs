@@ -1,5 +1,5 @@
-﻿using EmployeeSystem.DAL.DB;
-using EmployeeSystem.DAL.Entities;
+﻿/*using EmployeeSystem.DAL.DB;
+using EmployeeSystem.DAL.Entities;*/
 using EmployeeSystem.DAL.Repo.Abstraction;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace EmployeeSystem.DAL.Repo.Implementation
 {
     public class OrderRepo : IOrderRepo
-    {
+    {/*
         private readonly ApplicationDbContext _context = new ApplicationDbContext();
         public bool Create(Employee employee)
         {
@@ -47,7 +47,7 @@ namespace EmployeeSystem.DAL.Repo.Implementation
         }
 
         public IQueryable<Employee> GetAll() => _context.Employees.Include(a=>a.Department).Where(a=>a.DepartmentId != null);
-        public Employee GetById(int id) => _context.Employees.Where(e => e.Id == id).FirstOrDefault();
+        public Employee GetById(int id) => _context.Employees.Where(e => e.Id == id).FirstOrDefault();*/
 
     }
 }

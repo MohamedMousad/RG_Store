@@ -1,4 +1,4 @@
-﻿using EmployeeSystem.BLL.ModelVM.DepartmentVM;
+﻿/*using EmployeeSystem.BLL.ModelVM.DepartmentVM;
 using EmployeeSystem.DAL.Entities;
 using System;
 using System.Collections.Generic;
@@ -14,3 +14,4 @@ namespace EmployeeSystem.BLL.Service.Abstraction
         public bool Create(GetAllDepartmentVM department);
     }
 }
+*/

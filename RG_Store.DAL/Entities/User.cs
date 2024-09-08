@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using RG_Store.DAL.Entities;
 using RG_Store.DAL.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -15,6 +16,15 @@ namespace Entities
         public bool IsDeleted { get; set; } = false;
         public string? Address { get; set; } = string.Empty;
         public Gender UserGender { get; set; } 
+
+            
+        public IEnumerable<Order?> ?Orders {  get; set; }
+
+
+        public int CartId { get; set; }
+        public virtual Cart? Cart { get; set; }
+
+
 
         /*public string ?userGender { get; set; }*/
         /*        public virtual List<Order>? Orders { get; set; }*/
