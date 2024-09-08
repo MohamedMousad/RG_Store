@@ -1,7 +1,44 @@
+using Entities;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using RG_Store.DAL.DB;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//Identity
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer("name=DefaultConnection"));
+
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
+    options =>
+    {
+        options.LoginPath = new PathString("/Account/SignIn");
+        options.AccessDeniedPath = new PathString("/Account/SignIn");
+    });
+
+
+//builder.Services.AddIdentityCore<User>(options => options.SignIn.RequireConfirmedAccount = true)
+//                .AddEntityFrameworkStores<ApplicationDbContext>()
+//                .AddTokenProvider<DataProtectorTokenProvider<User>>(TokenOptions.DefaultProvider);
+builder.Services.AddIdentity<User, IdentityRole>(options =>
+{
+ /*   //options.User.RequireUniqueEmail = true;
+    // Default Password settings.
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequiredLength = 6;
+    options.Password.RequiredUniqueChars = 0;*/
+}).AddEntityFrameworkStores<ApplicationDbContext>();
+
+
 
 var app = builder.Build();
 
@@ -18,6 +55,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

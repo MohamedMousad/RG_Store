@@ -7,10 +7,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Helper\**" />
+    <Compile Remove="Mapper\**" />
+    <Compile Remove="Validation\**" />
+    <EmbeddedResource Remove="Helper\**" />
+    <EmbeddedResource Remove="Mapper\**" />
+    <EmbeddedResource Remove="Validation\**" />
+    <None Remove="Helper\**" />
+    <None Remove="Mapper\**" />
+    <None Remove="Validation\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\RG_Store.DAL\RG_Store.DAL.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -20,12 +33,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Helper\" />
-    <Folder Include="Mapper\" />
-    <Folder Include="Validation\" />
   </ItemGroup>
 
 </Project>
