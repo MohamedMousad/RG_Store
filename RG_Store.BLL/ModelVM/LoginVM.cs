@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -13,3 +13,4 @@ namespace SocialMedia.BLL.ModelVM
         public string Password { get;set; }
     }
 }
+*/

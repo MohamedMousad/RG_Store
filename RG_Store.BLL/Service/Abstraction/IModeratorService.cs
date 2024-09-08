@@ -1,4 +1,4 @@
-﻿using EmployeeSystem.BLL.ModelVM.EmployeeVM;
+﻿/*using EmployeeSystem.BLL.ModelVM.EmployeeVM;
 using EmployeeSystem.DAL.Entities;
 using System;
 using System.Collections.Generic;
@@ -13,4 +13,4 @@ namespace EmployeeSystem.BLL.Service.Abstraction
         List<GetAllEmployeeVM> GetAll();
         public bool Create(CreateEmployeeVM employeeVM );
     }
-}
+}*/

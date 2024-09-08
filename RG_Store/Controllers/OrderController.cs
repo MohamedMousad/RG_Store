@@ -6,7 +6,7 @@ namespace RG_Store.PLL.Controllers
 {
     public class OrderController
     {
-        CreateOrder CreateOrder = new CreateOrder();
+        /*CreateOrder CreateOrder = new CreateOrder();
         public IActionResult Create()
         {
             return View();
@@ -139,6 +139,6 @@ namespace RG_Store.PLL.Controllers
             }
 
             return View("UV", createOrderViewModels);
-        }
+        }*/
     }
 }
