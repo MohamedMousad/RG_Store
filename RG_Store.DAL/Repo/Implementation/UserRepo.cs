@@ -1,7 +1,9 @@
 ﻿/*using EmployeeSystem.DAL.DB;
 using EmployeeSystem.DAL.Entities;*/
 using EmployeeSystem.DAL.Repo.Abstraction;
+using Entities;
 using Microsoft.EntityFrameworkCore;
+using RG_Store.DAL.DB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,44 +12,36 @@ using System.Threading.Tasks;
 
 namespace EmployeeSystem.DAL.Repo.Implementation
 {
-    public class EmployeeRepo : IOrderRepo
+    public class UserRepo : IUserRepo
     {
-      /*  private readonly ApplicationDbContext _context = new ApplicationDbContext();
-        public bool Create(Employee employee)
+        private readonly ApplicationDbContext context = new ApplicationDbContext();
+        
+        public bool Create(User user)
         {
-            try
-            {
-                _context.Employees.Add(employee);
-                _context.SaveChanges();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-
-            }
+            throw new NotImplementedException();
+        }
+        public bool DeleteUser(User user)
+        {
+            throw new NotImplementedException();
+        }
+        public User GetById(int id)
+        {
+            throw new NotImplementedException();
         }
 
-        public bool Edit(Employee employee)
+        public bool UpdateRole(User user)
         {
-            var emp = _context.Employees.Where(e => e.Id == employee.Id).FirstOrDefault();
-            try
-            {
-                emp.Name = employee.Name;
-                emp.Age = employee.Age;
-                emp.Email = employee.Email;
-                _context.SaveChanges();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-
-            }
+            throw new NotImplementedException();
         }
 
-        public IQueryable<Employee> GetAll() => _context.Employees.Include(a=>a.Department).Where(a=>a.DepartmentId != null);
-        public Employee GetById(int id) => _context.Employees.Where(e => e.Id == id).FirstOrDefault();*/
+        public bool UpdateUser(User user)
+        {
+            throw new NotImplementedException();
+        }
 
+        IEnumerable<User> IUserRepo.GetAll()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

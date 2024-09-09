@@ -16,6 +16,6 @@ namespace Entities
         public bool HasOffer { get; set; }=false;
         public decimal ?Offer { get; set; } = 0;
         public string? ItemImage { get; set; }
-      //  public virtual List<Order>? Orders { get; set; }
+        public bool IsDeleted { get; set; } = false;
     }
 }
