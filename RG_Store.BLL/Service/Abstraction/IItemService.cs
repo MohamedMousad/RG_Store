@@ -1,16 +1,12 @@
-﻿/*using EmployeeSystem.BLL.ModelVM.EmployeeVM;
-using EmployeeSystem.DAL.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EmployeeSystem.BLL.Service.Abstraction
+namespace RG_Store.BLL.Service.Abstraction
 {
-    public interface IEmployeeService
+    public interface IItemService
     {
-        List<GetAllEmployeeVM> GetAll();
-        public bool Create(CreateEmployeeVM employeeVM );
     }
-}*/
+}

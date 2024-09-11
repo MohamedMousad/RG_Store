@@ -14,6 +14,6 @@ namespace RG_Store.DAL.Repo.Abstraction
         public bool Delete(Category category);  
         public IEnumerable<Category> GetAllItems(Category category);
         public IEnumerable<Category> GetAll();
-     //   public Category GetById(int id);
+        public Category GetById(int id);
     }
 }

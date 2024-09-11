@@ -45,9 +45,11 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 
 
 builder.Services.AddScoped<IItemRepo, ItemRepo>();
+builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
 builder.Services.AddScoped<IUserRepo, UserRepo>();
 builder.Services.AddScoped<ICartRepo, CartRepo>();
 builder.Services.AddScoped<IOrderRepo, OrderRepo>();
+builder.Services.AddScoped<IFavouriteRepo, FavouriteRepo>();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
