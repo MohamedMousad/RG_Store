@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RG_Store.BLL.Service.Abstraction
 {
-    public interface IOrderService
+    public interface IFavouriteService
     {
     }
 }

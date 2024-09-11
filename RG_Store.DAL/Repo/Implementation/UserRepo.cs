@@ -47,6 +47,9 @@ namespace EmployeeSystem.DAL.Repo.Implementation
             }
 
         }
+
+        public User GetById(string id) => context.Users.Where(u => u.Id == id).FirstOrDefault();
+
         public bool UpdateRole(User user,Roles role)
         {
             try

@@ -1,4 +1,5 @@
 ﻿using Entities;
+using RG_Store.DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace RG_Store.DAL.Repo.Abstraction
         public bool RemoveFromCart(Item item, string UId);  
         public bool ClearCart(string UId);  
         public IEnumerable<Item> GetAllItems(string Uid);
+        public Cart GetById(int id);
 
     }
 }

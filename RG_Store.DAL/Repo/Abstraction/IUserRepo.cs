@@ -16,5 +16,6 @@ namespace EmployeeSystem.DAL.Repo.Abstraction
         public bool UpdateRole(User user, Roles role);
         public bool UpdateUser(User user);
         public bool DeleteUser(User user);
+        public User GetById(string id);
     }
 }

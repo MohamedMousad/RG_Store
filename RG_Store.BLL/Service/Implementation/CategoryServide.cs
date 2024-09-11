@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RG_Store.BLL.Service.Abstraction
+namespace RG_Store.BLL.Service.Implementation
 {
-    public interface IOrderService
+    public class CategoryServide
     {
     }
 }

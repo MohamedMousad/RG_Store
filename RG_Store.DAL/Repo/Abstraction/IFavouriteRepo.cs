@@ -13,6 +13,6 @@ namespace RG_Store.DAL.Repo.Abstraction
         public bool Add(Item item, int id);
         public bool Remove(Item item, int id);
         public IEnumerable<Item> GetAll(int id);
-     //   public Favourite GetById(int id);
+        public Favourite GetById(int id);
     }
 }

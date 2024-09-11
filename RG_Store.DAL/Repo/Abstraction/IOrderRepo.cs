@@ -14,6 +14,6 @@ namespace EmployeeSystem.DAL.Repo.Abstraction
         public bool UpdateOrder(Order order);
         public bool DeleteOrder(Order order);
         public IEnumerable<Order> GetAll();
-       // public Order GetById(int id);
+        public Order GetById(int id);
     }
 }

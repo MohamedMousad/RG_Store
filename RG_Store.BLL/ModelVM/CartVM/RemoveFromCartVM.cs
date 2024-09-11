@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RG_Store.BLL.Service.Abstraction
+namespace RG_Store.BLL.ModelVM.CartVM
 {
-    public interface IOrderService
+    internal class RemoveFromCartVM
     {
     }
 }
