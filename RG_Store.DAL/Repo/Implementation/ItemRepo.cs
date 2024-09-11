@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿
+using Entities;
 using RG_Store.DAL.DB;
 using RG_Store.DAL.Repo.Abstraction;
 using System;
@@ -46,7 +47,13 @@ namespace EmployeeSystem.DAL.Repo.Implementation
             try
             {
                 var itm = GetById(item.Id);
-                // mapper 
+                itm.Price = item.Price;
+                itm.Quantity = item.Quantity;   
+                itm.Name = item.Name;   
+                itm.HasOffer = item.HasOffer;   
+                itm.Offer = item.Offer; 
+                itm.Description =item.Description;
+                itm.ItemImage = item.ItemImage; 
                 context.SaveChanges();
                 return true;
             }

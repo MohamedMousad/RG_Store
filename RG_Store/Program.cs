@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using RG_Store.DAL.DB;
 using RG_Store.DAL.Repo.Abstraction;
 using RG_Store.DAL.Repo.Implementation;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,6 +49,7 @@ builder.Services.AddScoped<IUserRepo, UserRepo>();
 builder.Services.AddScoped<ICartRepo, CartRepo>();
 builder.Services.AddScoped<IOrderRepo, OrderRepo>();
 
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 var app = builder.Build();
 
