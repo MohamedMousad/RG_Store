@@ -12,12 +12,18 @@ namespace RG_Store.DAL.DB
           public DbSet<User> Users { get; set; } 
           public DbSet<Item> Items { get; set; } 
           public DbSet<Order> Orders { get; set; } 
-          public DbSet<Cart> Carts { get; set; }
-          public DbSet<Delivery> Deliveries { get; set; }             
+          public DbSet<Cart> Carts { get; set; }            
+          public DbSet<Category> Categories { get; set; }            
+          public DbSet<Favourite> Favourites { get; set; }            
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {           
         }
+
+        public ApplicationDbContext()
+        {
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

@@ -17,16 +17,12 @@ namespace Entities
         public string? Address { get; set; } = string.Empty;
         public Gender UserGender { get; set; } 
 
-            
         public IEnumerable<Order?> ?Orders {  get; set; }
 
-
-        public int CartId { get; set; }
+        public int ?CartId { get; set; }
         public virtual Cart? Cart { get; set; }
+        public int FavouriteId { get; set; }
+        public Favourite ?Favourite { get; set; }
 
-
-
-        /*public string ?userGender { get; set; }*/
-        /*        public virtual List<Order>? Orders { get; set; }*/
     }
 }

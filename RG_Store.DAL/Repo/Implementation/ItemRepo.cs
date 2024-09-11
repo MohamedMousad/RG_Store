@@ -1,42 +1,66 @@
-﻿using RG_Store.DAL.Repo.Abstraction;
+﻿
+using Entities;
+using RG_Store.DAL.DB;
+using RG_Store.DAL.Repo.Abstraction;
+using System;
 
 namespace EmployeeSystem.DAL.Repo.Implementation
 {
     public class ItemRepo : IItemRepo
-    {/*
-        private readonly ApplicationDbContext _context = new ApplicationDbContext();
-        public bool Create(Department department)
+    {
+       private readonly ApplicationDbContext context = new ApplicationDbContext();
+        public bool Create(Item item)
         {
             try
             {
-                _context.Departments.Add(department);
-                _context.SaveChanges();
+                context.Items.Add(item);
+                context.SaveChanges();
                 return true;
             }
-            catch (Exception ex)
-            {
+            catch { 
                 return false;
-
             }
         }
 
-        public bool Edit(Department department)
+        public bool Delete(Item item)
         {
-            var dept = _context.Employees.Where(e => e.Id == department.Id).FirstOrDefault();
             try
             {
-                dept.Name = department.Name;
-                _context.SaveChanges();
+                var itm = context.Items.Where(i=>i.Id == item.Id).FirstOrDefault();
+                itm.IsDeleted = !itm.IsDeleted;
+                context.SaveChanges();
                 return true;
+                
             }
-            catch (Exception ex)
+            catch(Exception)
             {
                 return false;
-
             }
         }
 
-        public IQueryable<Department> GetAll() => _context.Departments;
-        public Department GetById(int id) => _context.Departments.Where(e => e.Id == id).FirstOrDefault();*/
+        public IEnumerable<Item> GetAll(Item item) => context.Items.ToList();
+
+        public Item GetById(int id) => context.Items.Where(i => i.Id == id).FirstOrDefault();
+
+        public bool Update(Item item)
+        {
+            try
+            {
+                var itm = GetById(item.Id);
+                itm.Price = item.Price;
+                itm.Quantity = item.Quantity;   
+                itm.Name = item.Name;   
+                itm.HasOffer = item.HasOffer;   
+                itm.Offer = item.Offer; 
+                itm.Description =item.Description;
+                itm.ItemImage = item.ItemImage; 
+                context.SaveChanges();
+                return true;
+            }
+            catch(Exception)
+            {
+                return false;
+            }
+        }
     }
 }

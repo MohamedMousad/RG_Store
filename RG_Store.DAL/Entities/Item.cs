@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using RG_Store.DAL.Entities;
 
 namespace Entities
 {
@@ -16,6 +17,8 @@ namespace Entities
         public bool HasOffer { get; set; }=false;
         public decimal ?Offer { get; set; } = 0;
         public string? ItemImage { get; set; }
-      //  public virtual List<Order>? Orders { get; set; }
+        public bool IsDeleted { get; set; } = false;
+        public int? CategoryId { get; set; }
+        public Category? Category { get; set; }  
     }
 }

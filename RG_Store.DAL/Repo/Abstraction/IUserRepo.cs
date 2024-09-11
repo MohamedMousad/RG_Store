@@ -1,4 +1,6 @@
 ﻿/*using EmployeeSystem.DAL.Entities*/
+using Entities;
+using RG_Store.DAL.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +11,10 @@ namespace EmployeeSystem.DAL.Repo.Abstraction
 {
     public interface IUserRepo
     {
-/*        IQueryable<Department> GetAll();
-        Department GetById(int id);
-        bool Edit(Department department);
-        bool Create(Department department);*/
+        public IEnumerable<User> GetAll();
+        public bool Create(User user);
+        public bool UpdateRole(User user, Roles role);
+        public bool UpdateUser(User user);
+        public bool DeleteUser(User user);
     }
 }

@@ -1,4 +1,5 @@
 ﻿/*using EmployeeSystem.DAL.Entities;*/
+using Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,10 @@ namespace EmployeeSystem.DAL.Repo.Abstraction
 {
     public interface IOrderRepo
     {
-    /*    IQueryable<Employee> GetAll();
-        Employee GetById(int id);
-        bool Edit(Employee employee);
-        bool Create(Employee employee);*/
+        public bool CreateOrder(Order order);
+        public bool UpdateOrder(Order order);
+        public bool DeleteOrder(Order order);
+        public IEnumerable<Order> GetAll();
+       // public Order GetById(int id);
     }
 }

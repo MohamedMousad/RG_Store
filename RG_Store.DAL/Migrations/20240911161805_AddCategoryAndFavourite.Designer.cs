@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RG_Store.DAL.DB;
 
@@ -11,9 +12,11 @@ using RG_Store.DAL.DB;
 namespace RG_Store.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240911161805_AddCategoryAndFavourite")]
+    partial class AddCategoryAndFavourite
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,6 +92,12 @@ namespace RG_Store.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("DelivaryId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("DeliveryCost")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("OrderStatus")
                         .HasColumnType("int");
 
@@ -98,13 +107,15 @@ namespace RG_Store.DAL.Migrations
                     b.Property<decimal>("TotalCost")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Orders");
                 });
@@ -137,7 +148,10 @@ namespace RG_Store.DAL.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("FavouriteId")
+                    b.Property<int?>("FavId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FavouriteId")
                         .HasColumnType("int");
 
                     b.Property<string>("FirstName")
@@ -197,8 +211,7 @@ namespace RG_Store.DAL.Migrations
                         .IsUnique()
                         .HasFilter("[CartId] IS NOT NULL");
 
-                    b.HasIndex("FavouriteId")
-                        .IsUnique();
+                    b.HasIndex("FavouriteId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -358,9 +371,8 @@ namespace RG_Store.DAL.Migrations
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("UsertId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("UsertId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -401,9 +413,12 @@ namespace RG_Store.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Favourites");
+                    b.ToTable("Favourite");
                 });
 
             modelBuilder.Entity("Entities.Item", b =>
@@ -431,9 +446,7 @@ namespace RG_Store.DAL.Migrations
                 {
                     b.HasOne("Entities.User", "User")
                         .WithMany("Orders")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("User");
                 });
@@ -445,10 +458,8 @@ namespace RG_Store.DAL.Migrations
                         .HasForeignKey("Entities.User", "CartId");
 
                     b.HasOne("RG_Store.DAL.Entities.Favourite", "Favourite")
-                        .WithOne("User")
-                        .HasForeignKey("Entities.User", "FavouriteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("FavouriteId");
 
                     b.Navigation("Cart");
 
@@ -532,9 +543,6 @@ namespace RG_Store.DAL.Migrations
             modelBuilder.Entity("RG_Store.DAL.Entities.Favourite", b =>
                 {
                     b.Navigation("Items");
-
-                    b.Navigation("User")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
