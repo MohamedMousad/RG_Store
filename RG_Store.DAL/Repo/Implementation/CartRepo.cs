@@ -1,6 +1,7 @@
 ﻿using Entities;
 using Microsoft.EntityFrameworkCore;
 using RG_Store.DAL.DB;
+using RG_Store.DAL.Entities;
 using RG_Store.DAL.Repo.Abstraction;
 using System;
 using System.Collections.Generic;
@@ -74,6 +75,13 @@ namespace RG_Store.DAL.Repo.Implementation
                 return Enumerable.Empty<Item>();
             }           
         }
+
+        public Cart GetById(int id)
+        {
+            return context.Carts.Where(c => c.Id == id).FirstOrDefault();
+
+        }
+
         public bool RemoveFromCart(Item item, string UId)
         {
             try

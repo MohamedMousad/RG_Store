@@ -46,7 +46,7 @@ namespace RG_Store.DAL.Repo.Implementation
 
         public Category GetById(int id)
         {
-            throw new NotImplementedException();
+            return context.Categories.Where(c => c.Id == id).FirstOrDefault();
         }
 
         public bool Update(Category category)

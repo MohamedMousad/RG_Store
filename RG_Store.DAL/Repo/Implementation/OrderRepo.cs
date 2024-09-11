@@ -45,10 +45,7 @@ namespace EmployeeSystem.DAL.Repo.Implementation
         public IEnumerable<Order> GetAll()=>context.Orders.ToList();
        
 
-        public Order GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
+        public Order GetById(int id)=> context.Orders.Where(c => c.Id == id).FirstOrDefault();
 
         public bool UpdateOrder(Order order)
         {
