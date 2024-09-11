@@ -40,8 +40,6 @@ namespace RG_Store.DAL.Repo.Implementation
         {
             throw new NotImplementedException();
         }
-       
-
         public bool Remove(Item item,int ID)
         {
             try

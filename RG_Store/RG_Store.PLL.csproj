@@ -31,8 +31,6 @@
 
   <ItemGroup>
     <None Include="Views\Home\V.cshtml" />
-    <None Include="wwwroot\css\.DS_Store" />
-    <None Include="wwwroot\js\.DS_Store" />
   </ItemGroup>
 
   <ItemGroup>

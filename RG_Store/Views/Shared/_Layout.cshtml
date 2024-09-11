@@ -1,370 +1,829 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <!-- basic -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- mobile metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-    <!-- site metas -->
-    <title>Electronic</title>
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!-- bootstrap css -->
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <!-- style css -->
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <!-- Responsive-->
-    <link rel="stylesheet" href="css/responsive.css">
-    <!-- fevicon -->
-    <link rel="icon" href="images/fevicon.png" type="image/gif" />
-    <!-- Scrollbar Custom CSS -->
-    <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
-    <!-- Tweaks for older IEs-->
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-    <!-- fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
-    <!-- font awesome -->
-    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!--  -->
-    <!-- owl stylesheets -->
-    <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Poppins:400,700&display=swap&subset=latin-ext" rel="stylesheet">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesoeet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+    <title>Zyad | Boot</title>
+
+    <link rel="stylesheet" media="screen" href="https://finder.createx.studio/css/theme.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        * {
+            text-decoration: none !important;
+        }
+
+        body {
+            background-color: #1f1b2d;
+        }
+
+        .myHover {
+            color: #9691a4 !important;
+        }
+
+            .myHover:hover {
+                background-color: transparent;
+                color: white !important;
+            }
+
+        .makeMeOrange {
+            color: #fd5631 !important;
+        }
+
+            .makeMeOrange:hover {
+                color: #fd390e !important;
+            }
+
+        .makeMeOrangeBG {
+            background-color: #fd5631 !important;
+            border: none;
+        }
+
+            .makeMeOrangeBG:hover {
+                background-color: #fd390e !important;
+            }
+
+        .navbar-scrolled {
+            background-color: #1f1b2d !important;
+        }
+
+        s {
+            text-decoration: line-through !important;
+        }
+
+        ::placeholder {
+            color: #9691a4 !important;
+        }
+
+        input {
+            color: white !important;
+        }
+
+        .socialMediaBG:hover {
+            transition-duration: 500ms !important;
+            background-color: white !important;
+            .socialMedia
+
+        {
+            transition-duration: 500ms !important;
+            color: #fd5631 !important;
+        }
+
+        }
+
+        .socialMedia {
+            position: relative;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            right: 100%
+        }
+
+        a:has(.appStore):hover {
+            background-color: #fd390e !important;
+            color: #fd5631 !important;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const navbar = document.getElementById('navbar');
+            const navbarHeight = navbar.offsetHeight;
+
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > navbarHeight) {
+                    navbar.classList.add('navbar-scrolled');
+                } else {
+                    navbar.classList.remove('navbar-scrolled');
+                }
+            });
+        });
+    </script>
+
 </head>
+
 <body>
-    <!-- banner bg main start -->
-    <div class="banner_bg_main">
-        <!-- header top section start -->
+    <header class="navbar navbar-expand-lg navbar-dark fixed-top " data-scroll-header="" id="navbar">
         <div class="container">
-            <div class="header_section_top">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="custom_menu">
-                            <ul>
-                                <li><a href="#">Best Sellers</a></li>
-                                <li><a href="#">Gift Ideas</a></li>
-                                <li><a href="#">New Releases</a></li>
-                                <li><a href="#">Today's Deals</a></li>
-                                <li><a href="#">Customer Service</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- header top section start -->
-        <!-- logo section start -->
-        <div class="logo_section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="logo"><a href="index.html"><img src="images/logo.png"></a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- logo section end -->
-        <!-- header section start -->
-        <div class="header_section">
-            <div class="container">
-                <div class="containt_main">
-                    <div id="mySidenav" class="sidenav">
-                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                        <a href="index.html">Home</a>
-                        <a href="fashion.html">Fashion</a>
-                        <a href="electronic.html">Electronic</a>
-                        <a href="jewellery.html">Jewellery</a>
-                    </div>
-                    <span class="toggle_icon" onclick="openNav()"><img src="images/toggle-icon.png"></span>
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            All Category
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </div>
-                    <div class="main">
-                        <!-- Another variation with a button -->
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search this blog">
-                            <div class="input-group-append">
-                                <button class="btn btn-secondary" type="button" style="background-color: #f26522; border-color:#f26522 ">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="header_box">
-                        <div class="lang_box ">
-                            <a href="#" title="Language" class="nav-link" data-toggle="dropdown" aria-expanded="true">
-                                <img src="images/flag-uk.png" alt="flag" class="mr-2 " title="United Kingdom"> English <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
-                            </a>
-                            <div class="dropdown-menu ">
-                                <a href="#" class="dropdown-item">
-                                    <img src="images/flag-france.png" class="mr-2" alt="flag">
-                                    French
+            <a class="navbar-brand me-3 me-xl-4" href="#">
+                <img class="d-block"
+                     src="images/rg_logo.png" width="70" alt="Finder">
+            </a>
+            <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button><a class="btn btn-link btn-light btn-sm d-none d-lg-block order-lg-3 myHover" href="#"
+                        data-bs-toggle="modal"><i class="fi-user me-2"></i>Sign in</a><a class="btn btn-primary btn-sm ms-2 order-lg-3 makeMeOrangeBG" href="#">
+                <i class="fi-plus me-2"></i>Sell
+                car
+            </a>
+            <div class="collapse navbar-collapse order-lg-2" id="navbarNav">
+                <ul class="navbar-nav navbar-nav-scroll" style="max-height: 35rem;">
+
+                    <!--<li class="nav-item dropdown me-lg-2"><a-->
+                    <!--        class="nav-link dropdown-toggle align-items-center pe-lg-4 show" href="#"-->
+                    <!--        data-bs-toggle="dropdown" role="button" aria-expanded="true"><i-->
+                    <!--            class="fi-layers me-2"></i>Demos<span-->
+                    <!--            class="d-none d-lg-block position-absolute top-50 end-0 translate-middle-y border-end border-light"-->
+                    <!--            style="width: 1px; height: 30px;"></span></a>-->
+                    <!--    <ul class="dropdown-menu dropdown-menu-dark show" data-bs-popper="static">-->
+                    <!--        <li><a class="dropdown-item" href="#"><i class="fi-building fs-base me-2"></i>Real-->
+                    <!--                Estate-->
+                    <!--                Demo</a></li>-->
+                    <!--        <li class="dropdown-divider"></li>-->
+                    <!--        <li><a class="dropdown-item" href="#"><i class="fi-car fs-base me-2"></i>Car-->
+                    <!--                Finder Demo</a></li>-->
+                    <!--        <li class="dropdown-divider"></li>-->
+                    <!--        <li><a class="dropdown-item" href="#"><i class="fi-briefcase fs-base me-2"></i>Job Board-->
+                    <!--                Demo</a></li>-->
+                    <!--        <li class="dropdown-divider"></li>-->
+                    <!--        <li><a class="dropdown-item" href="#"><i class="fi-map-pin fs-base me-2"></i>City Guide-->
+                    <!--                Demo</a></li>-->
+                    <!--        <li class="dropdown-divider"></li>-->
+                    <!--        <li><a class="dropdown-item" href="#"><i class="fi-home fs-base me-2"></i>Main-->
+                    <!--                Page</a>-->
+                    <!--        </li>-->
+                    <!--        <li><a class="dropdown-item" href="#"><i class="fi-list fs-base me-2"></i>Components</a>-->
+                    <!--        </li>-->
+                    <!--        <li><a class="dropdown-item" href="#"><i-->
+                    <!--                    class="fi-file fs-base me-2"></i>Documentation</a>-->
+                    <!--        </li>-->
+                    <!--    </ul>-->
+                    <!--</li>-->
+
+                    <li class="nav-item active"><a class="nav-link" href="#">Home</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">Catalog</a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="#">List View</a></li>
+                            <li><a class="dropdown-item" href="#">Grid View</a></li>
+                            <li><a class="dropdown-item" href="#">Car Single Page</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">Account</a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="#">Personal Info</a></li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    Password &amp;
+                                    Security
                                 </a>
-                            </div>
-                        </div>
-                        <div class="login_menu">
-                            <ul>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                        <span class="padding_10">Cart</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-user" aria-hidden="true"></i>
-                                        <span class="padding_10">Cart</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- header section end -->
-        <!-- banner section start -->
-        <div class="banner_section layout_padding">
-            <div class="container">
-                <div id="my_slider" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
-                                    <div class="buynow_bt"><a href="#">Buy Now</a></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
-                                    <div class="buynow_bt"><a href="#">Buy Now</a></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
-                                    <div class="buynow_bt"><a href="#">Buy Now</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <a class="carousel-control-prev" href="#my_slider" role="button" data-slide="prev">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
-                    <a class="carousel-control-next" href="#my_slider" role="button" data-slide="next">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <!-- banner section end -->
-    </div>
-    <!-- banner bg main end -->
-    <!-- electronic section start -->
-    <div class="fashion_section">
-        <div id="electronic_main_slider" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="container">
-                        <h1 class="fashion_taital">Electronic</h1>
-                        <div class="fashion_section_2">
-                            <div class="row">
-                                <div class="col-lg-4 col-sm-4">
-                                    <div class="box_main">
-                                        <h4 class="shirt_text">Laptop</h4>
-                                        <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                        <div class="electronic_img"><img src="images/laptop-img.png"></div>
-                                        <div class="btn_main">
-                                            <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                            <div class="seemore_bt"><a href="#">See More</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-sm-4">
-                                    <div class="box_main">
-                                        <h4 class="shirt_text">Mobile</h4>
-                                        <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                        <div class="electronic_img"><img src="images/mobile-img.png"></div>
-                                        <div class="btn_main">
-                                            <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                            <div class="seemore_bt"><a href="#">See More</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-sm-4">
-                                    <div class="box_main">
-                                        <h4 class="shirt_text">Computers</h4>
-                                        <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                        <div class="electronic_img"><img src="images/computer-img.png"></div>
-                                        <div class="btn_main">
-                                            <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                            <div class="seemore_bt"><a href="#">See More</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="container">
-                        <h1 class="fashion_taital">Electronic</h1>
-                        <div class="fashion_section_2">
-                            <div class="row">
-                                <div class="col-lg-4 col-sm-4">
-                                    <div class="box_main">
-                                        <h4 class="shirt_text">Laptop</h4>
-                                        <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                        <div class="electronic_img"><img src="images/laptop-img.png"></div>
-                                        <div class="btn_main">
-                                            <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                            <div class="seemore_bt"><a href="#">See More</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-sm-4">
-                                    <div class="box_main">
-                                        <h4 class="shirt_text">Mobile</h4>
-                                        <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                        <div class="electronic_img"><img src="images/mobile-img.png"></div>
-                                        <div class="btn_main">
-                                            <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                            <div class="seemore_bt"><a href="#">See More</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-sm-4">
-                                    <div class="box_main">
-                                        <h4 class="shirt_text">Computers</h4>
-                                        <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                        <div class="electronic_img"><img src="images/computer-img.png"></div>
-                                        <div class="btn_main">
-                                            <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                            <div class="seemore_bt"><a href="#">See More</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="container">
-                        <h1 class="fashion_taital">Electronic</h1>
-                        <div class="fashion_section_2">
-                            <div class="row">
-                                <div class="col-lg-4 col-sm-4">
-                                    <div class="box_main">
-                                        <h4 class="shirt_text">Laptop</h4>
-                                        <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                        <div class="electronic_img"><img src="images/laptop-img.png"></div>
-                                        <div class="btn_main">
-                                            <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                            <div class="seemore_bt"><a href="#">See More</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-sm-4">
-                                    <div class="box_main">
-                                        <h4 class="shirt_text">Mobile</h4>
-                                        <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                        <div class="electronic_img"><img src="images/mobile-img.png"></div>
-                                        <div class="btn_main">
-                                            <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                            <div class="seemore_bt"><a href="#">See More</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-sm-4">
-                                    <div class="box_main">
-                                        <h4 class="shirt_text">Computers</h4>
-                                        <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                        <div class="electronic_img"><img src="images/computer-img.png"></div>
-                                        <div class="btn_main">
-                                            <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                            <div class="seemore_bt"><a href="#">See More</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <a class="carousel-control-prev" href="#electronic_main_slider" role="button" data-slide="prev">
-                <i class="fa fa-angle-left"></i>
-            </a>
-            <a class="carousel-control-next" href="#electronic_main_slider" role="button" data-slide="next">
-                <i class="fa fa-angle-right"></i>
-            </a>
-        </div>
-    </div>
-    <!-- electronic section end -->
-    <!-- footer section start -->
-    <div class="footer_section layout_padding">
-        <div class="container">
-            <div class="footer_logo"><a href="index.html"><img src="images/footer-logo.png"></a></div>
-            <div class="input_bt">
-                <input type="text" class="mail_bt" placeholder="Your Email" name="Your Email">
-                <span class="subscribe_bt" id="basic-addon2"><a href="#">Subscribe</a></span>
-            </div>
-            <div class="footer_menu">
-                <ul>
-                    <li><a href="#">Best Sellers</a></li>
-                    <li><a href="#">Gift Ideas</a></li>
-                    <li><a href="#">New Releases</a></li>
-                    <li><a href="#">Today's Deals</a></li>
-                    <li><a href="#">Customer Service</a></li>
+                            </li>
+                            <li><a class="dropdown-item" href="#">My Cars</a></li>
+                            <li><a class="dropdown-item" href="#">Wishlist</a></li>
+                            <li><a class="dropdown-item" href="#">Reviews</a></li>
+                            <li>
+                                <a class="dropdown-item" href="#">Notifications</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#">Sign In</a></li>
+                            <li><a class="dropdown-item" href="#">Sign Up</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">Vendor</a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="#">Sell Car</a></li>
+                            <li><a class="dropdown-item" href="#">Ad Promotion Page</a></li>
+                            <li><a class="dropdown-item" href="#">Vendor Page</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="#">About</a></li>
+                            <li class="dropdown">
+                                <a class="dropdown-item dropdown-toggle" href="#" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false">Blog</a>
+                                <ul class="dropdown-menu dropdown-menu-dark">
+                                    <li><a class="dropdown-item" href="#">Blog Grid</a></li>
+                                    <li><a class="dropdown-item" href="#">Single Post</a></li>
+                                </ul>
+                            </li>
+                            <li><a class="dropdown-item" href="#">Contacts</a></li>
+                            <li><a class="dropdown-item" href="#">Help Center</a></li>
+                            <li><a class="dropdown-item" href="#">404 Not Found</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item d-lg-none">
+                        <a class="nav-link" href="#" data-bs-toggle="modal">
+                            <i class="fi-user me-2"></i>Sign in
+                        </a>
+                    </li>
                 </ul>
             </div>
-            <div class="location_main">Help Line  Number : <a href="#">+1 1800 1200 1200</a></div>
         </div>
-    </div>
-    <!-- footer section end -->
-    <!-- copyright section start -->
-    <div class="copyright_section">
-        <div class="container">
-            <p class="copyright_text">© 2020 All Rights Reserved. Design by <a href="https://html.design">Free html  Templates</a></p>
+    </header>
+
+    <section class="bg-position-top-center bg-repeat-0 pt-5"
+             style="background-image: url(images/hero-bg.png); background-size: 1920px 630px;">
+        <div class="container pt-5">
+            <div class="row pt-lg-4 pt-xl-5">
+                <div class="col-lg-4 col-md-5 pt-3 pt-md-4 pt-lg-5">
+                    <h1 class="display-4 text-light pb-2 mb-4 me-md-n5">Enjoy Latest Games Released</h1>
+                    <p class="fs-lg text-light opacity-70"> Order , Pay , Enjoy your favorite Games </p>
+                </div>
+                <div class="col-lg-8 col-md-7 pt-md-5">
+                    <img class="d-block mt-4 ms-auto" src="images/hero-img.png"
+                         width="800" alt="Car">
+                </div>
+            </div>
         </div>
-    </div>
-    <!-- copyright section end -->
-    <!-- Javascript files-->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/jquery-3.0.0.min.js"></script>
-    <script src="js/plugin.js"></script>
-    <!-- sidebar -->
-    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="js/custom.js"></script>
-    <script>
-        function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
-        }
+        <div class="container mt-4 mt-sm-3 mt-lg-n3 pb-5 mb-md-4">
 
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-        }
-    </script>
-</body>
-</html>
+            <!--<ul class="nav nav-tabs nav-tabs-light mb-4">-->
+            <!--    <li class="nav-item"><a class="nav-link active" href="#">New</a></li>-->
+            <!--    <li class="nav-item"><a class="nav-link" href="#">Used</a></li>-->
+            <!--</ul>-->
 
+            <form class="form-group form-group-light d-block">
+                <div class="row g-0 ms-lg-n2">
+                    <div class="col-lg-2">
+                        <div class="input-group border-end-lg border-light">
+                            <span class="input-group-text text-muted ps-2 ps-sm-3"><i class="fi-search"></i></span>
+                            <input class="form-control" type="text" name="keywords" placeholder="Keywords...">
+                        </div>
+                    </div>
+                    <hr class="hr-light d-lg-none my-2">
+                    <div class="col">
+                        <div class="dropdown border-end-sm border-light" data-bs-toggle="select">
+                            <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button"
+                                    data-bs-toggle="dropdown">
+                                <i class="fi-list me-2"></i><span class="dropdown-toggle-label">Genre</span>
+                            </button>
+                            <input type="hidden" name="make">
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <span class="dropdown-item-label">Racing</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <span class="dropdown-item-label">shooting</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <span class="dropdown-item-label">Sports</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#"><span class="dropdown-item-label">RPG</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr class="hr-light d-sm-none my-2">
+                    <div class="col">
+                        <div class="dropdown border-end-md border-light" data-bs-toggle="select">
+                            <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button"
+                                    data-bs-toggle="dropdown">
+                                <i class="fi-list me-2"></i><span class="dropdown-toggle-label">Price</span>
+                            </button>
+                            <input type="hidden" name="model">
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <span class="dropdown-item-label">
+                                            <100< /span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <span class="dropdown-item-label">
+                                            <70< /span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <span class="dropdown-item-label">
+                                            <60< /span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <span class="dropdown-item-label">
+                                            <50< /span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <span class="dropdown-item-label">
+                                            <40< /span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <span class="dropdown-item-label">
+                                            <30< /span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <span class="dropdown-item-label">
+                                            <20< /span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <span class="dropdown-item-label">
+                                            <10< /span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr class="hr-light d-md-none my-2">
+                    <!--<div class="col-lg-2 col-md-3 col-sm-6">-->
+                    <!--    <div class="dropdown border-end-sm border-light" data-bs-toggle="select">-->
+                    <!--        <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button"-->
+                    <!--            data-bs-toggle="dropdown"><i class="fi-car fs-lg me-2"></i><span-->
+                    <!--                class="dropdown-toggle-label">Body type</span></button>-->
+                    <!--        <input type="hidden" name="type">-->
+                    <!--        <ul class="dropdown-menu dropdown-menu-dark">-->
+                    <!--            <li><a class="dropdown-item" href="#"><span-->
+                    <!--                        class="dropdown-item-label">Compact</span></a>-->
+                    <!--            </li>-->
+                    <!--            <li><a class="dropdown-item" href="#"><span-->
+                    <!--                        class="dropdown-item-label">Crossover</span></a>-->
+                    <!--            </li>-->
+                    <!--            <li><a class="dropdown-item" href="#"><span-->
+                    <!--                        class="dropdown-item-label">Coupe</span></a>-->
+                    <!--            </li>-->
+                    <!--            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Family-->
+                    <!--                        MPV</span></a></li>-->
+                    <!--            <li><a class="dropdown-item" href="#"><span-->
+                    <!--                        class="dropdown-item-label">Pickup</span></a>-->
+                    <!--            </li>-->
+                    <!--            <li><a class="dropdown-item" href="#"><span-->
+                    <!--                        class="dropdown-item-label">Sedan</span></a>-->
+                    <!--            </li>-->
+                    <!--            <li><a class="dropdown-item" href="#"><span-->
+                    <!--                        class="dropdown-item-label">SUV</span></a>-->
+                    <!--            </li>-->
+                    <!--            <li><a class="dropdown-item" href="#"><span-->
+                    <!--                        class="dropdown-item-label">Wagon</span></a>-->
+                    <!--            </li>-->
+                    <!--        </ul>-->
+                    <!--    </div>-->
+                    <!--</div>-->
+                    <!--<hr class="hr-light d-sm-none my-2">-->
+                    <!--<div class="col-lg-2 col-md-3 col-sm-6">-->
+                    <!--    <div class="dropdown" data-bs-toggle="select">-->
+                    <!--        <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button"-->
+                    <!--            data-bs-toggle="dropdown"><i class="fi-map-pin me-2"></i><span-->
+                    <!--                class="dropdown-toggle-label">Location</span></button>-->
+                    <!--        <input type="hidden" name="location">-->
+                    <!--        <ul class="dropdown-menu dropdown-menu-dark">-->
+                    <!--            <li><a class="dropdown-item" href="#"><span-->
+                    <!--                        class="dropdown-item-label">Dallas</span></a>-->
+                    <!--            </li>-->
+                    <!--            <li><a class="dropdown-item" href="#"><span-->
+                    <!--                        class="dropdown-item-label">Chicago</span></a>-->
+                    <!--            </li>-->
+                    <!--            <li><a class="dropdown-item" href="#"><span-->
+                    <!--                        class="dropdown-item-label">Houston</span></a>-->
+                    <!--            </li>-->
+                    <!--            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Las-->
+                    <!--                        Vegas</span></a>-->
+                    <!--            </li>-->
+                    <!--            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Los-->
+                    <!--                        Angeles</span></a></li>-->
+                    <!--            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">New-->
+                    <!--                        York</span></a>-->
+                    <!--            </li>-->
+                    <!--            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">San-->
+                    <!--                        Francisco</span></a></li>-->
+                    <!--        </ul>-->
+                    <!--    </div>-->
+                    <!--</div>-->
+                    <!--<hr class="hr-light d-lg-none my-2">-->
+                    <div class="col">
+                        <button class="btn btn-primary w-100 makeMeOrangeBG" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+
+    <section class="container pb-5 mb-md-4">
+        <div class="d-sm-flex align-items-center justify-content-between mb-3 mb-sm-4 pb-sm-2">
+            <h2 class="h3 text-light mb-2 mb-sm-0">Pick your favourite Genre</h2><a class="btn btn-link btn-light fw-normal px-0 myHover" href="#">
+                View all<i class="fi-arrow-long-right fs-sm mt-0 ps-1 ms-2"></i>
+            </a>
+        </div>
+        <div class="row row-cols-2 row-cols-sm-2 row-cols-md-4 row-cols-lg-4 g-2 g-md-4">
+            <div class="col">
+                <div class="card card-body card-light card-hover bg-transparent border-0 px-0 pt-0 text-center">
+                    <img class="d-block mx-auto mb-3" src="images/9.png" width="160" alt="Sedan"><a class="nav-link-light stretched-link fw-bold" href="#">Racing</a>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card card-body card-light card-hover bg-transparent border-0 px-0 pt-0 text-center">
+                    <img class="d-block mx-auto mb-3" src="images/10.png" width="160" alt="SUV"><a class="nav-link-light stretched-link fw-bold" href="#">Shooting</a>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card card-body card-light card-hover bg-transparent border-0 px-0 pt-0 text-center">
+                    <img class="d-block mx-auto mb-3" src="images/11.png" width="160" alt="SUV"><a class="nav-link-light stretched-link fw-bold" href="#">Sports</a>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card card-body card-light card-hover bg-transparent border-0 px-0 pt-0 text-center">
+                    <img class="d-block mx-auto mb-3" src="images/12.png" width="160" alt="SUV"><a class="nav-link-light stretched-link fw-bold" href="#">Nigga</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--<section class="container py-2 py-sm-3">-->
+    <!--    <div class="row g-2 g-sm-4">-->
+    <!--        <div class="col-3 col-sm-2 col-xl-1 mb-4 pb-2"><a class="opacity-40 opacity-transition d-table mx-auto"-->
+    <!--                href="#"><img src="images/opel.svg" width="86" alt="Opel"></a></div>-->
+    <!--        <div class="col-3 col-sm-2 col-xl-1 mb-4 pb-2"><a class="opacity-40 opacity-transition d-table mx-auto"-->
+    <!--                href="#"><img src="images/audi.svg" width="86" alt="Audi"></a></div>-->
+    <!--        <div class="col-3 col-sm-2 col-xl-1 mb-4 pb-2"><a class="opacity-40 opacity-transition d-table mx-auto"-->
+    <!--                href="#"><img src="images/mercedes.svg" width="86" alt="Mercedes-Benz"></a></div>-->
+    <!--        <div class="col-3 col-sm-2 col-xl-1 mb-4 pb-2"><a class="opacity-40 opacity-transition d-table mx-auto"-->
+    <!--                href="#"><img src="images/toyota.svg" width="86" alt="Toyota"></a></div>-->
+    <!--        <div class="col-3 col-sm-2 col-xl-1 mb-4 pb-2"><a class="opacity-40 opacity-transition d-table mx-auto"-->
+    <!--                href="#"><img src="images/mazda.svg" width="86" alt="Mazda"></a></div>-->
+    <!--        <div class="col-3 col-sm-2 col-xl-1 mb-4 pb-2"><a class="opacity-40 opacity-transition d-table mx-auto"-->
+    <!--                href="#"><img src="images/nissan.svg" width="86" alt="Nissan"></a></div>-->
+    <!--        <div class="col-3 col-sm-2 col-xl-1 mb-4 pb-2"><a class="opacity-40 opacity-transition d-table mx-auto"-->
+    <!--                href="#"><img src="images/hyundai.svg" width="86" alt="Hyundai"></a></div>-->
+    <!--        <div class="col-3 col-sm-2 col-xl-1 mb-4 pb-2"><a class="opacity-40 opacity-transition d-table mx-auto"-->
+    <!--                href="#"><img src="images/lexus.svg" width="86" alt="Lexus"></a></div>-->
+    <!--        <div class="col-3 col-sm-2 col-xl-1 mb-4 pb-2"><a class="opacity-40 opacity-transition d-table mx-auto"-->
+    <!--                href="#"><img src="images/honda.svg" width="86" alt="Honda"></a></div>-->
+    <!--        <div class="col-3 col-sm-2 col-xl-1 mb-4 pb-2"><a class="opacity-40 opacity-transition d-table mx-auto"-->
+    <!--                href="#"><img src="images/renault.svg" width="86" alt="Renault"></a></div>-->
+    <!--        <div class="col-3 col-sm-2 col-xl-1 mb-4 pb-2"><a class="opacity-40 opacity-transition d-table mx-auto"-->
+    <!--                href="#"><img src="images/infiniti.svg" width="86" alt="Infiniti"></a></div>-->
+    <!--        <div class="col-3 col-sm-2 col-xl-1 mb-4 pb-2"><a class="opacity-40 opacity-transition d-table mx-auto"-->
+    <!--                href="#"><img src="images/mitsubishi.svg" width="86" alt="Mitsubishi"></a></div>-->
+    <!--    </div>-->
+    <!--</section>-->
+    <!-- start -->
+    <section class="container pb-5 mb-md-4">
+        <div class="d-sm-flex align-items-center justify-content-between mb-3 mb-sm-4 pb-sm-2">
+            <h2 class="h3 text-light mb-2 mb-sm-0">Offers</h2><a class="btn btn-link btn-light fw-normal px-0 myHover"
+                                                                 href="#">Go to Store<i class="fi-arrow-long-right fs-sm mt-0 ps-1 ms-2"></i></a>
+        </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3  g-2 g-md-4">
             @RenderBody()
-    @await RenderSectionAsync("Scripts", required: false)
+            <div>
+                <a class="d-block rounded-3 overflow-hidden" href="#">
+                    <img class="d-block" src="images/021.jpg"
+                         alt="Image">
+                </a>
+                <div class="py-3">
+                    <a class="fs-xs text-uppercase text-decoration-none makeMeOrange" href="#">
+                        MONEY
+                        MONEY
+                    </a>
+                    <h3 class="text-light fs-base pt-1">
+                        <a class="nav-link" href="#">
+                            What's the color of your
+                            BMW ?
+                        </a>
+                    </h3><a class="d-flex align-items-center text-decoration-none" href="#">
+                        <img class="rounded-circle"
+                             src="images/031.jpg" width="44" alt="Avatar">
+                        <div class="ps-2">
+                            <h6 class="fs-sm text-light lh-base mb-1">Andrew Zeet</h6>
+                            <div class="d-flex fs-xs text-light opacity-60">
+                                <span class="me-2 pe-1">
+                                    <i class="fi-calendar-alt me-1"></i>Jan 15
+                                </span><span>
+                                    <i class="fi-chat-circle me-1"></i>68+
+                                    comments
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <a class="d-block rounded-3 overflow-hidden" href="#">
+                    <img class="d-block" src="images/04_1.jpg"
+                         alt="Image">
+                </a>
+                <div class="py-3">
+                    <a class="fs-xs text-uppercase text-decoration-none makeMeOrange" href="#">Events</a>
+                    <h3 class="text-light fs-base pt-1">
+                        <a class="nav-link" href="#">
+                            Top 10 Classic
+                            Car Events
+                        </a>
+                    </h3><a class="d-flex align-items-center text-decoration-none" href="#">
+                        <img class="rounded-circle" src="images/08_1.jpg" width="44" alt="Avatar">
+                        <div class="ps-2">
+                            <h6 class="fs-sm text-light lh-base mb-1">Jacob Jones</h6>
+                            <div class="d-flex fs-xs text-light opacity-60">
+                                <span class="me-2 pe-1">
+                                    <i class="fi-calendar-alt me-1"></i>May 8
+                                </span><span>
+                                    <i class="fi-chat-circle me-1"></i>No
+                                    comments
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!--item-->
+            <div>
+                <a class="d-block rounded-3 overflow-hidden" href="#">
+                    <img class="d-block"
+                         src="images/crash-bandicoot-4-ride-i99518 (2).jpg" alt="Image">
+                </a>
+                <div class="py-3">
+                    <a class="fs-xs text-uppercase text-decoration-none makeMeOrange" href="#">
+                        <h3 class="text-center">
+                            <s>69$</s>
+                            110$
+                        </h3>
+                    </a>
+
+                    <h3 class="text-light fs-base pt-1 text-center">
+                        <a class="nav-link" href="#">
+                            Crash Bandicoot is gay
+                            today because of ass fuck
+                        </a>
+                    </h3>
+                    <button type="button" class="btn btn-success w-100">Add to Cart</button>
+
+                    <!--<a class="d-flex align-items-center text-decoration-none" href="#"><img-->
+                    <!--        class="rounded-circle" src="images/032.jpg" width="44" alt="Avatar">-->
+                    <!--    <div class="ps-2">-->
+                    <!--        <h6 class="fs-sm text-light lh-base mb-1">BlackBerry</h6>-->
+                    <!--        <div class="d-flex fs-xs text-light opacity-60"><span class="me-2 pe-1"><i-->
+                    <!--                    class="fi-calendar-alt me-1"></i>Jun 17</span><span><i-->
+                    <!--                    class="fi-chat-circle me-1"></i>125-->
+                    <!--                comments</span></div>-->
+                    <!--    </div>-->
+                    <!--</a>-->
+                </div>
+            </div>
+            <!--item-->
+            <div>
+                <a class="d-block rounded-3 overflow-hidden" href="#">
+                    <img class="d-block" src="images/05.jpg"
+                         alt="Image">
+                </a>
+                <div class="py-3">
+                    <a class="fs-xs text-uppercase text-decoration-none makeMeOrange"
+                       href="#">Inspiration</a>
+                    <h3 class="text-light fs-base pt-1">
+                        <a class="nav-link" href="#">
+                            5
+                            Predictions
+                            From the Past About the Future
+                        </a>
+                    </h3><a class="d-flex align-items-center text-decoration-none" href="#">
+                        <img class="rounded-circle"
+                             src="images/09_1.jpg" width="44" alt="Avatar">
+                        <div class="ps-2">
+                            <h6 class="fs-sm text-light lh-base mb-1">Guy Hawkins</h6>
+                            <div class="d-flex fs-xs text-light opacity-60">
+                                <span class="me-2 pe-1">
+                                    <i class="fi-calendar-alt me-1"></i>Apr 25
+                                </span><span>
+                                    <i class="fi-chat-circle me-1"></i>6
+                                    comments
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <a class="d-block rounded-3 overflow-hidden" href="#">
+                    <img class="d-block" src="images/020.jpg"
+                         alt="Image">
+                </a>
+                <div class="py-3">
+                    <a class="fs-xs text-uppercase text-decoration-none makeMeOrange" href="#">
+                        Crazy
+                        Drives
+                    </a>
+                    <h3 class="text-light fs-base pt-1">
+                        <a class="nav-link" href="#">This car goes brrrrrrrr</a>
+                    </h3><a class="d-flex align-items-center text-decoration-none" href="#">
+                        <img class="rounded-circle"
+                             src="images/030.jpg" width="44" alt="Avatar">
+                        <div class="ps-2">
+                            <h6 class="fs-sm text-light lh-base mb-1">Speed boi</h6>
+                            <div class="d-flex fs-xs text-light opacity-60">
+                                <span class="me-2 pe-1">
+                                    <i class="fi-calendar-alt me-1"></i>Jan 13
+                                </span><span>
+                                    <i class="fi-chat-circle me-1"></i>124
+                                    comments
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <a class="d-block rounded-3 overflow-hidden" href="#">
+                    <img class="d-block" src="images/06.jpg"
+                         alt="Image">
+                </a>
+                <div class="py-3">
+                    <a class="fs-xs text-uppercase text-decoration-none makeMeOrange" href="#">
+                        Test
+                        Drives
+                    </a>
+                    <h3 class="text-light fs-base pt-1">
+                        <a class="nav-link" href="#">
+                            This Year is All
+                            About New Harley Davidson
+                        </a>
+                    </h3><a class="d-flex align-items-center text-decoration-none"
+                            href="#">
+                        <img class="rounded-circle" src="images/12.jpg" width="44" alt="Avatar">
+                        <div class="ps-2">
+                            <h6 class="fs-sm text-light lh-base mb-1">Ralph Edwards</h6>
+                            <div class="d-flex fs-xs text-light opacity-60">
+                                <span class="me-2 pe-1">
+                                    <i class="fi-calendar-alt me-1"></i>Mar 12
+                                </span><span>
+                                    <i class="fi-chat-circle me-1"></i>2
+                                    comments
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+    <!-- end -->
+    <section class="container pb-3 pb-sm-4 pb-md-5">
+        <div class="row align-items-center pb-5">
+            <div class="col-md-7 col-lg-6 col-xl-5 offset-xl-1 text-center text-md-start mb-4 mb-md-0">
+                <h2 class="text-light mb-4">Get the top-rated app!</h2>
+                <p class="fs-lg text-light opacity-70 mb-md-5">
+                    Download Finder App and join the community of car
+                    enthusiasts. Don't stop your car search when you leave your computer with our Android and iOS
+                    app!
+                </p>
+                <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-md-start">
+                    <a class="btn-market me-sm-3 mb-3 w-sm-100" href="#" role="button">
+                        <img src="images/Google_Play_Store_badge_EN.svg" width="180px" alt="" class="appStore">
+                    </a><a class="btn-market mb-3 w-sm-100" href="#" role="button">
+                        <img src="images/Download_on_the_App_Store_Badge.svg" width="180px" alt="" class="appStore">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-5 col-lg-6">
+                <img class="d-block mx-auto" src="images/mobile-app.png" width="460"
+                     alt="Mobile App">
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer bg-faded-light">
+        <div class="border-bottom border-light py-4">
+            <div class="container d-sm-flex align-items-center justify-content-between">
+                <a class="d-inline-block"
+                   href="#"><img src="images/rg_logo.png" width="70" alt="logo"></a>
+                <div class="d-flex pt-3 pt-sm-0">
+                    <!--<div class="dropdown ms-n3">-->
+                    <!--    <button class="btn btn-light btn-link btn-sm dropdown-toggle fw-normal py-2 myHover"-->
+                    <!--        type="button" data-bs-toggle="dropdown"><i class="fi-globe me-2"></i>Eng</button>-->
+                    <!--    <div class="dropdown-menu dropdown-menu-dark dropdown-menu-sm-end"-->
+                    <!--        style="min-width: 7.5rem;"><a class="dropdown-item" href="#">Deutsch</a><a-->
+                    <!--            class="dropdown-item" href="#">Français</a><a class="dropdown-item"-->
+                    <!--            href="#">Español</a>-->
+                    <!--    </div>-->
+                    <!--</div>-->
+                    <div class="dropdown">
+                        <button class="btn btn-light btn-link btn-sm dropdown-toggle fw-normal py-2 pe-2 myHover"
+                                type="button" data-bs-toggle="dropdown">
+                            <i class="fi-map-pin me-2"></i>Region
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-dark dropdown-menu-sm-end" style="min-width: 7.5rem;">
+                            <a class="dropdown-item" href="#">Egypt</a><a class="dropdown-item" href="#">UAE</a><a class="dropdown-item" href="#">Saudi Arabia</a><a class="dropdown-item"
+                                                                                                                                                                     href="#">Qatar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container pt-4 pb-3 pt-lg-5 pb-lg-4">
+            <div class="row pt-2 pt-lg-0">
+                <div class="col-lg-3 pb-2 mb-4">
+                    <h3 class="h5 text-light mb-2">Subscribe to our newsletter</h3>
+                    <p class="fs-sm text-light opacity-70">Don't miss any relevant offers!</p>
+                    <form class="form-group form-group-light w-100">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text">
+                                <i class="fi-mail"></i>
+                            </span>
+                            <input class="form-control" type="text" placeholder="Your email">
+                        </div>
+                        <button class="btn btn-primary btn-icon btn-sm makeMeOrangeBG" type="button">
+                            <i class="fi-send"></i>
+                        </button>
+                    </form>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-6 offset-xl-1 mb-2 mb-sm-4">
+                    <h3 class="fs-base text-light">Buying &amp; Selling</h3>
+                    <ul class="list-unstyled fs-sm">
+                        <li><a class="nav-link-light" href="#">Find a car</a></li>
+                        <li><a class="nav-link-light" href="#">Sell your car</a></li>
+                        <li><a class="nav-link-light" href="#">Car dealers</a></li>
+                        <li><a class="nav-link-light" href="#">Compare cars</a></li>
+                        <li><a class="nav-link-light" href="#">Online car appraisal</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-6 mb-2 mb-sm-4">
+                    <h3 class="fs-base text-light">About</h3>
+                    <ul class="list-unstyled fs-sm">
+                        <li><a class="nav-link-light" href="#">About Finder</a></li>
+                        <li><a class="nav-link-light" href="#">Contact us</a></li>
+                        <li><a class="nav-link-light" href="#">FAQs &amp; support</a></li>
+                        <li><a class="nav-link-light" href="#">Mobile app</a></li>
+                        <li><a class="nav-link-light" href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-6 mb-2 mb-sm-4">
+                    <h3 class="fs-base text-light">Profile</h3>
+                    <ul class="list-unstyled fs-sm">
+                        <li><a class="nav-link-light" href="#">My account</a></li>
+                        <li><a class="nav-link-light" href="#">My Orders</a></li>
+                        <li><a class="nav-link-light" href="#">Cart</a></li>
+                        <!--<li><a class="nav-link-light" href="#">Add listing</a></li>-->
+                    </ul>
+                </div>
+                <div class="col-xl-2 col-lg-3 col-sm-6 col-md-3 mb-2 mb-sm-4">
+                    <a class="d-flex align-items-center text-decoration-none mb-2" href="tel:01277062892">
+                        <i class="fi-device-mobile me-2 makeMeOrange"></i><span class="text-light">
+                            (+20)
+                            1011091820
+                        </span>
+                    </a><a class="d-flex align-items-center text-decoration-none mb-2"
+                           href="mailto:theacogx2@gmail.com">
+                        <i class="fi-mail me-2 makeMeOrange"></i><span class="text-light">theacogx2@gmail.com</span>
+                    </a>
+                    <div class="d-flex flex-wrap pt-4">
+                        <a class="btn btn-icon btn-translucent-light btn-xs rounded-circle mb-2 me-2 socialMediaBG"
+                           href="fb.com/rgstore3"><i style="color: white;" class="fi-facebook socialMedia"></i></a><a class="btn btn-icon btn-translucent-light btn-xs rounded-circle mb-2 me-2 socialMediaBG"
+                                                                                                                      href="x.com/rgstores"><i style="color: white;" class="fi-twitter socialMedia"></i></a><a class="btn btn-icon btn-translucent-light btn-xs rounded-circle mb-2 me-2 socialMediaBG"
+                                                                                                                                                                                                               href="https://t.me/ZyadK1">
+                            <i style="color: white;"
+                               class="fi-telegram socialMedia"></i>
+                        </a><a class="btn btn-icon btn-translucent-light btn-xs rounded-circle mb-2 socialMediaBG"
+                               href="#"><i style="color: white;" class="fi-messenger socialMedia"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container d-lg-flex align-items-center justify-content-between fs-sm pb-3">
+            <div style="color: #9691a4;" class="d-flex flex-wrap justify-content-center order-lg-2 mb-3">
+                <a class="nav-link nav-link-light fw-normal myHover" href="#">Terms of use &nbsp;&nbsp;&nbsp;</a><a class="nav-link nav-link-light fw-normal myHover" href="#">
+                    Privacy policy
+                    &nbsp;&nbsp;&nbsp;
+                </a><a class="nav-link nav-link-light fw-normal myHover" href="#">
+                    Accessibility
+                    statement
+                    &nbsp;&nbsp;&nbsp;
+                </a><a class="nav-link nav-link-light fw-normal pe-0 myHover" href="#">
+                    Interest
+                    based
+                    ads &nbsp;&nbsp;&nbsp;
+                </a>
+            </div>
+            <p class="text-center text-lg-start order-lg-1 mb-lg-0">
+                <span class="text-light opacity-50">
+                    © All rights
+                    reserved. Made by
+                </span><a class="nav-link-light fw-bold" href="https://zezo.zezo/" target="_blank"
+                          rel="noopener">Createx Studio</a>
+            </p>
+        </div>
+    </footer>
+            @await RenderSectionAsync("Scripts", required: false)
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+</body>
+
+</html>
