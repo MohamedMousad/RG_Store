@@ -5,10 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RG_Store.BLL.ModelVM.CartVM;
 using RG_Store.BLL.ModelVM.Category;
 using RG_Store.BLL.ModelVM.ItemVM;
-using RG_Store.BLL.ModelVM.FavouriteVM;
 using RG_Store.BLL.ModelVM.OrderVM;
 using RG_Store.BLL.ModelVM.UserVM;
 using Entities;
@@ -21,7 +19,7 @@ namespace RG_Store.BLL.Mapping
         public DomainProfile()
         {
             //Cart Mapper
-            CreateMap<Cart, AddToCartVM>();
+          /*  CreateMap<Cart, AddToCartVM>();
             CreateMap<Cart, ClearCartVM>();
             CreateMap<Cart, GetCartVM>();
             CreateMap<Cart, RemoveFromCartVM>();
@@ -29,7 +27,7 @@ namespace RG_Store.BLL.Mapping
             CreateMap<AddToCartVM, Cart>();
             CreateMap<ClearCartVM, Cart>();
             CreateMap<GetCartVM, Cart>();
-            CreateMap<RemoveFromCartVM, Cart>();
+            CreateMap<RemoveFromCartVM, Cart>();*/
 
             //Category Mapper
             CreateMap<Category, AddCategoryVM>();
@@ -43,14 +41,14 @@ namespace RG_Store.BLL.Mapping
             CreateMap<UpdateCategoryVM, Category>();
 
             //Favourite Mapper
-            CreateMap<Favourite, AddToFavouriteVM>();
+          /*  CreateMap<Favourite, AddToFavouriteVM>();
             CreateMap<Favourite, GetFavouriteVM>();
             CreateMap<Favourite, RemoveFromFavouriteVM>();
 
             CreateMap<AddToFavouriteVM , Favourite>();
             CreateMap<GetFavouriteVM, Favourite>();
             CreateMap<RemoveFromFavouriteVM, Favourite>();
-
+*/
             //item Mapper
             CreateMap<Category, AddCategoryVM>();
             CreateMap<Category, DeleteCategoryVM>();
@@ -77,7 +75,7 @@ namespace RG_Store.BLL.Mapping
 
 
             //User Mapper
-            CreateMap<User, CreateUserVM>();
+         //   CreateMap<User, CreateUserVM>();
             CreateMap<User, DeleteUserVM>();
             CreateMap<User, EditUserVM>();
             CreateMap<User, GetUserVM>();

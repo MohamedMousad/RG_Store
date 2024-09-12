@@ -18,6 +18,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.5" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +35,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RG_Store.BLL\RG_Store.BLL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Account\" />
   </ItemGroup>
 
 </Project>

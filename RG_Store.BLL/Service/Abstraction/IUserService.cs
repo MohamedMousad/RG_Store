@@ -8,6 +8,6 @@ namespace RG_Store.BLL.Service.Abstraction
 {
     public interface IUserService
     {
-        /*bool CreateUser(UserVm)*/
+  /*     bool Create(Cr)*/
     }
 }

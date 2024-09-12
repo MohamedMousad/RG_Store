@@ -1,16 +1,16 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Zyad | Boot</title>
+    <title>RG Store</title>
 
     <link rel="stylesheet" media="screen" href="https://finder.createx.studio/css/theme.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+    <link rel="stylesheet" media="screen" href="https://finder.createx.studio/css/theme.min.css">
     <style>
         * {
             text-decoration: none !important;
@@ -88,6 +88,7 @@
         }
     </style>
 
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const navbar = document.getElementById('navbar');
@@ -106,6 +107,173 @@
 </head>
 
 <body>
+
+    <!--sign up-->
+    <div class="modal fade" id="signup-modal" tabindex="-1" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg modal-dialog-centered p-2 my-0 mx-auto" style="max-width: 950px;">
+            <div class="modal-content bg-dark border-light">
+                <div class="modal-body px-0 py-2 py-sm-0">
+                    <button class="btn-close btn-close-white position-absolute top-0 end-0 mt-3 me-3" type="button"
+                            data-bs-dismiss="modal"></button>
+                    <div class="row mx-0 align-items-center">
+                        <div class="col-md-6 border-end-md border-light p-4 p-sm-5">
+                            <h2 class="h3 text-light mb-4 mb-sm-5">Join Finder.<br>Get premium benefits:</h2>
+                            <ul class="list-unstyled mb-4 mb-sm-5">
+                                <li class="d-flex mb-2">
+                                    <i class="fi-check-circle text-primary mt-1 me-2"></i><span class="text-light">Add and promote your listings</span>
+                                </li>
+                                <li class="d-flex mb-2">
+                                    <i class="fi-check-circle text-primary mt-1 me-2"></i><span class="text-light">Easily manage your wishlist</span>
+                                </li>
+                                <li class="d-flex mb-0">
+                                    <i class="fi-check-circle text-primary mt-1 me-2"></i><span class="text-light">Leave reviews</span>
+                                </li>
+                            </ul><img class="d-block mx-auto" src="images/signup-dark.svg" width="344"
+                                      alt="Illustartion">
+                            <div class="text-light mt-sm-4 pt-md-3">
+                                <span class="opacity-60">
+                                    Already have an account?
+                                </span><a class="text-light" href="#signin-modal" data-bs-toggle="modal"
+                                          data-bs-dismiss="modal">Sign in</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5">
+                            <a class="btn btn-outline-info w-100 mb-3" href="#">
+                                <i class="fi-google fs-lg me-1"></i>Sign in
+                                with Google
+                            </a><a class="btn btn-outline-info w-100 mb-3" href="#">
+                                <i class="fi-facebook fs-lg me-1"></i>Sign in with Facebook
+                            </a>
+                            <div class="d-flex align-items-center py-3 mb-3">
+                                <hr class="hr-light w-100">
+                                <div class="text-light opacity-70 px-3">Or</div>
+                                <hr class="hr-light w-100">
+                            </div>
+                            <form class="needs-validation" novalidate="">
+                                <div class="mb-4">
+                                    <label class="form-label text-light" for="signup-name">Full name</label>
+                                    <input class="form-control form-control-light" type="text" id="signup-name"
+                                           placeholder="Enter your full name" required="">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label text-light" for="signup-email">Email address</label>
+                                    <input class="form-control form-control-light" type="email" id="signup-email"
+                                           placeholder="Enter your email" required="">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label text-light" for="signup-password">
+                                        Password <span class="fs-sm opacity-50">min. 8 char</span>
+                                    </label>
+                                    <div class="password-toggle">
+                                        <input class="form-control form-control-light" type="password"
+                                               id="signup-password" minlength="8" required="">
+                                        <label class="password-toggle-btn" aria-label="Show/hide password">
+                                            <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label text-light" for="signup-password-confirm">
+                                        Confirm
+                                        password
+                                    </label>
+                                    <div class="password-toggle">
+                                        <input class="form-control form-control-light" type="password"
+                                               id="signup-password-confirm" minlength="8" required="">
+                                        <label class="password-toggle-btn" aria-label="Show/hide password">
+                                            <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-check form-check-light mb-4">
+                                    <input class="form-check-input" type="checkbox" id="agree-to-terms" required="">
+                                    <label class="form-check-label" for="agree-to-terms">
+                                        <span class="opacity-70">
+                                            By
+                                            joining, I agree to the
+                                        </span> <a href="#" class="text-light">
+                                            Terms of
+                                            use
+                                        </a>
+                                        <span class="opacity-70">and</span> <a href="#" class="text-light">
+                                            Privacy
+                                            policy
+                                        </a>
+                                    </label>
+                                </div>
+                                <button class="btn btn-primary btn-lg w-100" type="submit">Sign up </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--sign in-->
+    <div class="modal fade" id="signin-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered p-2 my-0 mx-auto" style="max-width: 950px;">
+            <div class="modal-content bg-dark border-light">
+                <div class="modal-body px-0 py-2 py-sm-0">
+                    <button class="btn-close btn-close-white position-absolute top-0 end-0 mt-3 me-3" type="button"
+                            data-bs-dismiss="modal"></button>
+                    <div class="row mx-0 align-items-center">
+                        <div class="col-md-6 border-end-md border-light p-4 p-sm-5">
+                            <h2 class="h3 text-light mb-4 mb-sm-5">Hey there!<br>Welcome back.</h2><img class="d-block mx-auto" src="images/signin-dark.svg" width="344" alt="Illustartion">
+                            <div class="text-light mt-4 mt-sm-5">
+                                <span class="opacity-60">
+                                    Don't have an account?
+                                </span><a class="text-light" href="#signup-modal" data-bs-toggle="modal"
+                                          data-bs-dismiss="modal">Sign up here</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5">
+                            <a class="btn btn-outline-info w-100 mb-3" href="#">
+                                <i class="fi-google fs-lg me-1">
+
+                                </i>
+                                Sign
+                                in
+                                with Google
+                            </a>
+                            <a class="btn btn-outline-info w-100 mb-3" href="#">
+                                <i class="fi-facebook fs-lg me-1"></i>Sign in with Facebook
+                            </a>
+                            <div class="d-flex align-items-center py-3 mb-3">
+                                <hr class="hr-light w-100">
+                                <div class="text-light opacity-70 px-3">Or</div>
+                                <hr class="hr-light w-100">
+                            </div>
+                            <form class="needs-validation" novalidate="">
+                                <div class="mb-4">
+                                    <label class="form-label text-light mb-2" for="signin-email">Email address</label>
+                                    <input class="form-control form-control-light" type="email" id="signin-email"
+                                           placeholder="Enter your email" required="">
+                                </div>
+                                <div class="mb-4">
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <label class="form-label text-light mb-0"
+                                               for="signin-password">Password</label><a class="fs-sm text-light"
+                                                                                        href="#">Forgot password?</a>
+                                    </div>
+                                    <div class="password-toggle">
+                                        <input class="form-control form-control-light" type="password"
+                                               id="signin-password" placeholder="Enter password" required="">
+                                        <label class="password-toggle-btn" aria-label="Show/hide password">
+                                            <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary btn-lg w-100" type="submit">Sign in </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--navbar-->
     <header class="navbar navbar-expand-lg navbar-dark fixed-top " data-scroll-header="" id="navbar">
         <div class="container">
             <a class="navbar-brand me-3 me-xl-4" href="#">
@@ -115,7 +283,7 @@
             <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-            </button><a class="btn btn-link btn-light btn-sm d-none d-lg-block order-lg-3 myHover" href="#"
+            </button><a class="btn btn-link btn-light btn-sm d-none d-lg-block order-lg-3 myHover" href="#signin-modal"
                         data-bs-toggle="modal"><i class="fi-user me-2"></i>Sign in</a><a class="btn btn-primary btn-sm ms-2 order-lg-3 makeMeOrangeBG" href="#">
                 <i class="fi-plus me-2"></i>Sell
                 car
@@ -221,483 +389,7 @@
             </div>
         </div>
     </header>
-
-    <section class="bg-position-top-center bg-repeat-0 pt-5"
-             style="background-image: url(images/hero-bg.png); background-size: 1920px 630px;">
-        <div class="container pt-5">
-            <div class="row pt-lg-4 pt-xl-5">
-                <div class="col-lg-4 col-md-5 pt-3 pt-md-4 pt-lg-5">
-                    <h1 class="display-4 text-light pb-2 mb-4 me-md-n5">Enjoy Latest Games Released</h1>
-                    <p class="fs-lg text-light opacity-70"> Order , Pay , Enjoy your favorite Games </p>
-                </div>
-                <div class="col-lg-8 col-md-7 pt-md-5">
-                    <img class="d-block mt-4 ms-auto" src="images/hero-img.png"
-                         width="800" alt="Car">
-                </div>
-            </div>
-        </div>
-        <div class="container mt-4 mt-sm-3 mt-lg-n3 pb-5 mb-md-4">
-
-            <!--<ul class="nav nav-tabs nav-tabs-light mb-4">-->
-            <!--    <li class="nav-item"><a class="nav-link active" href="#">New</a></li>-->
-            <!--    <li class="nav-item"><a class="nav-link" href="#">Used</a></li>-->
-            <!--</ul>-->
-
-            <form class="form-group form-group-light d-block">
-                <div class="row g-0 ms-lg-n2">
-                    <div class="col-lg-2">
-                        <div class="input-group border-end-lg border-light">
-                            <span class="input-group-text text-muted ps-2 ps-sm-3"><i class="fi-search"></i></span>
-                            <input class="form-control" type="text" name="keywords" placeholder="Keywords...">
-                        </div>
-                    </div>
-                    <hr class="hr-light d-lg-none my-2">
-                    <div class="col">
-                        <div class="dropdown border-end-sm border-light" data-bs-toggle="select">
-                            <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button"
-                                    data-bs-toggle="dropdown">
-                                <i class="fi-list me-2"></i><span class="dropdown-toggle-label">Genre</span>
-                            </button>
-                            <input type="hidden" name="make">
-                            <ul class="dropdown-menu dropdown-menu-dark">
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <span class="dropdown-item-label">Racing</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <span class="dropdown-item-label">shooting</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <span class="dropdown-item-label">Sports</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#"><span class="dropdown-item-label">RPG</span></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <hr class="hr-light d-sm-none my-2">
-                    <div class="col">
-                        <div class="dropdown border-end-md border-light" data-bs-toggle="select">
-                            <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button"
-                                    data-bs-toggle="dropdown">
-                                <i class="fi-list me-2"></i><span class="dropdown-toggle-label">Price</span>
-                            </button>
-                            <input type="hidden" name="model">
-                            <ul class="dropdown-menu dropdown-menu-dark">
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <span class="dropdown-item-label">
-                                            <100< /span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <span class="dropdown-item-label">
-                                            <70< /span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <span class="dropdown-item-label">
-                                            <60< /span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <span class="dropdown-item-label">
-                                            <50< /span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <span class="dropdown-item-label">
-                                            <40< /span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <span class="dropdown-item-label">
-                                            <30< /span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <span class="dropdown-item-label">
-                                            <20< /span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <span class="dropdown-item-label">
-                                            <10< /span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <hr class="hr-light d-md-none my-2">
-                    <!--<div class="col-lg-2 col-md-3 col-sm-6">-->
-                    <!--    <div class="dropdown border-end-sm border-light" data-bs-toggle="select">-->
-                    <!--        <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button"-->
-                    <!--            data-bs-toggle="dropdown"><i class="fi-car fs-lg me-2"></i><span-->
-                    <!--                class="dropdown-toggle-label">Body type</span></button>-->
-                    <!--        <input type="hidden" name="type">-->
-                    <!--        <ul class="dropdown-menu dropdown-menu-dark">-->
-                    <!--            <li><a class="dropdown-item" href="#"><span-->
-                    <!--                        class="dropdown-item-label">Compact</span></a>-->
-                    <!--            </li>-->
-                    <!--            <li><a class="dropdown-item" href="#"><span-->
-                    <!--                        class="dropdown-item-label">Crossover</span></a>-->
-                    <!--            </li>-->
-                    <!--            <li><a class="dropdown-item" href="#"><span-->
-                    <!--                        class="dropdown-item-label">Coupe</span></a>-->
-                    <!--            </li>-->
-                    <!--            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Family-->
-                    <!--                        MPV</span></a></li>-->
-                    <!--            <li><a class="dropdown-item" href="#"><span-->
-                    <!--                        class="dropdown-item-label">Pickup</span></a>-->
-                    <!--            </li>-->
-                    <!--            <li><a class="dropdown-item" href="#"><span-->
-                    <!--                        class="dropdown-item-label">Sedan</span></a>-->
-                    <!--            </li>-->
-                    <!--            <li><a class="dropdown-item" href="#"><span-->
-                    <!--                        class="dropdown-item-label">SUV</span></a>-->
-                    <!--            </li>-->
-                    <!--            <li><a class="dropdown-item" href="#"><span-->
-                    <!--                        class="dropdown-item-label">Wagon</span></a>-->
-                    <!--            </li>-->
-                    <!--        </ul>-->
-                    <!--    </div>-->
-                    <!--</div>-->
-                    <!--<hr class="hr-light d-sm-none my-2">-->
-                    <!--<div class="col-lg-2 col-md-3 col-sm-6">-->
-                    <!--    <div class="dropdown" data-bs-toggle="select">-->
-                    <!--        <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button"-->
-                    <!--            data-bs-toggle="dropdown"><i class="fi-map-pin me-2"></i><span-->
-                    <!--                class="dropdown-toggle-label">Location</span></button>-->
-                    <!--        <input type="hidden" name="location">-->
-                    <!--        <ul class="dropdown-menu dropdown-menu-dark">-->
-                    <!--            <li><a class="dropdown-item" href="#"><span-->
-                    <!--                        class="dropdown-item-label">Dallas</span></a>-->
-                    <!--            </li>-->
-                    <!--            <li><a class="dropdown-item" href="#"><span-->
-                    <!--                        class="dropdown-item-label">Chicago</span></a>-->
-                    <!--            </li>-->
-                    <!--            <li><a class="dropdown-item" href="#"><span-->
-                    <!--                        class="dropdown-item-label">Houston</span></a>-->
-                    <!--            </li>-->
-                    <!--            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Las-->
-                    <!--                        Vegas</span></a>-->
-                    <!--            </li>-->
-                    <!--            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Los-->
-                    <!--                        Angeles</span></a></li>-->
-                    <!--            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">New-->
-                    <!--                        York</span></a>-->
-                    <!--            </li>-->
-                    <!--            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">San-->
-                    <!--                        Francisco</span></a></li>-->
-                    <!--        </ul>-->
-                    <!--    </div>-->
-                    <!--</div>-->
-                    <!--<hr class="hr-light d-lg-none my-2">-->
-                    <div class="col">
-                        <button class="btn btn-primary w-100 makeMeOrangeBG" type="submit">Search</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </section>
-
-
-    <section class="container pb-5 mb-md-4">
-        <div class="d-sm-flex align-items-center justify-content-between mb-3 mb-sm-4 pb-sm-2">
-            <h2 class="h3 text-light mb-2 mb-sm-0">Pick your favourite Genre</h2><a class="btn btn-link btn-light fw-normal px-0 myHover" href="#">
-                View all<i class="fi-arrow-long-right fs-sm mt-0 ps-1 ms-2"></i>
-            </a>
-        </div>
-        <div class="row row-cols-2 row-cols-sm-2 row-cols-md-4 row-cols-lg-4 g-2 g-md-4">
-            <div class="col">
-                <div class="card card-body card-light card-hover bg-transparent border-0 px-0 pt-0 text-center">
-                    <img class="d-block mx-auto mb-3" src="images/9.png" width="160" alt="Sedan"><a class="nav-link-light stretched-link fw-bold" href="#">Racing</a>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card card-body card-light card-hover bg-transparent border-0 px-0 pt-0 text-center">
-                    <img class="d-block mx-auto mb-3" src="images/10.png" width="160" alt="SUV"><a class="nav-link-light stretched-link fw-bold" href="#">Shooting</a>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card card-body card-light card-hover bg-transparent border-0 px-0 pt-0 text-center">
-                    <img class="d-block mx-auto mb-3" src="images/11.png" width="160" alt="SUV"><a class="nav-link-light stretched-link fw-bold" href="#">Sports</a>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card card-body card-light card-hover bg-transparent border-0 px-0 pt-0 text-center">
-                    <img class="d-block mx-auto mb-3" src="images/12.png" width="160" alt="SUV"><a class="nav-link-light stretched-link fw-bold" href="#">Nigga</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!--<section class="container py-2 py-sm-3">-->
-    <!--    <div class="row g-2 g-sm-4">-->
-    <!--        <div class="col-3 col-sm-2 col-xl-1 mb-4 pb-2"><a class="opacity-40 opacity-transition d-table mx-auto"-->
-    <!--                href="#"><img src="images/opel.svg" width="86" alt="Opel"></a></div>-->
-    <!--        <div class="col-3 col-sm-2 col-xl-1 mb-4 pb-2"><a class="opacity-40 opacity-transition d-table mx-auto"-->
-    <!--                href="#"><img src="images/audi.svg" width="86" alt="Audi"></a></div>-->
-    <!--        <div class="col-3 col-sm-2 col-xl-1 mb-4 pb-2"><a class="opacity-40 opacity-transition d-table mx-auto"-->
-    <!--                href="#"><img src="images/mercedes.svg" width="86" alt="Mercedes-Benz"></a></div>-->
-    <!--        <div class="col-3 col-sm-2 col-xl-1 mb-4 pb-2"><a class="opacity-40 opacity-transition d-table mx-auto"-->
-    <!--                href="#"><img src="images/toyota.svg" width="86" alt="Toyota"></a></div>-->
-    <!--        <div class="col-3 col-sm-2 col-xl-1 mb-4 pb-2"><a class="opacity-40 opacity-transition d-table mx-auto"-->
-    <!--                href="#"><img src="images/mazda.svg" width="86" alt="Mazda"></a></div>-->
-    <!--        <div class="col-3 col-sm-2 col-xl-1 mb-4 pb-2"><a class="opacity-40 opacity-transition d-table mx-auto"-->
-    <!--                href="#"><img src="images/nissan.svg" width="86" alt="Nissan"></a></div>-->
-    <!--        <div class="col-3 col-sm-2 col-xl-1 mb-4 pb-2"><a class="opacity-40 opacity-transition d-table mx-auto"-->
-    <!--                href="#"><img src="images/hyundai.svg" width="86" alt="Hyundai"></a></div>-->
-    <!--        <div class="col-3 col-sm-2 col-xl-1 mb-4 pb-2"><a class="opacity-40 opacity-transition d-table mx-auto"-->
-    <!--                href="#"><img src="images/lexus.svg" width="86" alt="Lexus"></a></div>-->
-    <!--        <div class="col-3 col-sm-2 col-xl-1 mb-4 pb-2"><a class="opacity-40 opacity-transition d-table mx-auto"-->
-    <!--                href="#"><img src="images/honda.svg" width="86" alt="Honda"></a></div>-->
-    <!--        <div class="col-3 col-sm-2 col-xl-1 mb-4 pb-2"><a class="opacity-40 opacity-transition d-table mx-auto"-->
-    <!--                href="#"><img src="images/renault.svg" width="86" alt="Renault"></a></div>-->
-    <!--        <div class="col-3 col-sm-2 col-xl-1 mb-4 pb-2"><a class="opacity-40 opacity-transition d-table mx-auto"-->
-    <!--                href="#"><img src="images/infiniti.svg" width="86" alt="Infiniti"></a></div>-->
-    <!--        <div class="col-3 col-sm-2 col-xl-1 mb-4 pb-2"><a class="opacity-40 opacity-transition d-table mx-auto"-->
-    <!--                href="#"><img src="images/mitsubishi.svg" width="86" alt="Mitsubishi"></a></div>-->
-    <!--    </div>-->
-    <!--</section>-->
-    <!-- start -->
-    <section class="container pb-5 mb-md-4">
-        <div class="d-sm-flex align-items-center justify-content-between mb-3 mb-sm-4 pb-sm-2">
-            <h2 class="h3 text-light mb-2 mb-sm-0">Offers</h2><a class="btn btn-link btn-light fw-normal px-0 myHover"
-                                                                 href="#">Go to Store<i class="fi-arrow-long-right fs-sm mt-0 ps-1 ms-2"></i></a>
-        </div>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3  g-2 g-md-4">
-            @RenderBody()
-            <div>
-                <a class="d-block rounded-3 overflow-hidden" href="#">
-                    <img class="d-block" src="images/021.jpg"
-                         alt="Image">
-                </a>
-                <div class="py-3">
-                    <a class="fs-xs text-uppercase text-decoration-none makeMeOrange" href="#">
-                        MONEY
-                        MONEY
-                    </a>
-                    <h3 class="text-light fs-base pt-1">
-                        <a class="nav-link" href="#">
-                            What's the color of your
-                            BMW ?
-                        </a>
-                    </h3><a class="d-flex align-items-center text-decoration-none" href="#">
-                        <img class="rounded-circle"
-                             src="images/031.jpg" width="44" alt="Avatar">
-                        <div class="ps-2">
-                            <h6 class="fs-sm text-light lh-base mb-1">Andrew Zeet</h6>
-                            <div class="d-flex fs-xs text-light opacity-60">
-                                <span class="me-2 pe-1">
-                                    <i class="fi-calendar-alt me-1"></i>Jan 15
-                                </span><span>
-                                    <i class="fi-chat-circle me-1"></i>68+
-                                    comments
-                                </span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div>
-                <a class="d-block rounded-3 overflow-hidden" href="#">
-                    <img class="d-block" src="images/04_1.jpg"
-                         alt="Image">
-                </a>
-                <div class="py-3">
-                    <a class="fs-xs text-uppercase text-decoration-none makeMeOrange" href="#">Events</a>
-                    <h3 class="text-light fs-base pt-1">
-                        <a class="nav-link" href="#">
-                            Top 10 Classic
-                            Car Events
-                        </a>
-                    </h3><a class="d-flex align-items-center text-decoration-none" href="#">
-                        <img class="rounded-circle" src="images/08_1.jpg" width="44" alt="Avatar">
-                        <div class="ps-2">
-                            <h6 class="fs-sm text-light lh-base mb-1">Jacob Jones</h6>
-                            <div class="d-flex fs-xs text-light opacity-60">
-                                <span class="me-2 pe-1">
-                                    <i class="fi-calendar-alt me-1"></i>May 8
-                                </span><span>
-                                    <i class="fi-chat-circle me-1"></i>No
-                                    comments
-                                </span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <!--item-->
-            <div>
-                <a class="d-block rounded-3 overflow-hidden" href="#">
-                    <img class="d-block"
-                         src="images/crash-bandicoot-4-ride-i99518 (2).jpg" alt="Image">
-                </a>
-                <div class="py-3">
-                    <a class="fs-xs text-uppercase text-decoration-none makeMeOrange" href="#">
-                        <h3 class="text-center">
-                            <s>69$</s>
-                            110$
-                        </h3>
-                    </a>
-
-                    <h3 class="text-light fs-base pt-1 text-center">
-                        <a class="nav-link" href="#">
-                            Crash Bandicoot is gay
-                            today because of ass fuck
-                        </a>
-                    </h3>
-                    <button type="button" class="btn btn-success w-100">Add to Cart</button>
-
-                    <!--<a class="d-flex align-items-center text-decoration-none" href="#"><img-->
-                    <!--        class="rounded-circle" src="images/032.jpg" width="44" alt="Avatar">-->
-                    <!--    <div class="ps-2">-->
-                    <!--        <h6 class="fs-sm text-light lh-base mb-1">BlackBerry</h6>-->
-                    <!--        <div class="d-flex fs-xs text-light opacity-60"><span class="me-2 pe-1"><i-->
-                    <!--                    class="fi-calendar-alt me-1"></i>Jun 17</span><span><i-->
-                    <!--                    class="fi-chat-circle me-1"></i>125-->
-                    <!--                comments</span></div>-->
-                    <!--    </div>-->
-                    <!--</a>-->
-                </div>
-            </div>
-            <!--item-->
-            <div>
-                <a class="d-block rounded-3 overflow-hidden" href="#">
-                    <img class="d-block" src="images/05.jpg"
-                         alt="Image">
-                </a>
-                <div class="py-3">
-                    <a class="fs-xs text-uppercase text-decoration-none makeMeOrange"
-                       href="#">Inspiration</a>
-                    <h3 class="text-light fs-base pt-1">
-                        <a class="nav-link" href="#">
-                            5
-                            Predictions
-                            From the Past About the Future
-                        </a>
-                    </h3><a class="d-flex align-items-center text-decoration-none" href="#">
-                        <img class="rounded-circle"
-                             src="images/09_1.jpg" width="44" alt="Avatar">
-                        <div class="ps-2">
-                            <h6 class="fs-sm text-light lh-base mb-1">Guy Hawkins</h6>
-                            <div class="d-flex fs-xs text-light opacity-60">
-                                <span class="me-2 pe-1">
-                                    <i class="fi-calendar-alt me-1"></i>Apr 25
-                                </span><span>
-                                    <i class="fi-chat-circle me-1"></i>6
-                                    comments
-                                </span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div>
-                <a class="d-block rounded-3 overflow-hidden" href="#">
-                    <img class="d-block" src="images/020.jpg"
-                         alt="Image">
-                </a>
-                <div class="py-3">
-                    <a class="fs-xs text-uppercase text-decoration-none makeMeOrange" href="#">
-                        Crazy
-                        Drives
-                    </a>
-                    <h3 class="text-light fs-base pt-1">
-                        <a class="nav-link" href="#">This car goes brrrrrrrr</a>
-                    </h3><a class="d-flex align-items-center text-decoration-none" href="#">
-                        <img class="rounded-circle"
-                             src="images/030.jpg" width="44" alt="Avatar">
-                        <div class="ps-2">
-                            <h6 class="fs-sm text-light lh-base mb-1">Speed boi</h6>
-                            <div class="d-flex fs-xs text-light opacity-60">
-                                <span class="me-2 pe-1">
-                                    <i class="fi-calendar-alt me-1"></i>Jan 13
-                                </span><span>
-                                    <i class="fi-chat-circle me-1"></i>124
-                                    comments
-                                </span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div>
-                <a class="d-block rounded-3 overflow-hidden" href="#">
-                    <img class="d-block" src="images/06.jpg"
-                         alt="Image">
-                </a>
-                <div class="py-3">
-                    <a class="fs-xs text-uppercase text-decoration-none makeMeOrange" href="#">
-                        Test
-                        Drives
-                    </a>
-                    <h3 class="text-light fs-base pt-1">
-                        <a class="nav-link" href="#">
-                            This Year is All
-                            About New Harley Davidson
-                        </a>
-                    </h3><a class="d-flex align-items-center text-decoration-none"
-                            href="#">
-                        <img class="rounded-circle" src="images/12.jpg" width="44" alt="Avatar">
-                        <div class="ps-2">
-                            <h6 class="fs-sm text-light lh-base mb-1">Ralph Edwards</h6>
-                            <div class="d-flex fs-xs text-light opacity-60">
-                                <span class="me-2 pe-1">
-                                    <i class="fi-calendar-alt me-1"></i>Mar 12
-                                </span><span>
-                                    <i class="fi-chat-circle me-1"></i>2
-                                    comments
-                                </span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-
-    </section>
-    <!-- end -->
-    <section class="container pb-3 pb-sm-4 pb-md-5">
-        <div class="row align-items-center pb-5">
-            <div class="col-md-7 col-lg-6 col-xl-5 offset-xl-1 text-center text-md-start mb-4 mb-md-0">
-                <h2 class="text-light mb-4">Get the top-rated app!</h2>
-                <p class="fs-lg text-light opacity-70 mb-md-5">
-                    Download Finder App and join the community of car
-                    enthusiasts. Don't stop your car search when you leave your computer with our Android and iOS
-                    app!
-                </p>
-                <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-md-start">
-                    <a class="btn-market me-sm-3 mb-3 w-sm-100" href="#" role="button">
-                        <img src="images/Google_Play_Store_badge_EN.svg" width="180px" alt="" class="appStore">
-                    </a><a class="btn-market mb-3 w-sm-100" href="#" role="button">
-                        <img src="images/Download_on_the_App_Store_Badge.svg" width="180px" alt="" class="appStore">
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-5 col-lg-6">
-                <img class="d-block mx-auto" src="images/mobile-app.png" width="460"
-                     alt="Mobile App">
-            </div>
-        </div>
-    </section>
-
+    @RenderBody()
     <footer class="footer bg-faded-light">
         <div class="border-bottom border-light py-4">
             <div class="container d-sm-flex align-items-center justify-content-between">
@@ -743,26 +435,27 @@
                         </button>
                     </form>
                 </div>
-                <div class="col-lg-2 col-md-3 col-sm-6 offset-xl-1 mb-2 mb-sm-4">
-                    <h3 class="fs-base text-light">Buying &amp; Selling</h3>
-                    <ul class="list-unstyled fs-sm">
-                        <li><a class="nav-link-light" href="#">Find a car</a></li>
-                        <li><a class="nav-link-light" href="#">Sell your car</a></li>
-                        <li><a class="nav-link-light" href="#">Car dealers</a></li>
-                        <li><a class="nav-link-light" href="#">Compare cars</a></li>
-                        <li><a class="nav-link-light" href="#">Online car appraisal</a></li>
-                    </ul>
+
+                @*     <div class="col-lg-2 col-md-3 col-sm-6 offset-xl-1 mb-2 mb-sm-4">
+                <h3 class="fs-base text-light">Buying &amp; Selling</h3>
+                <ul class="list-unstyled fs-sm">
+                <li><a class="nav-link-light" href="#">Find a car</a></li>
+                <li><a class="nav-link-light" href="#">Sell your car</a></li>
+                <li><a class="nav-link-light" href="#">Car dealers</a></li>
+                <li><a class="nav-link-light" href="#">Compare cars</a></li>
+                <li><a class="nav-link-light" href="#">Online car appraisal</a></li>
+                </ul>
                 </div>
                 <div class="col-lg-2 col-md-3 col-sm-6 mb-2 mb-sm-4">
-                    <h3 class="fs-base text-light">About</h3>
-                    <ul class="list-unstyled fs-sm">
-                        <li><a class="nav-link-light" href="#">About Finder</a></li>
-                        <li><a class="nav-link-light" href="#">Contact us</a></li>
-                        <li><a class="nav-link-light" href="#">FAQs &amp; support</a></li>
-                        <li><a class="nav-link-light" href="#">Mobile app</a></li>
-                        <li><a class="nav-link-light" href="#">Blog</a></li>
-                    </ul>
-                </div>
+                <h3 class="fs-base text-light">About</h3>
+                <ul class="list-unstyled fs-sm">
+                <li><a class="nav-link-light" href="#">About Finder</a></li>
+                <li><a class="nav-link-light" href="#">Contact us</a></li>
+                <li><a class="nav-link-light" href="#">FAQs &amp; support</a></li>
+                <li><a class="nav-link-light" href="#">Mobile app</a></li>
+                <li><a class="nav-link-light" href="#">Blog</a></li>
+                </ul>
+                </div> *@
                 <div class="col-lg-2 col-md-3 col-sm-6 mb-2 mb-sm-4">
                     <h3 class="fs-base text-light">Profile</h3>
                     <ul class="list-unstyled fs-sm">
@@ -819,8 +512,8 @@
             </p>
         </div>
     </footer>
-            @await RenderSectionAsync("Scripts", required: false)
 
+    @await RenderSectionAsync("Scripts", required: false)
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
