@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RG_Store.BLL.ModelVM.Item
+namespace RG_Store.BLL.ModelVM.ItemVM
 {
     internal class UpdateOfferVM
     {

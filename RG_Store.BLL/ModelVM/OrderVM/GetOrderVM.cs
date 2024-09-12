@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RG_Store.BLL.ModelVM.Category
+namespace RG_Store.BLL.ModelVM.OrderVM
 {
-    internal class AddCaegoryVM
+    public class GetOrderVM
     {
     }
 }

@@ -4,75 +4,75 @@ using Entities;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using RG_Store.BLL.Mapping;
 using RG_Store.DAL.DB;
 using RG_Store.DAL.Repo.Abstraction;
 using RG_Store.DAL.Repo.Implementation;
 using System.Reflection;
+using AutoMapper;
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-
-//Identity
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer("name=DefaultConnection"));
-
-
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
-    options =>
+internal class Program
+{
+    private static void Main(string[] args)
     {
-        options.LoginPath = new PathString("/Account/SignIn");
-        options.AccessDeniedPath = new PathString("/Account/SignIn");
-    });
+        var builder = WebApplication.CreateBuilder(args);
+        builder.Services.AddAutoMapper(x => x.AddProfile(new DomainProfile()));
+
+        // Add services to the container.
+        builder.Services.AddControllersWithViews();
+
+        //Identity
+        builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer("name=DefaultConnection"));
+
+        builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
+                options =>
+                {
+                    options.LoginPath = new PathString("/Account/SignIn");
+                    options.AccessDeniedPath = new PathString("/Account/SignIn");
+                });
+
+        builder.Services.AddIdentity<User, IdentityRole>(options =>
+        {
+            options.Password.RequireDigit = false;
+            options.Password.RequireLowercase = false;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireUppercase = false;
+            options.Password.RequiredLength = 6;
+            options.Password.RequiredUniqueChars = 0;
+        }).AddEntityFrameworkStores<ApplicationDbContext>();
+
+        builder.Services.AddScoped<IItemRepo, ItemRepo>();
+        builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
+        builder.Services.AddScoped<IUserRepo, UserRepo>();
+        builder.Services.AddScoped<ICartRepo, CartRepo>();
+        builder.Services.AddScoped<IOrderRepo, OrderRepo>();
+        builder.Services.AddScoped<IFavouriteRepo, FavouriteRepo>();
 
 
-//builder.Services.AddIdentityCore<User>(options => options.SignIn.RequireConfirmedAccount = true)
-//                .AddEntityFrameworkStores<ApplicationDbContext>()
-//                .AddTokenProvider<DataProtectorTokenProvider<User>>(TokenOptions.DefaultProvider);
-builder.Services.AddIdentity<User, IdentityRole>(options =>
-{
- /*   //options.User.RequireUniqueEmail = true;
-    // Default Password settings.
-    options.Password.RequireDigit = false;
-    options.Password.RequireLowercase = false;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequireUppercase = false;
-    options.Password.RequiredLength = 6;
-    options.Password.RequiredUniqueChars = 0;*/
-}).AddEntityFrameworkStores<ApplicationDbContext>();
+        var app = builder.Build();
 
+        // Configure the HTTP request pipeline.
+        if (!app.Environment.IsDevelopment())
+        {
+            app.UseExceptionHandler("/Home/Error");
+            app.UseHsts();
+        }
 
-builder.Services.AddScoped<IItemRepo, ItemRepo>();
-builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
-builder.Services.AddScoped<IUserRepo, UserRepo>();
-builder.Services.AddScoped<ICartRepo, CartRepo>();
-builder.Services.AddScoped<IOrderRepo, OrderRepo>();
-builder.Services.AddScoped<IFavouriteRepo, FavouriteRepo>();
+        app.UseHttpsRedirection();
+        app.UseStaticFiles();
 
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        app.UseRouting();
 
-var app = builder.Build();
+        app.UseAuthentication();
+        app.UseAuthorization();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+        app.MapControllerRoute(
+            name: "default",
+            pattern: "{controller=Home}/{action=Index}/{id?}");
+
+        app.Run();
+    }
 }
-
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-
-app.UseRouting();
-
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.Run();

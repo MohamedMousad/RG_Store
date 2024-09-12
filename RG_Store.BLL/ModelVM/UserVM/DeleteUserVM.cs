@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RG_Store.BLL.ModelVM.User
+namespace RG_Store.BLL.ModelVM.UserVM
 {
-    internal class DeleteUserVM
+    public class DeleteUserVM
     {
     }
 }
