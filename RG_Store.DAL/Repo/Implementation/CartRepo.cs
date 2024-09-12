@@ -14,7 +14,12 @@ namespace RG_Store.DAL.Repo.Implementation
 {
     public class CartRepo : ICartRepo
     {
-        private readonly ApplicationDbContext context = new ApplicationDbContext();
+        private readonly ApplicationDbContext context ;
+
+        public CartRepo(ApplicationDbContext context)
+        {
+            this.context = context;
+        }
 
         public bool AddToCart(Item item, string Uid)
         {

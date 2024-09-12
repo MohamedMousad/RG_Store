@@ -8,7 +8,13 @@ namespace EmployeeSystem.DAL.Repo.Implementation
 {
     public class ItemRepo : IItemRepo
     {
-       private readonly ApplicationDbContext context = new ApplicationDbContext();
+       private readonly ApplicationDbContext context;
+
+        public ItemRepo(ApplicationDbContext context)
+        {
+            this.context = context;
+        }
+
         public bool Create(Item item)
         {
             try
