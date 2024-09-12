@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RG_Store.BLL.ModelVM.UserVM
 {
-    internal class UpdateRoleVM
+    public class UpdateRoleVM
     {
     }
 }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RG_Store.BLL.ModelVM.ItemVM
+namespace RG_Store.BLL.ModelVM.OrderVM
 {
-    public class GetAllItemVM
+    public class CreateOrderVM
     {
     }
 }
