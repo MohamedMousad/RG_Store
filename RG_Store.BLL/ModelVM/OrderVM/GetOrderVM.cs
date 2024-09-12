@@ -1,4 +1,6 @@
-﻿using System;
+﻿using RG_Store.BLL.ModelVM.ItemVM;
+using RG_Store.DAL.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,10 @@ namespace RG_Store.BLL.ModelVM.OrderVM
 {
     public class GetOrderVM
     {
+        public int OrderId { get; set; }
+        public decimal TotalCost { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public OrderStatus OrderStatus { get; set; }
+        public IEnumerable<GetAllItemVM?> Items { get; set; }
     }
 }
