@@ -12,7 +12,12 @@ namespace RG_Store.DAL.Repo.Implementation
 {
     public class FavouriteRepo : IFavouriteRepo
     {
-        private readonly ApplicationDbContext context = new ApplicationDbContext();
+        private readonly ApplicationDbContext context;
+
+        public FavouriteRepo(ApplicationDbContext context)
+        {
+            this.context = context;
+        }
 
         public bool Add(Item item,int id)
         {

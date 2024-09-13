@@ -11,7 +11,13 @@ namespace RG_Store.DAL.Repo.Implementation
 {
     public class CategoryRepo : ICategoryRepo
     {
-        private readonly ApplicationDbContext context = new ApplicationDbContext();
+        private readonly ApplicationDbContext context;
+
+        public CategoryRepo(ApplicationDbContext context)
+        {
+            this.context = context;
+        }
+
         public bool Create(Category category)
         {
             try

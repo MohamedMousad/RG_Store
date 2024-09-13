@@ -7,14 +7,13 @@ using System.Threading.Tasks;
 
 namespace RG_Store.BLL.ModelVM.UserVM
 {
-    public class GetUserVM
+    public class EditUserVM
     {
         public string UserId { get; set; }
         public string UserName { get; set; }
-        public string? FirstName { get; set; }
-        public string? LastName { get; set; }
-        public Roles UseRrole { get; set; }
+        public string ?FirstName { get; set; }
+        public string ?LastName { get; set; }
         public string Email { get; set; }
-        public string? Image { get; set; }
+        public string ?Image { get; set; }
     }
 }

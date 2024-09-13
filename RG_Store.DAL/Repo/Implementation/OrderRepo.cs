@@ -15,7 +15,13 @@ namespace EmployeeSystem.DAL.Repo.Implementation
 {
     public class OrderRepo : IOrderRepo 
     {
-        private readonly ApplicationDbContext context = new ApplicationDbContext();
+        private readonly ApplicationDbContext context;
+
+        public OrderRepo(ApplicationDbContext context)
+        {
+            this.context = context;
+        }
+
         public bool CreateOrder(Order order)
         {
             try

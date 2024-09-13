@@ -21,7 +21,7 @@ namespace Entities
 
         public int ?CartId { get; set; }
         public virtual Cart? Cart { get; set; }
-        public int FavouriteId { get; set; }
+        public int ?FavouriteId { get; set; }
         public Favourite ?Favourite { get; set; }
 
     }
