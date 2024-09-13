@@ -1,0 +1,53 @@
+﻿<!-- Full Page Sign In -->
+<div class="container-fluid bg-dark text-light min-vh-100 d-flex justify-content-center align-items-center">
+    <div class="row mx-0 w-100" style="max-width: 950px;">
+        <!-- Left Column -->
+        <div class="col-md-6 border-end-md border-light p-4 p-sm-5 d-flex flex-column justify-content-center align-items-center">
+            <h2 class="h3 mb-4 mb-sm-5">Hey there!<br>Welcome back.</h2>
+            <img class="d-block mx-auto" src="images/signin-dark.svg" width="344" alt="Illustration">
+            <div class="mt-4 mt-sm-5 text-center">
+                <span class="opacity-60">Don't have an account?</span>
+                <a class="text-light" href="#signup-page">Sign up here</a>
+            </div>
+        </div>
+        <!-- Right Column -->
+        <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5">
+            <a class="btn btn-outline-info w-100 mb-3" href="#">
+                <i class="fi-google fs-lg me-1"></i> Sign in with Google
+            </a>
+            <a class="btn btn-outline-info w-100 mb-3" href="#">
+                <i class="fi-facebook fs-lg me-1"></i> Sign in with Facebook
+            </a>
+            <div class="d-flex align-items-center py-3 mb-3">
+                <hr class="hr-light w-100">
+                <div class="text-light opacity-70 px-3">Or</div>
+                <hr class="hr-light w-100">
+            </div>
+            <form class="needs-validation" novalidate>
+                <div class="mb-4">
+                    <label class="form-label text-light mb-2" for="signin-email">Email address</label>
+                    <input class="form-control form-control-light" type="email" id="signin-email" name="email" placeholder="Enter your email" required>
+                    <div class="invalid-feedback">
+                        Please provide a valid email address.
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <label class="form-label text-light mb-0" for="signin-password">Password</label>
+                        <a class="fs-sm text-light" href="#">Forgot password?</a>
+                    </div>
+                    <div class="password-toggle">
+                        <input class="form-control form-control-light" type="password" id="signin-password" name="password" placeholder="Enter password" required>
+                        <label class="password-toggle-btn" aria-label="Show/hide password">
+                            <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
+                        </label>
+                        <div class="invalid-feedback">
+                            Please provide a password.
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-lg w-100" type="submit">Sign in</button>
+            </form>
+        </div>
+    </div>
+</div>
