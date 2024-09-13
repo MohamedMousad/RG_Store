@@ -65,12 +65,12 @@ namespace RG_Store.BLL.Mapping
             //Order Mapper
             CreateMap<Order, CancelOrderVM>();
             CreateMap<Order, CreateOrderVM>();
-            CreateMap<Order, EditOrderVM>();
+            CreateMap<Order, UpdateOrderVM>();
             CreateMap<Order, GetOrderVM>();
 
             CreateMap<CancelOrderVM , Order>();
             CreateMap<CreateOrderVM, Order>();
-            CreateMap<EditOrderVM, Order>();
+            CreateMap<UpdateOrderVM, Order>();
             CreateMap<GetOrderVM, Order>();
 
 
