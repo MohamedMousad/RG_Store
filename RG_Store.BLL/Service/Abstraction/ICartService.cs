@@ -8,5 +8,6 @@ namespace RG_Store.BLL.Service.Abstraction
 {
     public interface ICartService
     {
+
     }
 }

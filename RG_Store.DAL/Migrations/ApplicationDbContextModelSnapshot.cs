@@ -81,7 +81,7 @@ namespace RG_Store.DAL.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Items");
+                    b.ToTable("Items", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Order", b =>
@@ -109,7 +109,7 @@ namespace RG_Store.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("Entities.User", b =>
@@ -368,7 +368,7 @@ namespace RG_Store.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Carts");
+                    b.ToTable("Carts", (string)null);
                 });
 
             modelBuilder.Entity("RG_Store.DAL.Entities.Category", b =>
@@ -394,7 +394,7 @@ namespace RG_Store.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("RG_Store.DAL.Entities.Favourite", b =>
@@ -407,7 +407,7 @@ namespace RG_Store.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Favourites");
+                    b.ToTable("Favourites", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Item", b =>
