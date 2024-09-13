@@ -86,7 +86,7 @@ namespace EmployeeSystem.DAL.Repo.Implementation
         {
             try
             {
-                var usr = context.Users.FirstOrDefault(x => x.Id == user.Id);
+                var usr = GetById(user.Id);
                 usr.IsDeleted = !usr.IsDeleted;
                 context.SaveChanges();
                 return true;
@@ -101,7 +101,7 @@ namespace EmployeeSystem.DAL.Repo.Implementation
         {
             try
             {
-                var usr = context.Users.FirstOrDefault(x => x.Id == user.Id);
+                var usr = GetById(user.Id);
                 usr.FirstName = user.FirstName;
                 usr.LastName = user.LastName;
                 user.Email = user.Email;

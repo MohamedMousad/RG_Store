@@ -52,8 +52,20 @@ namespace EmployeeSystem.DAL.Repo.Implementation
         {
             try
             {
+                if (item.HasOffer)
+                {
+                    var o = item.Offer;
+                    var dis = 100 - o;
+                    dis /= 100;
+                    item.FinalPrice=item.IntialPrice*dis;
+                }
+                else
+                {
+                    item.FinalPrice = item.IntialPrice;
+                }
                 var itm = GetById(item.Id);
-                itm.Price = item.Price;
+                itm.IntialPrice = item.IntialPrice;
+                itm.FinalPrice = item.FinalPrice;
                 itm.Quantity = item.Quantity;   
                 itm.Name = item.Name;   
                 itm.HasOffer = item.HasOffer;   

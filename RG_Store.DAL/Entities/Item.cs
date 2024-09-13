@@ -13,7 +13,8 @@ namespace Entities
         public string Name { get; set; }=string.Empty;
         public string Description { get; set; }=string.Empty;
         public int Quantity { get; set; } = 0;
-        public decimal Price { get; set; } = 0;
+        public decimal ?IntialPrice { get; set; } = 0;
+        public decimal ?FinalPrice { get; set; } = 0;
         public bool HasOffer { get; set; }=false;
         public decimal ?Offer { get; set; } = 0;
         public string? ItemImage { get; set; }

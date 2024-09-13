@@ -38,7 +38,7 @@ namespace EmployeeSystem.DAL.Repo.Implementation
         {
             try
             {
-                var ord = context.Orders.Where(o => o.Id == order.Id).FirstOrDefault();
+                var ord = GetById(order.Id);
                 ord.OrderStatus = OrderStatus.Canceled;
                 context.SaveChanges();
                 return true;
@@ -57,7 +57,7 @@ namespace EmployeeSystem.DAL.Repo.Implementation
         {
             try
             {
-                var ord = context.Orders.Where(o => o.Id == order.Id).FirstOrDefault();
+                var ord = GetById(order.Id);
                 ord.OrderStatus = order.OrderStatus;
                 ord.TotalCost =order.TotalCost;
                 ord.Items=order.Items;
@@ -71,40 +71,3 @@ namespace EmployeeSystem.DAL.Repo.Implementation
         }
     }
 }
-/*
-        private readonly ApplicationDbContext _context = new ApplicationDbContext();
-        public bool Create(Employee employee)
-        {
-            try
-            {
-                _context.Employees.Add(employee);
-                _context.SaveChanges();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-
-            }
-        }
-
-        public bool Edit(Employee employee)
-        {
-            var emp = _context.Employees.Where(e => e.Id == employee.Id).FirstOrDefault();
-            try
-            {
-                emp.Name = employee.Name;
-                emp.Age = employee.Age;
-                emp.Email = employee.Email;
-                _context.SaveChanges();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-
-            }
-        }
-
-        public IQueryable<Employee> GetAll() => _context.Employees.Include(a=>a.Department).Where(a=>a.DepartmentId != null);
-        public Employee GetById(int id) => _context.Employees.Where(e => e.Id == id).FirstOrDefault();*/

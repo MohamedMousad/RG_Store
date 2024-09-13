@@ -22,10 +22,8 @@ namespace RG_Store.DAL.Repo.Implementation
         public bool Add(Item item,int id)
         {
             try
-            {
-                var fav = context.Favourites.Where(f => f.Id == id).FirstOrDefault();
-                var items = fav.Items.ToList();
-                items.Remove(item);
+            {   var items = GetAll(id).ToList();
+                items.Add(item);
                 context.SaveChanges();
                 return true;
             }
@@ -37,21 +35,18 @@ namespace RG_Store.DAL.Repo.Implementation
 
         public IEnumerable<Item> GetAll(int id)
         {
-             var list = context.Favourites.Where(f => f.Id == id).FirstOrDefault().Items.ToList();
-             return list;
+            var Fav = GetById(id);
+            var items = Fav.Items.ToList();
+             return items;
         }
-
-        public Favourite GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
+        public Favourite GetById(int id) => context.Favourites.Where(i => i.Id == id).FirstOrDefault();
+        
         public bool Remove(Item item,int ID)
         {
             try
             {
-                var fav = context.Favourites.Where(f=>f.Id==ID).FirstOrDefault();
-                var items = fav.Items.ToList();
-                var ToRemove = items.Where(f => f.Id == item.Id).FirstOrDefault();
+                var items = GetAll(ID).ToList();
+                var ToRemove = items.Where(i => i.Id == item.Id).FirstOrDefault();
                 items.Remove(ToRemove);
                 context.SaveChanges();
                 return true;

@@ -21,20 +21,13 @@ namespace RG_Store.DAL.Repo.Implementation
             this.context = context;
         }
 
-        public bool AddToCart(Item item, string Uid)
+        public bool AddToCart(Item item, int Id)
         {
             try
             {
-                var cart = context.Carts
-                       .Include(c => c.Items)
-                       .FirstOrDefault(c => c.UsertId == Uid);
-                if (cart != null)
-                {
-                    var CartItems = cart.Items.ToList();
-                    CartItems.Add(item);
-                    context.SaveChanges();  
-                    return true;
-                }       
+              
+                var CartItems =GetAllItems(Id).ToList();
+                CartItems.Add(item);
                 return false; 
             }
             catch (Exception)
@@ -42,17 +35,15 @@ namespace RG_Store.DAL.Repo.Implementation
                 return false; 
             }            
         }
-        public bool ClearCart(string UId)
+        public bool ClearCart(int Id)
         {
             try
             {
-                var cart = context.Carts
-               .Include(c => c.Items)
-                .FirstOrDefault(c => c.UsertId == UId);
-                var cartItems = cart.Items.ToList();
+
+                var cartItems = GetAllItems(Id).ToList();
                 foreach(var it in cartItems)
                 {
-                    RemoveFromCart(it, UId);
+                    RemoveFromCart(it,Id);
                 }
                 context.SaveChanges();
                 return true;
@@ -65,43 +56,30 @@ namespace RG_Store.DAL.Repo.Implementation
 
         }
 
-        public IEnumerable<Item> GetAllItems(string Uid)
+        public IEnumerable<Item> GetAllItems(int id)
         {
             try
             {
-                var cart = context.Carts
-                    .Include(c => c.Items)
-                     .FirstOrDefault(c => c.UsertId == Uid);
-                var cartItems = cart.Items.ToList();
-                return cartItems;
+                var cart = GetById(id);
+                var item = cart.Items .ToList();
+                return item;
             }
             catch (Exception)
             {
-                return Enumerable.Empty<Item>();
+                return Enumerable.Empty<Item>().ToList();
             }           
         }
 
-        public Cart GetById(int id)
-        {
-            return context.Carts.Where(c => c.Id == id).FirstOrDefault();
-
-        }
-
-        public bool RemoveFromCart(Item item, string UId)
+        public Cart GetById(int id)=>context.Carts.Where(c => c.Id == id).FirstOrDefault();
+        public bool RemoveFromCart(Item item, int Id)
         {
             try
             {
-                var cart = context.Carts
-                .Include(c => c.Items)
-                       .FirstOrDefault(c => c.UsertId == UId);
-                if (cart!=null&&cart.Items != null)
-                {
-                    var CartItems = cart.Items.ToList();
-                    CartItems.Remove(item);
-                    context.SaveChanges();
-                    return true;
-                }
-                return false;
+                var CartItems = GetAllItems(Id).ToList();
+                var ToRemove = CartItems.FirstOrDefault(i => i.Id == item.Id);
+                CartItems.Remove(ToRemove);
+                context.SaveChanges(); 
+                return true; 
             }
             catch (Exception)
             {
