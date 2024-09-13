@@ -13,8 +13,7 @@ namespace RG_Store.BLL.Service.Abstraction
         public bool Create(CreateItemVM createItemVM);
         public bool Update(UpdateItemVM updateItem);
         public bool Delete(DeleteItemVM deleteItem);
-        public bool GetAllItem(GetAllItemVM deleteItem);
-        T GetById<T>(int id, Func<Item, T> converter);
+        public GetAllItemVM GetAllItem(int id);
         public IEnumerable<GetAllItemVM> GetAll();
     }
 }
