@@ -65,21 +65,11 @@
         .socialMediaBG:hover {
             transition-duration: 500ms !important;
             background-color: white !important;
-            .socialMedia
-
-        {
-            transition-duration: 500ms !important;
-            color: #fd5631 !important;
-        }
-
         }
 
         .socialMedia {
-            position: relative;
-            text-align: center;
-            margin-left: auto;
-            margin-right: auto;
-            right: 100%
+            transition-duration: 500ms !important;
+            color: #fd5631 !important;
         }
 
         a:has(.appStore):hover {
@@ -87,7 +77,6 @@
             color: #fd5631 !important;
         }
     </style>
-
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -108,280 +97,32 @@
 
 <body>
 
-    <!--sign up-->
-    <div class="modal fade" id="signup-modal" tabindex="-1" aria-hidden="true" style="display: none;">
-        <div class="modal-dialog modal-lg modal-dialog-centered p-2 my-0 mx-auto" style="max-width: 950px;">
-            <div class="modal-content bg-dark border-light">
-                <div class="modal-body px-0 py-2 py-sm-0">
-                    <button class="btn-close btn-close-white position-absolute top-0 end-0 mt-3 me-3" type="button"
-                            data-bs-dismiss="modal"></button>
-                    <div class="row mx-0 align-items-center">
-                        <div class="col-md-6 border-end-md border-light p-4 p-sm-5">
-                            <h2 class="h3 text-light mb-4 mb-sm-5">Join Finder.<br>Get premium benefits:</h2>
-                            <ul class="list-unstyled mb-4 mb-sm-5">
-                                <li class="d-flex mb-2">
-                                    <i class="fi-check-circle text-primary mt-1 me-2"></i><span class="text-light">Add and promote your listings</span>
-                                </li>
-                                <li class="d-flex mb-2">
-                                    <i class="fi-check-circle text-primary mt-1 me-2"></i><span class="text-light">Easily manage your wishlist</span>
-                                </li>
-                                <li class="d-flex mb-0">
-                                    <i class="fi-check-circle text-primary mt-1 me-2"></i><span class="text-light">Leave reviews</span>
-                                </li>
-                            </ul><img class="d-block mx-auto" src="images/signup-dark.svg" width="344"
-                                      alt="Illustartion">
-                            <div class="text-light mt-sm-4 pt-md-3">
-                                <span class="opacity-60">
-                                    Already have an account?
-                                </span><a class="text-light" href="#signin-modal" data-bs-toggle="modal"
-                                          data-bs-dismiss="modal">Sign in</a>
-                            </div>
-                        </div>
-                        <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5">
-                            <a class="btn btn-outline-info w-100 mb-3" href="#">
-                                <i class="fi-google fs-lg me-1"></i>Sign in
-                                with Google
-                            </a><a class="btn btn-outline-info w-100 mb-3" href="#">
-                                <i class="fi-facebook fs-lg me-1"></i>Sign in with Facebook
-                            </a>
-                            <div class="d-flex align-items-center py-3 mb-3">
-                                <hr class="hr-light w-100">
-                                <div class="text-light opacity-70 px-3">Or</div>
-                                <hr class="hr-light w-100">
-                            </div>
-                            <form class="needs-validation" novalidate="">
-                                <div class="mb-4">
-                                    <label class="form-label text-light" for="signup-name">Full name</label>
-                                    <input class="form-control form-control-light" type="text" id="signup-name"
-                                           placeholder="Enter your full name" required="">
-                                </div>
-                                <div class="mb-4">
-                                    <label class="form-label text-light" for="signup-email">Email address</label>
-                                    <input class="form-control form-control-light" type="email" id="signup-email"
-                                           placeholder="Enter your email" required="">
-                                </div>
-                                <div class="mb-4">
-                                    <label class="form-label text-light" for="signup-password">
-                                        Password <span class="fs-sm opacity-50">min. 8 char</span>
-                                    </label>
-                                    <div class="password-toggle">
-                                        <input class="form-control form-control-light" type="password"
-                                               id="signup-password" minlength="8" required="">
-                                        <label class="password-toggle-btn" aria-label="Show/hide password">
-                                            <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="mb-4">
-                                    <label class="form-label text-light" for="signup-password-confirm">
-                                        Confirm
-                                        password
-                                    </label>
-                                    <div class="password-toggle">
-                                        <input class="form-control form-control-light" type="password"
-                                               id="signup-password-confirm" minlength="8" required="">
-                                        <label class="password-toggle-btn" aria-label="Show/hide password">
-                                            <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-check form-check-light mb-4">
-                                    <input class="form-check-input" type="checkbox" id="agree-to-terms" required="">
-                                    <label class="form-check-label" for="agree-to-terms">
-                                        <span class="opacity-70">
-                                            By
-                                            joining, I agree to the
-                                        </span> <a href="#" class="text-light">
-                                            Terms of
-                                            use
-                                        </a>
-                                        <span class="opacity-70">and</span> <a href="#" class="text-light">
-                                            Privacy
-                                            policy
-                                        </a>
-                                    </label>
-                                </div>
-                                <button class="btn btn-primary btn-lg w-100" type="submit">Sign up </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--sign in-->
-    <div class="modal fade" id="signin-modal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered p-2 my-0 mx-auto" style="max-width: 950px;">
-            <div class="modal-content bg-dark border-light">
-                <div class="modal-body px-0 py-2 py-sm-0">
-                    <button class="btn-close btn-close-white position-absolute top-0 end-0 mt-3 me-3" type="button"
-                            data-bs-dismiss="modal"></button>
-                    <div class="row mx-0 align-items-center">
-                        <div class="col-md-6 border-end-md border-light p-4 p-sm-5">
-                            <h2 class="h3 text-light mb-4 mb-sm-5">Hey there!<br>Welcome back.</h2><img class="d-block mx-auto" src="images/signin-dark.svg" width="344" alt="Illustartion">
-                            <div class="text-light mt-4 mt-sm-5">
-                                <span class="opacity-60">
-                                    Don't have an account?
-                                </span><a class="text-light" href="#signup-modal" data-bs-toggle="modal"
-                                          data-bs-dismiss="modal">Sign up here</a>
-                            </div>
-                        </div>
-                        <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5">
-                            <a class="btn btn-outline-info w-100 mb-3" href="#">
-                                <i class="fi-google fs-lg me-1">
-
-                                </i>
-                                Sign
-                                in
-                                with Google
-                            </a>
-                            <a class="btn btn-outline-info w-100 mb-3" href="#">
-                                <i class="fi-facebook fs-lg me-1"></i>Sign in with Facebook
-                            </a>
-                            <div class="d-flex align-items-center py-3 mb-3">
-                                <hr class="hr-light w-100">
-                                <div class="text-light opacity-70 px-3">Or</div>
-                                <hr class="hr-light w-100">
-                            </div>
-                            <form class="needs-validation" novalidate="">
-                                <div class="mb-4">
-                                    <label class="form-label text-light mb-2" for="signin-email">Email address</label>
-                                    <input class="form-control form-control-light" type="email" id="signin-email"
-                                           placeholder="Enter your email" required="">
-                                </div>
-                                <div class="mb-4">
-                                    <div class="d-flex align-items-center justify-content-between mb-2">
-                                        <label class="form-label text-light mb-0"
-                                               for="signin-password">Password</label><a class="fs-sm text-light"
-                                                                                        href="#">Forgot password?</a>
-                                    </div>
-                                    <div class="password-toggle">
-                                        <input class="form-control form-control-light" type="password"
-                                               id="signin-password" placeholder="Enter password" required="">
-                                        <label class="password-toggle-btn" aria-label="Show/hide password">
-                                            <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <button class="btn btn-primary btn-lg w-100" type="submit">Sign in </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!--navbar-->
-    <header class="navbar navbar-expand-lg navbar-dark fixed-top " data-scroll-header="" id="navbar">
+    <header class="navbar navbar-expand-lg navbar-dark fixed-top" data-scroll-header="" id="navbar">
         <div class="container">
             <a class="navbar-brand me-3 me-xl-4" href="#">
                 <img class="d-block"
-                     src="images/rg_logo.png" width="70" alt="Finder">
+                     src="~/images/rg_logo.png" width="70" alt="Finder">
             </a>
+            <form>
+            </form>
             <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-            </button><a class="btn btn-link btn-light btn-sm d-none d-lg-block order-lg-3 myHover" href="#signin-modal"
-                        data-bs-toggle="modal"><i class="fi-user me-2"></i>Sign in</a><a class="btn btn-primary btn-sm ms-2 order-lg-3 makeMeOrangeBG" href="#">
-                <i class="fi-plus me-2"></i>Sell
-                car
+            </button>
+            <a href="account/SignIn" class="btn btn-link btn-light btn-sm d-none d-lg-block order-lg-3 myHover">
+                <i class="fi-user me-2"></i>Sign in
+            </a>
+            <a class="btn btn-primary btn-sm ms-2 order-lg-3 makeMeOrangeBG" href="#">
+                <i class="button"></i>Cart
             </a>
             <div class="collapse navbar-collapse order-lg-2" id="navbarNav">
                 <ul class="navbar-nav navbar-nav-scroll" style="max-height: 35rem;">
-
-                    <!--<li class="nav-item dropdown me-lg-2"><a-->
-                    <!--        class="nav-link dropdown-toggle align-items-center pe-lg-4 show" href="#"-->
-                    <!--        data-bs-toggle="dropdown" role="button" aria-expanded="true"><i-->
-                    <!--            class="fi-layers me-2"></i>Demos<span-->
-                    <!--            class="d-none d-lg-block position-absolute top-50 end-0 translate-middle-y border-end border-light"-->
-                    <!--            style="width: 1px; height: 30px;"></span></a>-->
-                    <!--    <ul class="dropdown-menu dropdown-menu-dark show" data-bs-popper="static">-->
-                    <!--        <li><a class="dropdown-item" href="#"><i class="fi-building fs-base me-2"></i>Real-->
-                    <!--                Estate-->
-                    <!--                Demo</a></li>-->
-                    <!--        <li class="dropdown-divider"></li>-->
-                    <!--        <li><a class="dropdown-item" href="#"><i class="fi-car fs-base me-2"></i>Car-->
-                    <!--                Finder Demo</a></li>-->
-                    <!--        <li class="dropdown-divider"></li>-->
-                    <!--        <li><a class="dropdown-item" href="#"><i class="fi-briefcase fs-base me-2"></i>Job Board-->
-                    <!--                Demo</a></li>-->
-                    <!--        <li class="dropdown-divider"></li>-->
-                    <!--        <li><a class="dropdown-item" href="#"><i class="fi-map-pin fs-base me-2"></i>City Guide-->
-                    <!--                Demo</a></li>-->
-                    <!--        <li class="dropdown-divider"></li>-->
-                    <!--        <li><a class="dropdown-item" href="#"><i class="fi-home fs-base me-2"></i>Main-->
-                    <!--                Page</a>-->
-                    <!--        </li>-->
-                    <!--        <li><a class="dropdown-item" href="#"><i class="fi-list fs-base me-2"></i>Components</a>-->
-                    <!--        </li>-->
-                    <!--        <li><a class="dropdown-item" href="#"><i-->
-                    <!--                    class="fi-file fs-base me-2"></i>Documentation</a>-->
-                    <!--        </li>-->
-                    <!--    </ul>-->
-                    <!--</li>-->
-
                     <li class="nav-item active"><a class="nav-link" href="#">Home</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">Catalog</a>
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item" href="#">List View</a></li>
-                            <li><a class="dropdown-item" href="#">Grid View</a></li>
-                            <li><a class="dropdown-item" href="#">Car Single Page</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">Account</a>
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item" href="#">Personal Info</a></li>
-                            <li>
-                                <a class="dropdown-item" href="#">
-                                    Password &amp;
-                                    Security
-                                </a>
-                            </li>
-                            <li><a class="dropdown-item" href="#">My Cars</a></li>
-                            <li><a class="dropdown-item" href="#">Wishlist</a></li>
-                            <li><a class="dropdown-item" href="#">Reviews</a></li>
-                            <li>
-                                <a class="dropdown-item" href="#">Notifications</a>
-                            </li>
-                            <li><a class="dropdown-item" href="#">Sign In</a></li>
-                            <li><a class="dropdown-item" href="#">Sign Up</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">Vendor</a>
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item" href="#">Sell Car</a></li>
-                            <li><a class="dropdown-item" href="#">Ad Promotion Page</a></li>
-                            <li><a class="dropdown-item" href="#">Vendor Page</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item" href="#">About</a></li>
-                            <li class="dropdown">
-                                <a class="dropdown-item dropdown-toggle" href="#" role="button"
-                                   data-bs-toggle="dropdown" aria-expanded="false">Blog</a>
-                                <ul class="dropdown-menu dropdown-menu-dark">
-                                    <li><a class="dropdown-item" href="#">Blog Grid</a></li>
-                                    <li><a class="dropdown-item" href="#">Single Post</a></li>
-                                </ul>
-                            </li>
-                            <li><a class="dropdown-item" href="#">Contacts</a></li>
-                            <li><a class="dropdown-item" href="#">Help Center</a></li>
-                            <li><a class="dropdown-item" href="#">404 Not Found</a></li>
-                        </ul>
-                    </li>
+                    <li class="nav-item active"><a class="nav-link" href="#">Games</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="#">Account</a></li>
                     <li class="nav-item d-lg-none">
-                        <a class="nav-link" href="#" data-bs-toggle="modal">
+                        <a class="nav-link" href="account/SignIn">
                             <i class="fi-user me-2"></i>Sign in
                         </a>
                     </li>
@@ -389,32 +130,15 @@
             </div>
         </div>
     </header>
+
     @RenderBody()
+
     <footer class="footer bg-faded-light">
         <div class="border-bottom border-light py-4">
             <div class="container d-sm-flex align-items-center justify-content-between">
-                <a class="d-inline-block"
-                   href="#"><img src="images/rg_logo.png" width="70" alt="logo"></a>
+                <a class="d-inline-block" href="#"><img src="~/images/rg_logo.png" width="70" alt="logo"></a>
                 <div class="d-flex pt-3 pt-sm-0">
-                    <!--<div class="dropdown ms-n3">-->
-                    <!--    <button class="btn btn-light btn-link btn-sm dropdown-toggle fw-normal py-2 myHover"-->
-                    <!--        type="button" data-bs-toggle="dropdown"><i class="fi-globe me-2"></i>Eng</button>-->
-                    <!--    <div class="dropdown-menu dropdown-menu-dark dropdown-menu-sm-end"-->
-                    <!--        style="min-width: 7.5rem;"><a class="dropdown-item" href="#">Deutsch</a><a-->
-                    <!--            class="dropdown-item" href="#">Français</a><a class="dropdown-item"-->
-                    <!--            href="#">Español</a>-->
-                    <!--    </div>-->
-                    <!--</div>-->
-                    <div class="dropdown">
-                        <button class="btn btn-light btn-link btn-sm dropdown-toggle fw-normal py-2 pe-2 myHover"
-                                type="button" data-bs-toggle="dropdown">
-                            <i class="fi-map-pin me-2"></i>Region
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-dark dropdown-menu-sm-end" style="min-width: 7.5rem;">
-                            <a class="dropdown-item" href="#">Egypt</a><a class="dropdown-item" href="#">UAE</a><a class="dropdown-item" href="#">Saudi Arabia</a><a class="dropdown-item"
-                                                                                                                                                                     href="#">Qatar</a>
-                        </div>
-                    </div>
+                    <!-- Additional content can be added here -->
                 </div>
             </div>
         </div>
@@ -435,55 +159,32 @@
                         </button>
                     </form>
                 </div>
-
-                @*     <div class="col-lg-2 col-md-3 col-sm-6 offset-xl-1 mb-2 mb-sm-4">
-                <h3 class="fs-base text-light">Buying &amp; Selling</h3>
-                <ul class="list-unstyled fs-sm">
-                <li><a class="nav-link-light" href="#">Find a car</a></li>
-                <li><a class="nav-link-light" href="#">Sell your car</a></li>
-                <li><a class="nav-link-light" href="#">Car dealers</a></li>
-                <li><a class="nav-link-light" href="#">Compare cars</a></li>
-                <li><a class="nav-link-light" href="#">Online car appraisal</a></li>
-                </ul>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-6 mb-2 mb-sm-4">
-                <h3 class="fs-base text-light">About</h3>
-                <ul class="list-unstyled fs-sm">
-                <li><a class="nav-link-light" href="#">About Finder</a></li>
-                <li><a class="nav-link-light" href="#">Contact us</a></li>
-                <li><a class="nav-link-light" href="#">FAQs &amp; support</a></li>
-                <li><a class="nav-link-light" href="#">Mobile app</a></li>
-                <li><a class="nav-link-light" href="#">Blog</a></li>
-                </ul>
-                </div> *@
                 <div class="col-lg-2 col-md-3 col-sm-6 mb-2 mb-sm-4">
                     <h3 class="fs-base text-light">Profile</h3>
                     <ul class="list-unstyled fs-sm">
                         <li><a class="nav-link-light" href="#">My account</a></li>
                         <li><a class="nav-link-light" href="#">My Orders</a></li>
                         <li><a class="nav-link-light" href="#">Cart</a></li>
-                        <!--<li><a class="nav-link-light" href="#">Add listing</a></li>-->
                     </ul>
                 </div>
                 <div class="col-xl-2 col-lg-3 col-sm-6 col-md-3 mb-2 mb-sm-4">
                     <a class="d-flex align-items-center text-decoration-none mb-2" href="tel:01277062892">
                         <i class="fi-device-mobile me-2 makeMeOrange"></i><span class="text-light">
-                            (+20)
-                            1011091820
+                            (+20) 1011091820
                         </span>
-                    </a><a class="d-flex align-items-center text-decoration-none mb-2"
-                           href="mailto:theacogx2@gmail.com">
+                    </a>
+                    <a class="d-flex align-items-center text-decoration-none mb-2" href="mailto:theacogx2@gmail.com">
                         <i class="fi-mail me-2 makeMeOrange"></i><span class="text-light">theacogx2@gmail.com</span>
                     </a>
                     <div class="d-flex flex-wrap pt-4">
                         <a class="btn btn-icon btn-translucent-light btn-xs rounded-circle mb-2 me-2 socialMediaBG"
-                           href="fb.com/rgstore3"><i style="color: white;" class="fi-facebook socialMedia"></i></a><a class="btn btn-icon btn-translucent-light btn-xs rounded-circle mb-2 me-2 socialMediaBG"
-                                                                                                                      href="x.com/rgstores"><i style="color: white;" class="fi-twitter socialMedia"></i></a><a class="btn btn-icon btn-translucent-light btn-xs rounded-circle mb-2 me-2 socialMediaBG"
-                                                                                                                                                                                                               href="https://t.me/ZyadK1">
-                            <i style="color: white;"
-                               class="fi-telegram socialMedia"></i>
-                        </a><a class="btn btn-icon btn-translucent-light btn-xs rounded-circle mb-2 socialMediaBG"
-                               href="#"><i style="color: white;" class="fi-messenger socialMedia"></i></a>
+                           href="https://fb.com/rgstore3" target="_blank"><i style="color: white;" class="fi-facebook socialMedia"></i></a>
+                        <a class="btn btn-icon btn-translucent-light btn-xs rounded-circle mb-2 me-2 socialMediaBG"
+                           href="https://x.com/rgstores" target="_blank"><i style="color: white;" class="fi-twitter socialMedia"></i></a>
+                        <a class="btn btn-icon btn-translucent-light btn-xs rounded-circle mb-2 me-2 socialMediaBG"
+                           href="https://t.me/rgstore_tm" target="_blank"><i style="color: white;" class="fi-telegram socialMedia"></i></a>
+                        <a class="btn btn-icon btn-translucent-light btn-xs rounded-circle mb-2 socialMediaBG"
+                           href="https://m.me/rgstore3" target="_blank"><i style="color: white;" class="fi-messenger socialMedia"></i></a>
                     </div>
                 </div>
             </div>
@@ -492,7 +193,8 @@
             <div style="color: #9691a4;" class="d-flex flex-wrap justify-content-center order-lg-2 mb-3">
                 <a class="nav-link nav-link-light fw-normal myHover" href="#">Terms of use &nbsp;&nbsp;&nbsp;</a><a class="nav-link nav-link-light fw-normal myHover" href="#">
                     Privacy policy
-                    &nbsp;&nbsp;&nbsp;
+                    &nbsp;&
+                    &nbsp;&nbsp;
                 </a><a class="nav-link nav-link-light fw-normal myHover" href="#">
                     Accessibility
                     statement
@@ -518,5 +220,4 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
 </body>
-
 </html>
