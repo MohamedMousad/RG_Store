@@ -44,7 +44,7 @@ namespace EmployeeSystem.DAL.Repo.Implementation
             }
         }
 
-        public IEnumerable<Item> GetAll(Item item) => context.Items.ToList();
+        public IEnumerable<Item> GetAll() => context.Items.ToList();
 
         public Item GetById(int id) => context.Items.Where(i => i.Id == id).FirstOrDefault();
 

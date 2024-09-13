@@ -12,7 +12,7 @@ namespace RG_Store.DAL.Repo.Abstraction
         public bool Create(Item item);
         public bool Update(Item item);
         public bool Delete(Item item);
-        public IEnumerable<Item> GetAll(Item item);
+        public IEnumerable<Item> GetAll();
         public Item GetById(int id);
     }
 }
