@@ -13,6 +13,6 @@ namespace RG_Store.BLL.Service.Abstraction
         public bool RemoveFromCart(int ItemId, int id);
         public IEnumerable<GetAllItemVM> GetAll(int id);
         public bool ClearCart(int id);
-        public decimal GetCartPrice(int id);
+        public decimal? GetCartPrice(int id);
     }
 }
