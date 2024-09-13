@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RG_Store.BLL.ModelVM.OrderVM
 {
-    public class EditOrderVM
+    public class UpdateOrderVM
     {
         public int OrderId { get; set; }
         public decimal TotalCost { get; set; }

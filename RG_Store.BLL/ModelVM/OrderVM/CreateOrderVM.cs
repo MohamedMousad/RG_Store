@@ -14,6 +14,6 @@ namespace RG_Store.BLL.ModelVM.OrderVM
         public decimal TotalCost { get; set; }
         public DateTime CreatedOn { get; set; }
        
-        public IEnumerable<GetAllItemVM?> Items { get; set; }
+        public IEnumerable<GetAllItemVM?> ?Items { get; set; }
     }
 }
