@@ -1,0 +1,94 @@
+﻿@using RG_Store.BLL.ModelVM.ItemVM
+@model CreateItemVM
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Item</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                width: 100%;
+                padding: 8px;
+                box-sizing: border-box;
+            }
+
+                .form-group input[type="checkbox"] {
+                    width: auto;
+                }
+
+        .form-actions {
+            text-align: right;
+        }
+
+            .form-actions button {
+                padding: 10px 20px;
+                margin-left: 10px;
+            }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h2>Add Item</h2>
+        <form asp-action="Create" asp-controller="Item">
+            <div class="form-group">
+                <label asp-for=Name >Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description">Description</label>
+                <textarea id="description" name="description" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quantity">Quantity</label>
+                <input type="number" id="quantity" name="quantity" min="0" required>
+            </div>
+            <div class="form-group">
+                <label asp-for="IntialPrice">Start Price</label>
+                <input type="number" id="startPrice" name="startPrice" step="0.01" min="0" required>
+        </div>
+            <div class="form-group">
+                <label for="isDeleted">Is Deleted</label>
+                <input type="checkbox" id="isDeleted" name="isDeleted">
+            </div>
+           @*  <div class="form-group">
+                <label for="categoryId">Category</label>
+                <select id="categoryId" name="categoryId">
+                    <!-- Options should be populated dynamically -->
+                </select>
+            </div> *@
+            <div class="form-actions">
+                <button type="submit">Save</button>
+                <button type="button" onclick="window.location.href='index.html'">Cancel</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

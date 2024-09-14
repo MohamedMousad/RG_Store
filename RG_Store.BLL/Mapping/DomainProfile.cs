@@ -34,7 +34,19 @@ namespace RG_Store.BLL.Mapping
             CreateMap<Category, DeleteCategoryVM>();
             CreateMap<Category, GetCategoryVM>();
             CreateMap<Category, UpdateCategoryVM>();
+            
+            // item
+            CreateMap<Item, CreateItemVM>();
+            CreateMap<Item, GetAllItemVM>();
+            CreateMap<Item, UpdateItemVM>();
+            CreateMap<Item, DeleteItemVM>();
+            
+            CreateMap<CreateItemVM, Item>();
+            CreateMap<GetAllItemVM, Item>();
+            CreateMap<UpdateItemVM, Item>();
+            CreateMap<DeleteItemVM, Item>();
 
+            //=====================================\\
             CreateMap<AddCategoryVM, Category>();
             CreateMap<DeleteCategoryVM, Category>();
             CreateMap<GetCategoryVM, Category>();
