@@ -20,9 +20,14 @@ namespace RG_Store.DAL.DB
         {           
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Server=DESKTOP-PLC8BGR;Database=RG_Store;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=true ");
+        }
         public ApplicationDbContext()
         {
         }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

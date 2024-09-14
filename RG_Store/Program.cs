@@ -34,6 +34,10 @@ internal class Program
                     options.AccessDeniedPath = new PathString("/Account/SignIn");
                 });
 
+        builder.Services.AddIdentityCore<User>(options => options.SignIn.RequireConfirmedAccount = true)
+                        .AddEntityFrameworkStores<ApplicationDbContext>()
+                        .AddTokenProvider<DataProtectorTokenProvider<User>>(TokenOptions.DefaultProvider);
+
         builder.Services.AddIdentity<User, IdentityRole>(options =>
         {
             options.Password.RequireDigit = false;
