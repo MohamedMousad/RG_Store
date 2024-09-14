@@ -4,35 +4,35 @@ using Entities;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using RG_Store.BLL.Mapping;
+using RG_Store.BLL.Service.Abstraction;
+using RG_Store.BLL.Service.Implementation;
 using RG_Store.DAL.DB;
 using RG_Store.DAL.Repo.Abstraction;
 using RG_Store.DAL.Repo.Implementation;
-using System.Reflection;
-using AutoMapper;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-        builder.Services.AddAutoMapper(x => x.AddProfile(new DomainProfile()));
+
+        // Register AutoMapper with the DomainProfile
+        builder.Services.AddAutoMapper(typeof(DomainProfile));
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();
 
-        //Identity
+        // Identity
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer("name=DefaultConnection"));
 
         builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
-                options =>
-                {
-                    options.LoginPath = new PathString("/Account/SignIn");
-                    options.AccessDeniedPath = new PathString("/Account/SignIn");
-                });
+            .AddCookie(options =>
+            {
+                options.LoginPath = "/Account/SignIn";
+                options.AccessDeniedPath = "/Account/SignIn";
+            });
 
         builder.Services.AddIdentity<User, IdentityRole>(options =>
         {
@@ -44,6 +44,7 @@ internal class Program
             options.Password.RequiredUniqueChars = 0;
         }).AddEntityFrameworkStores<ApplicationDbContext>();
 
+        // Register Repositories
         builder.Services.AddScoped<IItemRepo, ItemRepo>();
         builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
         builder.Services.AddScoped<IUserRepo, UserRepo>();
@@ -51,6 +52,13 @@ internal class Program
         builder.Services.AddScoped<IOrderRepo, OrderRepo>();
         builder.Services.AddScoped<IFavouriteRepo, FavouriteRepo>();
 
+        // Register Services
+        builder.Services.AddScoped<IItemService, ItemService>();
+        builder.Services.AddScoped<ICategoryServide, CategoryServide>();
+        builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<ICartService, CartService>();
+        builder.Services.AddScoped<IOrderService, OrderService>();
+        builder.Services.AddScoped<IFavouriteService, FavouriteService>();
 
         var app = builder.Build();
 

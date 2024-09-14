@@ -1,4 +1,6 @@
-﻿<!-- EL 7ASSEM IS 3mk-->
+﻿@using Entities
+<!-- EL 7ASSEM IS 3mk-->
+@model User
 <!doctype html>
 <html lang="en">
 
@@ -125,7 +127,7 @@
                 <div class="card card-body card-light border-0 shadow-sm pb-1 me-lg-1">
                     <div class="d-flex d-md-block d-lg-flex align-items-start pt-lg-2 mb-4">
                         <img class="rounded-circle"
-                             src="~/images/01.jpg" width="48" alt="Robert Fox">
+                             src="~/images/wagon.svg" width="48" alt="Robert Fox">
                         <div class="pt-md-2 pt-lg-0 ps-3 ps-md-0 ps-lg-3">
                             <h2 class="fs-lg text-light mb-0">Robert Fox</h2>
                             <ul class="list-unstyled fs-sm mt-3 mb-0">
@@ -136,7 +138,7 @@
                                         <i class="fi-mail opacity-60 me-2"></i>robert_fox@email.com
                                     </a>
                                 </li>
-                            </ul>
+                            </ul>   
                         </div>
                     </div>
 
@@ -192,7 +194,7 @@
                                     <!-- <div class="collapse" id="name-collapse" data-bs-parent="#personal-info"> -->
                                     <input class="form-control form-control-light mt-3" type="text"
                                            data-bs-binded-element="#name-value" data-bs-unset-value="Not specified"
-                                           value="Robert Fox">
+                                           value="@Model.FirstName @Model.LastName">
                                     <!-- </div> -->
                                 </div>
                                 <!-- Gender-->
@@ -233,30 +235,11 @@
                                     <!-- <div class="collapse" id="email-collapse" data-bs-parent="#personal-info"> -->
                                     <input class="form-control form-control-light mt-3" type="email"
                                            data-bs-binded-element="#email-value" data-bs-unset-value="Not specified"
-                                           value="robert_fox@email.com">
+                                           value="@Model.Email">
                                     <!-- </div> -->
                                 </div>
                                 <!-- Phone number-->
-                                <!-- Address-->
-                                <div>
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <div class="pe-2 opacity-70">
-                                            <label class="form-label fw-bold text-light">Address</label>
-                                            <!-- <div class="text-light" id="address-value">Not specified</div> -->
-                                        </div>
-                                        <div data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
-                                            <a class="nav-link nav-link-light py-0" href="#address-collapse"
-                                               data-bs-toggle="collapse"><i class="fi-edit"></i></a>
-                                        </div>
-                                    </div>
-                                    <!-- <div class="collapse" id="address-collapse" data-bs-parent="#personal-info"> -->
-                                    <input class="form-control form-control-light mt-3" type="text"
-                                           data-bs-binded-element="#address-value" data-bs-unset-value="Not specified"
-                                           placeholder="Enter address">
-                                    <!-- </div> -->
-                                </div>
-                            </div>
-                        </div>
+                               
                         <div class="col-lg-3 col-md-12 col-sm-4 mb-4">
                             <div class="filepond--root file-uploader border-light bg-faded-light filepond--hopper"
                                  data-style-panel-layout="compact" data-style-button-remove-item-position="left"
