@@ -5,11 +5,11 @@ namespace RG_Store.PLL.Controllers
 {
     public class CategoryController : Controller
     {
-        ICategoryServide categoryServide;
+        ICategoryService categoryService;
 
-        public CategoryController(ICategoryServide categoryServide)
+        public CategoryController(ICategoryService categoryService)
         {
-            this.categoryServide = categoryServide;
+            this.categoryService = categoryService;
         }
 
         public IActionResult Index()
@@ -24,7 +24,7 @@ namespace RG_Store.PLL.Controllers
         [HttpPost]
         public IActionResult Create(AddCategoryVM categoryVM )
         {
-            if (categoryServide.Create(categoryVM))return RedirectToAction("Index","Home");
+            if (categoryService.Create(categoryVM))return RedirectToAction("Index","Home");
             else return View(categoryVM);
         }
     }

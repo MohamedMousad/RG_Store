@@ -10,10 +10,10 @@ using RG_Store.BLL.Service.Implementation;
 using RG_Store.DAL.DB;
 using RG_Store.DAL.Repo.Abstraction;
 using RG_Store.DAL.Repo.Implementation;
-
-internal class Program
+public class Program
 {
-    private static void Main(string[] args)
+    public int user_authority = 1;
+    public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
@@ -54,7 +54,7 @@ internal class Program
 
         // Register Services
         builder.Services.AddScoped<IItemService, ItemService>();
-        builder.Services.AddScoped<ICategoryServide, CategoryServide>();
+        builder.Services.AddScoped<ICategoryService, CategoryService>();
         builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<ICartService, CartService>();
         builder.Services.AddScoped<IOrderService, OrderService>();

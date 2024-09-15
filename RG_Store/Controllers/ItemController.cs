@@ -8,11 +8,13 @@ namespace RG_Store.PLL.Controllers
 {
     public class ItemController:Controller
     {
-        IItemService itemService;
+        private readonly IItemService itemService;
+        private readonly ICategoryService categoryService;
 
-        public ItemController(IItemService itemService)
+        public ItemController(IItemService itemService , ICategoryService categoryService)
         {
             this.itemService = itemService;
+            this.categoryService = categoryService;
         }
 
         public IActionResult Index()
@@ -23,7 +25,8 @@ namespace RG_Store.PLL.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            
+            var categories = categoryService.GetAll();
+            ViewBag.Categories = categories;
             return View();
         }
         [HttpPost]
