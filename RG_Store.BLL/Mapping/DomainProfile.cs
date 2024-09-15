@@ -19,15 +19,21 @@ namespace RG_Store.BLL.Mapping
         public DomainProfile()
         {
             //Cart Mapper
-          /*  CreateMap<Cart, AddToCartVM>();
-            CreateMap<Cart, ClearCartVM>();
-            CreateMap<Cart, GetCartVM>();
-            CreateMap<Cart, RemoveFromCartVM>();
+            /*  CreateMap<Cart, AddToCartVM>();
+              CreateMap<Cart, ClearCartVM>();
+              CreateMap<Cart, GetCartVM>();
+              CreateMap<Cart, RemoveFromCartVM>();
 
-            CreateMap<AddToCartVM, Cart>();
-            CreateMap<ClearCartVM, Cart>();
-            CreateMap<GetCartVM, Cart>();
-            CreateMap<RemoveFromCartVM, Cart>();*/
+              CreateMap<AddToCartVM, Cart>();
+              CreateMap<ClearCartVM, Cart>();
+              CreateMap<GetCartVM, Cart>();
+              CreateMap<RemoveFromCartVM, Cart>();*/
+
+            // User Mapper
+            CreateMap<User, RegisterVM>();
+            CreateMap<RegisterVM, User>();
+            CreateMap<LoginVM, User>();
+            CreateMap<User, LoginVM>();
 
             //Category Mapper
             CreateMap<Category, AddCategoryVM>();

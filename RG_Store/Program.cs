@@ -1,6 +1,3 @@
-using EmployeeSystem.DAL.Repo.Abstraction;
-using EmployeeSystem.DAL.Repo.Implementation;
-using Entities;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -10,30 +7,25 @@ using RG_Store.BLL.Service.Implementation;
 using RG_Store.DAL.DB;
 using RG_Store.DAL.Repo.Abstraction;
 using RG_Store.DAL.Repo.Implementation;
+using Entities;
+using EmployeeSystem.DAL.Repo.Abstraction;
+using EmployeeSystem.DAL.Repo.Implementation;
+using RG_Store.Services.Implementation;
+using RG_Store.BLL.Service.Abstraction.RG_Store.BLL.Service.Abstraction;
 public class Program
 {
-    public int user_authority = 1;
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Register AutoMapper with the DomainProfile
         builder.Services.AddAutoMapper(typeof(DomainProfile));
 
-        // Add services to the container.
         builder.Services.AddControllersWithViews();
 
-        // Identity
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer("name=DefaultConnection"));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-        builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie(options =>
-            {
-                options.LoginPath = "/Account/SignIn";
-                options.AccessDeniedPath = "/Account/SignIn";
-            });
-
+        builder.Services.AddScoped<SignInManager<User>>();
         builder.Services.AddIdentity<User, IdentityRole>(options =>
         {
             options.Password.RequireDigit = false;
@@ -42,9 +34,31 @@ public class Program
             options.Password.RequireUppercase = false;
             options.Password.RequiredLength = 6;
             options.Password.RequiredUniqueChars = 0;
-        }).AddEntityFrameworkStores<ApplicationDbContext>();
+        })
+        .AddEntityFrameworkStores<ApplicationDbContext>()
+        .AddDefaultTokenProviders();
 
-        // Register Repositories
+      builder.Services.AddScoped<UserManager<User>, CustomUserManager>();
+       
+
+        builder.Services.AddScoped<IUserService, UserService>();
+
+
+        builder.Services.AddScoped<CustomUserManager>();
+       
+
+        builder.Services.AddScoped<CustomUserManager>();
+        builder.Services.AddScoped<UserService>();
+
+
+
+        builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options =>
+            {
+                options.LoginPath = "/Account/SignIn";
+                options.AccessDeniedPath = "/Account/SignIn";
+            });
+
         builder.Services.AddScoped<IItemRepo, ItemRepo>();
         builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
         builder.Services.AddScoped<IUserRepo, UserRepo>();
@@ -52,17 +66,16 @@ public class Program
         builder.Services.AddScoped<IOrderRepo, OrderRepo>();
         builder.Services.AddScoped<IFavouriteRepo, FavouriteRepo>();
 
-        // Register Services
         builder.Services.AddScoped<IItemService, ItemService>();
         builder.Services.AddScoped<ICategoryService, CategoryService>();
-        builder.Services.AddScoped<IUserService, UserService>();
+
+
         builder.Services.AddScoped<ICartService, CartService>();
         builder.Services.AddScoped<IOrderService, OrderService>();
         builder.Services.AddScoped<IFavouriteService, FavouriteService>();
 
         var app = builder.Build();
 
-        // Configure the HTTP request pipeline.
         if (!app.Environment.IsDevelopment())
         {
             app.UseExceptionHandler("/Home/Error");
@@ -71,9 +84,7 @@ public class Program
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
-
         app.UseRouting();
-
         app.UseAuthentication();
         app.UseAuthorization();
 

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using RG_Store.BLL.ModelVM.UserVM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,8 +8,15 @@ using System.Threading.Tasks;
 
 namespace RG_Store.BLL.Service.Abstraction
 {
-    public interface IUserService
+    namespace RG_Store.BLL.Service.Abstraction
     {
-  /*     bool Create(Cr)*/
+        public interface IUserService
+        {
+         public bool CreateUser(RegisterVM registerVM, out string[] errors);
+         public bool SignInUser(LoginVM model);
+         public void SignoutUser();
+       
+        }
     }
+
 }

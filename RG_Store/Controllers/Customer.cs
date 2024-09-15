@@ -8,7 +8,10 @@ namespace RG_Store.PLL.Controllers
         {
             return View();
         }
-       
-        
+        [HttpGet]
+        public IActionResult Profile(string id)
+        {
+            return View();
+        }
     }
 }
