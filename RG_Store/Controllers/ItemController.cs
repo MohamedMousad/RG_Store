@@ -38,8 +38,43 @@ namespace RG_Store.PLL.Controllers
             }
             
             return RedirectToAction("Index","Home");
+        } 
+        [HttpGet]
+        public IActionResult Update()
+        {
+            var categories = categoryService.GetAll();
+            ViewBag.Categories = categories;
+            return View();
         }
-        
-        
+        [HttpPost]
+        public IActionResult Update(UpdateItemVM itemVM)
+        {
+            if (!itemService.Update(itemVM))
+            {
+                return View(itemVM);
+            }
+            
+            return RedirectToAction("Index","Home");
+        }
+        [HttpGet]
+        public IActionResult Delete()
+        {
+            var categories = categoryService.GetAll();
+            ViewBag.Categories = categories;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Delete(DeleteItemVM itemVM)
+        {
+            if (!itemService.Delete(itemVM))
+            {
+                return View(itemVM);
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
+
+
     }
 }

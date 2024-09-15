@@ -34,6 +34,10 @@ namespace RG_Store.BLL.Mapping
             CreateMap<RegisterVM, User>();
             CreateMap<LoginVM, User>();
             CreateMap<User, LoginVM>();
+            CreateMap<User, GetUserVM>();
+            CreateMap<User, DeleteUserVM>();
+            CreateMap<User, EditUserVM>();
+            CreateMap<GetUserVM, User>();
 
             //Category Mapper
             CreateMap<Category, AddCategoryVM>();
