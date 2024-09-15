@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Pro.Models;
 using Pro.ViewModel;
+using RG_Store.BLL.Service.Abstraction;
 using System.Diagnostics;
 
 namespace Product.Controllers
@@ -9,15 +10,19 @@ namespace Product.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IItemService itemService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger , IItemService itemService)
         {
+
+            this.itemService = itemService; 
             _logger = logger;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var Result = itemService.GetAll(); 
+            return View(Result);
         }
 
         public IActionResult Privacy()
