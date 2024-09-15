@@ -24,15 +24,15 @@ namespace RG_Store.BLL.ModelVM.UserVM
         public string UserName { get; set; }
 
         [Required]
-        public Gender Gender { get; set; }
+        public Gender Gender { get; set; } = Gender.Male;
 
         [Required(ErrorMessage = "Password required!")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-
-        [Required]
+        public Roles UserRole = Roles.Customer;
+   /*     [Required]
         [DisplayName("Phone Number")]
-        public string PhoneNumber { get; set; }
+        public string ?PhoneNumber { get; set; }*/
 
         [Required(ErrorMessage = "Email Address required!")]
         [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Invalid Email Format!")]

@@ -1,4 +1,7 @@
 ﻿<!-- Full Page Sign In -->
+@using RG_Store.BLL.ModelVM.UserVM
+<!-- Full Page Sign Up -->
+@model LoginVM
 <div class="container-fluid bg-dark text-light min-vh-100 d-flex justify-content-center align-items-center">
     <div class="row mx-0 w-100" style="max-width: 950px;">
         <!-- Left Column -->
@@ -23,10 +26,10 @@
                 <div class="text-light opacity-70 px-3">Or</div>
                 <hr class="hr-light w-100">
             </div>
-            <form class="needs-validation" novalidate>
+            <form class="needs-validation" novalidate asp-action="SignIn" asp-controller="Account">
                 <div class="mb-4">
                     <label class="form-label text-light mb-2" for="signin-email">Email address</label>
-                    <input class="form-control form-control-light" type="email" id="signin-email" name="email" placeholder="Enter your email" required>
+                    <input asp-for=Email class="form-control form-control-light" type="email" id="signin-email" name="email" placeholder="Enter your email" required>
                     <div class="invalid-feedback">
                         Please provide a valid email address.
                     </div>
@@ -37,7 +40,7 @@
                         <a class="fs-sm text-light" href="#">Forgot password?</a>
                     </div>
                     <div class="password-toggle">
-                        <input class="form-control form-control-light" type="password" id="signin-password" name="password" placeholder="Enter password" required>
+                        <input asp-for=Password class="form-control form-control-light" type="password" id="signin-password" name="password" placeholder="Enter password" required>
                         <label class="password-toggle-btn" aria-label="Show/hide password">
                             <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
                         </label>

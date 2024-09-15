@@ -1,4 +1,6 @@
-﻿<!-- Full Page Sign Up -->
+﻿@using RG_Store.BLL.ModelVM.UserVM
+<!-- Full Page Sign Up -->
+@model RegisterVM
 <div class="container-fluid bg-dark text-light min-vh-100 d-flex justify-content-center align-items-center">
     <div class="row mx-0 w-100" style="max-width: 950px;">
         <!-- Left Column -->
@@ -34,45 +36,36 @@
                 <div class="text-light opacity-70 px-3">Or</div>
                 <hr class="hr-light w-100">
             </div>
-            <form class="needs-validation" novalidate>
+            <form class="needs-validation" novalidate asp-action="SignUp" asp-controller="Account">
                 <div class="mb-4">
-                    <label class="form-label text-light mb-2" for="signup-name">Full name</label>
-                    <input class="form-control form-control-light" type="text" id="signup-name" name="name" placeholder="Enter your full name" required>
-                    <div class="invalid-feedback">Please provide your full name.</div>
+                    <label class="form-label text-light mb-2" for="signup-firstname">First Name</label>
+                    <input class="form-control form-control-light" type="text" id="signup-firstname" asp-for="FirstName" placeholder="Enter your first name" required>
+                    <div class="invalid-feedback">@Html.ValidationMessageFor(model => model.FirstName)</div>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label text-light mb-2" for="signup-lastname">Last Name</label>
+                    <input class="form-control form-control-light" type="text" id="signup-lastname" asp-for="LastName" placeholder="Enter your last name" required>
+                    <div class="invalid-feedback">@Html.ValidationMessageFor(model => model.LastName)</div>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label text-light mb-2" for="signup-username">User Name</label>
+                    <input class="form-control form-control-light" type="text" id="signup-username" asp-for="UserName" placeholder="Enter your user name" required>
+                    <div class="invalid-feedback">@Html.ValidationMessageFor(model => model.UserName)</div>
                 </div>
                 <div class="mb-4">
                     <label class="form-label text-light mb-2" for="signup-email">Email address</label>
-                    <input class="form-control form-control-light" type="email" id="signup-email" name="email" placeholder="Enter your email" required>
-                    <div class="invalid-feedback">Please provide a valid email address.</div>
+                    <input class="form-control form-control-light" type="email" id="signup-email" asp-for="Email" placeholder="Enter your email" required>
+                    <div class="invalid-feedback">@Html.ValidationMessageFor(model => model.Email)</div>
                 </div>
                 <div class="mb-4">
                     <label class="form-label text-light mb-2" for="signup-password">Password <span class="fs-sm opacity-50">min. 8 char</span></label>
                     <div class="password-toggle">
-                        <input class="form-control form-control-light" type="password" id="signup-password" name="password" minlength="8" required>
+                        <input class="form-control form-control-light" type="password" asp-for="Password" id="signup-password" minlength="8" required>
                         <label class="password-toggle-btn" aria-label="Show/hide password">
                             <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
                         </label>
-                        <div class="invalid-feedback">Please provide a password.</div>
+                        <div class="invalid-feedback">@Html.ValidationMessageFor(model => model.Password)</div>
                     </div>
-                </div>
-                <div class="mb-4">
-                    <label class="form-label text-light mb-2" for="signup-password-confirm">Confirm password</label>
-                    <div class="password-toggle">
-                        <input class="form-control form-control-light" type="password" id="signup-password-confirm" name="passwordConfirm" minlength="8" required>
-                        <label class="password-toggle-btn" aria-label="Show/hide password">
-                            <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
-                        
-                        <div class="invalid-feedback">Please confirm your password.</div>
-                    </div>
-                </div>
-                <div class="form-check form-check-light mb-4">
-                    <input class="form-check-input" type="checkbox" id="agree-to-terms" name="agreeToTerms" required>
-                    <label class="form-check-label" for="agree-to-terms">
-                        <span class="opacity-70">By joining, I agree to the</span> 
-                        <a href="#" class="text-light">Terms of use</a>
-                        <span class="opacity-70">and</span>
-                        <a href="#" class="text-light">Privacy policy</a>
-                    </label>
                 </div>
                 <button class="btn btn-primary btn-lg w-100" type="submit">Sign up</button>
             </form>
