@@ -27,5 +27,27 @@ namespace RG_Store.PLL.Controllers
             if (categoryService.Create(categoryVM))return RedirectToAction("Index","Home");
             else return View(categoryVM);
         }
+        [HttpGet]
+        public IActionResult Update ()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Update(UpdateCategoryVM categoryVM )
+        {
+            if (categoryService.Update(categoryVM))return RedirectToAction("Index","Home");
+            else return View(categoryVM);
+        }
+        [HttpGet]
+        public IActionResult Delete()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Delete(DeleteCategoryVM categoryVM )
+        {
+            if (categoryService.Delete(categoryVM))return RedirectToAction("Index","Home");
+            else return View(categoryVM);
+        }
     }
 }
