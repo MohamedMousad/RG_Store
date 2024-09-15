@@ -14,12 +14,12 @@ using System.Threading.Tasks;
 
 namespace RG_Store.BLL.Service.Implementation
 {
-    public class CategoryServide : ICategoryServide
+    public class CategoryService : ICategoryService
     {
         private readonly IMapper mapper;
         private readonly ICategoryRepo categoryRepo;
 
-        public CategoryServide(ICategoryRepo categoryRepo, IMapper mapper)
+        public CategoryService(ICategoryRepo categoryRepo, IMapper mapper)
         {
             this.categoryRepo = categoryRepo;
             this.mapper = mapper;

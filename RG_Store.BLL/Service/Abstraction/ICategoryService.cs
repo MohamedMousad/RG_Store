@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RG_Store.BLL.Service.Abstraction
 {
-    public interface ICategoryServide
+    public interface ICategoryService
     {
         public bool Create(AddCategoryVM CategoryVM);
         public GetCategoryVM Get(int id);
