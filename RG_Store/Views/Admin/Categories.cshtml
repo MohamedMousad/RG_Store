@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "Categories";
+    Layout = "~/Views/Shared/_DashBoard.cshtml";
+}
+
+
+
+<div class="head-title">
+    <div class="left">
+        <h1>Categories</h1>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">Dashboard</a>
+            </li>
+            <li><i class='bx bx-chevron-right'></i></li>
+            <li>
+                <a class="active" href="#">Categories</a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+<div class="table-data">
+    <div class="order">
+        <div class="head">
+            <h3>Categories</h3>
+
+            <li class="list-inline-item">
+                <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Create"><i class="fa fa-table"></i></button>
+            </li>
+
+            <i class='bx bx-search'></i>
+            <i class='bx bx-filter'></i>
+        </div>
+        <table class="tablee table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Rule</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>John Doe</td>
+                    <td>johndoe@example.com</td>
+                    <td>user</td>
+                    <td>
+                        <!-- Call to action buttons -->
+                        <ul class="list-inline m-0">
+                            <li class="list-inline-item">
+                                <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
+                            </li>
+                            <li class="list-inline-item">
+                                <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
+
+</div>
