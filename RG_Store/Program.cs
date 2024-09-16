@@ -34,18 +34,19 @@ public class Program
             options.Password.RequireUppercase = false;
             options.Password.RequiredLength = 6;
             options.Password.RequiredUniqueChars = 0;
+            options.SignIn.RequireConfirmedEmail = true;
         })
         .AddEntityFrameworkStores<ApplicationDbContext>()
         .AddDefaultTokenProviders();
 
-      builder.Services.AddScoped<UserManager<User>, CustomUserManager>();
-       
+        builder.Services.AddScoped<UserManager<User>, CustomUserManager>();
+
 
         builder.Services.AddScoped<IUserService, UserService>();
 
 
         builder.Services.AddScoped<CustomUserManager>();
-       
+
 
         builder.Services.AddScoped<CustomUserManager>();
         builder.Services.AddScoped<UserService>();
@@ -73,6 +74,8 @@ public class Program
         builder.Services.AddScoped<ICartService, CartService>();
         builder.Services.AddScoped<IOrderService, OrderService>();
         builder.Services.AddScoped<IFavouriteService, FavouriteService>();
+
+        builder.Services.AddScoped<IEmailService, EmailService>();
 
         var app = builder.Build();
 
