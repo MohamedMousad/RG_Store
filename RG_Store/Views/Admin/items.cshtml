@@ -1,23 +1,20 @@
-﻿@using RG_Store.BLL.ModelVM.UserVM
-@using System.Security.Claims
-@model EditUserVM
-@{
-    ViewData["Title"] = "Users";
+﻿@{
+    ViewData["Title"] = "items";
     Layout = "~/Views/Shared/_DashBoard.cshtml";
-    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 }
+
 
 
 <div class="head-title">
     <div class="left">
-        <h1>Users</h1>
+        <h1>Items</h1>
         <ul class="breadcrumb">
             <li>
                 <a href="#">Dashboard</a>
             </li>
             <li><i class='bx bx-chevron-right'></i></li>
             <li>
-                <a class="active" href="#">Users</a>
+                <a class="active" href="#">Items</a>
             </li>
         </ul>
     </div>
@@ -27,38 +24,33 @@
 <div class="table-data">
     <div class="order">
         <div class="head">
-            <h3>All Users</h3>
-            
+            <h3>All Items</h3>
+
             <li class="list-inline-item">
-            <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Create"><i class="fa fa-table"></i></button>
+                <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Create"><i class="fa fa-table"></i></button>
             </li>
-           
 
         </div>
         <table class="tablee table-striped">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Rule</th>
+                    <th>Item Name</th>
+                    <th>FinalPrice</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>1</td>
-                    <td>John Doe</td>
-                    <td>johndoe@example.com</td>
-                    <td>user</td>
+                    <td>Crash Bandi</td>
+                    <td>10.5</td>
+
                     <td>
                         <!-- Call to action buttons -->
                         <ul class="list-inline m-0">
-
                             <li class="list-inline-item">
-                                <a asp-controller="Admin" asp-action="EditUser" asp-route-Id="@userId" class="btn btn-success btn-sm rounded-0" data-toggle="tooltip" data-placement="top" title="Edit">
-                                    <i class="fa fa-edit"></i>
-                                </a>
+                                <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
                             </li>
                             <li class="list-inline-item">
                                 <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
@@ -67,6 +59,7 @@
                     </td>
                 </tr>
                 <!-- Add more rows as needed -->
+
             </tbody>
         </table>
     </div>

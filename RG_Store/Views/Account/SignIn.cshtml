@@ -1,18 +1,17 @@
-﻿<!-- Full Page Sign In -->
-@using RG_Store.BLL.ModelVM.UserVM
-<!-- Full Page Sign Up -->
+﻿@using RG_Store.BLL.ModelVM.UserVM
 @model LoginVM
+
 <div class="container-fluid bg-dark text-light min-vh-100 d-flex justify-content-center align-items-center">
     <div class="row mx-0 w-100" style="max-width: 950px;">
         <!-- Left Column -->
         <div class="col-md-6 border-end-md border-light p-4 p-sm-5 d-flex flex-column justify-content-center align-items-center">
-            <h2 class="h3 mb-4 mb-sm-5">Hey there!<br>Welcome back.</h2>
-            <img class="d-block mx-auto" src="images/signin-dark.svg" width="344" alt="Illustration">
+            <img class="d-block mx-auto" src="~/images/signin-dark.svg" width="344" alt="Illustration">
             <div class="mt-4 mt-sm-5 text-center">
                 <span class="opacity-60">Don't have an account?</span>
                 <a class="text-light" href="SignUp">Sign up here</a>
             </div>
         </div>
+
         <!-- Right Column -->
         <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5">
             <a class="btn btn-outline-info w-100 mb-3" href="#">
@@ -26,31 +25,58 @@
                 <div class="text-light opacity-70 px-3">Or</div>
                 <hr class="hr-light w-100">
             </div>
+
+            <!-- Sign In Form -->
             <form class="needs-validation" novalidate asp-action="SignIn" asp-controller="Account">
+                <!-- Email -->
                 <div class="mb-4">
                     <label class="form-label text-light mb-2" for="signin-email">Email address</label>
-                    <input asp-for=Email class="form-control form-control-light" type="email" id="signin-email" name="email" placeholder="Enter your email" required>
+                    <input asp-for="Email" class="form-control form-control-light" type="email" id="signin-email" name="email" placeholder="Enter your email" required>
                     <div class="invalid-feedback">
                         Please provide a valid email address.
                     </div>
                 </div>
+
+                <!-- Password -->
                 <div class="mb-4">
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <label class="form-label text-light mb-0" for="signin-password">Password</label>
                         <a class="fs-sm text-light" href="#">Forgot password?</a>
                     </div>
-                    <div class="password-toggle">
-                        <input asp-for=Password class="form-control form-control-light" type="password" id="signin-password" name="password" placeholder="Enter password" required>
-                        <label class="password-toggle-btn" aria-label="Show/hide password">
-                            <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
-                        </label>
+                    <div class="password-toggle input-group">
+                        <input asp-for="Password" class="form-control form-control-light" type="password" id="signin-password" name="password" placeholder="Enter password" required>
+                        <span class="input-group-text bg-dark text-light">
+                            <i class="fas fa-eye password-toggle-icon" style="cursor:pointer;"></i>
+                        </span>
                         <div class="invalid-feedback">
                             Please provide a password.
                         </div>
                     </div>
                 </div>
+
+                <!-- Submit Button -->
                 <button class="btn btn-primary btn-lg w-100" type="submit">Sign in</button>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    // Toggle password visibility
+    document.querySelectorAll('.password-toggle-icon').forEach(icon => {
+        icon.addEventListener('click', function () {
+            const passwordField = this.closest('.password-toggle').querySelector('input');
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+
+            // Toggle the eye icon
+            if (type === 'password') {
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
+            } else {
+                this.classList.remove('fa-eye');
+                this.classList.add('fa-eye-slash');
+            }
+        });
+    });
+</script>

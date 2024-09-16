@@ -1,0 +1,46 @@
+﻿@using RG_Store.BLL.ModelVM.UserVM
+@model EditUserVM
+@{
+    ViewData["Title"] = "Edit User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add User</h2>
+<div class="container bg-dark text-light d-flex min-vh-100 justify-content-center align-items-center" style="margin-top:30px;">
+    <form asp-action="AddUser" method="post">
+        <div class="mb-4">
+            <label asp-for="Username"></label>
+            <input class="form-control form-control-light" type="text" asp-for="Username" placeholder="Enter New Username" required>
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+        <div class="mb-4">
+            <label asp-for="Email"></label>
+            <input class="form-control form-control-light" type="text" asp-for="Email" placeholder="Enter New Email" required>
+
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="mb-4">
+            <label asp-for="Password"></label>
+            <input class="form-control form-control-light" type="text" asp-for="Password" placeholder="Enter New Password" required>
+
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="mb-4">
+            <label asp-for="Role"></label>
+
+            <select class="form-select form-select-light mt-3"
+                    data-bs-binded-element="#gender-value">
+                <option value="" disabled="" selected="">Select the role</option>
+                <option value="admin">admin</option>
+                <option value="user">user</option>
+                <option value="moderator">moderator</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Edit User</button>
+    </form>
+
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
