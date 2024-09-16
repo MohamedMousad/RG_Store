@@ -1,4 +1,4 @@
-﻿ @* @model User *@
+﻿@* @model User *@
 <!doctype html>
 <html lang="en">
 
@@ -111,17 +111,17 @@
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-@*             @if(Signed_in == false)
+            @*             @if(Signed_in == false)
             {
-                <a href="account/SignIn" class="btn btn-link btn-light btn-sm d-none d-lg-block order-lg-3 myHover">
-                    <i class="fi-user me-2"></i>Sign in
-                </a>
+            <a href="account/SignIn" class="btn btn-link btn-light btn-sm d-none d-lg-block order-lg-3 myHover">
+            <i class="fi-user me-2"></i>Sign in
+            </a>
             }
             else
             {
-                 <a asp-controller="" asp-action="" class="btn btn-link btn-light btn-sm d-none d-lg-block order-lg-3 myHover">
-                    <i class="fi-user me-2"></i>@User.Name
-                </a>
+            <a asp-controller="" asp-action="" class="btn btn-link btn-light btn-sm d-none d-lg-block order-lg-3 myHover">
+            <i class="fi-user me-2"></i>@User.Name
+            </a>
             } *@
             <a class="btn btn-primary btn-sm ms-2 order-lg-3 makeMeOrangeBG" href="#">
                 <i class="button"></i>Cart
@@ -132,20 +132,20 @@
                     <li class="nav-item active"><a class="nav-link" href="#">Games</a></li>
                     <li class="nav-item active"><a class="nav-link" href="#">Account</a></li>
                     <li class="nav-item d-lg-none">
-@* @{
-    bool isAdmin = User.IsInRole("Admin");
-}
+                        @* @{
+                        bool isAdmin = User.IsInRole("Admin");
+                        }
 
-<!-- ...existing code... -->
+                        <!-- ...existing code... -->
 
-<li class="nav-item active">
-    @if (isAdmin)
-    {
-        <a class="nav-link" asp-controller="admin" asp-action="index">Admin</a>
-    }
-</li>
+                        <li class="nav-item active">
+                        @if (isAdmin)
+                        {
+                        <a class="nav-link" asp-controller="admin" asp-action="index">Admin</a>
+                        }
+                        </li>
 
-<!-- ...existing code... --> *@
+                        <!-- ...existing code... --> *@
                         <a class="nav-link" href="account/SignIn">
                             <i class="fi-user me-2"></i>Sign in
                         </a>
@@ -188,7 +188,7 @@
                     <ul class="list-unstyled fs-sm">
                         <li><a class="nav-link-light" asp-controller="account" asp-action="">My account</a></li>
                         <li><a class="nav-link-light" asp-controller="account" asp-action="">My Orders</a></li>
-                        <li><a class="nav-link-light" asp-controller="Cart" asp-action="" >Cart</a></li>
+                        <li><a class="nav-link-light" asp-controller="Cart" asp-action="">Cart</a></li>
                     </ul>
                 </div>
                 <div class="col-xl-2 col-lg-3 col-sm-6 col-md-3 mb-2 mb-sm-4">
@@ -242,6 +242,8 @@
     @await RenderSectionAsync("Scripts", required: false)
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"></script>
+            crossorigin="anonymous">
+        
+    </script>
 </body>
 </html>

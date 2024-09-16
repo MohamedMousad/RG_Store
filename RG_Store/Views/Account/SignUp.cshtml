@@ -1,12 +1,10 @@
 ﻿@using RG_Store.BLL.ModelVM.UserVM
-<!-- Full Page Sign Up -->
 @model RegisterVM
-<!-- Full Page Sign Up -->
+
 <div class="container bg-dark text-light d-flex min-vh-100 justify-content-center align-items-center" style="margin-top:30px;">
     <div class="row mx-0 w-100" style="max-width: 900px;">
         <!-- Left Column -->
-        <div class="col-md-6 border-end-md border-light p-4 p-sm-5 d-flex flex-column justify-content-center align-items-center" >
-            
+        <div class="col-md-6 border-end-md border-light p-4 p-sm-5 d-flex flex-column justify-content-center align-items-center">
             <ul class="list-unstyled mb-4 mb-sm-5">
                 <li class="d-flex mb-2">
                     <i class="fi-check-circle text-primary mt-1 me-2"></i><span class="text-light">Add and promote your listings</span>
@@ -24,39 +22,45 @@
                 <a class="text-light" href="#signin-page">Sign in</a>
             </div>
         </div>
+
         <!-- Right Column -->
         <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5">
             <form class="needs-validation" novalidate>
-                <div class="mb-4" style=" max-height: 80vh">
+                <!-- Full Name -->
+                <div class="mb-4">
                     <label class="form-label text-light mb-2" for="signup-name">Full name</label>
                     <input class="form-control form-control-light" type="text" id="signup-name" name="name" placeholder="Enter your full name" required>
                     <div class="invalid-feedback">Please provide your full name.</div>
                 </div>
+                <!-- Email -->
                 <div class="mb-4">
                     <label class="form-label text-light mb-2" for="signup-email">Email address</label>
                     <input class="form-control form-control-light" type="email" id="signup-email" name="email" placeholder="Enter your email" required>
                     <div class="invalid-feedback">Please provide a valid email address.</div>
                 </div>
+                <!-- Password -->
                 <div class="mb-4">
                     <label class="form-label text-light mb-2" for="signup-password">Password <span class="fs-sm opacity-50">min. 8 char</span></label>
-                    <div class="password-toggle">
+                    <div class="password-toggle input-group">
                         <input class="form-control form-control-light" type="password" id="signup-password" name="password" minlength="8" required>
-                        <label class="password-toggle-btn" aria-label="Show/hide password">
-                            <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
-                        </label>
+                        <span class="input-group-text bg-dark text-light">
+                            <i class="fas fa-eye password-toggle-icon" style="cursor:pointer;"></i>
+                        </span>
                         <div class="invalid-feedback">Please provide a password.</div>
                     </div>
                 </div>
+                <!-- Confirm Password -->
                 <div class="mb-4">
                     <label class="form-label text-light mb-2" for="signup-password-confirm">Confirm password</label>
-                    <div class="password-toggle">
+                    <div class="password-toggle input-group">
                         <input class="form-control form-control-light" type="password" id="signup-password-confirm" name="passwordConfirm" minlength="8" required>
-                        <label class="password-toggle-btn" aria-label="Show/hide password">
-                            <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
-
-                            <div class="invalid-feedback">Please confirm your password.</div>
+                        <span class="input-group-text bg-dark text-light">
+                            <i class="fas fa-eye password-toggle-icon" style="cursor:pointer;"></i>
+                        </span>
+                        <div class="invalid-feedback">Please confirm your password.</div>
                     </div>
                 </div>
+                <!-- Agree to Terms -->
                 <div class="form-check form-check-light mb-4">
                     <input class="form-check-input" type="checkbox" id="agree-to-terms" name="agreeToTerms" required>
                     <label class="form-check-label" for="agree-to-terms">
@@ -71,3 +75,22 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.querySelectorAll('.password-toggle-icon').forEach(icon => {
+        icon.addEventListener('click', function () {
+            const passwordField = this.closest('.password-toggle').querySelector('input');
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+
+            // Toggle the eye icon
+            if (type === 'password') {
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
+            } else {
+                this.classList.remove('fa-eye');
+                this.classList.add('fa-eye-slash');
+            }
+        });
+    });
+</script>
