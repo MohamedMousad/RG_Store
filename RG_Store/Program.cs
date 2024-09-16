@@ -12,6 +12,8 @@ using EmployeeSystem.DAL.Repo.Abstraction;
 using EmployeeSystem.DAL.Repo.Implementation;
 using RG_Store.Services.Implementation;
 using RG_Store.BLL.Service.Abstraction.RG_Store.BLL.Service.Abstraction;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using System.Configuration;
 public class Program
 {
     public static void Main(string[] args)
@@ -25,6 +27,9 @@ public class Program
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+
+
+
         builder.Services.AddScoped<SignInManager<User>>();
         builder.Services.AddIdentity<User, IdentityRole>(options =>
         {
@@ -32,7 +37,7 @@ public class Program
             options.Password.RequireLowercase = false;
             options.Password.RequireNonAlphanumeric = false;
             options.Password.RequireUppercase = false;
-            options.Password.RequiredLength = 6;
+            options.Password.RequiredLength = 1;
             options.Password.RequiredUniqueChars = 0;
         })
         .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -50,6 +55,7 @@ public class Program
         builder.Services.AddScoped<CustomUserManager>();
         builder.Services.AddScoped<UserService>();
 
+    
 
 
         builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

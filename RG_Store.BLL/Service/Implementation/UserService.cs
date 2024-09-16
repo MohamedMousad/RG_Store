@@ -6,6 +6,8 @@ using RG_Store.Services.Implementation;
 using Microsoft.AspNetCore.Identity;
 using EmployeeSystem.DAL.Repo.Abstraction;
 using RG_Store.DAL.Enums;
+using System.Net.Mail;
+using System.Net;
 
 namespace RG_Store.BLL.Service.Implementation
 {
@@ -65,19 +67,38 @@ namespace RG_Store.BLL.Service.Implementation
             return result ; 
         }
 
-        public bool SignInUser(LoginVM model)
+        public async Task<bool> SignInUserAsync(LoginVM model)
         {
+            var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: true, lockoutOnFailure: false);
 
-            var result = signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: true, lockoutOnFailure: false).GetAwaiter().GetResult();
             if (result.Succeeded)
             {
+                Console.WriteLine("Login successful.");
                 return true;
             }
             else
             {
-                return false;
+                if (result.IsLockedOut)
+                {
+                    Console.WriteLine("User is locked out.");
+                }
+                else if (result.RequiresTwoFactor)
+                {
+                    Console.WriteLine("Two-factor authentication required.");
+                }
+                else if (result.IsNotAllowed)
+                {
+                    Console.WriteLine("Login not allowed. Likely due to unconfirmed email.");
+                }
+                else
+                {
+                    Console.WriteLine("Login failed. Incorrect email or password.");
+                }
             }
+
+            return false;
         }
+
 
         public void SignoutUser()
         {
@@ -96,5 +117,59 @@ namespace RG_Store.BLL.Service.Implementation
             var user = mapper.Map<User>(model);
             return userRepo.UpdateUser(user);
         }
+
+        public async Task SendEmailAsync(string to, string subject, string body)
+        {
+            try
+            {
+                using (var smtpClient = new SmtpClient("smtp.outlook.com")
+                {
+                    Port = 587,
+                    Credentials = new NetworkCredential("rg_storeproject@outlook.com", "123456789/."),
+                    EnableSsl = true,
+                })
+                {
+                    var mailMessage = new MailMessage
+                    {
+                        From = new MailAddress("rg_storeproject@outlook.com"),
+                        Subject = subject,
+                        Body = body,
+                        IsBodyHtml = true,
+                    };
+                    mailMessage.To.Add(to);
+
+                    // Use SendMailAsync if available or wrap the synchronous call in a Task
+                    await Task.Run(() => smtpClient.Send(mailMessage));
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception
+                Console.WriteLine($"Exception occurred in SendEmail: {ex.Message}");
+                // Consider rethrowing or handling it based on your application needs
+            }
+        }
+
+        public async Task<bool> ConfirmEmailAsync(string token)
+        {
+            var user = await userRepo.GetUserByTokenAsync(token);
+            if (user != null)
+            {
+                await userRepo.ConfirmEmailAsync(user);
+                await signInManager.SignInAsync(user, isPersistent: true);
+                return true;
+            }
+            return false;
+        }
+        public async Task GenerateEmailConfirmationTokenAsync(string id, string token)
+        {
+            await userRepo.UpdateEmailConfirmationTokenAsync(id, token);
+        }
+
+        public async Task<User> GetByEmailAsync(string email)
+        {
+            return await userRepo.GetByEmailAsync(email);
+        }
+
     }
 }

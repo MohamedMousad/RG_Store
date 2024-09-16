@@ -1,0 +1,16 @@
+﻿@model string
+
+@{
+    ViewData["Title"] = "Confirm Email";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert @(ViewBag.Message.Contains("successfully") ? "alert-success" : "alert-danger")">
+        @ViewBag.Message
+    </div>
+}
+
+<a href="@Url.Action("Index", "Home")" class="btn btn-primary">Go to Homepage</a>
