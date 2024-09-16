@@ -1,4 +1,4 @@
-﻿@using Entities
+﻿﻿@using Entities
 <!-- EL 7ASSEM IS 3mk-->
 @model User
 <!doctype html>
@@ -135,10 +135,10 @@
                                             class="fi-phone opacity-60 me-2"></i>(302) 555-0107</a></li> -->
                                 <li>
                                     <a class="nav-link-light fw-normal" href="">@Model.Email</a>
-                                        <i class="fi-mail opacity-60 me-2"></i>@Model.Email
+                                    <i class="fi-mail opacity-60 me-2"></i>@Model.Email
                                     </a>
                                 </li>
-                            </ul>   
+                            </ul>
                         </div>
                     </div>
 
@@ -239,62 +239,62 @@
                                     <!-- </div> -->
                                 </div>
                                 <!-- Phone number-->
-                               
-                        <div class="col-lg-3 col-md-12 col-sm-4 mb-4">
-                            <div class="filepond--root file-uploader border-light bg-faded-light filepond--hopper"
-                                 data-style-panel-layout="compact" data-style-button-remove-item-position="left"
-                                 data-style-button-process-item-position="right"
-                                 data-style-load-indicator-position="right"
-                                 data-style-progress-indicator-position="right"
-                                 data-style-button-remove-item-align="false" style="height: 160px;">
-                                <input class="filepond--browser" type="file" id="filepond--browser-j1prg4puv"
-                                       name="filepond" aria-controls="filepond--assistant-j1prg4puv"
-                                       aria-labelledby="filepond--drop-label-j1prg4puv" accept="image/png,image/jpeg"><a class="filepond--credits" aria-hidden="true" href="https://pqina.nl/"
-                                                                                                                         target="_blank" rel="noopener noreferrer"
-                                                                                                                         style="transform: translateY(152px);">Powered by PQINA</a>
-                                <div class="filepond--drop-label"
-                                     style="transform: translate3d(0px, 0px, 0px); opacity: 1;">
-                                    <label for="filepond--browser-j1prg4puv" id="filepond--drop-label-j1prg4puv"
-                                           aria-hidden="true">
-                                        <i class="d-inline-block fi-camera-plus fs-2 text-light text-muted mb-2"></i><br><span class="fw-bold text-light opacity-70">Change picture</span>
-                                    </label>
+
+                                <div class="col-lg-3 col-md-12 col-sm-4 mb-4">
+                                    <div class="filepond--root file-uploader border-light bg-faded-light filepond--hopper"
+                                         data-style-panel-layout="compact" data-style-button-remove-item-position="left"
+                                         data-style-button-process-item-position="right"
+                                         data-style-load-indicator-position="right"
+                                         data-style-progress-indicator-position="right"
+                                         data-style-button-remove-item-align="false" style="height: 160px;">
+                                        <input class="filepond--browser" type="file" id="filepond--browser-j1prg4puv"
+                                               name="filepond" aria-controls="filepond--assistant-j1prg4puv"
+                                               aria-labelledby="filepond--drop-label-j1prg4puv" accept="image/png,image/jpeg"><a class="filepond--credits" aria-hidden="true" href="https://pqina.nl/"
+                                                                                                                                 target="_blank" rel="noopener noreferrer"
+                                                                                                                                 style="transform: translateY(152px);">Powered by PQINA</a>
+                                        <div class="filepond--drop-label"
+                                             style="transform: translate3d(0px, 0px, 0px); opacity: 1;">
+                                            <label for="filepond--browser-j1prg4puv" id="filepond--drop-label-j1prg4puv"
+                                                   aria-hidden="true">
+                                                <i class="d-inline-block fi-camera-plus fs-2 text-light text-muted mb-2"></i><br><span class="fw-bold text-light opacity-70">Change picture</span>
+                                            </label>
+                                        </div>
+                                        <div class="filepond--list-scroller" style="transform: translate3d(0px, 0px, 0px);">
+                                            <ul class="filepond--list" role="list"></ul>
+                                        </div>
+                                        <div class="filepond--panel filepond--panel-root" data-scalable="true">
+                                            <div class="filepond--panel-top filepond--panel-root"></div>
+                                            <div class="filepond--panel-center filepond--panel-root"
+                                                 style="transform: translate3d(0px, 8px, 0px) scale3d(1, 1.44, 1);"></div>
+                                            <div class="filepond--panel-bottom filepond--panel-root"
+                                                 style="transform: translate3d(0px, 152px, 0px);"></div>
+                                        </div><span class="filepond--assistant" id="filepond--assistant-j1prg4puv" role="status"
+                                                    aria-live="polite" aria-relevant="additions"></span>
+                                        <div class="filepond--drip"></div>
+                                        <fieldset class="filepond--data"></fieldset>
+                                    </div>
+                                    <div class="pt-4 pb-2 py-lg-5">
+                                        <h6 class="text-light mb-2">Who can see my profile?</h6>
+                                        <p class="fs-sm text-light opacity-70 mb-0">
+                                            Your profile is&nbsp;private. No&nbsp;one
+                                            else
+                                            will
+                                            see it&nbsp;untill a&nbsp;reservation is&nbsp;confirmed.
+                                        </p>
+                                    </div>
                                 </div>
-                                <div class="filepond--list-scroller" style="transform: translate3d(0px, 0px, 0px);">
-                                    <ul class="filepond--list" role="list"></ul>
+                            </div>
+                            <!-- Action buttons-->
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="d-flex align-items-center justify-content-between pb-1">
+                                        <button class="btn btn-primary" type="submit">Save changes</button>
+                                        <button class="btn btn-link btn-light btn-sm px-0" type="button">
+                                            <i class="fi-trash me-2"></i>Delete account
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="filepond--panel filepond--panel-root" data-scalable="true">
-                                    <div class="filepond--panel-top filepond--panel-root"></div>
-                                    <div class="filepond--panel-center filepond--panel-root"
-                                         style="transform: translate3d(0px, 8px, 0px) scale3d(1, 1.44, 1);"></div>
-                                    <div class="filepond--panel-bottom filepond--panel-root"
-                                         style="transform: translate3d(0px, 152px, 0px);"></div>
-                                </div><span class="filepond--assistant" id="filepond--assistant-j1prg4puv" role="status"
-                                            aria-live="polite" aria-relevant="additions"></span>
-                                <div class="filepond--drip"></div>
-                                <fieldset class="filepond--data"></fieldset>
                             </div>
-                            <div class="pt-4 pb-2 py-lg-5">
-                                <h6 class="text-light mb-2">Who can see my profile?</h6>
-                                <p class="fs-sm text-light opacity-70 mb-0">
-                                    Your profile is&nbsp;private. No&nbsp;one
-                                    else
-                                    will
-                                    see it&nbsp;untill a&nbsp;reservation is&nbsp;confirmed.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Action buttons-->
-                    <div class="row">
-                        <div class="col-lg-9">
-                            <div class="d-flex align-items-center justify-content-between pb-1">
-                                <button class="btn btn-primary" type="submit">Save changes</button>
-                                <button class="btn btn-link btn-light btn-sm px-0" type="button">
-                                    <i class="fi-trash me-2"></i>Delete account
-                                </button>
-                            </div>
-                        </div>
-                    </div>
                 </form>
             </div>
         </div>

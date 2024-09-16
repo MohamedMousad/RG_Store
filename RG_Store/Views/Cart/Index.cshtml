@@ -1,4 +1,4 @@
-﻿@using RG_Store.BLL.ModelVM.ItemVM
+﻿﻿@using RG_Store.BLL.ModelVM.ItemVM
 @model List<GetAllItemVM>
 @{
     decimal sum = 0;
@@ -14,7 +14,7 @@
                         <h5 class="mb-0">Cart - @Model.Count()</h5>
                     </div>
                     <div class="card-body">
-                        @foreach(var item in Model)
+                        @foreach (var item in Model)
                         {
                             <!-- Single item -->
                             <div class="row">
@@ -48,8 +48,8 @@
 
                                 <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
                                     <!-- Price -->
-                                    <p class="text-start text-md-center" >
-                                        <strong >@item.FinalPrice</strong>
+                                    <p class="text-start text-md-center">
+                                        <strong>@item.FinalPrice</strong>
                                     </p>
                                     <!-- Price -->
                                 </div>
@@ -59,7 +59,7 @@
 
                         <hr class="my-4" />
 
-                     
+
                     </div>
                 </div>
                 <div class="card mb-4 mb-lg-0">
@@ -81,9 +81,9 @@
                 </div>
             </div>
             @* counting total price *@
-            @foreach(var item in Model)
+            @foreach (var item in Model)
             {
-                 sum+= item.FinalPrice;
+                sum += item.FinalPrice;
             }
             <div class="col-md-4">
                 <div class="card mb-4">
