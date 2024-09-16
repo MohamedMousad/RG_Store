@@ -1,4 +1,6 @@
-﻿@{
+﻿﻿@using RG_Store.BLL.ModelVM.OrderVM
+@model GetOrderVM
+@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_DashBoard.cshtml";
 }
@@ -24,14 +26,14 @@
         <i class='bx bxs-calendar-check'></i>
         <span class="text">
             <h3>1020</h3>
-            <p>New Order</p>
+            <p>Order Count</p>
         </span>
     </li>
     <li>
         <i class='bx bxs-group'></i>
         <span class="text">
             <h3>2834</h3>
-            <p>Visitors</p>
+            <p>Users Count</p>
         </span>
     </li>
     <li>
@@ -50,15 +52,14 @@
             @* Create Orders
             <li class="list-inline-item">
             <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Add"><i class="fa fa-table"></i></button>
-            </li> 
+            </li>
             *@
-            <i class='bx bx-search'></i>
-            <i class='bx bx-filter'></i>
         </div>
         <table>
             <thead>
                 <tr>
                     <th>User</th>
+                    <th>Order Id</th>
                     <th>Date Order</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -66,88 +67,13 @@
             </thead>
             <tbody>
                 <tr>
+                    <td>Name</td>
                     <td>
-                        <img src="img/people.png">
-                        <p>John Doe</p>
+                        @*                         <img src="img/people.png"> *@
+                        <p>Model.OrderId</p>
                     </td>
-                    <td>01-10-2021</td>
-                    <td><span class="status completed">Completed</span></td>
-                    <td>
-                        <!-- Call to action buttons -->
-                        <ul class="list-inline m-0">
-                            <li class="list-inline-item">
-                                <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
-                            </li>
-                            <li class="list-inline-item">
-                                <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <img src="img/people.png">
-                        <p>John Doe</p>
-                    </td>
-                    <td>01-10-2021</td>
-                    <td><span class="status pending">Pending</span></td>
-                    <td>
-                        <!-- Call to action buttons -->
-                        <ul class="list-inline m-0">
-                            <li class="list-inline-item">
-                                <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
-                            </li>
-                            <li class="list-inline-item">
-                                <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <img src="img/people.png">
-                        <p>John Doe</p>
-                    </td>
-                    <td>01-10-2021</td>
-                    <td><span class="status process">Process</span></td>
-                    <td>
-                        <!-- Call to action buttons -->
-                        <ul class="list-inline m-0">
-                            <li class="list-inline-item">
-                                <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
-                            </li>
-                            <li class="list-inline-item">
-                                <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <img src="img/people.png">
-                        <p>John Doe</p>
-                    </td>
-                    <td>01-10-2021</td>
-                    <td><span class="status pending">Pending</span></td>
-                    <td>
-                        <!-- Call to action buttons -->
-                        <ul class="list-inline m-0">
-                            <li class="list-inline-item">
-                                <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
-                            </li>
-                            <li class="list-inline-item">
-                                <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <img src="img/people.png">
-                        <p>John Doe</p>
-                    </td>
-                    <td>01-10-2021</td>
-                    <td><span class="status completed">Completed</span></td>
+                    <td>Model.CreatedOn</td>
+                    <td><span class="status completed">Model.OrderStatus</span></td>
                     <td>
                         <!-- Call to action buttons -->
                         <ul class="list-inline m-0">
@@ -165,4 +91,3 @@
     </div>
 
 </div>
-

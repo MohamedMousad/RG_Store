@@ -38,22 +38,22 @@ namespace EmployeeSystem.DAL.Repo.Implementation
                 Cart cart = new Cart();
                 context.Carts.Add(cart);
 
-                context.SaveChanges();
+                context.SaveChangesAsync();
                 user.Cart = cart;
 
                 context.Users.Add(user);
 
-                context.SaveChanges();
+                context.SaveChangesAsync();
 
                 cart.UsertId = user.Id;
                 cart.User = user;
 
-                context.SaveChanges();
+                context.SaveChangesAsync();
 
                 //favourite.UserId =user.Id;
                 favourite.User = user;
 
-                context.SaveChanges();
+                context.SaveChangesAsync();
 
                 return true;
             }
@@ -69,7 +69,7 @@ namespace EmployeeSystem.DAL.Repo.Implementation
             {
                 var usr = context.Users.FirstOrDefault(x => x.Id == user.Id);
                 usr.IsDeleted = !usr.IsDeleted;
-                context.SaveChanges();
+                context.SaveChangesAsync();
                 return true;
             }
             catch (Exception)
@@ -87,8 +87,8 @@ namespace EmployeeSystem.DAL.Repo.Implementation
             try
             {
                 var usr = GetById(user.Id);
-                usr.IsDeleted = !usr.IsDeleted;
-                context.SaveChanges();
+                usr.UserRole = role;
+                context.SaveChangesAsync();
                 return true;
             }
             catch (Exception)
@@ -117,5 +117,36 @@ namespace EmployeeSystem.DAL.Repo.Implementation
         }
 
         IEnumerable<User> IUserRepo.GetAll() => context.Users.ToList();
+
+
+        public async Task<User> GetByEmailAsync(string email)
+        {
+            return await context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        }
+
+
+        public async Task UpdateEmailConfirmationTokenAsync(string id, string token)
+        {
+            var user = await context.Users.FindAsync(id);
+            if (user != null)
+            {
+                user.EmailConfirmationToken = token;
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task<User> GetUserByTokenAsync(string token)
+        {
+            return await context.Users.FirstOrDefaultAsync(u => u.EmailConfirmationToken == token);
+        }
+
+
+        public async Task ConfirmEmailAsync(User user)
+        {
+            user.EmailConfirmed = true;
+            await context.SaveChangesAsync();
+        }
+
+       
     }
 }

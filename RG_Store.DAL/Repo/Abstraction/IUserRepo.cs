@@ -17,5 +17,15 @@ namespace EmployeeSystem.DAL.Repo.Abstraction
         public bool UpdateUser(User user);
         public bool DeleteUser(User user);
         public User GetById(string id);
+
+
+        /*User GetByEmail(string email);*/
+        public  Task UpdateEmailConfirmationTokenAsync(string id, string token);
+        public Task<User> GetUserByTokenAsync(string token);
+        public Task ConfirmEmailAsync(User user);
+        public Task<User> GetByEmailAsync(string email);
+      
+
+
     }
 }

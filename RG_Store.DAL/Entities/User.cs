@@ -23,6 +23,10 @@ namespace Entities
         public virtual Cart? Cart { get; set; }
         public int ?FavouriteId { get; set; }
         public Favourite ?Favourite { get; set; }
-         
+
+
+
+        public string ?EmailConfirmationToken { get; set; } 
+        //public bool IsEmailConfirmed { get; set; } = false;
     }
 }

@@ -149,8 +149,12 @@
                                 </h3>
                             }
                     </a>
-                        <div class="d-flex justify-content-between">
-                            <button type="button" class="btn btn-success col">Add to Cart</button>
+                    <div class="d-flex justify-content-between">
+                        <form asp-action="AddToCart" asp-controller="Cart" method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="itemId" value="@item.Id" />
+                            <button type="submit" class="btn btn-success col">Add to Cart</button>
+                        </form>
                             <button type="button" class="btn btn-danger col-3">
                                 <i class="fa-solid fa-heart"></i>
                             </button>

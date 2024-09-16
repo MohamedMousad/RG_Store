@@ -16,6 +16,8 @@ namespace RG_Store.DAL.Repo.Implementation
     {
         private readonly ApplicationDbContext context ;
 
+        User x = new();
+        
         public CartRepo(ApplicationDbContext context)
         {
             this.context = context;
@@ -28,7 +30,7 @@ namespace RG_Store.DAL.Repo.Implementation
               
                 var CartItems =GetAllItems(Id).ToList();
                 CartItems.Add(item);
-                return false; 
+                return true; 
             }
             catch (Exception)
             {
