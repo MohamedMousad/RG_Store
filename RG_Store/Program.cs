@@ -49,7 +49,6 @@ public class Program
 
         builder.Services.AddScoped<CustomUserManager>();
         builder.Services.AddScoped<UserService>();
-        builder.Services.AddScoped<IEmailService, EmailService>();
 
 
 

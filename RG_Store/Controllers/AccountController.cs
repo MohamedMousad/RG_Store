@@ -2,7 +2,6 @@
 using RG_Store.BLL.ModelVM.UserVM;
 using RG_Store.BLL.Service.Abstraction;
 using RG_Store.BLL.Service.Abstraction.RG_Store.BLL.Service.Abstraction;
-using RG_Store.BLL.Service.Implementation;
 using System.Threading.Tasks;
 
 namespace RG_Store.PLL.Controllers
@@ -10,12 +9,10 @@ namespace RG_Store.PLL.Controllers
     public class AccountController : Controller
     {
         private readonly IUserService userService;
-        private readonly IEmailService emailService;
 
-        public AccountController(IUserService userService, IEmailService emailService)
+        public AccountController(IUserService userService)
         {
             this.userService = userService;
-            this.emailService = emailService;
         }
 
         [HttpGet]
@@ -32,29 +29,7 @@ namespace RG_Store.PLL.Controllers
 
                 if (userService.CreateUser(model, out string[] errors))
                 {
-
-                    
-                    var user = userService.GetByEmail(model.Email); 
-                    string token = Guid.NewGuid().ToString(); 
-
-                    
-                    userService.GenerateEmailConfirmationToken(user.Id, token);
-
-                   
-                    var confirmationLink = Url.Action("ConfirmEmail", "Account",
-                        new { token = token }, protocol: Request.Scheme);
-
-                    
-                    emailService.SendEmail(user.Email, "Confirm your email",
-                        $"Please confirm your email by clicking this <a href='{confirmationLink}'>link</a>.");
-
-                    
-                    ViewBag.Message = "Registration successful! Please check your email to confirm your account.";
-                    
-                
-
-                return RedirectToAction("Index", "Home");
-
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -92,19 +67,7 @@ namespace RG_Store.PLL.Controllers
             userService.SignoutUser();
             return Task.FromResult<IActionResult>(RedirectToAction("Index", "Home"));
         }
-        public ActionResult ConfirmEmail(string token)
-        {
-            bool isConfirmed = userService.ConfirmEmail(token);
-            if (isConfirmed)
-            {
-                ViewBag.Message = "Your email has been confirmed successfully!";
-                return View();
-            }
 
-            ViewBag.Message = "Invalid or expired token!";
-            return View();
-        }
-
-
+        
     }
 }

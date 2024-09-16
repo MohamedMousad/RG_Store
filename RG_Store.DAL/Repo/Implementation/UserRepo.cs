@@ -117,33 +117,5 @@ namespace EmployeeSystem.DAL.Repo.Implementation
         }
 
         IEnumerable<User> IUserRepo.GetAll() => context.Users.ToList();
-        public User GetByEmail(string email)
-        {
-            return context.Users.FirstOrDefault(u => u.Email == email);
-        }
-
-        public void UpdateEmailConfirmationToken(string id, string token)
-        {
-            var user = context.Users.Find(id);
-            if (user != null)
-            {
-                user.EmailConfirmationToken = token;
-                context.SaveChanges();
-            }
-        }
-
-        public User GetUserByToken(string token)
-        {
-            return context.Users.FirstOrDefault(u => u.EmailConfirmationToken == token);
-        }
-
-        public void ConfirmEmail(User user)
-        {
-            user.IsEmailConfirmed = true;
-            context.SaveChanges();
-        }
-
-        
     }
-
 }
