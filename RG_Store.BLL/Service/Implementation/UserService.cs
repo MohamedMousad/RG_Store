@@ -6,6 +6,8 @@ using RG_Store.Services.Implementation;
 using Microsoft.AspNetCore.Identity;
 using EmployeeSystem.DAL.Repo.Abstraction;
 using RG_Store.DAL.Enums;
+using System.Net.Mail;
+using System.Net;
 
 namespace RG_Store.BLL.Service.Implementation
 {
@@ -65,19 +67,12 @@ namespace RG_Store.BLL.Service.Implementation
             return result ; 
         }
 
-        public bool SignInUser(LoginVM model)
+        public async Task<bool> SignInUserAsync(LoginVM model)
         {
-
-            var result = signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: true, lockoutOnFailure: false).GetAwaiter().GetResult();
-            if (result.Succeeded)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: true, lockoutOnFailure: false);
+            return result.Succeeded;
         }
+
 
         public void SignoutUser()
         {
@@ -96,5 +91,47 @@ namespace RG_Store.BLL.Service.Implementation
             var user = mapper.Map<User>(model);
             return userRepo.UpdateUser(user);
         }
+
+        public void SendEmail(string to, string subject, string body)
+        {
+            var smtpClient = new SmtpClient("smtp.outlook.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential("rg_storeproject@outlook.com", "123456789/."),
+                EnableSsl = true,
+            };
+
+            var mailMessage = new MailMessage
+            {
+                From = new MailAddress("rg_storeproject@outlook.com"),
+                Subject = subject,
+                Body = body,
+                IsBodyHtml = true,
+            };
+            mailMessage.To.Add(to);
+
+            smtpClient.Send(mailMessage);
+        }
+        public bool ConfirmEmail(string token)
+        {
+            var user = userRepo.GetUserByToken(token);
+            if (user != null)
+            {
+                userRepo.ConfirmEmail(user);
+                signInManager.SignInAsync(user,true);
+                return true;
+            }
+            return false;
+        }
+        public void GenerateEmailConfirmationToken(string id, string token)
+        {
+
+            userRepo.UpdateEmailConfirmationToken(id, token);
+        }
+        public User GetByEmail(string email)
+        {
+            return userRepo.GetByEmail(email);
+        }
+
     }
 }

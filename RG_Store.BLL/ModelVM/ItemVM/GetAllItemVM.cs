@@ -10,6 +10,7 @@ namespace RG_Store.BLL.ModelVM.ItemVM
 {
     public class GetAllItemVM
     {
+        public int Id { get; set; } 
         [Required(ErrorMessage = "Please enter the product name.")]
         public string Name { get; set; }
 
