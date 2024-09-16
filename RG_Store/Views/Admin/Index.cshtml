@@ -1,4 +1,4 @@
-﻿@using RG_Store.BLL.ModelVM.OrderVM
+﻿﻿@using RG_Store.BLL.ModelVM.OrderVM
 @model GetOrderVM
 @{
     ViewData["Title"] = "Index";
@@ -52,7 +52,7 @@
             @* Create Orders
             <li class="list-inline-item">
             <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Add"><i class="fa fa-table"></i></button>
-            </li> 
+            </li>
             *@
         </div>
         <table>
@@ -69,7 +69,7 @@
                 <tr>
                     <td>Name</td>
                     <td>
-@*                         <img src="img/people.png"> *@
+                        @*                         <img src="img/people.png"> *@
                         <p>Model.OrderId</p>
                     </td>
                     <td>Model.CreatedOn</td>
@@ -91,4 +91,3 @@
     </div>
 
 </div>
-
