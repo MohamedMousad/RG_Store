@@ -18,6 +18,7 @@ namespace RG_Store.PLL.Controllers
 
         public IActionResult Index()
         {
+            //ViewBag.UserName = username;
             return View();
         }
         public IActionResult Users()
