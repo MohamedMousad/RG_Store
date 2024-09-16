@@ -28,56 +28,45 @@ namespace RG_Store.PLL.Controllers
         [HttpPost]
         public async Task<IActionResult> SignUp(RegisterVM model)
         {
-            Console.WriteLine("========================");
+           /* Console.WriteLine("========================");
 
             Console.WriteLine(model.Email);
             Console.WriteLine(model.Password);
-            Console.WriteLine("========================");
+            Console.WriteLine("========================");*/
             if (ModelState.IsValid)
             {
-                Console.WriteLine("========================");
+              /*  Console.WriteLine("========================");
 
                 Console.WriteLine(model.Email);
                 Console.WriteLine(model.Password);
-                Console.WriteLine("========================");
+                Console.WriteLine("========================");*/
 
-
-
-                // Create user
                 if (userService.CreateUser(model, out string[] errors))
                 {
-                    // Fetch the newly created user
                     var user =await userService.GetByEmailAsync(model.Email);
 
-                    // Generate email confirmation token
                     string token = Guid.NewGuid().ToString();
                     userService.GenerateEmailConfirmationTokenAsync(user.Id, token);
 
-                    // Create confirmation link
                     var confirmationLink = Url.Action("ConfirmEmail", "Account",
                         new { token = token }, protocol: Request.Scheme);
 
-                    // Send confirmation email
                     userService.SendEmailAsync(user.Email, "Confirm your email",
                         $"Please confirm your email by clicking this <a href='{confirmationLink}'>link</a>.");
 
-                    // Set success message
                     ViewBag.Message = "Registration successful! Please check your email to confirm your account.";
 
-                    // Redirect to home page
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    // Add validation errors to ModelState
                     foreach (var error in errors)
                     {
                         ModelState.AddModelError(string.Empty, error);
                     }
                 }
             }
-
-            // Return the view with the model if there are validation errors
+            
             return View(model);
         }
 
@@ -124,7 +113,7 @@ namespace RG_Store.PLL.Controllers
             {
                 ViewBag.Message = "Your email has been confirmed successfully!";
 
-                return View(model: token); // Pass token as a string to the view
+                return View(model: token); 
             }
 
             ViewBag.Message = "Invalid or expired token!";
