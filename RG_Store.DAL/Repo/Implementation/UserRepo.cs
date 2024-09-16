@@ -119,34 +119,34 @@ namespace EmployeeSystem.DAL.Repo.Implementation
         IEnumerable<User> IUserRepo.GetAll() => context.Users.ToList();
 
 
-        public User GetByEmail(string email)
+        public async Task<User> GetByEmailAsync(string email)
         {
-            return context.Users.FirstOrDefault(u => u.Email == email);
+            return await context.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
 
-        public void UpdateEmailConfirmationToken(string id, string token)
+
+        public async Task UpdateEmailConfirmationTokenAsync(string id, string token)
         {
-            var user = context.Users.Find(id);
+            var user = await context.Users.FindAsync(id);
             if (user != null)
             {
                 user.EmailConfirmationToken = token;
-                context.SaveChangesAsync();
+                await context.SaveChangesAsync();
             }
         }
 
-        public User GetUserByToken(string token)
+        public async Task<User> GetUserByTokenAsync(string token)
         {
-            return context.Users.FirstOrDefault(u => u.EmailConfirmationToken == token);
+            return await context.Users.FirstOrDefaultAsync(u => u.EmailConfirmationToken == token);
         }
 
-        public void ConfirmEmail(User user)
+
+        public async Task ConfirmEmailAsync(User user)
         {
-            //user.IsEmailConfirmed = true;
             user.EmailConfirmed = true;
-            context.SaveChangesAsync();
+            await context.SaveChangesAsync();
         }
 
-
-
+       
     }
 }

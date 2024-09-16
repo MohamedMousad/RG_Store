@@ -26,15 +26,16 @@ namespace RG_Store.BLL.Service.Abstraction
 
          public IEnumerable<GetUserVM> GetAll();
 
-        
-
-        public void SendEmail(string to, string subject, string body);
 
 
-            public bool ConfirmEmail(string token);
-            public void GenerateEmailConfirmationToken(string id, string token);
-            public User GetByEmail(string email);
-            
+            public  Task SendEmailAsync(string to, string subject, string body);
+
+
+            public  Task<bool> ConfirmEmailAsync(string token);
+            public  Task GenerateEmailConfirmationTokenAsync(string id, string token);
+            public  Task<User> GetByEmailAsync(string email);
+
+
         }
     }
 

@@ -19,10 +19,13 @@ namespace EmployeeSystem.DAL.Repo.Abstraction
         public User GetById(string id);
 
 
-        User GetByEmail(string email);
-        public void UpdateEmailConfirmationToken(string id, string token);
-        User GetUserByToken(string token);
-        void ConfirmEmail(User user);
+        /*User GetByEmail(string email);*/
+        public  Task UpdateEmailConfirmationTokenAsync(string id, string token);
+        public Task<User> GetUserByTokenAsync(string token);
+        public Task ConfirmEmailAsync(User user);
+        public Task<User> GetByEmailAsync(string email);
+      
+
 
     }
 }

@@ -28,34 +28,48 @@ namespace RG_Store.PLL.Controllers
         [HttpPost]
         public async Task<IActionResult> SignUp(RegisterVM model)
         {
+            Console.WriteLine("========================");
+
+            Console.WriteLine(model.Email);
+            Console.WriteLine(model.Password);
+            Console.WriteLine("========================");
             if (ModelState.IsValid)
             {
+                Console.WriteLine("========================");
 
+                Console.WriteLine(model.Email);
+                Console.WriteLine(model.Password);
+                Console.WriteLine("========================");
+
+
+
+                // Create user
                 if (userService.CreateUser(model, out string[] errors))
                 {
+                    // Fetch the newly created user
+                    var user =await userService.GetByEmailAsync(model.Email);
 
-                  var user = userService.GetByEmail(model.Email);
+                    // Generate email confirmation token
                     string token = Guid.NewGuid().ToString();
+                    userService.GenerateEmailConfirmationTokenAsync(user.Id, token);
 
-
-                    userService.GenerateEmailConfirmationToken(user.Id, token);
-
-
+                    // Create confirmation link
                     var confirmationLink = Url.Action("ConfirmEmail", "Account",
                         new { token = token }, protocol: Request.Scheme);
 
-
-                    userService.SendEmail(user.Email, "Confirm your email",
+                    // Send confirmation email
+                    userService.SendEmailAsync(user.Email, "Confirm your email",
                         $"Please confirm your email by clicking this <a href='{confirmationLink}'>link</a>.");
 
+                    // Set success message
+                    ViewBag.Message = "Registration successful! Please check your email to confirm your account.";
 
-                   ViewBag.Message = "Registration successful! Please check your email to confirm your account.";
-
+                    // Redirect to home page
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-
+                    // Add validation errors to ModelState
                     foreach (var error in errors)
                     {
                         ModelState.AddModelError(string.Empty, error);
@@ -63,29 +77,31 @@ namespace RG_Store.PLL.Controllers
                 }
             }
 
+            // Return the view with the model if there are validation errors
             return View(model);
         }
+
 
         [HttpGet]
         public IActionResult SignIn()
         {
             return View();
         }
+        [HttpPost]
         public async Task<IActionResult> SignIn(LoginVM model)
         {
             if (ModelState.IsValid)
             {
-                // التأكد من صحة بيانات تسجيل الدخول باستخدام signInManager
-                var result = await signInManager.PasswordSignInAsync(model.Email, model.Password,true, lockoutOnFailure: false);
+                var result = await userService.SignInUserAsync(model);
+                Console.WriteLine(model.Email);
+                Console.WriteLine(model.Password);
 
-                if (result.Succeeded)
+                if (result)
                 {
                     return RedirectToAction("Index", "Home");
                 }
-                else
-                {
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                }
+
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             }
 
             return View(model);
@@ -103,7 +119,7 @@ namespace RG_Store.PLL.Controllers
 
         public async Task<IActionResult> ConfirmEmail(string token)
         {
-            bool isConfirmed = userService.ConfirmEmail(token);
+            bool isConfirmed = await userService.ConfirmEmailAsync(token);
             if (isConfirmed)
             {
                 ViewBag.Message = "Your email has been confirmed successfully!";

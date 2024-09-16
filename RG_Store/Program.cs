@@ -37,7 +37,7 @@ public class Program
             options.Password.RequireLowercase = false;
             options.Password.RequireNonAlphanumeric = false;
             options.Password.RequireUppercase = false;
-            options.Password.RequiredLength = 6;
+            options.Password.RequiredLength = 1;
             options.Password.RequiredUniqueChars = 0;
         })
         .AddEntityFrameworkStores<ApplicationDbContext>()
