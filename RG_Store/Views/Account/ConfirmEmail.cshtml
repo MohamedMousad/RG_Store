@@ -1,0 +1,10 @@
+﻿@if (ViewBag.Message == "Your email has been confirmed successfully!")
+{
+    <h2>Email Confirmed</h2>
+    <p>@ViewBag.Message</p>
+}
+else
+{
+    <h2>Confirmation Error</h2>
+    <p>@ViewBag.Message</p>
+}

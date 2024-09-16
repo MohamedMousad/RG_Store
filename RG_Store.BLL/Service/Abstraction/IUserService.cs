@@ -25,7 +25,9 @@ namespace RG_Store.BLL.Service.Abstraction
          public GetUserVM GetUserVM(string id);
 
          public IEnumerable<GetUserVM> GetAll();
-
+         public bool ConfirmEmail(string token);
+           public void GenerateEmailConfirmationToken(string id, string token);
+          public  User GetByEmail(string email);
 
         }
     }
