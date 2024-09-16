@@ -6,7 +6,6 @@ using RG_Store.Services.Implementation;
 using Microsoft.AspNetCore.Identity;
 using EmployeeSystem.DAL.Repo.Abstraction;
 using RG_Store.DAL.Enums;
-using RG_Store.BLL.Service.Abstraction;
 
 namespace RG_Store.BLL.Service.Implementation
 {
@@ -16,14 +15,12 @@ namespace RG_Store.BLL.Service.Implementation
         private readonly IMapper mapper;
         private readonly SignInManager<User> signInManager;
         private readonly IUserRepo userRepo;
-        private readonly IEmailService _emailService;
-        public UserService(CustomUserManager userManager, IMapper mapper,SignInManager<User> signInManager, IUserRepo userRepo, IEmailService emailService)
+        public UserService(CustomUserManager userManager, IMapper mapper,SignInManager<User> signInManager, IUserRepo userRepo)
         {
             this.signInManager=signInManager;
             this.userManager = userManager;
             this.mapper = mapper;
-            this.userRepo = userRepo;  
-            _emailService = emailService;
+            this.userRepo = userRepo;   
         }
         public bool CreateUser(RegisterVM registerVM, out string[] errors)
         {
@@ -99,25 +96,5 @@ namespace RG_Store.BLL.Service.Implementation
             var user = mapper.Map<User>(model);
             return userRepo.UpdateUser(user);
         }
-        public bool ConfirmEmail(string token)
-        {
-            var user = userRepo.GetUserByToken(token);
-            if (user != null)
-            {
-                userRepo.ConfirmEmail(user);
-                return true;
-            }
-            return false;
-        }
-        public void GenerateEmailConfirmationToken(string id, string token)
-        {
-           
-            userRepo.UpdateEmailConfirmationToken(id, token);
-        }
-        public User GetByEmail(string email)
-        {
-            return userRepo.GetByEmail(email);  
-        }
-
     }
 }
