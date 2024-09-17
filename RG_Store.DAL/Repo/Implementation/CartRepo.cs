@@ -15,40 +15,41 @@ namespace RG_Store.DAL.Repo.Implementation
     public class CartRepo : ICartRepo
     {
         private readonly ApplicationDbContext context ;
-
-        User x = new();
-        
+                
         public CartRepo(ApplicationDbContext context)
         {
             this.context = context;
         }
 
-        public bool AddToCart(Item item, int Id)
+        public async Task<bool> AddToCart(Item itemvm, int cartIdvm)
         {
             try
             {
-              
-                var CartItems =GetAllItems(Id).ToList();
-                CartItems.Add(item);
+                CartItem ci = new CartItem();
+                ci.CartId = cartIdvm;   
+                ci.Item = itemvm;
+                ci.CartId = cartIdvm;
+               
+                context.CartItems.Add(ci);
                 context.SaveChangesAsync();
-                return true; 
+                return true;
             }
             catch (Exception)
             {
-                return false; 
-            }            
+             
+                return false;
+            }
         }
-        public bool ClearCart(int Id)
+
+        public async Task<bool> ClearCart(int Id)
         {
             try
             {
 
-                var cartItems = GetAllItems(Id).ToList();
-                foreach(var it in cartItems)
-                {
-                    RemoveFromCart(it,Id);
-                }
-                context.SaveChanges();
+                var cartItems = context.CartItems.Where(i => i.CartId == Id).ToList();
+                cartItems.Clear();
+
+             await context.SaveChangesAsync();
                 return true;
             }
             catch (Exception)
@@ -59,33 +60,48 @@ namespace RG_Store.DAL.Repo.Implementation
 
         }
 
-        public IEnumerable<Item> GetAllItems(int id)
+        public async Task<IEnumerable<Item>> GetAllItems(int id)
         {
+          
             try
             {
-                var cart = GetById(id);
-                var item = cart.Items .ToList();
-                return item;
+                var items = await context.CartItems
+                  .Include(i => i.Item)          
+                  .Where(i => i.CartId == id)    
+                  .Select(i => i.Item)           
+                  .ToListAsync();
+                return items;
             }
             catch (Exception)
             {
+
                 return Enumerable.Empty<Item>().ToList();
-            }           
+            }
         }
 
-        public Cart GetById(int id)=>context.Carts.Include(c=>c.Items).Where(c => c.Id == id).FirstOrDefault();
-        public bool RemoveFromCart(Item item, int Id)
+        public async Task<Cart> GetById(int id)
+        {
+            return await context.Carts.FirstOrDefaultAsync(c=>c.Id == id);
+        }
+        public async Task<bool> RemoveFromCart(int itemid, int id)
         {
             try
             {
-                var CartItems = GetAllItems(Id).ToList();
-                var ToRemove = CartItems.FirstOrDefault(i => i.Id == item.Id);
-                CartItems.Remove(ToRemove);
-                context.SaveChanges(); 
-                return true; 
+                var itemToRemove = context.CartItems
+                    .FirstOrDefault(i => i.CartId == id && i.ItemId == itemid);
+
+                if (itemToRemove != null)
+                {
+                    context.CartItems.Remove(itemToRemove);
+                    await context.SaveChangesAsync();
+                    return true;
+                }
+
+                return false; 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+              
                 return false;
             }
         }

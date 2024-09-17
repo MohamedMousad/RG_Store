@@ -20,6 +20,7 @@ namespace Entities
         public string? ItemImage { get; set; }
         public bool IsDeleted { get; set; } = false;
         public int? CategoryId { get; set; }
-        public Category? Category { get; set; }  
+        public Category? Category { get; set; }
+        public IEnumerable<CartItem?> CartItem { get; set; }
     }
 }
