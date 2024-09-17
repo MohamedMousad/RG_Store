@@ -172,6 +172,28 @@ namespace RG_Store.BLL.Service.Implementation
         {
             return await userRepo.GetByEmailAsync(email);
         }
+        public async Task<string> GeneratePasswordResetTokenAsync(string email)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+            if (user == null) return null;
 
+            var token = await userManager.GeneratePasswordResetTokenAsync(user);
+
+            // Send the reset token via email
+            var resetLink = $"https://localhost:7126/Account/ResetPassword?token={Uri.EscapeDataString(token)}&email={email}";
+            await SendEmailAsync(user.Email, "Reset your password", $"Click <a href='{resetLink}'>here</a> to reset your password.");
+
+            return token;
+        }
+
+        public async Task<bool> ResetPasswordAsync(string email, string token, string newPassword)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+            if (user == null) return false;
+
+            var result = await userManager.ResetPasswordAsync(user, token, newPassword);
+
+            return result.Succeeded;
+        }
     }
 }

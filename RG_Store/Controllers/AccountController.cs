@@ -1,10 +1,13 @@
 ﻿using Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using RG_Store.BLL.ModelVM.UserVM;
 using RG_Store.BLL.Service.Abstraction;
 using RG_Store.BLL.Service.Abstraction.RG_Store.BLL.Service.Abstraction;
+using RG_Store.BLL.Service.Implementation;
 using System.Threading.Tasks;
+using static RG_Store.BLL.ModelVM.UserVM.ForgerPasswordVM;
 
 namespace RG_Store.PLL.Controllers
 {
@@ -108,6 +111,58 @@ namespace RG_Store.PLL.Controllers
 
             ViewBag.Message = "Invalid or expired token!";
             return View(model: token);
+        }
+
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                ModelState.AddModelError(string.Empty, "Please provide your email address.");
+                return View();
+            }
+
+            await userService.GeneratePasswordResetTokenAsync(email);
+            ViewBag.Message = "If an account with this email exists, a password reset link has been sent.";
+
+            return View();
+        }
+
+        // Step 2: Reset Password
+        [HttpGet]
+        public IActionResult ResetPassword(string token, string email)
+        {
+            if (token == null || email == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var model = new ResetPasswordVM { Token = token, Email = email };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordVM model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var result = await userService.ResetPasswordAsync(model.Email, model.Token, model.Password);
+            if (result)
+            {
+                return RedirectToAction("SignIn");
+            }
+
+            ModelState.AddModelError(string.Empty, "Error resetting your password.");
+            return View(model);
         }
 
 

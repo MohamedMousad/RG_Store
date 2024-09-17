@@ -34,7 +34,8 @@ namespace RG_Store.BLL.Service.Abstraction
             public  Task<bool> ConfirmEmailAsync(string token);
             public  Task GenerateEmailConfirmationTokenAsync(string id, string token);
             public  Task<User> GetByEmailAsync(string email);
-
+            Task<string> GeneratePasswordResetTokenAsync(string email);
+            Task<bool> ResetPasswordAsync(string email, string token, string newPassword);
 
         }
     }
