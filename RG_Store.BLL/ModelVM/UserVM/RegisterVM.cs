@@ -29,8 +29,7 @@ namespace RG_Store.BLL.ModelVM.UserVM
 
         /*     [Required(ErrorMessage = "Password required!")]
              [DataType(DataType.Password)]*/
-        public string Password { get; set; }
-        public string CheckPassword { get; set; }
+        public string Password { get; set; } 
         public Roles UserRole = Roles.Customer;
    /*     [Required]
         [DisplayName("Phone Number")]

@@ -33,12 +33,9 @@ namespace RG_Store.PLL.Controllers
               Console.WriteLine(model.Email);
               Console.WriteLine(model.Password);
               Console.WriteLine("========================");*/
-            if (model.Password != model.CheckPassword)
-            {
-                return View(model);
-            }
-            if (ModelState.IsValid)
-            {
+           
+          /*  if (ModelState.IsValid)
+            {*/
               /*  Console.WriteLine("========================");
 
                 Console.WriteLine(model.Email);
@@ -69,7 +66,7 @@ namespace RG_Store.PLL.Controllers
                         ModelState.AddModelError(string.Empty, error);
                     }
                 }
-            }
+            /*}*/
             
             return View(model);
         }
