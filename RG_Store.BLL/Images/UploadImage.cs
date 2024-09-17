@@ -33,7 +33,7 @@ namespace RG_Store.BLL.Images
             {
                 //catch the folder Path and the file name in server
                 // 1 ) Get Directory
-                string FolderPath = Directory.GetCurrentDirectory() + "/wwwroot/images/" + FolderName;
+                string FolderPath = Directory.GetCurrentDirectory() + "/wwwroot/UpdatedPhotoes/" + FolderName;
 
                 //2) Get File Name
                 string FileName = Guid.NewGuid() + Path.GetFileName(File.FileName);
