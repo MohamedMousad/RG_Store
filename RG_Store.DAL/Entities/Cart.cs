@@ -16,7 +16,7 @@ namespace RG_Store.DAL.Entities
         public decimal TotalPrice { get; set; } = 0;
 
         // DB relation
-        public string UsertId { get; set; } 
+        public string UserId { get; set; } 
         public User User { get; set; }
 
         public IEnumerable<Item?>? Items { get; set; }
