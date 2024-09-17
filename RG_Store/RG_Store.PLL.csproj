@@ -33,4 +33,8 @@
     <ProjectReference Include="..\RG_Store.BLL\RG_Store.BLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\UpdatedPhotoes\" />
+  </ItemGroup>
+
 </Project>
