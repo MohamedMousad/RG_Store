@@ -16,6 +16,7 @@ namespace RG_Store.DAL.DB
           public DbSet<Category> Categories { get; set; }            
           public DbSet<Favourite> Favourites { get; set; }            
           public DbSet<CartItem> CartItems { get; set; }            
+          public DbSet<FavouriteItem> FavouriteItems { get; set; }            
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {           
@@ -34,6 +35,10 @@ namespace RG_Store.DAL.DB
                 .HasOne(u => u.Cart)
                 .WithOne(c => c.User)
                 .HasForeignKey<Cart>(c => c.UserId);
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.Favourite)
+                .WithOne(c => c.User)
+                .HasForeignKey<Favourite>(c => c.UserId);
         }
     }
 }

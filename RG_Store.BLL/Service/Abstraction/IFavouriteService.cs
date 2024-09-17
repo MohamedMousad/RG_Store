@@ -10,8 +10,8 @@ namespace RG_Store.BLL.Service.Abstraction
 {
     public interface IFavouriteService
     {
-        public bool AddToFavorite(int ItemId, int id);
-        public bool RemoveFromFavorite(int ItemId, int id);
-        public IEnumerable<GetAllItemVM> GetAll(int id);
+        public Task<bool> AddToFavorite(int ItemId, int id);
+        public Task<bool> RemoveFromFavorite(int ItemId, int id);
+        public Task<IEnumerable<GetAllItemVM>> GetAll(int id);
     }
 }
