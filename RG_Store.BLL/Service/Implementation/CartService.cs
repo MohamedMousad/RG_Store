@@ -48,7 +48,17 @@ namespace RG_Store.BLL.Service.Implementation
             List<GetAllItemVM> result = new();
             foreach (var item in items)
             {
-                var temp = mapper.Map<GetAllItemVM>(item);
+                GetAllItemVM temp = new GetAllItemVM
+                {
+                    Name = item.Name,
+
+                    Description = item.Description,
+                    Quantity = item.Quantity,
+                    HasOffer = item.HasOffer,
+                    Offer = item.Offer,
+                    Id = item.Id,
+
+                };
                 result.Add(temp);
             }
 

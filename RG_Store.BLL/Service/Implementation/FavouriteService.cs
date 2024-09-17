@@ -26,16 +26,16 @@ namespace RG_Store.BLL.Service.Implementation
             this.mapper = mapper;
             this.itemService=itemService;
         }
-        public bool AddToFavorite(int ItemId,int id)
+        public async Task<bool> AddToFavorite(int ItemId,int id)
         {
            var item = itemService.GetAllItem(ItemId);
            var Result = mapper.Map<Item>(item);
-           return favouriteRepo.Add(Result,id);
+           return await favouriteRepo.Add(Result,id);
         }
 
-        public IEnumerable<GetAllItemVM> GetAll(int id)
+        public async Task<IEnumerable<GetAllItemVM>> GetAll(int id)
         {
-            var List = favouriteRepo.GetAll(id).ToList();
+            var List = await favouriteRepo.GetAll(id);
             List<GetAllItemVM> Resulte = new();
             foreach (var item in List)
             {
@@ -45,11 +45,11 @@ namespace RG_Store.BLL.Service.Implementation
             return Resulte;
         }
 
-        public bool RemoveFromFavorite(int ItemId, int id)
+        public async Task<bool> RemoveFromFavorite(int ItemId, int id)
         {
             var item = itemService.GetAllItem(ItemId);
             var Result = mapper.Map<Item>(item);
-            return favouriteRepo.Remove(Result, id);
+            return await favouriteRepo.Remove(Result.Id, id);
         }
     }
 }

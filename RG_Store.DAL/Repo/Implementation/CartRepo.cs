@@ -29,8 +29,10 @@ namespace RG_Store.DAL.Repo.Implementation
                 ci.CartId = cartIdvm;   
                 ci.Item = itemvm;
                
-                context.CartItems.Add(ci);
-               await context.SaveChangesAsync();
+
+               await context.CartItems.AddAsync(ci);
+               await  context.SaveChangesAsync();
+
                 return true;
             }
             catch (Exception)
@@ -64,14 +66,13 @@ namespace RG_Store.DAL.Repo.Implementation
           
             try
             {
-                await context.Entry(context.CartItems).ReloadAsync();
 
-                var items = await context.CartItems
+                var items =  context.CartItems
                   .Include(i => i.Item)          
                   .Where(i => i.CartId == id)    
                   .Select(i => i.Item)           
-                  .ToListAsync();
-                return items;
+                  .ToList();
+                return  items;
             }
             catch (Exception)
             {

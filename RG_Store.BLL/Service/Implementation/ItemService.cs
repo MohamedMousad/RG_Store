@@ -56,30 +56,41 @@ namespace RG_Store.BLL.Service.Implementation
         public IEnumerable<GetAllItemVM> GetAll()
         {
             var List = Itemrepo.GetAll().ToList();
-            List<GetAllItemVM> Result = new ();
-            foreach(var  item in List)
+            List<GetAllItemVM> Result = new();
+            foreach (var item in List)
             {
                 GetAllItemVM temp = new GetAllItemVM
                 {
                     Name = item.Name,
-                                      
-                    Description = item.Description,
-                    Quantity=item.Quantity, 
-                    HasOffer = item.HasOffer,
-                    Offer =item.Offer,
-                     Id = item.Id,
 
-                };                
+                    Description = item.Description,
+                    Quantity = item.Quantity,
+                    HasOffer = item.HasOffer,
+                    Offer = item.Offer,
+                    Id = item.Id,
+
+                };
+
                 Result.Add(temp);
             }
-            return Result ; 
+            return Result;
         }
 
         public GetAllItemVM GetAllItem(int id)
         {
-            var Item = Itemrepo.GetById(id);
-            var Result = mapper.Map<GetAllItemVM>(Item);
-            return Result;
+            var item = Itemrepo.GetById(id);
+            GetAllItemVM temp = new GetAllItemVM
+            {
+                Name = item.Name,
+
+                Description = item.Description,
+                Quantity = item.Quantity,
+                HasOffer = item.HasOffer,
+                Offer = item.Offer,
+                Id = item.Id,
+
+            };
+            return temp;
         }
 
      
