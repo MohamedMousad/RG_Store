@@ -70,6 +70,7 @@ namespace RG_Store.BLL.Service.Implementation
                     Id = item.Id,
 
                 };
+
                 Result.Add(temp);
             }
             return Result;

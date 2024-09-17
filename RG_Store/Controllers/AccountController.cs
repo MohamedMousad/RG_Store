@@ -1,11 +1,14 @@
 ﻿using Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using RG_Store.BLL.ModelVM.UserVM;
 using RG_Store.BLL.Service.Abstraction;
 using RG_Store.BLL.Service.Abstraction.RG_Store.BLL.Service.Abstraction;
 using RG_Store.BLL.Service.Implementation;
+using RG_Store.Services.Implementation;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using static RG_Store.BLL.ModelVM.UserVM.ForgerPasswordVM;
 
@@ -15,12 +18,14 @@ namespace RG_Store.PLL.Controllers
     {
         private readonly IUserService userService;
         private readonly SignInManager<User> signInManager;
+       
 
 
-        public AccountController(IUserService userService, SignInManager<User> signInManager)
+        public AccountController(IUserService userService, SignInManager<User> signInManager )
         {
             this.userService = userService;
             this.signInManager = signInManager;
+            
         }
 
 
@@ -204,6 +209,27 @@ namespace RG_Store.PLL.Controllers
         }
 
 
+        [HttpGet]
+        public IActionResult Profile()
+        {
+            // Get the logged-in user's ID from the claims
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            // Fetch the user ViewModel using the service
+            var userVM = userService.GetUserVM(userId);
+
+            if (userVM == null)
+            {
+                return NotFound("User not found");
+            }
+
+            return View(userVM);  // Pass the ViewModel to the view
+        }
 
 
     }
