@@ -8,6 +8,7 @@ using EmployeeSystem.DAL.Repo.Abstraction;
 using RG_Store.DAL.Enums;
 using System.Net.Mail;
 using System.Net;
+using System.Security.Claims;
 
 namespace RG_Store.BLL.Service.Implementation
 {
@@ -171,6 +172,48 @@ namespace RG_Store.BLL.Service.Implementation
         public async Task<User> GetByEmailAsync(string email)
         {
             return await userRepo.GetByEmailAsync(email);
+        }
+        public async Task<string> GeneratePasswordResetTokenAsync(string email)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+            if (user == null) return null;
+
+            var token = await userManager.GeneratePasswordResetTokenAsync(user);
+
+            // Send the reset token via email
+            var resetLink = $"https://localhost:7126/Account/ResetPassword?token={Uri.EscapeDataString(token)}&email={email}";
+            await SendEmailAsync(user.Email, "Reset your password", $"Click <a href='{resetLink}'>here</a> to reset your password.");
+
+            return token;
+        }
+
+        public async Task<bool> ResetPasswordAsync(string email, string token, string newPassword)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+            if (user == null) return false;
+
+            var result = await userManager.ResetPasswordAsync(user, token, newPassword);
+
+            return result.Succeeded;
+        }
+        public async Task<User> GetUserAsync(ClaimsPrincipal principal)
+        {
+            return await userManager.GetUserAsync(principal);
+        }
+
+        public async Task<IdentityResult> ChangePasswordAsync(User user, string oldPassword, string newPassword)
+        {
+            var result = await userManager.ChangePasswordAsync(user, oldPassword, newPassword);
+            if (result.Succeeded)
+            {
+                await signInManager.RefreshSignInAsync(user);
+            }
+            return result;
+        }
+
+        public async Task SignInUserAsync(User user)
+        {
+            await signInManager.RefreshSignInAsync(user); // Refreshes the user’s sign-in cookie
         }
 
     }

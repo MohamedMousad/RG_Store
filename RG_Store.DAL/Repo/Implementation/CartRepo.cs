@@ -30,6 +30,7 @@ namespace RG_Store.DAL.Repo.Implementation
               
                 var CartItems =GetAllItems(Id).ToList();
                 CartItems.Add(item);
+                context.SaveChangesAsync();
                 return true; 
             }
             catch (Exception)
@@ -72,7 +73,7 @@ namespace RG_Store.DAL.Repo.Implementation
             }           
         }
 
-        public Cart GetById(int id)=>context.Carts.Where(c => c.Id == id).FirstOrDefault();
+        public Cart GetById(int id)=>context.Carts.Include(c=>c.Items).Where(c => c.Id == id).FirstOrDefault();
         public bool RemoveFromCart(Item item, int Id)
         {
             try
