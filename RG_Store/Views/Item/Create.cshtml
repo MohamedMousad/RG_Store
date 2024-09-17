@@ -6,226 +6,87 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title> Profile </title>
-
-        <link rel="stylesheet" media="screen" href="https://finder.createx.studio/css/theme.min.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-              integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        <link rel="stylesheet" media="screen" href="https://finder.createx.studio/css/theme.min.css">
-        <style>
-            * {
-                text-decoration: none !important;
-            }
-
-            body {
-                background-color: #1f1b2d;
-            }
-
-            .myHover {
-                color: #9691a4 !important;
-            }
-
-                .myHover:hover {
-                    background-color: transparent;
-                    color: white !important;
-                }
-
-            .makeMeOrange {
-                color: #fd5631 !important;
-            }
-
-                .makeMeOrange:hover {
-                    color: #fd390e !important;
-                }
-
-            .makeMeOrangeBG {
-                background-color: #fd5631 !important;
-                border: none;
-            }
-
-                .makeMeOrangeBG:hover {
-                    background-color: #fd390e !important;
-                }
-
-            .navbar-scrolled {
-                background-color: #1f1b2d !important;
-            }
-
-            s {
-                text-decoration: line-through !important;
-            }
-
-            ::placeholder {
-                color: #9691a4 !important;
-            }
-
-            input {
-                color: white !important;
-            }
-
-            .socialMediaBG:hover {
-                transition-duration: 500ms !important;
-                background-color: white !important;
-                .socialMedia
-
-            {
-                transition-duration: 500ms !important;
-                color: #fd5631 !important;
-            }
-
-            }
-
-            a:has(.appStore):hover {
-                background-color: #fd390e !important;
-                color: #fd5631 !important;
-            }
-        </style>
-
-
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const navbar = document.getElementById('navbar');
-                const navbarHeight = navbar.offsetHeight;
-
-                window.addEventListener('scroll', function () {
-                    if (window.scrollY > navbarHeight) {
-                        navbar.classList.add('navbar-scrolled');
-                    } else {
-                        navbar.classList.remove('navbar-scrolled');
-                    }
-                });
-            });
-        </script>
-
-    </head>
+    <!-- Your head content -->
     <title>Admin Hub</title>
+    <!-- Include your styles and scripts -->
 </head>
-
 <body>
-    <!-- Full Page Sign In -->
+    <!-- Full Page Form -->
     <div class="container-fluid bg-dark text-light min-vh-100 d-flex justify-content-center align-items-center">
         <div class="row mx-0 w-100" style="max-width: 1800px;">
-
-            <!-- Right Column -->
             <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5">
-
-                <form class="needs-validation d-flex flex-row gap-3 justify-content-center" novalidate>
-                      asp-action="Create" asp-controller="Item">
+                <!-- Corrected Form Tag -->
+                <form class="needs-validation d-flex flex-row gap-3 justify-content-center" novalidate asp-action="Create" asp-controller="Item" method="post">
                     <div class="col-5">
+                        <!-- Game Name -->
                         <div class="mb-4">
-                            <label class="form-label text-light mb-2" for="signin-email">Game (required)</label>
-                            <input class="form-control form-control-light" type="text" id="signin-email" name="email"
-                                   placeholder="Enter game name" required asp-for=Name>
+                            <label class="form-label text-light mb-2" for="item-name">Game (required)</label>
+                            <input class="form-control form-control-light" type="text" id="item-name" placeholder="Enter game name" required asp-for="Name">
                             <div class="invalid-feedback">
                                 Please provide a valid game name!
                             </div>
                         </div>
+                        <!-- Game Description -->
                         <div class="mb-4">
-                            <label class="form-label text-light mb-2" for="signin-email">Game Description</label>
-                            <input class="form-control form-control-light" type="text" id="signin-email" name="email"
-                                   placeholder="Enter game Description" required asp-for=Description>
+                            <label class="form-label text-light mb-2" for="item-description">Game Description</label>
+                            <input class="form-control form-control-light" type="text" id="item-description" placeholder="Enter game description" required asp-for="Description">
                             <div class="invalid-feedback">
-                                Please provide a valid game name!
+                                Please provide a valid game description!
                             </div>
                         </div>
+                        <!-- Price -->
                         <div class="mb-4">
-                            <label class="form-label text-light mb-2" for="signin-email" (required)>
-                                Price
-                                (Required)
-                            </label>
-                            <input class="form-control form-control-light" type="number" asp-for=FinalPrice
-                                   id="signin-email" name="email" placeholder="Enter game price" required>
+                            <label class="form-label text-light mb-2" for="item-finalprice">Price (Required)</label>
+                            <input class="form-control form-control-light" type="number" id="item-finalprice" placeholder="Enter game price" required asp-for="FinalPrice">
                             <div class="invalid-feedback">
                                 Please provide a valid price!
                             </div>
                         </div>
+                        <!-- Old Price -->
                         <div class="mb-4">
-                            <label class="form-label text-light mb-2" for="signin-email">Old Price</label>
-                            <input class="form-control form-control-light" type="number" asp-for=IntialPrice
-                                   id="signin-email" name="email" placeholder="Enter game old price">
+                            <label class="form-label text-light mb-2" for="item-initialprice">Old Price</label>
+                            <input class="form-control form-control-light" type="number" id="item-initialprice" placeholder="Enter game old price" asp-for="IntialPrice">
                             <div class="invalid-feedback">
                                 Please provide a valid old price!
                             </div>
                         </div>
                     </div>
                     <div class="col-6">
-
+                        <!-- Quantity -->
                         <div class="mb-4">
-                            <label class="form-label text-light mb-2" for="signin-email">Quantity</label>
-                            <input class="form-control form-control-light" type="number" asp-for=Quantity
-                                   id="signin-email" name="email" placeholder="Enter game old price">
+                            <label class="form-label text-light mb-2" for="item-quantity">Quantity</label>
+                            <input class="form-control form-control-light" type="number" id="item-quantity" placeholder="Enter game quantity" asp-for="Quantity">
                             <div class="invalid-feedback">
-                                Please provide a valid old price!
+                                Please provide a valid quantity!
                             </div>
                         </div>
+                        <!-- Category Selection -->
+                      @*   <div class="mb-4">
+                            <label class="form-label text-light mb-2" for="item-category">Category</label>
+                            <select class="form-select form-select-light mt-3" id="item-category" asp-for="CategoryId">
+                                <option value="" disabled selected>Select Category</option>
+                                @foreach (var itm in categories)
+                                {
+                                    <option value="@itm.Id">@itm.Name</option>
+                                }
+                            </select>
+                        </div> *@
+                        <!-- Photo Upload -->
                         <div class="mb-4">
-                            <div class="mb-4">
-                                <label class="form-label text-light mb-2" for="signin-email">Category</label>
-                                <select class="form-select form-select-light mt-3" data-bs-binded-element="#name-value"
-                                        asp-for="Category">
-                                    <option value="" disabled selected>Select Category</option>
-                                    @foreach (var itm in categories)
-                                    {
-                                        <option value="@itm.Name">@itm.Name</option>
-                                    }
-                                </select>
-                            </div>
+                            <label class="form-label text-light mb-2" for="item-image">Photo</label>
+                            <input class="form-control" type="file" id="item-image" accept="image/png,image/jpeg" asp-for="ItemImage">
                         </div>
-                        <div class="mb-4">
-                            <label class="form-label text-light mb-2" for="signin-email" asp-for=ItemImage>Photo</label>
+                        <!-- Submit and Reset Buttons -->
+                        <div class="d-flex justify-content-between">
+                            <button class="btn btn-primary btn-lg w-50" type="submit">Add</button>
+                            <button type="reset" class="btn btn-secondary btn-lg w-50">Cancel</button>
                         </div>
-
-                        <div class="filepond--root file-uploader border-light bg-faded-light filepond--hopper"
-                             data-style-panel-layout="compact" data-style-button-remove-item-position="left"
-                             data-style-button-process-item-position="right" data-style-load-indicator-position="right"
-                             data-style-progress-indicator-position="right" data-style-button-remove-item-align="false"
-                             style="height: 160px;">
-                            <input class="filepond--browser" type="file" id="filepond--browser-j1prg4puv"
-                                   name="filepond" aria-controls="filepond--assistant-j1prg4puv"
-                                   aria-labelledby="filepond--drop-label-j1prg4puv" accept="image/png,image/jpeg"><a class="filepond--credits" aria-hidden="true" href="https://pqina.nl/" target="_blank"
-                                                                                                                     rel="noopener noreferrer" style="transform: translateY(152px);">Powered by PQINA</a>
-                            <div class="filepond--drop-label"
-                                 style="transform: translate3d(0px, 0px, 0px); opacity: 1;">
-                                <label for="filepond--browser-j1prg4puv" id="filepond--drop-label-j1prg4puv"
-                                       aria-hidden="true">
-                                    <i class="d-inline-block fi-camera-plus fs-2 text-light text-muted mb-2"></i><br><span class="fw-bold text-light opacity-70">Change picture</span>
-                                </label>
-                            </div>
-                            <div class="filepond--list-scroller" style="transform: translate3d(0px, 0px, 0px);">
-                                <ul class="filepond--list" role="list"></ul>
-                            </div>
-                            <div class="filepond--panel filepond--panel-root" data-scalable="true">
-                                <div class="filepond--panel-top filepond--panel-root"></div>
-                                <div class="filepond--panel-center filepond--panel-root"
-                                     style="transform: translate3d(0px, 8px, 0px) scale3d(1, 1.44, 1);"></div>
-                                <div class="filepond--panel-bottom filepond--panel-root"
-                                     style="transform: translate3d(0px, 152px, 0px);"></div>
-                            </div><span class="filepond--assistant" id="filepond--assistant-j1prg4puv" role="status"
-                                        aria-live="polite" aria-relevant="additions"></span>
-                            <div class="filepond--drip"></div>
-                            <fieldset class="filepond--data"></fieldset>
-                        </div>
-                        <hr class="p-2" style="color: transparent;">
-                        <button class="btn btn-primary btn-lg w-50" type="submit">Add</button><button type="reset"
-                                                                                                      class="btn btn-secondary btn-lg w-50">
-                            Cancel
-                        </button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"></script>
+    <!-- Include your scripts -->
 </body>
-
 </html>

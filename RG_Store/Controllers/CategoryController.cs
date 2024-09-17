@@ -22,7 +22,7 @@ namespace RG_Store.PLL.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(AddCategoryVM categoryVM )
+        public IActionResult Create(AddCategoryVM categoryVM)
         {
             if (categoryService.Create(categoryVM))return RedirectToAction("Index","Home");
             else return View(categoryVM);
