@@ -35,10 +35,13 @@
                                     <p><strong>@item.Name</strong></p>
                                     <p>Description</p>
                                     <p>@item.Description</p>
-                                    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-sm me-1 mb-2" data-mdb-tooltip-init
-                                            title="Remove item" asp-controller="Cart" asp-action="Remove">
+                                    <form asp-controller="Cart" asp-action="RemoveFromCart">
+                                        <input type="hidden" name="itemId" value="@item.Id" />
+                                    <button  type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-sm me-1 mb-2" data-mdb-tooltip-init
+                                            title="Remove item" >
                                         <i class="fas fa-trash"></i>
                                     </button>
+                                    </form>
                                     <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-danger btn-sm mb-2" data-mdb-tooltip-init
                                             title="Move to the wish list">
                                         <i class="fas fa-heart"></i>
@@ -110,9 +113,17 @@
                         <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" asp-controller="Order" , asp-action="Create">
                             Go to checkout
                         </button>
-                        <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" asp-controller="Cart" , asp-action="Clear">
-                            Clear Cart
-                        </button>
+
+
+                        <form   hidden action="/" method="post">
+
+
+                            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" asp-controller="Cart" , asp-action="ClearCart">
+                                Clear Cart
+                            </button>
+                        
+                        </form>
+                        
                     </div>
                 </div>
             </div>

@@ -19,7 +19,7 @@ namespace RG_Store.DAL.Entities
         public string UserId { get; set; } 
         public User User { get; set; }
 
-        public IEnumerable<Item?>? Items { get; set; }
+        public IEnumerable<CartItem?> CartItem { get; set; }
 
         [ForeignKey("Orders")]
         public int ?OrderId { get; set; }

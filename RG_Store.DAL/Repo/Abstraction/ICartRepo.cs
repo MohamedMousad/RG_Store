@@ -10,11 +10,11 @@ namespace RG_Store.DAL.Repo.Abstraction
 {
     public interface ICartRepo
     {
-        public bool AddToCart(Item item,int Id);
-        public bool RemoveFromCart(Item item, int  Id);  
-        public bool ClearCart(int Id);  
-        public IEnumerable<Item> GetAllItems(int id);
-        public Cart GetById(int id);
+        public Task<bool> AddToCart(Item item, int cartId);
+        public Task<bool> RemoveFromCart(int itemid, int Id);
+        public Task<bool> ClearCart(int Id);
+        public  Task<IEnumerable<Item>> GetAllItems(int id);
+        public Task<Cart> GetById(int id);
 
     }
 }

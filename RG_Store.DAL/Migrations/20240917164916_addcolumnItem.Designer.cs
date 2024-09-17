@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RG_Store.DAL.DB;
 
@@ -11,9 +12,11 @@ using RG_Store.DAL.DB;
 namespace RG_Store.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240917164916_addcolumnItem")]
+    partial class addcolumnItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,6 +32,9 @@ namespace RG_Store.DAL.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CartId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("CategoryId")
                         .HasColumnType("int");
@@ -72,6 +78,8 @@ namespace RG_Store.DAL.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CartId");
 
                     b.HasIndex("CategoryId");
 
@@ -371,29 +379,6 @@ namespace RG_Store.DAL.Migrations
                     b.ToTable("Carts");
                 });
 
-            modelBuilder.Entity("RG_Store.DAL.Entities.CartItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CartId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ItemId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CartId");
-
-                    b.HasIndex("ItemId");
-
-                    b.ToTable("CartItems");
-                });
-
             modelBuilder.Entity("RG_Store.DAL.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -435,6 +420,10 @@ namespace RG_Store.DAL.Migrations
 
             modelBuilder.Entity("Entities.Item", b =>
                 {
+                    b.HasOne("RG_Store.DAL.Entities.Cart", null)
+                        .WithMany("Items")
+                        .HasForeignKey("CartId");
+
                     b.HasOne("RG_Store.DAL.Entities.Category", "Category")
                         .WithMany("Items")
                         .HasForeignKey("CategoryId");
@@ -532,25 +521,6 @@ namespace RG_Store.DAL.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("RG_Store.DAL.Entities.CartItem", b =>
-                {
-                    b.HasOne("RG_Store.DAL.Entities.Cart", "Cart")
-                        .WithMany("CartItem")
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Entities.Item", "Item")
-                        .WithMany()
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cart");
-
-                    b.Navigation("Item");
-                });
-
             modelBuilder.Entity("Entities.Order", b =>
                 {
                     b.Navigation("Items");
@@ -565,7 +535,7 @@ namespace RG_Store.DAL.Migrations
 
             modelBuilder.Entity("RG_Store.DAL.Entities.Cart", b =>
                 {
-                    b.Navigation("CartItem");
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("RG_Store.DAL.Entities.Category", b =>
