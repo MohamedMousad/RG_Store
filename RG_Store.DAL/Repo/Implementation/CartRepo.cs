@@ -28,10 +28,9 @@ namespace RG_Store.DAL.Repo.Implementation
                 CartItem ci = new CartItem();
                 ci.CartId = cartIdvm;   
                 ci.Item = itemvm;
-                ci.CartId = cartIdvm;
                
                 context.CartItems.Add(ci);
-                context.SaveChangesAsync();
+               await context.SaveChangesAsync();
                 return true;
             }
             catch (Exception)
@@ -65,6 +64,8 @@ namespace RG_Store.DAL.Repo.Implementation
           
             try
             {
+                await context.Entry(context.CartItems).ReloadAsync();
+
                 var items = await context.CartItems
                   .Include(i => i.Item)          
                   .Where(i => i.CartId == id)    

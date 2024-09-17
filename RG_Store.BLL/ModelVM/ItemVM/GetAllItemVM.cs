@@ -21,13 +21,14 @@ namespace RG_Store.BLL.ModelVM.ItemVM
         [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than 0.")]
         public decimal IntialPrice { get; set; }
         public decimal FinalPrice { get; set; }
-    [Required(ErrorMessage = "Please enter the initial  quantity.")]
+        [Required(ErrorMessage = "Please enter the initial  quantity.")]
         [Range(0, int.MaxValue, ErrorMessage = "quantity must be a positive number.")]
         public int Quantity { get; set; } = 0;
-
-        public IFormFile Image { get; set; }
+        public IFormFile? ItemImage { get; set; }
+        public String? Image { get; set; }
         public bool HasOffer { get; set; } = false;
         public decimal? Offer { get; set; } = 0;
         public int? CategoryId { get; set; }
+
     }
 }
