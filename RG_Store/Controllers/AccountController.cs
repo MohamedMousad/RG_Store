@@ -28,13 +28,14 @@ namespace RG_Store.PLL.Controllers
         [HttpPost]
         public async Task<IActionResult> SignUp(RegisterVM model)
         {
-           /* Console.WriteLine("========================");
+            /* Console.WriteLine("========================");
 
-            Console.WriteLine(model.Email);
-            Console.WriteLine(model.Password);
-            Console.WriteLine("========================");*/
-            if (ModelState.IsValid)
-            {
+              Console.WriteLine(model.Email);
+              Console.WriteLine(model.Password);
+              Console.WriteLine("========================");*/
+           
+          /*  if (ModelState.IsValid)
+            {*/
               /*  Console.WriteLine("========================");
 
                 Console.WriteLine(model.Email);
@@ -65,7 +66,7 @@ namespace RG_Store.PLL.Controllers
                         ModelState.AddModelError(string.Empty, error);
                     }
                 }
-            }
+            /*}*/
             
             return View(model);
         }

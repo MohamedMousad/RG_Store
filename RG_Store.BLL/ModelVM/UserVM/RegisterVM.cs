@@ -11,24 +11,25 @@ namespace RG_Store.BLL.ModelVM.UserVM
 {
     public class RegisterVM
     {
-      /*  [Required, MaxLength(20, ErrorMessage = "ERROR : Max Length 20")]
-        [DisplayName("First Name")]*/
+        /*  [Required, MaxLength(20, ErrorMessage = "ERROR : Max Length 20")]
+          [DisplayName("First Name")]*/
         public string FirstName { get; set; } = string.Empty;
 
-       /* [Required, MaxLength(20, ErrorMessage = "ERROR : Max Length 20!")]
-        [MinLength(2, ErrorMessage = "MinLength 2")]
-        [DisplayName("Last Name")]*/
+        /* [Required, MaxLength(20, ErrorMessage = "ERROR : Max Length 20!")]
+         [MinLength(2, ErrorMessage = "MinLength 2")]
+         [DisplayName("Last Name")]*/
         public string LastName { get; set; } = string.Empty;
-/*
-        [Required, MaxLength(20, ErrorMessage = "ERROR : Max Length 20!")]
- */       public string UserName { get; set; }
-/*
-        [Required]*/
+        /*
+                [Required, MaxLength(20, ErrorMessage = "ERROR : Max Length 20!")]
+         */
+        public string UserName { get; set; }
+        /*
+                [Required]*/
         public Gender Gender { get; set; } = Gender.Male;
 
-   /*     [Required(ErrorMessage = "Password required!")]
-        [DataType(DataType.Password)]*/
-        public string Password { get; set; }
+        /*     [Required(ErrorMessage = "Password required!")]
+             [DataType(DataType.Password)]*/
+        public string Password { get; set; } 
         public Roles UserRole = Roles.Customer;
    /*     [Required]
         [DisplayName("Phone Number")]
