@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Entities;
+using RG_Store.BLL.Images;
 using RG_Store.BLL.Mapping;
 using RG_Store.BLL.ModelVM.ItemVM;
 using RG_Store.BLL.Service.Abstraction;
@@ -23,12 +24,28 @@ namespace RG_Store.BLL.Service.Implementation
             this.Itemrepo = Itemrepo;
         }
 
+        //public bool Create(CreateItemVM createItemVM)
+        //{
+        //    createItemVM.Image = UploadImage.UploadFile("images", createItemVM.ItemImage);
+        //    var Result = mapper.Map<Item>(createItemVM);
+
+        //    return Itemrepo.Create(Result);
+        //}
+
         public bool Create(CreateItemVM createItemVM)
         {
-           var Result = mapper.Map<Item>(createItemVM);
+           
+            if (createItemVM.ItemImage != null)
+            {
+            
+                createItemVM.Image = UploadImage.UploadFile("images", createItemVM.ItemImage);
+            }
 
+            
+            var Result = mapper.Map<Item>(createItemVM);
             return Itemrepo.Create(Result);
         }
+
 
         public bool Delete(DeleteItemVM deleteItem)
         {

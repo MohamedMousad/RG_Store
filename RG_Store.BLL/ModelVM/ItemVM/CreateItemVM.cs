@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -27,6 +28,8 @@ namespace RG_Store.BLL.ModelVM.ItemVM
         public int Quantity { get; set; } = 0;
          public int ?CategoryId { get; set; }
         public IFormFile ?ItemImage { get; set; }
-        
+        public String ? Image {  get; set; }
+   
+
     }
 }
