@@ -44,9 +44,11 @@ namespace RG_Store.Services.Implementation
                 user.Favourite = favourite;
 
                 var cart = new Cart();
+                _context.Carts.Add(cart);
                 cart.UserId = user.Id;
                 _context.Carts.Add(cart);
                 await _context.SaveChangesAsync();
+                user.CartId = cart.Id;
                 user.Cart = cart;
                 _context.Users.Update(user);
                 await _context.SaveChangesAsync();
