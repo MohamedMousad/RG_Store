@@ -12,9 +12,10 @@ namespace RG_Store.DAL.Entities
     {
         [Key]
         public int Id { get; set; }
-        public IEnumerable<Item?>? Items { get; set; }
-      //  public string UserId { get; set; }
-        public User ?User { get; set; }
+       
+        public string UserId { get; set; }
+        public User User { get; set; }
+        public IEnumerable<FavouriteItem?> FavouriteItem { get; set; }
 
     }
 }

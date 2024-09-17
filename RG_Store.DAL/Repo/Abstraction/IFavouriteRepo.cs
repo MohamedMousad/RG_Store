@@ -10,9 +10,9 @@ namespace RG_Store.DAL.Repo.Abstraction
 {
     public interface IFavouriteRepo
     {
-        public bool Add(Item item, int id);
-        public bool Remove(Item item, int id);
-        public IEnumerable<Item> GetAll(int id);
-        public Favourite GetById(int id);
+        public Task<bool> Add(Item itemid, int id);
+        public Task<bool> Remove(int itemid, int id);
+        public Task<IEnumerable<Item>> GetAll(int id);
+        public Task<Favourite> GetById(int id);
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RG_Store.DAL.DB;
 
@@ -11,9 +12,11 @@ using RG_Store.DAL.DB;
 namespace RG_Store.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240917205550_EntityFavouriteItem1")]
+    partial class EntityFavouriteItem1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,6 +39,9 @@ namespace RG_Store.DAL.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("FavouriteId")
+                        .HasColumnType("int");
 
                     b.Property<decimal?>("FinalPrice")
                         .HasColumnType("decimal(18,2)");
@@ -71,6 +77,8 @@ namespace RG_Store.DAL.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("FavouriteId");
 
                     b.HasIndex("OrderId");
 
@@ -460,6 +468,10 @@ namespace RG_Store.DAL.Migrations
                         .WithMany("Items")
                         .HasForeignKey("CategoryId");
 
+                    b.HasOne("RG_Store.DAL.Entities.Favourite", null)
+                        .WithMany("Items")
+                        .HasForeignKey("FavouriteId");
+
                     b.HasOne("Entities.Order", null)
                         .WithMany("Items")
                         .HasForeignKey("OrderId");
@@ -573,7 +585,7 @@ namespace RG_Store.DAL.Migrations
             modelBuilder.Entity("RG_Store.DAL.Entities.FavouriteItem", b =>
                 {
                     b.HasOne("RG_Store.DAL.Entities.Favourite", "Favourite")
-                        .WithMany("FavouriteItem")
+                        .WithMany()
                         .HasForeignKey("FavouriteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -622,7 +634,7 @@ namespace RG_Store.DAL.Migrations
 
             modelBuilder.Entity("RG_Store.DAL.Entities.Favourite", b =>
                 {
-                    b.Navigation("FavouriteItem");
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }
