@@ -52,24 +52,15 @@
                 <div class="mb-4">
                     <label class="form-label text-light mb-2" for="signup-password">Password</label>
                     <div class="password-toggle input-group">
-                        <input class="form-control form-control-light" type="password" asp-for="Password" id="signup-password-confirm" name="passwordConfirm" minlength="8" required>
+                        <input class="form-control form-control-light" type="password" asp-for="Password" id="signup-password" name="password" minlength="8" required>
                         <span class="input-group-text bg-dark text-light">
                             <i class="fas fa-eye password-toggle-icon" style="cursor:pointer;"></i>
                         </span>
-                        <div class="invalid-feedback">@Html.ValidationMessageFor(model => model.CheckPassword)</div>
+                        <div class="invalid-feedback">@Html.ValidationMessageFor(model => model.Password)</div>
                     </div>
                 </div>
                 <!-- Confirm Password -->
-                <div class="mb-4">
-                    <label class="form-label text-light mb-2" for="signup-password-confirm">Confirm password</label>
-                    <div class="password-toggle input-group">
-                        <input class="form-control form-control-light" type="password" asp-for="CheckPassword" id="signup-password-confirm" name="passwordConfirm" minlength="8" required>
-                        <span class="input-group-text bg-dark text-light">
-                            <i class="fas fa-eye password-toggle-icon" style="cursor:pointer;"></i>
-                        </span>
-                        <div class="invalid-feedback">@Html.ValidationMessageFor(model => model.CheckPassword)</div>
-                    </div>
-                </div>
+           
              @*    <!-- Agree to Terms -->
                 <div class="form-check form-check-light mb-4">
                     <input class="form-check-input" type="checkbox" id="agree-to-terms" name="agreeToTerms" required>
