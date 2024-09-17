@@ -19,6 +19,7 @@ namespace RG_Store.PLL.Controllers
             this.signInManager = signInManager;
         }
 
+
         [HttpGet]
         public IActionResult SignUp()
         {
@@ -28,31 +29,19 @@ namespace RG_Store.PLL.Controllers
         [HttpPost]
         public async Task<IActionResult> SignUp(RegisterVM model)
         {
-            /* Console.WriteLine("========================");
-
-              Console.WriteLine(model.Email);
-              Console.WriteLine(model.Password);
-              Console.WriteLine("========================");*/
-           
-          /*  if (ModelState.IsValid)
-            {*/
-              /*  Console.WriteLine("========================");
-
-                Console.WriteLine(model.Email);
-                Console.WriteLine(model.Password);
-                Console.WriteLine("========================");*/
-
+            if (ModelState.IsValid)
+            {
                 if (userService.CreateUser(model, out string[] errors))
                 {
-                    var user =await userService.GetByEmailAsync(model.Email);
+                    var user = await userService.GetByEmailAsync(model.Email);
 
                     string token = Guid.NewGuid().ToString();
-                    userService.GenerateEmailConfirmationTokenAsync(user.Id, token);
+                    await userService.GenerateEmailConfirmationTokenAsync(user.Id, token);
 
                     var confirmationLink = Url.Action("ConfirmEmail", "Account",
                         new { token = token }, protocol: Request.Scheme);
 
-                    userService.SendEmailAsync(user.Email, "Confirm your email",
+                    await userService.SendEmailAsync(user.Email, "Confirm your email",
                         $"Please confirm your email by clicking this <a href='{confirmationLink}'>link</a>.");
 
                     ViewBag.Message = "Registration successful! Please check your email to confirm your account.";
@@ -66,8 +55,8 @@ namespace RG_Store.PLL.Controllers
                         ModelState.AddModelError(string.Empty, error);
                     }
                 }
-            /*}*/
-            
+            }
+
             return View(model);
         }
 
