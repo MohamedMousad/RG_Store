@@ -1,15 +1,10 @@
-﻿﻿@using RG_Store.BLL.ModelVM.UserVM
-<!-- Full Page Sign Up -->
+﻿@using RG_Store.BLL.ModelVM.UserVM
 @model RegisterVM
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation/1.19.3/jquery.validate.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
 
-<div class="container-fluid bg-dark text-light min-vh-100 d-flex justify-content-center align-items-center">
-    <div class="row mx-0 w-100" style="max-width: 950px;">
+<div class="container bg-dark text-light d-flex min-vh-100 justify-content-center align-items-center" style="margin-top:30px;">
+    <div class="row mx-0 w-100" style="max-width: 900px;">
         <!-- Left Column -->
         <div class="col-md-6 border-end-md border-light p-4 p-sm-5 d-flex flex-column justify-content-center align-items-center">
-            <h2 class="h3 mb-4 mb-sm-5">Join Finder.<br>Get premium benefits:</h2>
             <ul class="list-unstyled mb-4 mb-sm-5">
                 <li class="d-flex mb-2">
                     <i class="fi-check-circle text-primary mt-1 me-2"></i><span class="text-light">Add and promote your listings</span>
@@ -21,27 +16,18 @@
                     <i class="fi-check-circle text-primary mt-1 me-2"></i><span class="text-light">Leave reviews</span>
                 </li>
             </ul>
-            <img class="d-block mx-auto" src="images/signup-dark.svg" width="344" alt="Illustration">
+            <img class="d-block mx-auto" src="~/images/signup-dark.svg" width="344" alt="Illustration">
             <div class="text-light mt-sm-4 pt-md-3 text-center">
                 <span class="opacity-60">Already have an account?</span>
-                <a class="text-light" href="#signin-page">Sign in</a>
+                <form asp-action="SignIn" asp-controller="Account">
+                    <button type="submit" class="btn btn-link p-0">Sign in</button>
+                </form>
             </div>
         </div>
+
         <!-- Right Column -->
         <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5">
-            <a class="btn btn-outline-info w-100 mb-3" href="#">
-                <i class="fi-google fs-lg me-1"></i> Sign up with Google
-            </a>
-            <a class="btn btn-outline-info w-100 mb-3" href="#">
-                <i class="fi-facebook fs-lg me-1"></i> Sign up with Facebook
-            </a>
-            <div class="d-flex align-items-center py-3 mb-3">
-                <hr class="hr-light w-100">
-                <div class="text-light opacity-70 px-3">Or</div>
-                <hr class="hr-light w-100">
-            </div>
             <form class="needs-validation" novalidate asp-action="SignUp" asp-controller="Account">
-                <button class="btn btn-primary btn-lg w-100" type="submit">Sign up</button>
                 <div class="mb-4">
                     <label class="form-label text-light mb-2" for="signup-firstname">First Name</label>
                     <input class="form-control form-control-light" type="text" id="signup-firstname" asp-for="FirstName" placeholder="Enter your first name" required>
@@ -62,7 +48,39 @@
                     <input class="form-control form-control-light" type="email" id="signup-email" asp-for="Email" placeholder="Enter your email" required>
                     <div class="invalid-feedback">@Html.ValidationMessageFor(model => model.Email)</div>
                 </div>
+                <!-- Password -->
                 <div class="mb-4">
+                    <label class="form-label text-light mb-2" for="signup-password">Password</label>
+                    <div class="password-toggle input-group">
+                        <input class="form-control form-control-light" type="password" asp-for="Password" id="signup-password-confirm" name="passwordConfirm" minlength="8" required>
+                        <span class="input-group-text bg-dark text-light">
+                            <i class="fas fa-eye password-toggle-icon" style="cursor:pointer;"></i>
+                        </span>
+                        <div class="invalid-feedback">@Html.ValidationMessageFor(model => model.CheckPassword)</div>
+                    </div>
+                </div>
+                <!-- Confirm Password -->
+                <div class="mb-4">
+                    <label class="form-label text-light mb-2" for="signup-password-confirm">Confirm password</label>
+                    <div class="password-toggle input-group">
+                        <input class="form-control form-control-light" type="password" asp-for="CheckPassword" id="signup-password-confirm" name="passwordConfirm" minlength="8" required>
+                        <span class="input-group-text bg-dark text-light">
+                            <i class="fas fa-eye password-toggle-icon" style="cursor:pointer;"></i>
+                        </span>
+                        <div class="invalid-feedback">@Html.ValidationMessageFor(model => model.CheckPassword)</div>
+                    </div>
+                </div>
+             @*    <!-- Agree to Terms -->
+                <div class="form-check form-check-light mb-4">
+                    <input class="form-check-input" type="checkbox" id="agree-to-terms" name="agreeToTerms" required>
+                    <label class="form-check-label" for="agree-to-terms">
+                        <span class="opacity-70">By joining, I agree to the</span>
+                        <a href="#" class="text-light">Terms of use</a>
+                        <span class="opacity-70">and</span>
+                        <a href="#" class="text-light">Privacy policy</a>
+                    </label>
+                </div> *@
+               @*  <div class="mb-4">
                     <label class="form-label text-light mb-2" for="signup-password">Password <span class="fs-sm opacity-50">min. 8 char</span></label>
                     <div class="password-toggle">
                         <input class="form-control form-control-light" type="password" asp-for="Password" id="signup-password" minlength="8" required>
@@ -71,9 +89,28 @@
                         </label>
                         <div class="invalid-feedback">@Html.ValidationMessageFor(model => model.Password)</div>
                     </div>
-                </div>
+                </div> *@
                 <button class="btn btn-primary btn-lg w-100" type="submit">Sign up</button>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    document.querySelectorAll('.password-toggle-icon').forEach(icon => {
+        icon.addEventListener('click', function () {
+            const passwordField = this.closest('.password-toggle').querySelector('input');
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+
+            // Toggle the eye icon
+            if (type === 'password') {
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
+            } else {
+                this.classList.remove('fa-eye');
+                this.classList.add('fa-eye-slash');
+            }
+        });
+    });
+</script>

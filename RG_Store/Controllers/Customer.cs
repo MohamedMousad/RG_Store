@@ -9,8 +9,9 @@ namespace RG_Store.PLL.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult Profile(string id)
+        public IActionResult Profile(string email)
         {
+            /*var user = */
             return View();
         }
     }
