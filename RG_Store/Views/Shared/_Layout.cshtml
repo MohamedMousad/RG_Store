@@ -1,4 +1,7 @@
 ﻿@* @model User *@
+@{
+    var IsSignedIn = User.Identity.IsAuthenticated;
+}
 <!doctype html>
 <html lang="en">
 
@@ -111,11 +114,15 @@
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            @if (User.Identity.IsAuthenticated)
+            @if (IsSignedIn)
             {
-                <a asp-controller="" asp-action="" class="btn btn-link btn-light btn-sm d-none d-lg-block order-lg-3 myHover">
+                <a asp-controller="Customer" asp-action="Profile" class="btn btn-link btn-light btn-sm d-none d-lg-block order-lg-3 myHover">
                     <i class="fi-user me-2"></i>@User.Identity.Name
                 </a>
+                    <a asp-controller="Account" asp-action="Logout" class="btn btn-link btn-light btn-sm d-none d-lg-block order-lg-3 myHover">
+                        <i class="fi-user me-2"></i>Logout
+                </a>
+                
             }
             else
             {
@@ -123,7 +130,7 @@
                     <i class="fi-user me-2"></i>Sign in
                 </a>
             }
-            <a class="btn btn-primary btn-sm ms-2 order-lg-3 makeMeOrangeBG" href="#">
+            <a class="btn btn-primary btn-sm ms-2 order-lg-3 makeMeOrangeBG" href="#">b  
                 <i class="button"></i>Cart
             </a>
             <div class="collapse navbar-collapse order-lg-2" id="navbarNav">

@@ -27,6 +27,7 @@ namespace RG_Store.BLL.Service.Implementation
         public bool CreateUser(RegisterVM registerVM, out string[] errors)
         {
             User user = mapper.Map<User>(registerVM);
+            Console.WriteLine(registerVM.Password);
 
             var result = userManager.CreateAsync(user, registerVM.Password).GetAwaiter().GetResult();
 
@@ -69,8 +70,9 @@ namespace RG_Store.BLL.Service.Implementation
 
         public async Task<bool> SignInUserAsync(LoginVM model)
         {
-            var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: true, lockoutOnFailure: false);
+            var uservm = GetByEmailAsync(model.Email);
 
+            var result = await signInManager.PasswordSignInAsync(uservm.Result.UserName, model.Password, isPersistent: false, lockoutOnFailure: false);
             if (result.Succeeded)
             {
                 Console.WriteLine("Login successful.");
