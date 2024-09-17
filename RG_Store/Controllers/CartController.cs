@@ -64,7 +64,7 @@ namespace RG_Store.PLL.Controllers
 
                 return RedirectToAction("Index", "item");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Log the exception here if needed
                 TempData["ErrorMessage"] = "An error occurred while processing your request.";
