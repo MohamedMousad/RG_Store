@@ -35,10 +35,10 @@ namespace RG_Store.BLL.Service.Implementation
         public bool Create(CreateItemVM createItemVM)
         {
            
-            if (createItemVM.ItemImage != null)
+            if (createItemVM.Image != null)
             {
             
-                createItemVM.Image = UploadImage.UploadFile("images", createItemVM.ItemImage);
+                createItemVM.ItemImage = UploadImage.UploadFile("items", createItemVM.Image);
             }
 
             
@@ -62,7 +62,7 @@ namespace RG_Store.BLL.Service.Implementation
                 GetAllItemVM temp = new GetAllItemVM
                 {
                     Name = item.Name,
-                                      
+                    ItemImage = item.ItemImage ,     
                     Description = item.Description,
                     Quantity=item.Quantity, 
                     HasOffer = item.HasOffer,

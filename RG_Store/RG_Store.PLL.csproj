@@ -34,7 +34,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\UpdatedPhotoes\" />
+    <Folder Include="wwwroot\uploaded_images\items\" />
+    <Folder Include="wwwroot\uploaded_images\users\" />
   </ItemGroup>
 
 </Project>

@@ -39,13 +39,35 @@ namespace RG_Store.BLL.Mapping
             CreateMap<User, EditUserVM>();
             CreateMap<GetUserVM, User>();
 
+            //User Mapper
+         //   CreateMap<User, CreateUserVM>();
+            CreateMap<User, DeleteUserVM>();
+            CreateMap<User, EditUserVM>();
+            CreateMap<User, GetUserVM>();
+            CreateMap<User, LoginVM>();
+            CreateMap<User, RegisterVM>();
+            CreateMap<User, UpdateRoleVM>();
+
             //Category Mapper
             CreateMap<Category, AddCategoryVM>();
             CreateMap<Category, DeleteCategoryVM>();
             CreateMap<Category, GetCategoryVM>();
             CreateMap<Category, UpdateCategoryVM>();
             
-            // item
+            //Category Mapper
+            CreateMap<Category, AddCategoryVM>();
+            CreateMap<Category, DeleteCategoryVM>();
+            CreateMap<Category, GetCategoryVM>();
+            CreateMap<Category, UpdateCategoryVM>();
+            CreateMap<Category, AddCategoryVM>();
+
+            CreateMap<AddCategoryVM, Category>();
+            CreateMap<DeleteCategoryVM, Category>();
+            CreateMap<GetCategoryVM, Category>();
+            CreateMap<UpdateCategoryVM, Category>();
+            CreateMap<UpdateCategoryVM, Category>();
+
+            // item Mapper
             CreateMap<Item, CreateItemVM>();
             CreateMap<Item, GetAllItemVM>();
             CreateMap<Item, UpdateItemVM>();
@@ -71,18 +93,6 @@ namespace RG_Store.BLL.Mapping
             CreateMap<GetFavouriteVM, Favourite>();
             CreateMap<RemoveFromFavouriteVM, Favourite>();
 */
-            //item Mapper
-            CreateMap<Category, AddCategoryVM>();
-            CreateMap<Category, DeleteCategoryVM>();
-            CreateMap<Category, GetCategoryVM>();
-            CreateMap<Category, UpdateCategoryVM>();
-            CreateMap<Category, AddCategoryVM>();
-
-            CreateMap<AddCategoryVM, Category>();
-            CreateMap<DeleteCategoryVM, Category>();
-            CreateMap<GetCategoryVM, Category>();
-            CreateMap<UpdateCategoryVM, Category>();
-            CreateMap<UpdateCategoryVM, Category>();
 
             //Order Mapper
             CreateMap<Order, CancelOrderVM>();
@@ -96,14 +106,6 @@ namespace RG_Store.BLL.Mapping
             CreateMap<GetOrderVM, Order>();
 
 
-            //User Mapper
-         //   CreateMap<User, CreateUserVM>();
-            CreateMap<User, DeleteUserVM>();
-            CreateMap<User, EditUserVM>();
-            CreateMap<User, GetUserVM>();
-            CreateMap<User, LoginVM>();
-            CreateMap<User, RegisterVM>();
-            CreateMap<User, UpdateRoleVM>();
 
         }
 
