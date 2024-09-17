@@ -5,6 +5,7 @@ using RG_Store.DAL.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -36,6 +37,9 @@ namespace RG_Store.BLL.Service.Abstraction
             public  Task<User> GetByEmailAsync(string email);
             Task<string> GeneratePasswordResetTokenAsync(string email);
             Task<bool> ResetPasswordAsync(string email, string token, string newPassword);
+            Task<User> GetUserAsync(ClaimsPrincipal principal);
+            Task<IdentityResult> ChangePasswordAsync(User user, string oldPassword, string newPassword);
+            Task SignInUserAsync(User user);
 
         }
     }

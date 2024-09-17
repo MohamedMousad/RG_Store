@@ -8,6 +8,7 @@ using EmployeeSystem.DAL.Repo.Abstraction;
 using RG_Store.DAL.Enums;
 using System.Net.Mail;
 using System.Net;
+using System.Security.Claims;
 
 namespace RG_Store.BLL.Service.Implementation
 {
@@ -195,5 +196,25 @@ namespace RG_Store.BLL.Service.Implementation
 
             return result.Succeeded;
         }
+        public async Task<User> GetUserAsync(ClaimsPrincipal principal)
+        {
+            return await userManager.GetUserAsync(principal);
+        }
+
+        public async Task<IdentityResult> ChangePasswordAsync(User user, string oldPassword, string newPassword)
+        {
+            var result = await userManager.ChangePasswordAsync(user, oldPassword, newPassword);
+            if (result.Succeeded)
+            {
+                await signInManager.RefreshSignInAsync(user);
+            }
+            return result;
+        }
+
+        public async Task SignInUserAsync(User user)
+        {
+            await signInManager.RefreshSignInAsync(user); // Refreshes the user’s sign-in cookie
+        }
+
     }
 }
