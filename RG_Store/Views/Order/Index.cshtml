@@ -1,7 +1,8 @@
-﻿@{
+﻿@using RG_Store.BLL.ModelVM.OrderVM
+@{
     ViewData["Title"] = "Index";
 }
-
+@model List<GetOrderVM>
 <style>
     h2 {
         color: orangered;
@@ -178,17 +179,20 @@
                             </tr>
                         </thead>
                         <tbody>
+                        @foreach (var item in Model)
+                        {
                             <tr>
-                                <th scope="row">1001</th>
-                                <td>September 15, 2024</td>
+                                <th scope="row">@item.OrderId</th>
+                                <td>@item.CreatedOn </td>
                                 <td>$120.00</td>
-                                <td><span class="badge badge-success">Delivered</span></td>
+                                <td><span class="badge badge-success">@item.OrderStatus.ToString()</span></td>
                                 <td class="action-icons">
                                     <a href="/Order/Edit/1001" class="edit"><i class="fas fa-edit"></i></a>
                                     <a href="/Order/Delete/1001" class="delete"><i class="fas fa-trash-alt"></i></a>
                                 </td>
                             </tr>
-                            <tr>
+                            }
+                            @* <tr>
                                 <th scope="row">1002</th>
                                 <td>September 10, 2024</td>
                                 <td>$75.50</td>
@@ -217,7 +221,7 @@
                                     <a href="/Order/Edit/1003" class="edit"><i class="fas fa-edit"></i></a>
                                     <a href="/Order/Delete/1003" class="delete"><i class="fas fa-trash-alt"></i></a>
                                 </td>
-                            </tr>
+                            </tr> *@
 
                         </tbody>
                     </table>

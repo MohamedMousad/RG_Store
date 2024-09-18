@@ -22,8 +22,8 @@ namespace Entities
         public string? ItemImage { get; set; }
 
 
-        public FavouriteItem FavouriteItem { get; set; }
-        public CartItem CartItem { get; set; }
-        public OrderItem OrderItem { get; set; }
+        public IEnumerable<FavouriteItem?> FavouriteItem { get; set; }
+        public IEnumerable<CartItem?> CartItem { get; set; }
+        public  IEnumerable<OrderItem?> OrderItem { get; set; }
     }
 }

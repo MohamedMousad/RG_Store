@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RG_Store.DAL.DB;
 
@@ -11,9 +12,11 @@ using RG_Store.DAL.DB;
 namespace RG_Store.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240918195403_AddIsDeleted")]
+    partial class AddIsDeleted
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -369,7 +372,8 @@ namespace RG_Store.DAL.Migrations
 
                     b.HasIndex("CartId");
 
-                    b.HasIndex("ItemId");
+                    b.HasIndex("ItemId")
+                        .IsUnique();
 
                     b.ToTable("CartItems");
                 });
@@ -438,7 +442,8 @@ namespace RG_Store.DAL.Migrations
 
                     b.HasIndex("FavouriteId");
 
-                    b.HasIndex("ItemId");
+                    b.HasIndex("ItemId")
+                        .IsUnique();
 
                     b.ToTable("FavouriteItems");
                 });
@@ -459,7 +464,8 @@ namespace RG_Store.DAL.Migrations
 
                     b.HasKey("OrderItemId");
 
-                    b.HasIndex("ItemId");
+                    b.HasIndex("ItemId")
+                        .IsUnique();
 
                     b.HasIndex("OrderId");
 
@@ -557,8 +563,8 @@ namespace RG_Store.DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("Entities.Item", "Item")
-                        .WithMany("CartItem")
-                        .HasForeignKey("ItemId")
+                        .WithOne("CartItem")
+                        .HasForeignKey("RG_Store.DAL.Entities.CartItem", "ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -587,8 +593,8 @@ namespace RG_Store.DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("Entities.Item", "Item")
-                        .WithMany("FavouriteItem")
-                        .HasForeignKey("ItemId")
+                        .WithOne("FavouriteItem")
+                        .HasForeignKey("RG_Store.DAL.Entities.FavouriteItem", "ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -600,8 +606,8 @@ namespace RG_Store.DAL.Migrations
             modelBuilder.Entity("RG_Store.DAL.Entities.OrderItem", b =>
                 {
                     b.HasOne("Entities.Item", "Item")
-                        .WithMany("OrderItem")
-                        .HasForeignKey("ItemId")
+                        .WithOne("OrderItem")
+                        .HasForeignKey("RG_Store.DAL.Entities.OrderItem", "ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -618,11 +624,14 @@ namespace RG_Store.DAL.Migrations
 
             modelBuilder.Entity("Entities.Item", b =>
                 {
-                    b.Navigation("CartItem");
+                    b.Navigation("CartItem")
+                        .IsRequired();
 
-                    b.Navigation("FavouriteItem");
+                    b.Navigation("FavouriteItem")
+                        .IsRequired();
 
-                    b.Navigation("OrderItem");
+                    b.Navigation("OrderItem")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Entities.Order", b =>

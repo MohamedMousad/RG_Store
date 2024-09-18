@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Pro.ViewModel;
 using RG_Store.BLL.Service.Abstraction;
+using RG_Store.BLL.Service.Implementation;
 
 namespace RG_Store.PLL.Controllers
 {
@@ -23,16 +24,52 @@ namespace RG_Store.PLL.Controllers
             return View();
         }
         public async Task<IActionResult> Index(string userid) 
-        { 
+        {
+       /*     var user = await userManager.GetUserAsync(User);*/
+            var orders = await orderService.GetAllUserOrders(userid);
 
-            return View();
+            return View(orders);
         }
         public async Task<IActionResult> Create()
         {
-             var user = await userManager.GetUserAsync(User);
-             var res =   await  orderService.CreateOrder(user.CartId??3, user.Id);
-            Console.WriteLine(res);
-            return View();
+            try
+            {
+                var user = await userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    TempData["ErrorMessage"] = "User not found!";
+                    return RedirectToAction("Account", "SignUp");
+                }
+
+                var cartId = user.CartId;
+                if (cartId == null)
+                {
+                    TempData["ErrorMessage"] = "Cart ID is not available!";
+                    return RedirectToAction("Index", "Home");
+                }
+
+                bool result = await orderService.CreateOrder(cartId ?? 3005,user.Id);
+                Console.WriteLine(result);
+                if (result)
+                {
+                    TempData["SuccessMessage"] = "Item added to cart successfully!";
+                    return RedirectToAction("Index", "Home");
+                    
+                    return RedirectToAction("Index", "Cart", new { id = cartId });
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Failed to add item to cart!";
+                }
+
+                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Cart", new { id = cartId });
+            }
+            catch (Exception)
+            {
+                TempData["ErrorMessage"] = "An error occurred while processing your request.";
+                return RedirectToAction("Index", "Home");
+            }
         }
         public async Task<IActionResult> Update()
         { 

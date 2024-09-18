@@ -34,7 +34,7 @@ namespace EmployeeSystem.DAL.Repo.Implementation
         }
 
         public async Task<bool> CreateOrder(int cartid, string userid)
-        {
+            {
 
             try
             {
@@ -59,10 +59,13 @@ namespace EmployeeSystem.DAL.Repo.Implementation
                     orderItem.Item = Item;
                     orderItem.ItemId = Item.Id;
 
+                    order.TotalCost += (decimal)Item.FinalPrice ;
+
                     await context.OrderItems.AddAsync(orderItem);
 
                 }
-                    await context.SaveChangesAsync();
+                await cartRepo.ClearCart(cartid);
+                await context.SaveChangesAsync();
                 return true;
 
             }
@@ -119,8 +122,15 @@ namespace EmployeeSystem.DAL.Repo.Implementation
         {
             try
             {
-                var List = await context.Orders.Where(Order => Order.UserId == userid).ToListAsync();
-                return List;
+
+                var List = await GetAllOrders();
+                var ret =new List<Order>();
+                foreach(var i in List)
+                {
+                    ret.Add(i);
+                }
+                
+                return ret;
             }
             catch (Exception)
             {
@@ -139,9 +149,17 @@ namespace EmployeeSystem.DAL.Repo.Implementation
             {
                 var order = await GetById(ordervm.Id);
 
-                order.OrderItems = ordervm.OrderItems;
                 order.OrderStatus = ordervm.OrderStatus;
 
+                if(order.OrderStatus==OrderStatus.Completed)
+                {
+                    var items = await context.OrderItems.Include(i=>i.Item).Where(i => i.OrderId == order.Id).ToListAsync();
+                    for (int i = 0; i < items.Count;i++)
+                    {
+                        items[i].Item.Quantity--;
+                        items[i].Item.Quantity = Math.Max(items[i].Item.Quantity, 0);
+                    }
+                }
 
                 await context.SaveChangesAsync();
 

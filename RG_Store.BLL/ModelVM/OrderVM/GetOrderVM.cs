@@ -10,6 +10,7 @@ namespace RG_Store.BLL.ModelVM.OrderVM
 {
     public class GetOrderVM
     {
+
         public int OrderId { get; set; }
         public decimal TotalCost { get; set; }
         public DateTime CreatedOn { get; set; }

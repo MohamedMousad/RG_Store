@@ -48,7 +48,7 @@ namespace RG_Store.DAL.Repo.Implementation
             {
 
                 var cartItems =  context.CartItems.Where(i => i.CartId == Id).ToList();
-                cartItems.Clear();
+                context.CartItems.RemoveRange(cartItems);
 
              await context.SaveChangesAsync();
                 return true;
