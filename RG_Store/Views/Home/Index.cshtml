@@ -1,5 +1,5 @@
 ﻿@using RG_Store.BLL.ModelVM.ItemVM
-@model List<GetAllItemVM>
+        @model List<GetAllItemVM>
 @{
     ViewData["Title"] = "Home";
 }
@@ -71,47 +71,51 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-3 mb-sm-4 pb-sm-2">
         <h2 class="h3 text-light mb-2 mb-sm-0">Offers</h2><a class="btn btn-link btn-light fw-normal px-0 myHover" href="#">Go to Store<i class="fi-arrow-long-right fs-sm mt-0 ps-1 ms-2"></i></a>
     </div>
-<form>
+    <form>
 
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2 g-md-4">
-        @foreach (var item in Model)
-        {
-            <!--item-->
-            <div class="col">
-                <div class="card card-body card-light card-hover bg-transparent border-0 px-0 pt-0 text-center fixed-height">
-                    <a class="d-block rounded-3 overflow-hidden" href="#">
-                        <img class="d-block mx-auto fixed-size" src="~/uploaded_images/items/@(item.ItemImage)" alt="@(item.ItemImage)">
-                    </a>
-                    <a class="fs-xs text-uppercase text-decoration-none makeMeOrange" href="#">
-                        <h4 class="text-center text-light pt-1">
-                            <a class="nav-link" href="#">@item.Name</a>
-                        </h4>
-                        <p class="d-none d-md-block">@item.Description</p>
-                        @if (item.IntialPrice != null)
-                        {
-                            <h3 class="text-center" style="color: #fd390e;">
-                                <s style="color: #9691a4 !important;">@item.IntialPrice</s> @item.FinalPrice
-                            </h3>
-                        }
-                        else
-                        {
-                            <h3 class="text-center" style="color: #fd390e;">@item.FinalPrice</h3>
-                        }
-                    </a>
-                    <div class="mt-2 d-flex justify-content-center">
-                        <button class="btn btn-outline-light me-2" asp-action="AddToFavourite" asp-controller="Favourite">
-                            <i class="fi-heart"></i> Wish List
-                        </button>
-                        <button class="btn btn-outline-light" type="submit" asp-action="AddToCart" asp-controller="Cart">
-                            <i class="fi-shopping-cart"></i> Add to Cart
-                        </button>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2 g-md-4">
+            @foreach (var item in Model)
+            {
+                <!--item-->
+                <div class="col">
+                    <div class="card card-body card-light card-hover bg-transparent border-0 px-0 pt-0 text-center fixed-height">
+                        <a class="d-block rounded-3 overflow-hidden" href="#">
+                            <img class="d-block mx-auto fixed-size" src="~/uploaded_images/items/@(item.ItemImage)" alt="@(item.ItemImage)">
+                        </a>
+                        <a class="fs-xs text-uppercase text-decoration-none makeMeOrange" href="#">
+                            <h4 class="text-center text-light pt-1">
+                                <a class="nav-link" href="#">@item.Name</a>
+                            </h4>
+                            <p class="d-none d-md-block">@item.Description</p>
+                            @if (item.IntialPrice != null)
+                            {
+                                <h3 class="text-center" style="color: #fd390e;">
+                                    <s style="color: #9691a4 !important;">@item.IntialPrice</s> @item.FinalPrice
+                                </h3>
+                            }
+                            else
+                            {
+                                <h3 class="text-center" style="color: #fd390e;">@item.FinalPrice</h3>
+                            }
+                        </a>
+                        <div class="mt-2 d-flex justify-content-center">
+                            <button class="btn btn-outline-light me-2" asp-action="AddToFavourite" asp-controller="Favourite">
+                                <i class="fi-heart"></i> Wish List
+                            </button>
+                            <form asp-action="AddToCart" asp-controller="Cart" method="post">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="itemId" value="@item.Id" />
+                                <button class="btn btn-outline-light" type="submit">
+                                    <i class="fi-shopping-cart"></i> Add to Cart
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!--item-->
-        }
-    </div>
-</form>
+                <!--item-->
+            }
+        </div>
+    </form>
 </section>
 
 <!-- CSS for fixed-size images, consistent card height, and button styles -->

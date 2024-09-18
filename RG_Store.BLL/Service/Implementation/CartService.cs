@@ -51,7 +51,8 @@ namespace RG_Store.BLL.Service.Implementation
                 GetAllItemVM temp = new GetAllItemVM
                 {
                     Name = item.Name,
-
+                    FinalPrice = (decimal)item.FinalPrice,
+                    IntialPrice = (decimal)item.IntialPrice,
                     Description = item.Description,
                     Quantity = item.Quantity,
                     HasOffer = item.HasOffer,
