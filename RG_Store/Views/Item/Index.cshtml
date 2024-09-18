@@ -1,33 +1,270 @@
 ﻿@using RG_Store.BLL.ModelVM.ItemVM
 @model List<GetAllItemVM>
-@foreach(var it in Model){
-    <!--item-->
-    <div>
-        <a class="d-block rounded-3 overflow-hidden" href="#">
-            <img class="d-block"
-                 src="~/uploaded_images/items/@(it.ItemImage)" alt="@(it.ItemImage)">
-        </a>
 
-        <div>
-            <a class="fs-xs text-uppercase text-decoration-none makeMeOrange" href="#">
-                <h4 class=" text-center text-light pt-1">
-                    <a class="nav-link" href="#" >@it.Name</a>
-                </h4>
-                <p class="d-none d-md-block" asp-for="Description">
-                    @it.Description
-                </p>
-                <h3 class="text-center" style="color: #fd390e;" >
-                    <s style="color: #9691a4 !important;" asp-for="Price"></s>
-                    @it.FinalPrice
-                </h3>
-            </a>
-            <div class="d-flex justify-content-between">
-                <button type="button" class="btn btn-success col">Add to Cart</button>
-                <button type="button" class="btn btn-danger col-3">
-                    <i class="fa-solid fa-heart"></i>
-                </button>
+<style>
+    body {
+        background-color: #1f1b2d;
+        color: #fff;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    .games-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center; /* Center items horizontally */
+        gap: 25px; /* Space between items */
+    }
+
+    .game-item {
+        width: 400px; /* Width of each game card */
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: #1f1b2d;
+        flex: 0 1 calc(33.333% - 40px); /* Flex basis adjusted to allow 3 items per row with gap consideration */
+        /* Ensure that 3 items fit per row, taking into account the gap */
+    }
+
+        .game-item img {
+            width: 80%;
+            height:250px !important;
+            border-radius: 10px 10px 0 0;
+        }
+
+    .search-container {
+        text-align: center;
+        margin-bottom: 40px;
+        margin-top: 40px;
+    }
+
+    .search-input {
+        width: 150px;
+        padding: 5px;
+        border: 1px solid #fff;
+        border-radius: 5px;
+        font-size: 12px;
+    }
+
+    .filter-dropdown select, .category-dropdown select {
+        padding: 5px;
+        border: 1px solid #fff;
+        border-radius: 5px;
+        font-size: 12px;
+        cursor: pointer;
+    }
+
+    .filter-button, .wishlist-button, .add-to-cart-button {
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 0 5px;
+        display: inline-block;
+    }
+
+        .filter-button:hover, .wishlist-button:hover {
+            background-color: #ccc;
+        }
+
+    .wishlist-button {
+        background-color: transparent;
+        color: #fff;
+        font-size: 16px;
+    }
+
+        .wishlist-button i {
+            font-size: 20px; /* Set font size for the icon */
+        }
+
+    .add-to-cart-button {
+        background-color: orange; /* Changed to orange */
+        color: #fff;
+    }
+
+        .add-to-cart-button:hover {
+            background-color: darkorange; /* Hover effect */
+        }
+
+    .gamescontainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Full viewport height */
+    }
+
+</style>
+
+<section class="bg-position-top-center bg-repeat-0 pt-5"
+         style="background-image: url(~/images/hero-bg.png); background-size: 1920px 630px;margin-top:30px">
+    <div class="container pt-5">
+    </div>
+    <div class="container mt-4 mt-sm-3 mt-lg-n3 pb-5 mb-md-4">
+
+        <form class="form-group form-group-light d-block">
+            <div class="row g-0 ms-lg-n2">
+                <div class="col-lg-2">
+                    <div class="input-group border-end-lg border-light">
+                        <span class="input-group-text text-muted ps-2 ps-sm-3"><i class="fi-search"></i></span>
+                        <input class="form-control" type="text" name="keywords" placeholder="Keywords...">
+                    </div>
+                </div>
+                <hr class="hr-light d-lg-none my-2">
+                <div class="col">
+                    <div class="dropdown border-end-sm border-light" data-bs-toggle="select">
+                        <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button"
+                                data-bs-toggle="dropdown">
+                            <i class="fi-list me-2"></i><span class="dropdown-toggle-label">Genre</span>
+                        </button>
+                        <input type="hidden" name="make">
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <span class="dropdown-item-label">Racing</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <span class="dropdown-item-label">Shooting</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <span class="dropdown-item-label">Sports</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#"><span class="dropdown-item-label">RPG</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <hr class="hr-light d-sm-none my-2">
+                <div class="col">
+                    <div class="dropdown border-end-md border-light" data-bs-toggle="select">
+                        <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button"
+                                data-bs-toggle="dropdown">
+                            <i class="fi-list me-2"></i><span class="dropdown-toggle-label">Price</span>
+                        </button>
+                        <input type="hidden" name="model">
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <span class="dropdown-item-label">
+                                        <span> Under 2000</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <span class="dropdown-item-label">
+                                        <span> Under 1500 </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <span class="dropdown-item-label">
+                                        <span>Under 1000</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <span class="dropdown-item-label">
+                                        <span>Under 500</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <hr class="hr-light d-md-none my-2">
+                <div class="col">
+                    <button class="btn btn-primary w-100 makeMeOrangeBG" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+<section class="container pb-5 mb-md-4">
+    <div class="row row-cols-2 row-cols-sm-2 row-cols-md-4 row-cols-lg-4 g-2 g-md-4">
+        <div class="col">
+            <div class="card card-body card-light card-hover bg-transparent border-0 px-0 pt-0 text-center">
+                <img class="d-block mx-auto mb-3" src="~/images/9.png" alt="Sedan"><a class="nav-link-light stretched-link fw-bold" href="#">Racing</a>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card card-body card-light card-hover bg-transparent border-0 px-0 pt-0 text-center">
+                <img class="d-block mx-auto mb-3" src="~/images/10.png" alt="SUV"><a class="nav-link-light stretched-link fw-bold" href="#">Shooting</a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card card-body card-light card-hover bg-transparent border-0 px-0 pt-0 text-center">
+                <img class="d-block mx-auto mb-3" src="~/images/11.png" alt="SUV"><a class="nav-link-light stretched-link fw-bold" href="#">Sports</a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card card-body card-light card-hover bg-transparent border-0 px-0 pt-0 text-center">
+                <img class="d-block mx-auto mb-3" src="~/images/12.png" alt="SUV"><a class="nav-link-light stretched-link fw-bold" href="#">RPG</a>
             </div>
         </div>
     </div>
-    <!--item-->
-}
+</section>
+<section class="container pb-5 mb-md-4">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2 g-md-4">
+        @foreach (var item in Model)
+        {
+            <!--item-->
+            <div class="col">
+                <div class="game-item card h-100 d-flex flex-column">
+                    <a class="d-block rounded-3 overflow-hidden" href="#">
+                        <img class="card-img-top"
+                             src="~/uploaded_images/items/@(item.ItemImage)"
+                             alt="@(item.ItemImage)"
+                             style="height: 200px; object-fit: fill; background-color:transparent ;">
+                    </a>
+                    <div class="card-body d-flex flex-column">
+                        <h4 class="card-title text-center text-light">
+                            <a class="nav-link" href="#">@item.Name</a>
+                        </h4>
+                        <p class="card-text d-none d-md-block text-muted">
+                            @item.Description
+                        </p>
+
+                        @if (item.HasOffer == true)
+                        {
+                            <h3 class="text-center text-danger">
+                                <s class="text-muted">@item.IntialPrice</s> @item.FinalPrice
+                            </h3>
+                        }
+                        else
+                        {
+                            <h3 class="text-center text-danger">
+                                @item.FinalPrice
+                            </h3>
+                        }
+
+                        <!-- Push buttons to bottom -->
+                        <div class="mt-auto">
+                            <div class="d-flex justify-content-between">
+                                <form asp-action="AddToCart" asp-controller="Cart" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="itemId" value="@item.Id" />
+                                    <button type="submit" class="btn btn-success col">Add to Cart</button>
+                                </form>
+                                <button type="button" class="btn btn-danger col-3">
+                                    <i class="fa-solid fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--item-->
+        }
+    </div>
+</section>
+
+<!-- end -->
