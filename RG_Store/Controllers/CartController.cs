@@ -62,7 +62,7 @@ namespace RG_Store.PLL.Controllers
                     TempData["ErrorMessage"] = "Failed to add item to cart!";
                 }
 
-                return RedirectToAction("Index", "item");
+                return RedirectToAction("Index", "Cart", new { id = cartId });
             }
             catch (Exception)
             { 
@@ -80,28 +80,6 @@ namespace RG_Store.PLL.Controllers
             var cartId = user.CartId;
 
             bool result = await cartService.RemoveFromCart(itemId, cartId ?? 3005);
-
-            if (result)
-            {
-                TempData["SuccessMessage"] = "Item added to cart successfully!";
-                return RedirectToAction("Index", "Cart", new { id = cartId });
-            }
-            else
-            {
-                TempData["ErrorMessage"] = "Failed to add item to cart!";
-                return View();
-            }
-
-        }
-
-        public async Task<IActionResult> ClearCart()
-        {
-            var user = await userManager.GetUserAsync(User);
-
-
-            var cartId = user.CartId;
-
-            bool result = await cartService.ClearCart(cartId??3004);
 
             if (result)
             {
