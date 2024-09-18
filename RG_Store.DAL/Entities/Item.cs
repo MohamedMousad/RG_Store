@@ -6,8 +6,7 @@ namespace Entities
 {
     public class Item
     {
-        /*        [Key]
-                [DatabaseGenerated(DatabaseGeneratedOption.Identity)]*/
+      
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }=string.Empty;
@@ -21,5 +20,9 @@ namespace Entities
         public int? CategoryId { get; set; }
         public Category? Category { get; set; }
         public string? ItemImage { get; set; }
+
+
+        public FavouriteItem FavouriteItem { get; set; }
+        public CartItem CartItem { get; set; }
     }
 }
