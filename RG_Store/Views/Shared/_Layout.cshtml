@@ -1,4 +1,22 @@
-﻿@* @model User *@
+﻿@using RG_Store.BLL.Service.Abstraction.RG_Store.BLL.Service.Abstraction
+@using RG_Store.BLL.ModelVM.UserVM
+@using System.Security.Claims
+@inject IUserService UserService
+@inject GetUserVM GetUserVM
+@{
+    var admin = false;
+    var mod = false;
+    var customer = false;
+    var IsSignedIn = User.Identity.IsAuthenticated;
+    if (IsSignedIn)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Get user ID from claims
+        var user = UserService.GetUserVM(userId);
+        admin = (user.UseRrole.ToString() == "Admin");
+        mod = (user.UseRrole.ToString() == "Modrator");
+        customer = (user.UseRrole.ToString() == "Customer");
+    }
+}
 <!doctype html>
 <html lang="en">
 
@@ -132,16 +150,12 @@
                     <li class="nav-item active"><a class="nav-link" href="#">Games</a></li>
                     <li class="nav-item active"><a class="nav-link" href="#">Account</a></li>
                     <li class="nav-item d-lg-none">
-                        @{
-                            bool isAdmin = User.IsInRole("Admin");
-                        }
-
                         <!-- ...existing code... -->
 
                     <li class="nav-item active">
-                            @if (isAdmin)
+                            @if (admin == true || mod == true)
                             {
-                            <a class="nav-link" asp-controller="admin" asp-action="index">Admin</a>
+                                <a class="nav-link" asp-controller="admin" asp-action="index">Admin</a>
                             }
                     </li>
 
