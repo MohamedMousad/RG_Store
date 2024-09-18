@@ -3,8 +3,9 @@
 @{
     ViewData["Title"] = "Confirm Email";
 }
-<section class="container pb-5 mb-md-4" style="height:100vh;margin-top:40px">
 
+<section class="container pb-5 mb-md-4" style="height:100vh;margin-top:40px">
+    <div class="container pt-5 pb-5" style="width:60%;border-radius:10px;padding-bottom:10px;">
     <h1>@ViewData["Title"]</h1>
 
     @if (ViewBag.Message != null)
@@ -15,5 +16,5 @@
     }
 
     <a href="@Url.Action("Index", "Home")" class="btn btn-primary" >Go to Homepage</a>
-
+    </div>
 </section>

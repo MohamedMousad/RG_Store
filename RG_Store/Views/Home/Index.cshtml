@@ -69,40 +69,42 @@
 
 <section class="container pb-5 mb-md-4">
     <div class="d-sm-flex align-items-center justify-content-between mb-3 mb-sm-4 pb-sm-2">
-        <h2 class="h3 text-light mb-2 mb-sm-0">Offers</h2><a class="btn btn-link btn-light fw-normal px-0 myHover" href="#">Go to Store<i class="fi-arrow-long-right fs-sm mt-0 ps-1 ms-2"></i></a>
+        <h2 class="h3 text-light mb-2 mb-sm-0">Offers</h2>
+        <a class="btn btn-link btn-light fw-normal px-0 myHover" href="#">Go to Store<i class="fi-arrow-long-right fs-sm mt-0 ps-1 ms-2"></i></a>
     </div>
 
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2 g-md-4">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
         @foreach (var item in Model)
         {
-            <!--item-->
-            <div class="col">
-                <div class="card card-body card-light card-hover bg-transparent border-0 px-0 pt-0 text-center fixed-height">
+            <!-- item -->
+            <div class="col mb-4">
+                <div class="card card-body card-light card-hover bg-transparent border-0 p-3 text-center" style="max-height: 450px;">
                     <a class="d-block rounded-3 overflow-hidden" href="#">
-                        <img class="d-block mx-auto fixed-size" src="~/uploaded_images/items/@(item.ItemImage)" alt="@(item.ItemImage)">
+                        <img class="d-block mx-auto img-fluid" src="~/uploaded_images/items/@(item.ItemImage)" alt="@(item.ItemImage)" style="max-width: 220px; max-height: 220px; object-fit: cover;">
                     </a>
-                    <h4 class="text-center text-light pt-1">
+                    <h4 class="text-center text-light pt-2" style="font-size: 1rem;">
                         <a class="nav-link" href="#">@item.Name</a>
                     </h4>
-                    <p class="d-none d-md-block">@item.Description</p>
+                    <p class="d-none d-md-block text-nowrap text-truncate" style="overflow: hidden; white-space: nowrap; max-width: 200px; font-size: 0.8rem;">@item.Description</p>
                     @if (item.IntialPrice != null)
                     {
-                        <h3 class="text-center" style="color: #fd390e;">
-                            <s style="color: #9691a4 !important;">@item.IntialPrice</s> @item.FinalPrice
+                        <h3 class="text-center" style="color: #fd390e; font-size: 1.2rem;">
+                            <s style="color: #9691a4; font-size: 0.9rem;">@item.IntialPrice</s> @item.FinalPrice
                         </h3>
                     }
                     else
                     {
-                        <h3 class="text-center" style="color: #fd390e;">@item.FinalPrice</h3>
+                        <h3 class="text-center" style="color: #fd390e; font-size: 1.2rem;">@item.FinalPrice</h3>
                     }
 
-                    <div class="mt-2 d-flex justify-content-center">
+                    <div class="mt-3 d-flex justify-content-center">
                         <!-- Wish List Button -->
                         <form asp-action="AddToFavourite" asp-controller="Favourite" method="post">
                             @Html.AntiForgeryToken()
                             <input type="hidden" name="itemId" value="@item.Id" />
-                            <button class="btn btn-outline-light me-2" type="submit">
-                                <i class="fi-heart"></i> Wish List
+                            <button class="btn btn-outline-light me-2 btn-sm" type="submit">
+                                <i class="fi-heart me-1"></i>
+                                Wish List
                             </button>
                         </form>
 
@@ -110,42 +112,15 @@
                         <form asp-action="AddToCart" asp-controller="Cart" method="post">
                             @Html.AntiForgeryToken()
                             <input type="hidden" name="itemId" value="@item.Id" />
-                            <button class="btn btn-outline-light" type="submit">
-                                <i class="fi-shopping-cart"></i> Add to Cart
+                            <button class="btn btn-outline-light btn-sm" type="submit">
+                                <i class="fi-shopping-cart me-1"></i>
+                                Add to Cart
                             </button>
                         </form>
                     </div>
                 </div>
             </div>
-            <!--item-->
+            <!-- item -->
         }
     </div>
 </section>
-
-<!-- CSS for fixed-size images, consistent card height, and button styles -->
-<style>
-    .fixed-size {
-        width: 100%; /* Set to a fixed percentage of the card */
-        height: 350px; /* Maintain a consistent height */
-        object-fit: cover; /* Ensure the image covers the space proportionally */
-    }
-
-    .fixed-height {
-        height: 600px; /* Ensure all cards have a fixed height to accommodate buttons */
-    }
-
-    .btn-outline-light {
-        border-color: #fff;
-        color: #fff;
-        transition: background-color 0.3s, color 0.3s;
-    }
-
-        .btn-outline-light:hover {
-            background-color: #fff;
-            color: #000;
-        }
-
-    .fi-heart, .fi-shopping-cart {
-        margin-right: 5px;
-    }
-</style>
