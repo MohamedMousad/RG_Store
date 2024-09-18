@@ -17,14 +17,14 @@ using System.Threading.Tasks;
 
 namespace EmployeeSystem.DAL.Repo.Implementation
 {
-    public class OrderRepo : IOrderRepo 
+    public class OrderRepo : IOrderRepo
     {
         private readonly ApplicationDbContext context;
         private readonly ICartRepo cartRepo;
         private readonly IItemRepo itemRepo;
         private readonly IUserRepo userRepo;
 
-        public OrderRepo(ApplicationDbContext context, IItemRepo itemRepo ,ICartRepo cartRepo, IUserRepo userRepo)
+        public OrderRepo(ApplicationDbContext context, IItemRepo itemRepo, ICartRepo cartRepo, IUserRepo userRepo)
         {
             this.context = context;
             this.itemRepo = itemRepo;
@@ -33,7 +33,7 @@ namespace EmployeeSystem.DAL.Repo.Implementation
 
         }
 
-        public async Task<bool> CreateOrder(int cartid,string userid)
+        public async Task<bool> CreateOrder(int cartid, string userid)
         {
 
             try
@@ -83,13 +83,13 @@ namespace EmployeeSystem.DAL.Repo.Implementation
                 order.OrderStatus = OrderStatus.Canceled;
 
                 await context.SaveChangesAsync();
-                
-                
+
+
                 return true;
 
 
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }
@@ -98,7 +98,7 @@ namespace EmployeeSystem.DAL.Repo.Implementation
 
         public async Task<IEnumerable<Item>> GetAllOrderItem(int id)
         {
-              return await context.OrderItems.Select(i=>i.Item).Where(order => order.Id == id).ToListAsync();
+            return await context.OrderItems.Select(i => i.Item).Where(order => order.Id == id).ToListAsync();
         }
 
         public async Task<IEnumerable<Order>> GetAllOrders()
@@ -130,7 +130,7 @@ namespace EmployeeSystem.DAL.Repo.Implementation
 
         public async Task<Order> GetById(int id)
         {
-           return await context.Orders.FirstOrDefaultAsync(o => o.Id == id);
+            return await context.Orders.FirstOrDefaultAsync(o => o.Id == id);
         }
 
         public async Task<bool> UpdateOrder(Order ordervm)
@@ -151,7 +151,8 @@ namespace EmployeeSystem.DAL.Repo.Implementation
             {
                 return false;
             }
-            
+
         }
 
+    }
 }
