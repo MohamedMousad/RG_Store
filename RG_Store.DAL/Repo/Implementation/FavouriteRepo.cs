@@ -57,11 +57,11 @@ namespace RG_Store.DAL.Repo.Implementation
         {
             try
             {
-                var items = context.FavouriteItems
+                var items = await context.FavouriteItems
                   .Include(i => i.Item)
                   .Where(i => i.FavouriteId == id)
                   .Select(i => i.Item)
-                  .ToList();
+                  .ToListAsync();
                 return items;
             }
             catch (Exception)
@@ -72,7 +72,7 @@ namespace RG_Store.DAL.Repo.Implementation
         }
         public async Task<Favourite> GetById(int id)
         {
-            return  context.Favourites.Where(i => i.Id == id).FirstOrDefault();
+            return await context.Favourites.Where(i => i.Id == id).FirstOrDefaultAsync();
         }
         
         public async Task<bool> Remove(int itemid,int ID)
@@ -80,8 +80,8 @@ namespace RG_Store.DAL.Repo.Implementation
 
             try
             {
-                var itemToRemove = context.FavouriteItems
-                    .FirstOrDefault(i => i.FavouriteId == ID && i.ItemId == itemid);
+                var itemToRemove =await context.FavouriteItems
+                    .FirstOrDefaultAsync(i => i.FavouriteId == ID && i.ItemId == itemid);
 
                 if (itemToRemove != null)
                 {

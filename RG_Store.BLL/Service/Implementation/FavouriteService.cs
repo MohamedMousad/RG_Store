@@ -28,7 +28,7 @@ namespace RG_Store.BLL.Service.Implementation
         }
         public async Task<bool> AddToFavorite(int ItemId,int id)
         {
-           var item = itemService.GetAllItem(ItemId);
+           var item =await itemService.GetAllItem(ItemId);
            var Result = mapper.Map<Item>(item);
            return await favouriteRepo.Add(Result,id);
         }
@@ -47,7 +47,7 @@ namespace RG_Store.BLL.Service.Implementation
 
         public async Task<bool> RemoveFromFavorite(int ItemId, int id)
         {
-            var item = itemService.GetAllItem(ItemId);
+            var item =await itemService.GetAllItem(ItemId);
             var Result = mapper.Map<Item>(item);
             return await favouriteRepo.Remove(Result.Id, id);
         }

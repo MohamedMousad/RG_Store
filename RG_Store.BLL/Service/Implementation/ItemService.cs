@@ -32,7 +32,7 @@ namespace RG_Store.BLL.Service.Implementation
         //    return Itemrepo.Create(Result);
         //}
 
-        public bool Create(CreateItemVM createItemVM)
+        public async Task<bool> Create(CreateItemVM createItemVM)
         {
             if (createItemVM.Image != null)
             {
@@ -40,33 +40,33 @@ namespace RG_Store.BLL.Service.Implementation
             }
 
             var Result = mapper.Map<Item>(createItemVM);
-            return Itemrepo.Create(Result);
+            return await Itemrepo.Create(Result);
         }
 
-        public bool Delete(DeleteItemVM deleteItem)
+        public async Task<bool> Delete(DeleteItemVM deleteItem)
         {
             var Result = mapper.Map<Item>(deleteItem);
-            return Itemrepo.Delete(Result);
+            return  await Itemrepo.Delete(Result);
         }
 
-        public IEnumerable<GetAllItemVM> GetAll()
+        public async Task<IEnumerable<GetAllItemVM>> GetAll()
         {
-            var List = Itemrepo.GetAll().ToList();
+            var List =await Itemrepo.GetAll();
             List<GetAllItemVM> Result = mapper.Map<List<GetAllItemVM>>(List);
             return Result;
         }
 
-        public GetAllItemVM GetAllItem(int id)
+        public async Task<GetAllItemVM> GetAllItem(int id)
         {
-            var item = Itemrepo.GetById(id);
+            var item = await Itemrepo.GetById(id);
             var temp = mapper.Map<GetAllItemVM>(item);
             return temp;
         }
 
-        public bool Update(UpdateItemVM updateItem)
+        public async Task<bool> Update(UpdateItemVM updateItem)
         {
             var Result = mapper.Map<Item>(updateItem);
-            return Itemrepo.Update(Result);
+            return await Itemrepo.Update(Result);
         }
     }
 }

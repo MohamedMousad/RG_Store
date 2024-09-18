@@ -47,7 +47,7 @@ namespace RG_Store.DAL.Repo.Implementation
             try
             {
 
-                var cartItems = context.CartItems.Where(i => i.CartId == Id).ToList();
+                var cartItems =  context.CartItems.Where(i => i.CartId == Id).ToList();
                 cartItems.Clear();
 
              await context.SaveChangesAsync();
@@ -67,11 +67,11 @@ namespace RG_Store.DAL.Repo.Implementation
             try
             {
 
-                var items =  context.CartItems
+                var items =  await context.CartItems
                   .Include(i => i.Item)          
                   .Where(i => i.CartId == id)    
                   .Select(i => i.Item)           
-                  .ToList();
+                  .ToListAsync();
                 return  items;
             }
             catch (Exception)

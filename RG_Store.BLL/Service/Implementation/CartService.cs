@@ -27,15 +27,12 @@ namespace RG_Store.BLL.Service.Implementation
         }
         public async Task<bool> AddToCart(int ItemId, int id)
         {
-            var item = itemRepo.GetById(ItemId);
+            var item = await itemRepo.GetById(ItemId);
             var Result = mapper.Map<Item>(item);
             return await cartRepo.AddToCart(Result, id);
         }
 
-        public Task<bool> AddToCart(Item item, int cartId)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         public async Task<bool> ClearCart(int id)
         {
@@ -68,7 +65,7 @@ namespace RG_Store.BLL.Service.Implementation
         }
         public async Task<bool> RemoveFromCart(int ItemId, int id)
         {
-            var item = itemService.GetAllItem(ItemId);
+            var item =await itemService.GetAllItem(ItemId);
             var Result = mapper.Map<Item>(item);
             return await cartRepo.RemoveFromCart(Result.Id, id);
         }
