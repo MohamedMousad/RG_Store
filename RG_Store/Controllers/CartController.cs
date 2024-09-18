@@ -93,5 +93,27 @@ namespace RG_Store.PLL.Controllers
             }
 
         }
+        [HttpPost]
+        public async Task<IActionResult> ClearCart()
+        {
+            var user = await userManager.GetUserAsync(User);
+
+
+            var cartId = user.CartId;
+
+            bool result = await cartService.ClearCart(cartId ?? 3005);
+
+            if (result)
+            {
+                TempData["SuccessMessage"] = "Item added to cart successfully!";
+                return RedirectToAction("Index", "Cart", new { id = cartId });
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Failed to add item to cart!";
+                return View();
+            }
+
+        }
     }
 }

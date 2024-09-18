@@ -1,14 +1,11 @@
-﻿using EmployeeSystem.DAL.Repo.Abstraction;
-using Entities;
+﻿using Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Pro.ViewModel;
 using RG_Store.BLL.Service.Abstraction;
-using RG_Store.BLL.Service.Implementation;
 
 namespace RG_Store.PLL.Controllers
 {
-    public class OrderController:Controller
+    public class OrderController : Controller
     {
         IOrderService orderService;
         private readonly UserManager<User> userManager;
@@ -19,13 +16,15 @@ namespace RG_Store.PLL.Controllers
             this.userManager = userManager;
         }
 
-        public async Task<IActionResult> GetAllOrders()// for admin
+        public async Task<IActionResult> GetAllOrders()
         {
-            return View();
+           var res = await orderService.GetAllOrders();
+
+            return View(orderService);
         }
-        public async Task<IActionResult> Index(string userid) 
+        public async Task<IActionResult> Index(string userid)
         {
-       /*     var user = await userManager.GetUserAsync(User);*/
+            
             var orders = await orderService.GetAllUserOrders(userid);
 
             return View(orders);
@@ -48,14 +47,13 @@ namespace RG_Store.PLL.Controllers
                     return RedirectToAction("Index", "Home");
                 }
 
-                bool result = await orderService.CreateOrder(cartId ?? 3005,user.Id);
+                bool result = await orderService.CreateOrder(cartId ?? 3005, user.Id);
                 Console.WriteLine(result);
                 if (result)
                 {
-                    TempData["SuccessMessage"] = "Item added to cart successfully!";
-                    return RedirectToAction("Index", "Home");
-                    
-                    return RedirectToAction("Index", "Cart", new { id = cartId });
+                    TempData["SuccessMessage"] = "Order added successfully!";
+                  
+                    return RedirectToAction("Index", "Order", new { id = user.Id });
                 }
                 else
                 {
@@ -63,7 +61,7 @@ namespace RG_Store.PLL.Controllers
                 }
 
                 return RedirectToAction("Index", "Home");
-                return RedirectToAction("Index", "Cart", new { id = cartId });
+               
             }
             catch (Exception)
             {
@@ -71,12 +69,14 @@ namespace RG_Store.PLL.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-        public async Task<IActionResult> Update()
-        { 
+        public async Task<IActionResult> Update(int orderid)
+        {
+            
+
             return View();
         }
         public async Task<IActionResult> Delete()
-        { 
+        {
             return View();
         }
 
