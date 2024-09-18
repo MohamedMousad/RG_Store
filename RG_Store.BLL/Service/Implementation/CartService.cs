@@ -53,6 +53,7 @@ namespace RG_Store.BLL.Service.Implementation
                     Name = item.Name,
                     FinalPrice = (decimal)item.FinalPrice,
                     IntialPrice = (decimal)item.IntialPrice,
+                    ItemImage = item.ItemImage,
                     Description = item.Description,
                     Quantity = item.Quantity,
                     HasOffer = item.HasOffer,
