@@ -14,6 +14,7 @@ namespace RG_Store.BLL.ModelVM.UserVM
         public string? UserName { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
+        public Gender Gender { get; set; }
         public Roles? UseRrole { get; set; }
         public string? Email { get; set; }
         public string? ProfileImage { get; set; }

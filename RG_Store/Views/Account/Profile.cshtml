@@ -95,8 +95,8 @@
         <!-- Breadcrumb-->
         <nav class="mb-4 pt-md-3" aria-label="Breadcrumb">
             <ol class="breadcrumb breadcrumb-light">
-                <li class="breadcrumb-item"><a href="car-finder-home.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="car-finder-account-info.html">Account</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="index">Home</a></li>
+                <li class="breadcrumb-item"><a asp-controller="account" asp-action="profile">Account</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Personal Info</li>
             </ol>
         </nav>
@@ -107,9 +107,9 @@
             <aside class="col-lg-4 col-md-5 pe-xl-4 mb-5">
                 <div class="card card-body card-light border-0 shadow-sm pb-1 me-lg-1">
                     <div class="d-flex d-md-block d-lg-flex align-items-start pt-lg-2 mb-4">
-                        <img class="rounded-circle" src="~/images/wagon.svg" width="48" alt="Robert Fox">
+                        <img class="rounded-circle" src="~/uploaded_images/users/@Model.ProfileImage" width="48" alt="Robert Fox">
                         <div class="pt-md-2 pt-lg-0 ps-3 ps-md-0 ps-lg-3">
-                            <h2 class="fs-lg text-light mb-0">Robert Fox</h2>
+                            <h2 class="fs-lg text-light mb-0">@Model.UserName</h2>
                             <ul class="list-unstyled fs-sm mt-3 mb-0">
                                 <li>
                                     <i class="fi-mail opacity-60 me-2"></i>@Model.Email
@@ -124,13 +124,13 @@
                             <a class="card-nav-link active" href="car-finder-account-info.html">
                                 <i class="fi-user me-2"></i>Personal Info
                             </a>
-                            <a class="card-nav-link" href="car-finder-account-security.html">
+                            <a class="card-nav-link" asp-controller="Profile" asp-action="ChangePassword">
                                 <i class="fi-lock me-2"></i>Password & Security
                             </a>
-                            <a class="card-nav-link" href="car-finder-account-cars.html">
+                            <a class="card-nav-link" asp-controller="Profile" asp-action="Orders">
                                 <i class="fi-car me-2"></i>My Orders
                             </a>
-                            <a class="card-nav-link" href="car-finder-account-wishlist.html">
+                            <a class="card-nav-link" asp-controller="Favourite" asp-action="index">
                                 <i class="fi-heart me-2"></i>Wishlist<span class="badge bg-faded-light ms-2">4</span>
                             </a>
                             <a class="card-nav-link" href="/Account/LogOut">
@@ -150,15 +150,19 @@
                             <div class="border border-light rounded-3 p-3 mb-4" id="personal-info">
                                 <!-- Full Name -->
                                 <div class="border-bottom border-light pb-3 mb-3">
-                                    <label class="form-label fw-bold text-light">Full name</label>
-                                    <input class="form-control form-control-light mt-3" type="text"
-                                           value="@Model.FirstName @Model.LastName">
+                                    <label class="form-label fw-bold text-light">First Name</label>
+                                    <input class="form-control form-control-light mt-3" type="text" value="@Model.FirstName" asp-for="FirstName">
+                                </div>
+
+                                <div class="border-bottom border-light pb-3 mb-3">
+                                    <label class="form-label fw-bold text-light">Last Name</label>
+                                    <input class="form-control form-control-light mt-3" type="text" value="@Model.LastName" asp-for="LastName">
                                 </div>
 
                                 <!-- Gender -->
                                 <div class="border-bottom border-light pb-3 mb-3">
                                     <label class="form-label fw-bold text-light">Gender</label>
-                                    <select class="form-select form-select-light mt-3">
+                                    <select class="form-select form-select-light mt-3" asp-for="Gender">
                                         <option value="" disabled selected>Select your gender</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
@@ -168,13 +172,13 @@
                                 <!-- Email -->
                                 <div class="border-bottom border-light pb-3 mb-3">
                                     <label class="form-label fw-bold text-light">Email</label>
-                                    <input class="form-control form-control-light mt-3" type="email"
+                                    <input class="form-control form-control-light mt-3" type="email" asp-for=Email
                                            value="@Model.Email">
                                 </div>
 
                                 <!-- Upload Profile Picture -->
-                                <div class="filepond--root file-uploader bg-faded-light" style="height: 160px;">
-                                    <input type="file" accept="image/png,image/jpeg">
+                                <div class="filepond--root file-uploader bg-faded-light" style="height: 160px;" enctype="multipart/form-data">
+                                    <input type="file" accept="image/png,image/jpeg" asp-for="Image">
                                     <label class="text-light fw-bold opacity-70">
                                         <i class="fi-camera-plus fs-2 mb-2"></i><br>Change picture
                                     </label>
@@ -192,7 +196,7 @@
                             <!-- Action buttons-->
                             <div class="row">
                                 <div class="col-lg-9">
-                                    <button class="btn btn-primary" type="submit">Save Changes</button>
+                                    <button class="btn btn-primary" type="submit" asp-controller="Profile" asp-action="Edit">Save Changes</button>
                                 </div>
                             </div>
                         </div>
