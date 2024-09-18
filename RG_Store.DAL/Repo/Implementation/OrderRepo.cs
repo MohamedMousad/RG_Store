@@ -61,8 +61,8 @@ namespace EmployeeSystem.DAL.Repo.Implementation
 
                     await context.OrderItems.AddAsync(orderItem);
 
-                    await context.SaveChangesAsync();
                 }
+                    await context.SaveChangesAsync();
                 return true;
 
             }

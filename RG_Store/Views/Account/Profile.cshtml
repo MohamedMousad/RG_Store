@@ -5,28 +5,33 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> Profile </title>
+    <title>Profile</title>
 
-    <link rel="stylesheet" media="screen" href="https://finder.createx.studio/css/theme.min.css">
+    <link rel="stylesheet" href="https://finder.createx.studio/css/theme.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" media="screen" href="https://finder.createx.studio/css/theme.min.css">
-    <style>
-        * {
-            text-decoration: none !important;
-        }
 
+    <style>
         body {
             background-color: #1f1b2d;
         }
+
+        input, select, textarea {
+            background-color: #2a2739 !important;
+            color: #fff !important;
+            border: 1px solid #4e4b62 !important;
+        }
+
+            input::placeholder, select::placeholder, textarea::placeholder {
+                color: #9691a4 !important;
+            }
 
         .myHover {
             color: #9691a4 !important;
         }
 
             .myHover:hover {
-                background-color: transparent;
                 color: white !important;
             }
 
@@ -51,54 +56,11 @@
             background-color: #1f1b2d !important;
         }
 
-        s {
-            text-decoration: line-through !important;
-        }
-
         ::placeholder {
             color: #9691a4 !important;
         }
-
-        input {
-            color: white !important;
-        }
-
-        .socialMediaBG:hover {
-            transition-duration: 500ms !important;
-            background-color: white !important;
-            .socialMedia
-
-        {
-
-        .socialMedia {
-            position: relative;
-            text-align: center;
-            margin-left: auto;
-            margin-right: auto;
-            right: 100%
-        }
-
-        a:has(.appStore):hover {
-            background-color: #fd390e !important;
-            color: #fd5631 !important;
-        }
     </style>
 
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const navbar = document.getElementById('navbar');
-            const navbarHeight = navbar.offsetHeight;
-
-            window.addEventListener('scroll', function () {
-                if (window.scrollY > navbarHeight) {
-                    navbar.classList.add('navbar-scrolled');
-                } else {
-                    navbar.classList.remove('navbar-scrolled');
-                }
-            });
-        });
-    </script>
 
 </head>
 
@@ -112,29 +74,23 @@
                 <li class="breadcrumb-item active" aria-current="page">Personal Info</li>
             </ol>
         </nav>
+
         <!-- Page content-->
         <div class="row">
             <!-- Sidebar-->
             <aside class="col-lg-4 col-md-5 pe-xl-4 mb-5">
-                <!-- Account nav-->
                 <div class="card card-body card-light border-0 shadow-sm pb-1 me-lg-1">
                     <div class="d-flex d-md-block d-lg-flex align-items-start pt-lg-2 mb-4">
-                        <img class="rounded-circle"
-                             src="~/images/wagon.svg" width="48" alt="Robert Fox">
+                        <img class="rounded-circle" src="~/images/wagon.svg" width="48" alt="Robert Fox">
                         <div class="pt-md-2 pt-lg-0 ps-3 ps-md-0 ps-lg-3">
                             <h2 class="fs-lg text-light mb-0">Robert Fox</h2>
                             <ul class="list-unstyled fs-sm mt-3 mb-0">
-                                <!-- <li><a class="nav-link-light fw-normal" href="tel:3025550107"><i
-                                            class="fi-phone opacity-60 me-2"></i>(302) 555-0107</a></li> -->
                                 <li>
-                                   @*  <a class="nav-link-light fw-normal" href="">@Model.Email</a>
-                                    <i class="fi-mail opacity-60 me-2"></i>@Model.Email *@
-                                  @*   </a> *@
+                                    <i class="fi-mail opacity-60 me-2"></i>@Model.Email
                                 </li>
                             </ul>
                         </div>
                     </div>
-
                     <a class="btn btn-outline-light d-block d-md-none w-100 mb-3" href="#account-nav"
                        data-bs-toggle="collapse"><i class="fi-align-justify me-2"></i>Menu</a>
                     <div class="collapse d-md-block mt-3" id="account-nav">
@@ -143,144 +99,78 @@
                                 <i class="fi-user me-2"></i>Personal Info
                             </a>
                             <a class="card-nav-link" href="car-finder-account-security.html">
-                                <i class="fi-lock me-2"></i>Password &amp;
-                                Security
+                                <i class="fi-lock me-2"></i>Password & Security
                             </a>
                             <a class="card-nav-link" href="car-finder-account-cars.html">
-                                <i class="fi-car me-2"></i>My
-                                Orders
+                                <i class="fi-car me-2"></i>My Orders
                             </a>
                             <a class="card-nav-link" href="car-finder-account-wishlist.html">
                                 <i class="fi-heart me-2"></i>Wishlist<span class="badge bg-faded-light ms-2">4</span>
-                            </a><a class="card-nav-link"
-                                   href="/Account/LogOut"><i class="fi-logout me-2"></i>Sign Out</a>
+                            </a>
+                            <a class="card-nav-link" href="/Account/LogOut">
+                                <i class="fi-logout me-2"></i>Sign Out
+                            </a>
                         </div>
                     </div>
                 </div>
             </aside>
-            <!-- Content-->
 
+            <!-- Content-->
             <div class="col-lg-8 col-md-7 mb-5">
-                <form action="" asp-controller="account"asp-action="Update" enctype="multipart/form-data">
+                <form asp-controller="account" asp-action="Update" enctype="multipart/form-data">
                     <h1 class="h2 text-light">Personal Info</h1>
                     <div class="row pt-2">
                         <div class="col-lg-9 col-md-12 col-sm-8 mb-2 mb-m-4">
                             <div class="border border-light rounded-3 p-3 mb-4" id="personal-info">
-                                <!-- Name-->
+                                <!-- Full Name -->
                                 <div class="border-bottom border-light pb-3 mb-3">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <div class="pe-2 opacity-70">
-                                            <label class="form-label fw-bold text-light">Full name</label>
-                                            <!-- <div class="text-light" id="name-value">Robert Fox</div> -->
-                                        </div>
-                                        <div data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
-                                            <a class="nav-link nav-link-light py-0" href="#name-collapse"
-                                               data-bs-toggle="collapse"><i class="fi-edit"></i></a>
-                                        </div>
-                                    </div>
-                                    <!-- <div class="collapse" id="name-collapse" data-bs-parent="#personal-info"> -->
+                                    <label class="form-label fw-bold text-light">Full name</label>
                                     <input class="form-control form-control-light mt-3" type="text"
-                                           data-bs-binded-element="#name-value" data-bs-unset-value="Not specified"
                                            value="@Model.FirstName @Model.LastName">
-                                    <!-- </div> -->
                                 </div>
-                                <!-- Gender-->
+
+                                <!-- Gender -->
                                 <div class="border-bottom border-light pb-3 mb-3">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <div class="pe-2 opacity-70">
-                                            <label class="form-label fw-bold text-light">Gender</label>
-                                            <!-- <div class="text-light" id="gender-value">Not specified</div> -->
-                                        </div>
-                                        <div data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
-                                            <a class="nav-link nav-link-light py-0" href="#gender-collapse"
-                                               data-bs-toggle="collapse">
-                                                <i class="fi-edit"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <!-- <div class="collapse" id="gender-collapse" data-bs-parent="#personal-info"> -->
-                                    <select class="form-select form-select-light mt-3"
-                                            data-bs-binded-element="#gender-value">
-                                        <option value="" disabled="" selected="">Select your gender</option>
+                                    <label class="form-label fw-bold text-light">Gender</label>
+                                    <select class="form-select form-select-light mt-3">
+                                        <option value="" disabled selected>Select your gender</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
                                     </select>
-                                    <!-- </div> -->
-                                </div>
-                                <!-- Email-->
-                                <div class="border-bottom border-light pb-3 mb-3">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <div class="pe-2 opacity-70">
-                                            <label class="form-label fw-bold text-light">Email</label>
-                                            <!-- <div class="text-light" id="email-value">robert_fox@email.com</div> -->
-                                        </div>
-                                        <div data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
-                                            <a class="nav-link nav-link-light py-0" href="#email-collapse"
-                                               data-bs-toggle="collapse"><i class="fi-edit"></i></a>
-                                        </div>
-                                    </div>
-                                    <!-- <div class="collapse" id="email-collapse" data-bs-parent="#personal-info"> -->
-                                    <input class="form-control form-control-light mt-3" type="email"
-                                           data-bs-binded-element="#email-value" data-bs-unset-value="Not specified"
-                                           value="@Model.Email">
-                                    <!-- </div> -->
                                 </div>
 
-                                <div class="col-lg-3 col-md-12 col-sm-4 mb-4">
-                                    <div class="filepond--root file-uploader border-light bg-faded-light filepond--hopper"
-                                         data-style-panel-layout="compact" data-style-button-remove-item-position="left"
-                                         data-style-button-process-item-position="right"
-                                         data-style-load-indicator-position="right"
-                                         data-style-progress-indicator-position="right"
-                                         data-style-button-remove-item-align="false" style="height: 160px;">
-                                        <input class="filepond--browser" type="file" id="filepond--browser-j1prg4puv"
-                                               name="filepond" aria-controls="filepond--assistant-j1prg4puv"
-                                               aria-labelledby="filepond--drop-label-j1prg4puv" accept="image/png,image/jpeg"><a class="filepond--credits" aria-hidden="true" href="https://pqina.nl/"
-                                                                                                                                 target="_blank" rel="noopener noreferrer"
-                                                                                                                                 style="transform: translateY(152px);">Powered by PQINA</a>
-                                        <div class="filepond--drop-label"
-                                             style="transform: translate3d(0px, 0px, 0px); opacity: 1;">
-                                            <label for="filepond--browser-j1prg4puv" id="filepond--drop-label-j1prg4puv"
-                                                   aria-hidden="true">
-                                                <i class="d-inline-block fi-camera-plus fs-2 text-light text-muted mb-2"></i><br><span class="fw-bold text-light opacity-70">Change picture</span>
-                                            </label>
-                                        </div>
-                                        <div class="filepond--list-scroller" style="transform: translate3d(0px, 0px, 0px);">
-                                            <ul class="filepond--list" role="list"></ul>
-                                        </div>
-                                        <div class="filepond--panel filepond--panel-root" data-scalable="true">
-                                            <div class="filepond--panel-top filepond--panel-root"></div>
-                                            <div class="filepond--panel-center filepond--panel-root"
-                                                 style="transform: translate3d(0px, 8px, 0px) scale3d(1, 1.44, 1);"></div>
-                                            <div class="filepond--panel-bottom filepond--panel-root"
-                                                 style="transform: translate3d(0px, 152px, 0px);"></div>
-                                        </div><span class="filepond--assistant" id="filepond--assistant-j1prg4puv" role="status"
-                                                    aria-live="polite" aria-relevant="additions"></span>
-                                        <div class="filepond--drip"></div>
-                                        <fieldset class="filepond--data"></fieldset>
-                                    </div>
-                                    <div class="pt-4 pb-2 py-lg-5">
-                                        <h6 class="text-light mb-2">Who can see my profile?</h6>
-                                        <p class="fs-sm text-light opacity-70 mb-0">
-                                            Your profile is&nbsp;private. No&nbsp;one
-                                            else
-                                            will
-                                            see it&nbsp;untill a&nbsp;reservation is&nbsp;confirmed.
-                                        </p>
-                                    </div>
+                                <!-- Email -->
+                                <div class="border-bottom border-light pb-3 mb-3">
+                                    <label class="form-label fw-bold text-light">Email</label>
+                                    <input class="form-control form-control-light mt-3" type="email"
+                                           value="@Model.Email">
+                                </div>
+
+                                <!-- Upload Profile Picture -->
+                                <div class="filepond--root file-uploader bg-faded-light" style="height: 160px;">
+                                    <input type="file" accept="image/png,image/jpeg">
+                                    <label class="text-light fw-bold opacity-70">
+                                        <i class="fi-camera-plus fs-2 mb-2"></i><br>Change picture
+                                    </label>
+                                </div>
+
+                                <div class="pt-4 pb-2 py-lg-5">
+                                    <h6 class="text-light mb-2">Who can see my profile?</h6>
+                                    <p class="fs-sm text-light opacity-70 mb-0">
+                                        Your profile is private. No one else
+                                        will see it until a reservation is confirmed.
+                                    </p>
                                 </div>
                             </div>
+
                             <!-- Action buttons-->
                             <div class="row">
                                 <div class="col-lg-9">
-                                    <div class="d-flex align-items-center justify-content-between pb-1">
-                                        <button class="btn btn-primary" type="submit">Save changes</button>
-                                        <button class="btn btn-link btn-light btn-sm px-0" type="button">
-                                            <i class="fi-trash me-2"></i>Delete account
-                                        </button>
-                                    </div>
+                                    <button class="btn btn-primary" type="submit">Save Changes</button>
                                 </div>
                             </div>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
