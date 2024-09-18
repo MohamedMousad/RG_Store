@@ -34,66 +34,34 @@ namespace RG_Store.BLL.Service.Implementation
 
         public bool Create(CreateItemVM createItemVM)
         {
-           
             if (createItemVM.Image != null)
             {
-            
                 createItemVM.ItemImage = UploadImage.UploadFile("items", createItemVM.Image);
             }
 
-            
             var Result = mapper.Map<Item>(createItemVM);
             return Itemrepo.Create(Result);
         }
 
-
         public bool Delete(DeleteItemVM deleteItem)
         {
             var Result = mapper.Map<Item>(deleteItem);
-           return Itemrepo.Delete(Result);
+            return Itemrepo.Delete(Result);
         }
 
         public IEnumerable<GetAllItemVM> GetAll()
         {
             var List = Itemrepo.GetAll().ToList();
-            List<GetAllItemVM> Result = new();
-            foreach (var item in List)
-            {
-                GetAllItemVM temp = new GetAllItemVM
-                {
-                    Name = item.Name,
-                    ItemImage = item.ItemImage ,     
-                    Description = item.Description,
-                    Quantity = item.Quantity,
-                    HasOffer = item.HasOffer,
-                    Offer = item.Offer,
-                    Id = item.Id,
-
-                };
-
-                Result.Add(temp);
-            }
+            List<GetAllItemVM> Result = mapper.Map<List<GetAllItemVM>>(List);
             return Result;
         }
 
         public GetAllItemVM GetAllItem(int id)
         {
             var item = Itemrepo.GetById(id);
-            GetAllItemVM temp = new GetAllItemVM
-            {
-                Name = item.Name,
-
-                Description = item.Description,
-                Quantity = item.Quantity,
-                HasOffer = item.HasOffer,
-                Offer = item.Offer,
-                Id = item.Id,
-
-            };
+            var temp = mapper.Map<GetAllItemVM>(item);
             return temp;
         }
-
-     
 
         public bool Update(UpdateItemVM updateItem)
         {

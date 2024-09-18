@@ -13,6 +13,7 @@
         padding: 0;
     }
 
+<<<<<<< HEAD
     .games-list {
         display: flex;
         flex-wrap: wrap;
@@ -103,15 +104,25 @@
 
 <section class="bg-position-top-center bg-repeat-0 pt-5"
          style="background-image: url(~/images/Uncharted.png); background-size: 1920px 1080px;">
+=======
+<section class="bg-position-top-center bg-repeat-0 pt-5" style="background-image: url(~/images/hero-bg.png); background-size: 1920px 630px;">
+>>>>>>> master
     <div class="container pt-5">
         <div class="row pt-lg-4 pt-xl-5">
             <div class="col-lg-4 col-md-5 pt-3 pt-md-4 pt-lg-5">
                 <h1 class="display-4 text-light pb-2 mb-4 me-md-n5">Enjoy Latest Games Released</h1>
+<<<<<<< HEAD
                 <p class="fs-lg text-light opacity-70"> Order , Pay , Enjoy your favorite Games </p>
             </div>
             <div class="col-lg-8 col-md-7 pt-md-5" style="margin-bottom : 17px">
                 <img class="d-block mt-4 ms-auto" src="~/images/Uncharted.png"
                      width="450"alt="Car">
+=======
+                <p class="fs-lg text-light opacity-70">Order, Pay, Enjoy your favorite Games</p>
+            </div>
+            <div class="col-lg-8 col-md-7 pt-md-4 pt-lg-5" style="margin-left: -50px; margin-top: -50px;">
+                <img class="d-block mt-2 ms-auto" src="~/images/Crash.png" width="400" height="200" alt="Car">
+>>>>>>> master
             </div>
         </div>
     </div>
@@ -123,6 +134,7 @@
                     <div class="input-group border-end-lg border-light">
                         <span class="input-group-text text-muted ps-2 ps-sm-3"><i class="fi-search"></i></span>
                         <input class="form-control" type="text" name="keywords" placeholder="Keywords...">
+<<<<<<< HEAD
                     </div>
                 </div>
                 <hr class="hr-light d-lg-none my-2">
@@ -192,6 +204,40 @@
                         </ul>
                     </div>
                 </div>
+=======
+                    </div>
+                </div>
+                <hr class="hr-light d-lg-none my-2">
+                <div class="col">
+                    <div class="dropdown border-end-sm border-light" data-bs-toggle="select">
+                        <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button" data-bs-toggle="dropdown">
+                            <i class="fi-list me-2"></i><span class="dropdown-toggle-label">Genre</span>
+                        </button>
+                        <input type="hidden" name="make">
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Racing</span></a></li>
+                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Shooting</span></a></li>
+                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Sports</span></a></li>
+                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">RPG</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <hr class="hr-light d-sm-none my-2">
+                <div class="col">
+                    <div class="dropdown border-end-md border-light" data-bs-toggle="select">
+                        <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button" data-bs-toggle="dropdown">
+                            <i class="fi-list me-2"></i><span class="dropdown-toggle-label">Price</span>
+                        </button>
+                        <input type="hidden" name="model">
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Under 2000</span></a></li>
+                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Under 1500</span></a></li>
+                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Under 1000</span></a></li>
+                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Under 500</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+>>>>>>> master
                 <hr class="hr-light d-md-none my-2">
                 <div class="col">
                     <button class="btn btn-primary w-100 makeMeOrangeBG" type="submit">Search</button>
@@ -201,6 +247,7 @@
     </div>
 </section>
 
+<<<<<<< HEAD
 
 <section class="container pb-5 mb-md-4">
     <div class="row row-cols-2 row-cols-sm-2 row-cols-md-4 row-cols-lg-4 g-2 g-md-4">
@@ -228,11 +275,19 @@
     </div>
 </section>
 <section class="container pb-5 mb-md-4">
+=======
+<section class="container pb-5 mb-md-4">
+    <div class="d-sm-flex align-items-center justify-content-between mb-3 mb-sm-4 pb-sm-2">
+        <h2 class="h3 text-light mb-2 mb-sm-0">Offers</h2><a class="btn btn-link btn-light fw-normal px-0 myHover" href="#">Go to Store<i class="fi-arrow-long-right fs-sm mt-0 ps-1 ms-2"></i></a>
+    </div>
+
+>>>>>>> master
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2 g-md-4">
         @foreach (var item in Model)
         {
             <!--item-->
             <div class="col">
+<<<<<<< HEAD
                 <div class="game-item card h-100 d-flex flex-column">
                     <a class="d-block rounded-3 overflow-hidden" href="#">
                         <img class="card-img-top"
@@ -274,6 +329,45 @@
                                 </button>
                             </div>
                         </div>
+=======
+                <div class="card card-body card-light card-hover bg-transparent border-0 px-0 pt-0 text-center fixed-height">
+                    <a class="d-block rounded-3 overflow-hidden" href="#">
+                        <img class="d-block mx-auto fixed-size" src="~/uploaded_images/items/@(item.ItemImage)" alt="@(item.ItemImage)">
+                    </a>
+                    <h4 class="text-center text-light pt-1">
+                        <a class="nav-link" href="#">@item.Name</a>
+                    </h4>
+                    <p class="d-none d-md-block">@item.Description</p>
+                    @if (item.IntialPrice != null)
+                    {
+                        <h3 class="text-center" style="color: #fd390e;">
+                            <s style="color: #9691a4 !important;">@item.IntialPrice</s> @item.FinalPrice
+                        </h3>
+                    }
+                    else
+                    {
+                        <h3 class="text-center" style="color: #fd390e;">@item.FinalPrice</h3>
+                    }
+
+                    <div class="mt-2 d-flex justify-content-center">
+                        <!-- Wish List Button -->
+                        <form asp-action="AddToFavourite" asp-controller="Favourite" method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="itemId" value="@item.Id" />
+                            <button class="btn btn-outline-light me-2" type="submit">
+                                <i class="fi-heart"></i> Wish List
+                            </button>
+                        </form>
+
+                        <!-- Add to Cart Button -->
+                        <form asp-action="AddToCart" asp-controller="Cart" method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="itemId" value="@item.Id" />
+                            <button class="btn btn-outline-light" type="submit">
+                                <i class="fi-shopping-cart"></i> Add to Cart
+                            </button>
+                        </form>
+>>>>>>> master
                     </div>
                 </div>
             </div>
@@ -282,4 +376,34 @@
     </div>
 </section>
 
+<<<<<<< HEAD
 <!-- end -->
+=======
+<!-- CSS for fixed-size images, consistent card height, and button styles -->
+<style>
+    .fixed-size {
+        width: 100%; /* Set to a fixed percentage of the card */
+        height: 350px; /* Maintain a consistent height */
+        object-fit: cover; /* Ensure the image covers the space proportionally */
+    }
+
+    .fixed-height {
+        height: 600px; /* Ensure all cards have a fixed height to accommodate buttons */
+    }
+
+    .btn-outline-light {
+        border-color: #fff;
+        color: #fff;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+        .btn-outline-light:hover {
+            background-color: #fff;
+            color: #000;
+        }
+
+    .fi-heart, .fi-shopping-cart {
+        margin-right: 5px;
+    }
+</style>
+>>>>>>> master

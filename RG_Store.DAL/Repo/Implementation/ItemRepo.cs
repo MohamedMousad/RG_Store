@@ -71,7 +71,7 @@ namespace EmployeeSystem.DAL.Repo.Implementation
                 itm.HasOffer = item.HasOffer;   
                 itm.Offer = item.Offer; 
                 itm.Description =item.Description;
-                itm.ItemImage = item.ItemImage; 
+                //itm.ItemImage = item.ItemImage; 
                 context.SaveChanges();
                 return true;
             }

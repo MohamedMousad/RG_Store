@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RG_Store.DAL.DB;
 
@@ -11,9 +12,11 @@ using RG_Store.DAL.DB;
 namespace RG_Store.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240917225253_EntityFavouriteItem7")]
+    partial class EntityFavouriteItem7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,14 +46,14 @@ namespace RG_Store.DAL.Migrations
                     b.Property<bool>("HasOffer")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal?>("IntialPrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
-
-                    b.Property<string>("ItemImage")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -377,8 +380,7 @@ namespace RG_Store.DAL.Migrations
 
                     b.HasIndex("CartId");
 
-                    b.HasIndex("ItemId")
-                        .IsUnique();
+                    b.HasIndex("ItemId");
 
                     b.ToTable("CartItems");
                 });
@@ -447,8 +449,7 @@ namespace RG_Store.DAL.Migrations
 
                     b.HasIndex("FavouriteId");
 
-                    b.HasIndex("ItemId")
-                        .IsUnique();
+                    b.HasIndex("ItemId");
 
                     b.ToTable("FavouriteItems");
                 });
@@ -548,8 +549,8 @@ namespace RG_Store.DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("Entities.Item", "Item")
-                        .WithOne("CartItem")
-                        .HasForeignKey("RG_Store.DAL.Entities.CartItem", "ItemId")
+                        .WithMany()
+                        .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -578,23 +579,14 @@ namespace RG_Store.DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("Entities.Item", "Item")
-                        .WithOne("FavouriteItem")
-                        .HasForeignKey("RG_Store.DAL.Entities.FavouriteItem", "ItemId")
+                        .WithMany()
+                        .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Favourite");
 
                     b.Navigation("Item");
-                });
-
-            modelBuilder.Entity("Entities.Item", b =>
-                {
-                    b.Navigation("CartItem")
-                        .IsRequired();
-
-                    b.Navigation("FavouriteItem")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Entities.Order", b =>
