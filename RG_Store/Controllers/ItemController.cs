@@ -18,13 +18,13 @@ namespace RG_Store.PLL.Controllers
             this.categoryService = categoryService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var res = itemService.GetAll();
+            var res = await itemService.GetAll();
             return View(res);
         }
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             var categories = categoryService.GetAll();
             ViewBag.Categories = categories;
@@ -41,7 +41,7 @@ namespace RG_Store.PLL.Controllers
         //    return RedirectToAction("Index","Home");
         //} 
         [HttpPost]
-        public IActionResult Create(CreateItemVM itemVM)
+        public async Task<IActionResult> Create(CreateItemVM itemVM)
         {
            
             if (itemVM.Image != null)
@@ -54,7 +54,7 @@ namespace RG_Store.PLL.Controllers
             }
 
             
-            if (!itemService.Create(itemVM))
+            if (!await itemService.Create(itemVM))
             {
                 return View(itemVM);
             }
@@ -63,16 +63,16 @@ namespace RG_Store.PLL.Controllers
         }
 
         [HttpGet]
-        public IActionResult Update()
+        public async Task<IActionResult> Update()
         {
             var categories = categoryService.GetAll();
             ViewBag.Categories = categories;
             return View();
         }
         [HttpPost]
-        public IActionResult Update(UpdateItemVM itemVM)
+        public async  Task<IActionResult> Update(UpdateItemVM itemVM)
         {
-            if (!itemService.Update(itemVM))
+            if (! await itemService.Update(itemVM))
             {
                 return View(itemVM);
             }
@@ -80,16 +80,16 @@ namespace RG_Store.PLL.Controllers
             return RedirectToAction("Index","Home");
         }
         [HttpGet]
-        public IActionResult Delete()
+        public async Task<IActionResult> Delete()
         {
             var categories = categoryService.GetAll();
             ViewBag.Categories = categories;
             return View();
         }
         [HttpPost]
-        public IActionResult Delete(DeleteItemVM itemVM)
+        public async Task<IActionResult> Delete(DeleteItemVM itemVM)
         {
-            if (!itemService.Delete(itemVM))
+            if (!await itemService.Delete(itemVM))
             {
                 return View(itemVM);
             }

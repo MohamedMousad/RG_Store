@@ -15,17 +15,17 @@ namespace RG_Store.BLL.Service.Abstraction
     {
         public interface IUserService
         {
-         public bool CreateUser(RegisterVM registerVM, out string[] errors);
-            Task<bool> SignInUserAsync(LoginVM model);
-            public void SignoutUser();
-         public bool UpdateRole(UpdateRoleVM model, Roles role);
+            public Task<bool> CreateUser(RegisterVM registerVM/*, out string[] errors*/);
+           public Task<bool> SignInUserAsync(LoginVM model);
+            public Task SignoutUser();
+            public Task<bool> UpdateRole(UpdateRoleVM model, Roles role);
 
-         public bool UpdateUser(EditUserVM model);
-         public bool DeleteUser(DeleteUserVM model);
+         public Task<bool> UpdateUser(EditUserVM model);
+         public Task<bool> DeleteUser(DeleteUserVM model);
 
-         public GetUserVM GetUserVM(string id);
+         public Task<GetUserVM> GetUserVM(string id);
 
-         public IEnumerable<GetUserVM> GetAll();
+         public Task <IEnumerable<GetUserVM> > GetAll();
 
 
 

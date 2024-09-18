@@ -5,6 +5,8 @@ using Entities;
 using RG_Store.BLL.ModelVM.ItemVM;
 using RG_Store.BLL.ModelVM.OrderVM;
 using RG_Store.BLL.Service.Abstraction;
+using RG_Store.DAL.Entities;
+using RG_Store.DAL.Repo.Abstraction;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,49 +19,87 @@ namespace RG_Store.BLL.Service.Implementation
     {
         private readonly IOrderRepo orderRepo;
         private readonly IMapper mapper;
+        private readonly ICartRepo cartRepo;
 
-        public OrderService(IOrderRepo orderRepo, IMapper mapper)
+        public OrderService(IOrderRepo orderRepo, IMapper mapper, ICartRepo cartRepo)
         {
             this.orderRepo = orderRepo;
             this.mapper = mapper;
+            this.cartRepo = cartRepo;
         }
 
-        public bool Cancle(CancelOrderVM orderVM)
+        public async Task<bool> CreateOrder(int cartid, string userid)
         {
-            var Result = mapper.Map<Order>(orderVM);
-            return /*orderRepo.UpdateOrder(Result);*/ true;
+            return await orderRepo.CreateOrder(cartid, userid);
         }
 
-        public bool Create(CreateOrderVM orderVM)
+        public async Task<bool> DeleteOrder(int orderid)
         {
-            var Result = mapper.Map<Order>(orderVM);
-          /*  return orderRepo.CreateOrder(Result);*/
-            return /*orderRepo.UpdateOrder(Result);*/ true;
+            return await orderRepo.DeleteOrder(orderid);
         }
 
-        public GetOrderVM Get(int id)
+        public async Task<IEnumerable<GetAllItemVM>> GetAllOrderItem(int id)
         {
-            var Item = orderRepo.GetById(id);
-            var Result = mapper.Map<GetOrderVM>(Item);
-            return Result;
+            var List = await orderRepo.GetAllOrderItem(id);
+            List<GetAllItemVM> Res = new List<GetAllItemVM>();
+
+            foreach (var item in List)
+            {
+                GetAllItemVM temp = new GetAllItemVM 
+                {
+                    Name = item.Name,
+                    FinalPrice = (decimal)item.FinalPrice,
+                    IntialPrice = (decimal)item.IntialPrice,
+                    ItemImage = item.ItemImage,
+                    Description = item.Description,
+                    Quantity = item.Quantity,
+                    HasOffer = item.HasOffer,
+                    Offer = item.Offer,
+                    Id = item.Id,
+                };
+                Res.Add(temp);
+            }
+            return Res;
         }
 
-        public IEnumerable<GetOrderVM> GetAll()
+        public async Task<IEnumerable<GetOrderVM>> GetAllOrders()
         {
-         /*   var List = orderRepo.GetAll().ToList();*/
-            List<GetOrderVM> Result = new();
-            /*foreach (var item in List)
+            var List =await orderRepo.GetAllOrders();
+
+            List<GetOrderVM> Res = new List<GetOrderVM>();
+
+            foreach (var item in List)
+            {
+                var temp = mapper.Map<GetOrderVM>(item);    
+                Res.Add(temp);
+            }
+            return Res;
+
+        }
+
+        public async Task<IEnumerable<GetOrderVM>> GetAllUserOrders(string userid)
+        {
+            var List = await orderRepo.GetAllUserOrders(userid);
+
+            List<GetOrderVM> Res = new List<GetOrderVM>();
+
+            foreach (var item in List)
             {
                 var temp = mapper.Map<GetOrderVM>(item);
-                Result.Add(temp);
-            }*/
-            return Result;
+                Res.Add(temp);
+            }
+            return Res;
         }
 
-        public bool Update(UpdateOrderVM orderVM)
+        public async Task<Order> GetById(int id)
         {
-            var Result = mapper.Map<Order>(orderVM);
-            return /*orderRepo.UpdateOrder(Result);*/ true;
+            return await orderRepo.GetById(id);
         }
+
+        public async Task<bool> UpdateOrder(Order orderid)
+        {
+            return await orderRepo.UpdateOrder(orderid);
+        }
+
     }
 }

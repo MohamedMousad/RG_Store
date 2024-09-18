@@ -10,10 +10,10 @@ namespace RG_Store.BLL.Service.Abstraction
 {
     public interface IItemService
     {
-        public bool Create(CreateItemVM createItemVM);
-        public bool Update(UpdateItemVM updateItem);
-        public bool Delete(DeleteItemVM deleteItem);
-        public GetAllItemVM GetAllItem(int id);
-        public IEnumerable<GetAllItemVM> GetAll();
+        public Task<bool> Create(CreateItemVM createItemVM);
+        public Task<bool> Update(UpdateItemVM updateItem);
+        public Task<bool> Delete(DeleteItemVM deleteItem);
+        public Task<GetAllItemVM> GetAllItem(int id);
+        public Task<IEnumerable<GetAllItemVM>> GetAll();
     }
 }

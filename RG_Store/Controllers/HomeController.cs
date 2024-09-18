@@ -19,9 +19,9 @@ namespace Product.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var Result = itemService.GetAll(); 
+            var Result = await itemService.GetAll(); 
             return View(Result);
         }
 

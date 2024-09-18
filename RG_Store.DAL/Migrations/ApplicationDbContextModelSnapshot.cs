@@ -466,7 +466,7 @@ namespace RG_Store.DAL.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderItem");
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("Entities.Item", b =>

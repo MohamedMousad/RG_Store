@@ -1,4 +1,6 @@
-﻿using RG_Store.BLL.ModelVM.OrderVM;
+﻿using Entities;
+using RG_Store.BLL.ModelVM.ItemVM;
+using RG_Store.BLL.ModelVM.OrderVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +11,13 @@ namespace RG_Store.BLL.Service.Abstraction
 {
     public interface IOrderService
     {
-        public bool Create(CreateOrderVM orderVM);
-        public GetOrderVM Get(int id);
-        public bool Update(UpdateOrderVM orderVM);
-        public bool Cancle(CancelOrderVM orderVM);
-        public IEnumerable<GetOrderVM> GetAll();
+        public Task<bool> CreateOrder(int cartid, string userid);
+        public Task<bool> UpdateOrder(Order orderid);
+        public Task<bool> DeleteOrder(int orderid);
+        public Task<IEnumerable<GetOrderVM>> GetAllOrders();
+        public Task<IEnumerable<GetOrderVM>> GetAllUserOrders(string userid);
+        public Task<IEnumerable<GetAllItemVM>> GetAllOrderItem(int id);
+        public Task<Order> GetById(int id);
 
     }
 }

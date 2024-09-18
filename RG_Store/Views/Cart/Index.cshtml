@@ -87,10 +87,12 @@
                                 <span><strong>@sum</strong></span>
                             </li>
                         </ul>
+                        <form method="post" asp-controller="Order" asp-action="Create">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block mb-3">
+                                Go to checkout
+                            </button>
+                        </form>
 
-                        <button type="button" class="btn btn-primary btn-lg btn-block mb-3" asp-controller="Order" asp-action="Create">
-                            Go to checkout
-                        </button>
 
                         <form hidden action="/" method="post">
                             <button type="submit" class="btn btn-primary btn-lg btn-block" asp-controller="Cart" asp-action="ClearCart">

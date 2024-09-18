@@ -4,122 +4,155 @@ using EmployeeSystem.DAL.Repo.Abstraction;
 using Entities;
 using Microsoft.EntityFrameworkCore;
 using RG_Store.DAL.DB;
+using RG_Store.DAL.Entities;
 using RG_Store.DAL.Enums;
 using RG_Store.DAL.Repo.Abstraction;
 using RG_Store.DAL.Repo.Implementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EmployeeSystem.DAL.Repo.Implementation
 {
-    public class OrderRepo : IOrderRepo 
+    public class OrderRepo : IOrderRepo
     {
         private readonly ApplicationDbContext context;
         private readonly ICartRepo cartRepo;
         private readonly IItemRepo itemRepo;
+        private readonly IUserRepo userRepo;
 
-        public OrderRepo(ApplicationDbContext context, IItemRepo itemRepo ,ICartRepo cartRepo)
+        public OrderRepo(ApplicationDbContext context, IItemRepo itemRepo, ICartRepo cartRepo, IUserRepo userRepo)
         {
             this.context = context;
             this.itemRepo = itemRepo;
             this.cartRepo = cartRepo;
+            this.userRepo = userRepo;
 
         }
 
-        public async Task<bool> CreateOrder(Order order, int cartid)
+        public async Task<bool> CreateOrder(int cartid, string userid)
         {
-            var items = await cartRepo.GetAllItems(cartid);   
-            
-            foreach(var Item in items) { 
-            
+
+            try
+            {
+                var items = await cartRepo.GetAllItems(cartid);
+
+                var user = await userRepo.GetById(userid);
+
+                Order order = new Order();
+
+                order.UserId = userid;
+
+                await context.Orders.AddAsync(order);
+
+                await context.SaveChangesAsync();
+
+                foreach (var Item in items)
+                {
+                    OrderItem orderItem = new OrderItem();
+
+                    orderItem.Order = order;
+                    orderItem.OrderId = order.Id;
+                    orderItem.Item = Item;
+                    orderItem.ItemId = Item.Id;
+
+                    await context.OrderItems.AddAsync(orderItem);
+
+                }
+                    await context.SaveChangesAsync();
+                return true;
+
+            }
+            catch (Exception)
+            {
+
+                return false;
+
+            }
+        }
+
+        public async Task<bool> DeleteOrder(int orderid)
+        {
+            try
+            {
+                var order = await GetById(orderid);
+
+                order.OrderStatus = OrderStatus.Canceled;
+
+                await context.SaveChangesAsync();
+
+
+                return true;
+
+
+            }
+            catch (Exception)
+            {
+                return false;
             }
 
-
-
-
-
-            throw new NotImplementedException();
         }
 
-        public async Task<bool> DeleteOrder(Order order)
+        public async Task<IEnumerable<Item>> GetAllOrderItem(int id)
         {
-            throw new NotImplementedException();
+            return await context.OrderItems.Select(i => i.Item).Where(order => order.Id == id).ToListAsync();
         }
 
         public async Task<IEnumerable<Order>> GetAllOrders()
         {
-            throw new NotImplementedException();
+
+            try
+            {
+                var List = await context.Orders.ToListAsync();
+                return List;
+            }
+            catch (Exception)
+            {
+                return Enumerable.Empty<Order>();
+            }
         }
 
         public async Task<IEnumerable<Order>> GetAllUserOrders(string userid)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var List = await context.Orders.Where(Order => Order.UserId == userid).ToListAsync();
+                return List;
+            }
+            catch (Exception)
+            {
+                return Enumerable.Empty<Order>();
+            }
         }
 
         public async Task<Order> GetById(int id)
         {
-            throw new NotImplementedException();
+            return await context.Orders.FirstOrDefaultAsync(o => o.Id == id);
         }
 
-        public async Task<bool> UpdateOrder(Order order)
-        {
-            throw new NotImplementedException();
-        }
-
-        /*public OrderRepo(ApplicationDbContext context)
-        {
-            this.context = context;
-        }
-
-        public bool CreateOrder(Order order)
+        public async Task<bool> UpdateOrder(Order ordervm)
         {
             try
             {
-                context.Orders.Add(order);
-                context.SaveChanges();
-                return true;
-            }
-            catch (Exception) {
-                return false;
-            }
-        }
-        public bool DeleteOrder(Order order)
-        {
-            try
-            {
-                var ord = GetById(order.Id);
-                ord.OrderStatus = OrderStatus.Canceled;
-                context.SaveChanges();
-                return true;
-            } catch (Exception)
-            {
-                return false; 
-            }
-        }
+                var order = await GetById(ordervm.Id);
 
-        public IEnumerable<Order> GetAll()=>context.Orders.ToList();
-       
+                order.OrderItems = ordervm.OrderItems;
+                order.OrderStatus = ordervm.OrderStatus;
 
-        public Order GetById(int id)=> context.Orders.Where(c => c.Id == id).FirstOrDefault();
 
-        public bool UpdateOrder(Order order)
-        {
-            try
-            {
-             *//*   var ord = GetById(order.Id);
-                ord.OrderStatus = order.OrderStatus;
-                ord.TotalCost =order.TotalCost;
-                ord.Items=order.Items;
-                context.SaveChanges();*//*
+                await context.SaveChangesAsync();
+
                 return true;
             }
             catch (Exception)
             {
                 return false;
             }
-        }*/
+
+        }
+
     }
 }

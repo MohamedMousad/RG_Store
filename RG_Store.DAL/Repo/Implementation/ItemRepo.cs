@@ -1,5 +1,6 @@
 ﻿
 using Entities;
+using Microsoft.EntityFrameworkCore;
 using RG_Store.DAL.DB;
 using RG_Store.DAL.Repo.Abstraction;
 using System;
@@ -15,26 +16,26 @@ namespace EmployeeSystem.DAL.Repo.Implementation
             this.context = context;
         }
 
-        public bool Create(Item item)
+        public async Task<bool> Create(Item item)
         {
             try
             {
-                context.Items.Add(item);
-                context.SaveChanges();
-                return true;
+              await  context.Items.AddAsync(item);
+              await  context.SaveChangesAsync();
+              return true;
             }
-            catch { 
+            catch(Exception) { 
                 return false;
             }
         }
 
-        public bool Delete(Item item)
+        public async Task<bool> Delete(Item item)
         {
             try
             {
-                var itm = context.Items.Where(i=>i.Id == item.Id).FirstOrDefault();
+                var itm =await context.Items.Where(i=>i.Id == item.Id).FirstOrDefaultAsync();
                 itm.IsDeleted = !itm.IsDeleted;
-                context.SaveChanges();
+                await  context.SaveChangesAsync();
                 return true;
                 
             }
@@ -44,11 +45,11 @@ namespace EmployeeSystem.DAL.Repo.Implementation
             }
         }
 
-        public IEnumerable<Item> GetAll() => context.Items.ToList();
+        public async Task<IEnumerable<Item>> GetAll() =>await context.Items.ToListAsync();
 
-        public Item GetById(int id) => context.Items.Where(i => i.Id == id).FirstOrDefault();
+        public async Task<Item> GetById(int id) =>await context.Items.Where(i => i.Id == id).FirstOrDefaultAsync();
 
-        public bool Update(Item item)
+        public async Task<bool> Update(Item item)
         {
             try
             {
@@ -63,7 +64,7 @@ namespace EmployeeSystem.DAL.Repo.Implementation
                 {
                     item.FinalPrice = item.IntialPrice;
                 }
-                var itm = GetById(item.Id);
+                var itm =await GetById(item.Id);
                 itm.IntialPrice = item.IntialPrice;
                 itm.FinalPrice = item.FinalPrice;
                 itm.Quantity = item.Quantity;   
@@ -72,7 +73,7 @@ namespace EmployeeSystem.DAL.Repo.Implementation
                 itm.Offer = item.Offer; 
                 itm.Description =item.Description;
                 //itm.ItemImage = item.ItemImage; 
-                context.SaveChanges();
+              await  context.SaveChangesAsync();
                 return true;
             }
             catch(Exception)
