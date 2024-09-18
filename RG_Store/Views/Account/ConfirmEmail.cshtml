@@ -3,14 +3,17 @@
 @{
     ViewData["Title"] = "Confirm Email";
 }
+<section class="container pb-5 mb-md-4" style="height:100vh;margin-top:40px">
 
-<h1>@ViewData["Title"]</h1>
+    <h1>@ViewData["Title"]</h1>
 
-@if (ViewBag.Message != null)
-{
-    <div class="alert @(ViewBag.Message.Contains("successfully") ? "alert-success" : "alert-danger")">
-        @ViewBag.Message
-    </div>
-}
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert @(ViewBag.Message.Contains("successfully") ? "alert-success" : "alert-danger")">
+            @ViewBag.Message
+        </div>
+    }
 
-<a href="@Url.Action("Index", "Home")" class="btn btn-primary">Go to Homepage</a>
+    <a href="@Url.Action("Index", "Home")" class="btn btn-primary" >Go to Homepage</a>
+
+</section>
