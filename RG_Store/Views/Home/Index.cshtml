@@ -155,6 +155,11 @@
                             <input type="hidden" name="itemId" value="@item.Id" />
                             <button type="submit" class="btn btn-success col">Add to Cart</button>
                         </form>
+                        <form asp-action="AddToFavourite" asp-controller="Favourite" method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="itemId" value="@item.Id" />
+                            <button type="submit" class="btn btn-success col">Add to fav</button>
+                        </form>
                             <button type="button" class="btn btn-danger col-3">
                                 <i class="fa-solid fa-heart"></i>
                             </button>
