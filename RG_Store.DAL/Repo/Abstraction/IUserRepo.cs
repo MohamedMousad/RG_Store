@@ -11,12 +11,12 @@ namespace EmployeeSystem.DAL.Repo.Abstraction
 {
     public interface IUserRepo
     {
-        public IEnumerable<User> GetAll();
-        public bool Create(User user);
-        public bool UpdateRole(User user, Roles role);
-        public bool UpdateUser(User user);
-        public bool DeleteUser(User user);
-        public User GetById(string id);
+        public Task<IEnumerable<User>> GetAll();
+        public Task<bool> Create(User user);
+        public Task<bool> UpdateRole(User user, Roles role);
+        public Task<bool> UpdateUser(User user);
+        public Task<bool> DeleteUser(User user);
+        public Task<User> GetById(string id);
 
 
         /*User GetByEmail(string email);*/

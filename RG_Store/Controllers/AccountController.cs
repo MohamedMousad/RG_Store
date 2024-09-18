@@ -40,7 +40,7 @@ namespace RG_Store.PLL.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (userService.CreateUser(model, out string[] errors))
+                if (await userService.CreateUser(model))
                 {
                     var user = await userService.GetByEmailAsync(model.Email);
 
@@ -59,10 +59,10 @@ namespace RG_Store.PLL.Controllers
                 }
                 else
                 {
-                    foreach (var error in errors)
+                   /* foreach (var error in errors)
                     {
                         ModelState.AddModelError(string.Empty, error);
-                    }
+                    }*/
                 }
             }
 
@@ -210,7 +210,7 @@ namespace RG_Store.PLL.Controllers
 
 
         [HttpGet]
-        public IActionResult Profile()
+        public async Task<IActionResult> Profile()
         {
             // Get the logged-in user's ID from the claims
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -220,8 +220,9 @@ namespace RG_Store.PLL.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
+
             // Fetch the user ViewModel using the service
-            var userVM = userService.GetUserVM(userId);
+            var userVM =await userService.GetUserVM(userId);
 
             if (userVM == null)
             {

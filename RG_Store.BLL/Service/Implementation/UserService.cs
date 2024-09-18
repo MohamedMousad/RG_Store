@@ -25,48 +25,48 @@ namespace RG_Store.BLL.Service.Implementation
             this.mapper = mapper;
             this.userRepo = userRepo;   
         }
-        public bool CreateUser(RegisterVM registerVM, out string[] errors)
+        public async Task<bool> CreateUser(RegisterVM registerVM/*, out string[] errors*/)
         {
             User user = mapper.Map<User>(registerVM);
-            Console.WriteLine(registerVM.Password);
+      /*      Console.WriteLine(registerVM.Password);*/
 
             var result = userManager.CreateAsync(user, registerVM.Password).GetAwaiter().GetResult();
 
             if (result.Succeeded)
             {
-                errors = null; 
+            /*    errors = null; */
                 return true;
             }
             else
             {
-                errors = result.Errors.Select(e => e.Description).ToArray();
+             /*   errors =  result.Errors.Select(e => e.Description).ToArray();*/
                 return false;
             }
         }
 
-        public bool DeleteUser(DeleteUserVM model)
+        public async Task<bool> DeleteUser(DeleteUserVM model)
         {
             var user = mapper.Map<User>(model);
-            return userRepo.DeleteUser(user);
+            return await userRepo.DeleteUser(user);
         }
 
-        public IEnumerable<GetUserVM> GetAll()
+        public async Task<IEnumerable<GetUserVM>> GetAll()
         {
            List<GetUserVM> result = new List<GetUserVM>();
-            var temp = userRepo.GetAll().ToList();
+            var temp =await userRepo.GetAll() ;
             foreach (var item in temp)
             {
                 var user = mapper.Map<GetUserVM>(item);
                 result.Add(user);  
             }
-            return result ; 
+            return  result ; 
         }
 
-        public GetUserVM GetUserVM(string id)
+        public async Task<GetUserVM> GetUserVM(string id)
         {
-            var user  = userRepo.GetById(id);
+            var user  =await userRepo.GetById(id);
             var result = mapper.Map<GetUserVM>(user);
-            return result ; 
+            return  result ; 
         }
 
         public async Task<bool> SignInUserAsync(LoginVM model)
@@ -103,22 +103,22 @@ namespace RG_Store.BLL.Service.Implementation
         }
 
 
-        public void SignoutUser()
+        public async Task SignoutUser()
         {
-            signInManager.SignOutAsync();
+            await signInManager.SignOutAsync();
         }
 
-        public bool UpdateRole(UpdateRoleVM model,Roles role)
+        public async Task<bool> UpdateRole(UpdateRoleVM model,Roles role)
         {
-            var user = userRepo.GetById(model.UserId);
+            var user = await userRepo.GetById(model.UserId);
             
-            return userRepo.UpdateRole(user, role);
+            return await userRepo.UpdateRole(user, role);
         }
 
-        public bool UpdateUser(EditUserVM model)
+        public async Task<bool> UpdateUser(EditUserVM model)
         {
             var user = mapper.Map<User>(model);
-            return userRepo.UpdateUser(user);
+            return await userRepo.UpdateUser(user);
         }
 
         public async Task SendEmailAsync(string to, string subject, string body)
@@ -211,10 +211,9 @@ namespace RG_Store.BLL.Service.Implementation
             return result;
         }
 
-        public async Task SignInUserAsync(User user)
+        public Task SignInUserAsync(User user)
         {
-            await signInManager.RefreshSignInAsync(user); // Refreshes the user’s sign-in cookie
+            throw new NotImplementedException();
         }
-
     }
 }
