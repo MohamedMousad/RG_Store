@@ -94,8 +94,8 @@
                         </form>
 
 
-                        <form hidden action="/" method="post">
-                            <button type="submit" class="btn btn-primary btn-lg btn-block" asp-controller="Cart" asp-action="ClearCart">
+                        <form asp-controller="Cart" asp-action="ClearCart">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">
                                 Clear Cart
                             </button>
                         </form>

@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
+using EmployeeSystem.DAL.Repo.Abstraction;
 using Entities;
+using Microsoft.AspNetCore.Identity;
 using RG_Store.BLL.ModelVM.UserVM;
 using RG_Store.BLL.Service.Abstraction.RG_Store.BLL.Service.Abstraction;
-using RG_Store.Services.Implementation;
-using Microsoft.AspNetCore.Identity;
-using EmployeeSystem.DAL.Repo.Abstraction;
 using RG_Store.DAL.Enums;
-using System.Net.Mail;
+using RG_Store.Services.Implementation;
 using System.Net;
+using System.Net.Mail;
 using System.Security.Claims;
 
 namespace RG_Store.BLL.Service.Implementation
@@ -18,28 +18,26 @@ namespace RG_Store.BLL.Service.Implementation
         private readonly IMapper mapper;
         private readonly SignInManager<User> signInManager;
         private readonly IUserRepo userRepo;
-        public UserService(CustomUserManager userManager, IMapper mapper,SignInManager<User> signInManager, IUserRepo userRepo)
+        public UserService(CustomUserManager userManager, IMapper mapper, SignInManager<User> signInManager, IUserRepo userRepo)
         {
-            this.signInManager=signInManager;
+            this.signInManager = signInManager;
             this.userManager = userManager;
             this.mapper = mapper;
-            this.userRepo = userRepo;   
+            this.userRepo = userRepo;
         }
-        public async Task<bool> CreateUser(RegisterVM registerVM/*, out string[] errors*/)
+        public async Task<bool> CreateUser(RegisterVM registerVM)
         {
             User user = mapper.Map<User>(registerVM);
-      /*      Console.WriteLine(registerVM.Password);*/
 
             var result = userManager.CreateAsync(user, registerVM.Password).GetAwaiter().GetResult();
 
             if (result.Succeeded)
             {
-            /*    errors = null; */
                 return true;
             }
             else
             {
-             /*   errors =  result.Errors.Select(e => e.Description).ToArray();*/
+
                 return false;
             }
         }
@@ -52,21 +50,21 @@ namespace RG_Store.BLL.Service.Implementation
 
         public async Task<IEnumerable<GetUserVM>> GetAll()
         {
-           List<GetUserVM> result = new List<GetUserVM>();
-            var temp =await userRepo.GetAll() ;
+            List<GetUserVM> result = new List<GetUserVM>();
+            var temp = await userRepo.GetAll();
             foreach (var item in temp)
             {
                 var user = mapper.Map<GetUserVM>(item);
-                result.Add(user);  
+                result.Add(user);
             }
-            return  result ; 
+            return result;
         }
 
         public async Task<GetUserVM> GetUserVM(string id)
         {
-            var user  =await userRepo.GetById(id);
+            var user = await userRepo.GetById(id);
             var result = mapper.Map<GetUserVM>(user);
-            return  result ; 
+            return result;
         }
 
         public async Task<bool> SignInUserAsync(LoginVM model)
@@ -108,10 +106,10 @@ namespace RG_Store.BLL.Service.Implementation
             await signInManager.SignOutAsync();
         }
 
-        public async Task<bool> UpdateRole(UpdateRoleVM model,Roles role)
+        public async Task<bool> UpdateRole(UpdateRoleVM model, Roles role)
         {
             var user = await userRepo.GetById(model.UserId);
-            
+
             return await userRepo.UpdateRole(user, role);
         }
 
@@ -141,15 +139,15 @@ namespace RG_Store.BLL.Service.Implementation
                     };
                     mailMessage.To.Add(to);
 
-                    // Use SendMailAsync if available or wrap the synchronous call in a Task
+
                     await Task.Run(() => smtpClient.Send(mailMessage));
                 }
             }
             catch (Exception ex)
             {
-                // Log exception
+
                 Console.WriteLine($"Exception occurred in SendEmail: {ex.Message}");
-                // Consider rethrowing or handling it based on your application needs
+
             }
         }
 
@@ -180,7 +178,7 @@ namespace RG_Store.BLL.Service.Implementation
 
             var token = await userManager.GeneratePasswordResetTokenAsync(user);
 
-            // Send the reset token via email
+
             var resetLink = $"https://localhost:7126/Account/ResetPassword?token={Uri.EscapeDataString(token)}&email={email}";
             await SendEmailAsync(user.Email, "Reset your password", $"Click <a href='{resetLink}'>here</a> to reset your password.");
 
@@ -211,9 +209,6 @@ namespace RG_Store.BLL.Service.Implementation
             return result;
         }
 
-        public Task SignInUserAsync(User user)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }
