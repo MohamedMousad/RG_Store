@@ -89,8 +89,8 @@ namespace RG_Store.DAL.Repo.Implementation
         {
             try
             {
-                var itemToRemove = context.CartItems
-                    .FirstOrDefault(i => i.CartId == id && i.ItemId == itemid);
+                var itemToRemove =await context.CartItems
+                    .FirstOrDefaultAsync(i => i.CartId == id && i.ItemId == itemid);
 
                 if (itemToRemove != null)
                 {
