@@ -24,12 +24,11 @@ namespace RG_Store.PLL.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(int id)
+        public async Task<IActionResult> Index(int id)
         {
-            var res = cartService.GetAll(id);
-            Console.WriteLine("Count Is : =====================================");
-            Console.WriteLine(cartService.GetAll(id).ToList().Count);
-            return View(res);
+            var res = await cartService.GetAllItems(id);
+            var ret = res.ToList();
+            return View(ret);
         }
 
         [HttpPost]
@@ -51,11 +50,12 @@ namespace RG_Store.PLL.Controllers
                     return RedirectToAction("Index", "Home");
                 }
 
-                bool result = cartService.AddToCart(itemId, cartId ?? 3005);
+                bool result = await cartService.AddToCart(itemId, cartId ?? 3005);
 
                 if (result)
                 {
                     TempData["SuccessMessage"] = "Item added to cart successfully!";
+                    return RedirectToAction("Index", "Cart", new { id = cartId });
                 }
                 else
                 {
@@ -64,9 +64,8 @@ namespace RG_Store.PLL.Controllers
 
                 return RedirectToAction("Index", "item");
             }
-            catch (Exception ex)
-            {
-                // Log the exception here if needed
+            catch (Exception)
+            { 
                 TempData["ErrorMessage"] = "An error occurred while processing your request.";
                 return RedirectToAction("Index", "Home");
             }
@@ -80,9 +79,7 @@ namespace RG_Store.PLL.Controllers
 
             var cartId = user.CartId;
 
-            bool result = cartService.RemoveFromCart(itemId, cartId ?? 3005);
-            /*Console.WriteLine("Count Is : =====================================");
-            Console.WriteLine(cartService.GetAll(cartId ?? 3005).ToList().Count);*/
+            bool result = await cartService.RemoveFromCart(itemId, cartId ?? 3005);
 
             if (result)
             {
@@ -97,5 +94,26 @@ namespace RG_Store.PLL.Controllers
 
         }
 
+        public async Task<IActionResult> ClearCart()
+        {
+            var user = await userManager.GetUserAsync(User);
+
+
+            var cartId = user.CartId;
+
+            bool result = await cartService.ClearCart(cartId??3004);
+
+            if (result)
+            {
+                TempData["SuccessMessage"] = "Item added to cart successfully!";
+                return RedirectToAction("Index", "Cart", new { id = cartId });
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Failed to add item to cart!";
+                return View();
+            }
+
+        }
     }
 }

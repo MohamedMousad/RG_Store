@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace RG_Store.BLL.ModelVM.UserVM
 {
     public class EditUserVM
@@ -22,7 +23,8 @@ namespace RG_Store.BLL.ModelVM.UserVM
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Required]
-        public string Role { get; set; } // New property for Role
+        public string Role { get; set; } = Roles.Customer.ToString(); // New property for Role
+        public string? MyProperty { get; set; }
+        
     }
 }

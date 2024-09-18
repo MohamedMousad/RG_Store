@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using RG_Store.BLL.Images;
 using RG_Store.BLL.ModelVM.ItemVM;
 using RG_Store.BLL.Service.Abstraction;
 using RG_Store.BLL.Service.Implementation;
@@ -29,16 +30,38 @@ namespace RG_Store.PLL.Controllers
             ViewBag.Categories = categories;
             return View();
         }
+        //[HttpPost]
+        //public IActionResult Create(CreateItemVM itemVM)
+        //{
+        //    if (!itemService.Create(itemVM))
+        //    {
+        //        return View(itemVM);
+        //    }
+
+        //    return RedirectToAction("Index","Home");
+        //} 
         [HttpPost]
         public IActionResult Create(CreateItemVM itemVM)
         {
+           
+            if (itemVM.Image != null)
+            {
+               
+                var fileName = UploadImage.UploadFile("items", itemVM.Image);
+
+                
+                itemVM.ItemImage = fileName;
+            }
+
+            
             if (!itemService.Create(itemVM))
             {
                 return View(itemVM);
             }
-            
-            return RedirectToAction("Index","Home");
-        } 
+
+            return RedirectToAction("Index", "Home");
+        }
+
         [HttpGet]
         public IActionResult Update()
         {

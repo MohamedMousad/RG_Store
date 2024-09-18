@@ -1,6 +1,5 @@
 ﻿@using RG_Store.BLL.ModelVM.UserVM
 @model RegisterVM
-
 <div class="container bg-dark text-light d-flex min-vh-100 justify-content-center align-items-center" style="margin-top:30px;">
     <div class="row mx-0 w-100" style="max-width: 900px;">
         <!-- Left Column -->
@@ -19,30 +18,43 @@
             <img class="d-block mx-auto" src="~/images/signup-dark.svg" width="344" alt="Illustration">
             <div class="text-light mt-sm-4 pt-md-3 text-center">
                 <span class="opacity-60">Already have an account?</span>
-                <a class="text-light" href="#signin-page">Sign in</a>
+                <a asp-action="SignIn" asp-controller="Account" class="btn btn-link p-0">Sign in</a>
+
             </div>
         </div>
 
         <!-- Right Column -->
         <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5">
-            <form class="needs-validation" novalidate>
-                <!-- Full Name -->
+            <form class="needs-validation" novalidate asp-controller="account" asp-action="SignUp">
+                <!-- First Name -->
                 <div class="mb-4">
-                    <label class="form-label text-light mb-2" for="signup-name">Full name</label>
-                    <input class="form-control form-control-light" type="text" id="signup-name" name="name" placeholder="Enter your full name" required>
-                    <div class="invalid-feedback">Please provide your full name.</div>
+                    <label class="form-label text-light mb-2" for="signup-firstname">First name</label>
+                    <input class="form-control form-control-light" asp-for="FirstName" type="text" id="signup-firstname" name="FirstName" placeholder="Enter your first name" required>
+                    <div class="invalid-feedback">Please provide your First name.</div>
+                </div>
+                <!-- Last Name -->
+                <div class="mb-4">
+                    <label class="form-label text-light mb-2" for="signup-lastname">Last name</label>
+                    <input class="form-control form-control-light" asp-for="LastName" type="text" id="signup-lastname" name="LastName" placeholder="Enter your last name" required>
+                    <div class="invalid-feedback">Please provide your Last name.</div>
+                </div>
+                <!-- Username -->
+                <div class="mb-4">
+                    <label class="form-label text-light mb-2" for="signup-username">User Name</label>
+                    <input class="form-control form-control-light" asp-for="UserName" type="text" id="signup-username" name="UserName" placeholder="Enter your user name" required>
+                    <div class="invalid-feedback">Please provide your User Name.</div>
                 </div>
                 <!-- Email -->
                 <div class="mb-4">
                     <label class="form-label text-light mb-2" for="signup-email">Email address</label>
-                    <input class="form-control form-control-light" type="email" id="signup-email" name="email" placeholder="Enter your email" required>
+                    <input class="form-control form-control-light" asp-for="Email" type="email" id="signup-email" name="Email" placeholder="Enter your email" required>
                     <div class="invalid-feedback">Please provide a valid email address.</div>
                 </div>
                 <!-- Password -->
                 <div class="mb-4">
                     <label class="form-label text-light mb-2" for="signup-password">Password <span class="fs-sm opacity-50">min. 8 char</span></label>
                     <div class="password-toggle input-group">
-                        <input class="form-control form-control-light" type="password" id="signup-password" name="password" minlength="8" required>
+                        <input class="form-control form-control-light" type="password" asp-for="Password" id="signup-password" name="Password" minlength="8" required>
                         <span class="input-group-text bg-dark text-light">
                             <i class="fas fa-eye password-toggle-icon" style="cursor:pointer;"></i>
                         </span>
@@ -53,7 +65,7 @@
                 <div class="mb-4">
                     <label class="form-label text-light mb-2" for="signup-password-confirm">Confirm password</label>
                     <div class="password-toggle input-group">
-                        <input class="form-control form-control-light" type="password" id="signup-password-confirm" name="passwordConfirm" minlength="8" required>
+                        <input class="form-control form-control-light" type="password" id="signup-password-confirm" name="PasswordConfirm" minlength="8" required>
                         <span class="input-group-text bg-dark text-light">
                             <i class="fas fa-eye password-toggle-icon" style="cursor:pointer;"></i>
                         </span>
@@ -62,7 +74,7 @@
                 </div>
                 <!-- Agree to Terms -->
                 <div class="form-check form-check-light mb-4">
-                    <input class="form-check-input" type="checkbox" id="agree-to-terms" name="agreeToTerms" required>
+                    <input class="form-check-input" type="checkbox" id="agree-to-terms" name="AgreeToTerms" required>
                     <label class="form-check-label" for="agree-to-terms">
                         <span class="opacity-70">By joining, I agree to the</span>
                         <a href="#" class="text-light">Terms of use</a>

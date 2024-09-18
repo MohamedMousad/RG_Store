@@ -45,7 +45,7 @@ namespace EmployeeSystem.DAL.Repo.Implementation
 
                 context.SaveChangesAsync();
 
-                cart.UsertId = user.Id;
+                cart.UserId = user.Id;
                 cart.User = user;
 
                 context.SaveChangesAsync();

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Entities;
+using RG_Store.BLL.Images;
 using RG_Store.BLL.Mapping;
 using RG_Store.BLL.ModelVM.ItemVM;
 using RG_Store.BLL.Service.Abstraction;
@@ -23,39 +24,44 @@ namespace RG_Store.BLL.Service.Implementation
             this.Itemrepo = Itemrepo;
         }
 
+        //public bool Create(CreateItemVM createItemVM)
+        //{
+        //    createItemVM.Image = UploadImage.UploadFile("images", createItemVM.ItemImage);
+        //    var Result = mapper.Map<Item>(createItemVM);
+
+        //    return Itemrepo.Create(Result);
+        //}
+
         public bool Create(CreateItemVM createItemVM)
         {
-           var Result = mapper.Map<Item>(createItemVM);
+            if (createItemVM.Image != null)
+            {
+                createItemVM.ItemImage = UploadImage.UploadFile("items", createItemVM.Image);
+            }
 
+            var Result = mapper.Map<Item>(createItemVM);
             return Itemrepo.Create(Result);
         }
 
         public bool Delete(DeleteItemVM deleteItem)
         {
             var Result = mapper.Map<Item>(deleteItem);
-           return Itemrepo.Delete(Result);
+            return Itemrepo.Delete(Result);
         }
 
         public IEnumerable<GetAllItemVM> GetAll()
         {
             var List = Itemrepo.GetAll().ToList();
-            List<GetAllItemVM> Result = new ();
-            foreach(var  item in List)
-            {
-                var temp = mapper.Map<GetAllItemVM>(item);
-                Result.Add(temp);
-            }
-            return Result ; 
+            List<GetAllItemVM> Result = mapper.Map<List<GetAllItemVM>>(List);
+            return Result;
         }
 
         public GetAllItemVM GetAllItem(int id)
         {
-            var Item = Itemrepo.GetById(id);
-            var Result = mapper.Map<GetAllItemVM>(Item);
-            return Result;
+            var item = Itemrepo.GetById(id);
+            var temp = mapper.Map<GetAllItemVM>(item);
+            return temp;
         }
-
-     
 
         public bool Update(UpdateItemVM updateItem)
         {

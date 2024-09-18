@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Microsoft.EntityFrameworkCore;
 using RG_Store.DAL.DB;
 using RG_Store.DAL.Entities;
 using RG_Store.DAL.Repo.Abstraction;
@@ -19,12 +20,18 @@ namespace RG_Store.DAL.Repo.Implementation
             this.context = context;
         }
 
-        public bool Add(Item item,int id)
+        public async Task<bool> Add(Item itemid,int id)
         {
             try
-            {   var items = GetAll(id).ToList();
-                items.Add(item);
-                context.SaveChanges();
+            { 
+                FavouriteItem ci = new FavouriteItem();
+           
+                ci.FavouriteId = id;
+                ci.Item = itemid;              
+
+
+                await context.FavouriteItems.AddAsync(ci);
+                await context.SaveChangesAsync();
                 return true;
             }
             catch (Exception)
@@ -33,26 +40,48 @@ namespace RG_Store.DAL.Repo.Implementation
             }
         }
 
-        public IEnumerable<Item> GetAll(int id)
-        {
-            var Fav = GetById(id);
-            var items = Fav.Items.ToList();
-             return items;
-        }
-        public Favourite GetById(int id) => context.Favourites.Where(i => i.Id == id).FirstOrDefault();
-        
-        public bool Remove(Item item,int ID)
+        public async Task<IEnumerable<Item>> GetAll(int id)
         {
             try
             {
-                var items = GetAll(ID).ToList();
-                var ToRemove = items.Where(i => i.Id == item.Id).FirstOrDefault();
-                items.Remove(ToRemove);
-                context.SaveChanges();
-                return true;
+                var items = context.FavouriteItems
+                  .Include(i => i.Item)
+                  .Where(i => i.FavouriteId == id)
+                  .Select(i => i.Item)
+                  .ToList();
+                return items;
             }
             catch (Exception)
             {
+
+                return Enumerable.Empty<Item>().ToList();
+            }
+        }
+        public async Task<Favourite> GetById(int id)
+        {
+            return  context.Favourites.Where(i => i.Id == id).FirstOrDefault();
+        }
+        
+        public async Task<bool> Remove(int itemid,int ID)
+        {
+
+            try
+            {
+                var itemToRemove = context.FavouriteItems
+                    .FirstOrDefault(i => i.FavouriteId == ID && i.ItemId == itemid);
+
+                if (itemToRemove != null)
+                {
+                    context.FavouriteItems.Remove(itemToRemove);
+                    await context.SaveChangesAsync();
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+
                 return false;
             }
         }

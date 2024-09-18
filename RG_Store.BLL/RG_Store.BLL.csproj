@@ -7,13 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Helper\**" />
     <Compile Remove="Mapper\**" />
     <Compile Remove="Validation\**" />
-    <EmbeddedResource Remove="Helper\**" />
     <EmbeddedResource Remove="Mapper\**" />
     <EmbeddedResource Remove="Validation\**" />
-    <None Remove="Helper\**" />
     <None Remove="Mapper\**" />
     <None Remove="Validation\**" />
   </ItemGroup>

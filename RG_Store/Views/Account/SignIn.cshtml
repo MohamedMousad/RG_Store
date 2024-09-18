@@ -6,9 +6,10 @@
         <!-- Left Column -->
         <div class="col-md-6 border-end-md border-light p-4 p-sm-5 d-flex flex-column justify-content-center align-items-center">
             <img class="d-block mx-auto" src="~/images/signin-dark.svg" width="344" alt="Illustration">
-            <div class="mt-4 mt-sm-5 text-center">
+            <div class="text-light mt-sm-4 pt-md-3 text-center">
                 <span class="opacity-60">Don't have an account?</span>
-                <a class="text-light" href="SignUp">Sign up here</a>
+                <a asp-action="SignUp" asp-controller="Account" class="btn btn-link p-0">Sign Up</a>
+
             </div>
         </div>
 
@@ -41,7 +42,7 @@
                 <div class="mb-4">
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <label class="form-label text-light mb-0" for="signin-password">Password</label>
-                        <a class="fs-sm text-light" href="#">Forgot password?</a>
+                        <a class="fs-sm text-light" href="/Account/ForgotPassword">Forgot password?</a>
                     </div>
                     <div class="password-toggle input-group">
                         <input asp-for="Password" class="form-control form-control-light" type="password" id="signin-password" name="password" placeholder="Enter password" required>

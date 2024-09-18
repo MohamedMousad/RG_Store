@@ -33,17 +33,18 @@ public class Program
         builder.Services.AddScoped<SignInManager<User>>();
         builder.Services.AddIdentity<User, IdentityRole>(options =>
         {
+            // Allow any password with at least one character
             options.Password.RequireDigit = false;
             options.Password.RequireLowercase = false;
             options.Password.RequireNonAlphanumeric = false;
             options.Password.RequireUppercase = false;
-            options.Password.RequiredLength = 1;
-            options.Password.RequiredUniqueChars = 0;
+            options.Password.RequiredLength = 1; // Minimum 1 character
+            options.Password.RequiredUniqueChars = 0; // No unique character requirement
         })
         .AddEntityFrameworkStores<ApplicationDbContext>()
         .AddDefaultTokenProviders();
 
-      builder.Services.AddScoped<UserManager<User>, CustomUserManager>();
+        builder.Services.AddScoped<UserManager<User>, CustomUserManager>();
        
 
         builder.Services.AddScoped<IUserService, UserService>();

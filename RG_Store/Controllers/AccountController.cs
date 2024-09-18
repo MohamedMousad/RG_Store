@@ -1,10 +1,16 @@
 ﻿using Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using RG_Store.BLL.ModelVM.UserVM;
 using RG_Store.BLL.Service.Abstraction;
 using RG_Store.BLL.Service.Abstraction.RG_Store.BLL.Service.Abstraction;
+using RG_Store.BLL.Service.Implementation;
+using RG_Store.Services.Implementation;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using static RG_Store.BLL.ModelVM.UserVM.ForgerPasswordVM;
 
 namespace RG_Store.PLL.Controllers
 {
@@ -12,12 +18,16 @@ namespace RG_Store.PLL.Controllers
     {
         private readonly IUserService userService;
         private readonly SignInManager<User> signInManager;
+       
 
-        public AccountController(IUserService userService, SignInManager<User> signInManager)
+
+        public AccountController(IUserService userService, SignInManager<User> signInManager )
         {
             this.userService = userService;
             this.signInManager = signInManager;
+            
         }
+
 
         [HttpGet]
         public IActionResult SignUp()
@@ -28,30 +38,19 @@ namespace RG_Store.PLL.Controllers
         [HttpPost]
         public async Task<IActionResult> SignUp(RegisterVM model)
         {
-           /* Console.WriteLine("========================");
-
-            Console.WriteLine(model.Email);
-            Console.WriteLine(model.Password);
-            Console.WriteLine("========================");*/
             if (ModelState.IsValid)
             {
-              /*  Console.WriteLine("========================");
-
-                Console.WriteLine(model.Email);
-                Console.WriteLine(model.Password);
-                Console.WriteLine("========================");*/
-
                 if (userService.CreateUser(model, out string[] errors))
                 {
-                    var user =await userService.GetByEmailAsync(model.Email);
+                    var user = await userService.GetByEmailAsync(model.Email);
 
                     string token = Guid.NewGuid().ToString();
-                    userService.GenerateEmailConfirmationTokenAsync(user.Id, token);
+                    await userService.GenerateEmailConfirmationTokenAsync(user.Id, token);
 
                     var confirmationLink = Url.Action("ConfirmEmail", "Account",
                         new { token = token }, protocol: Request.Scheme);
 
-                    userService.SendEmailAsync(user.Email, "Confirm your email",
+                    await userService.SendEmailAsync(user.Email, "Confirm your email",
                         $"Please confirm your email by clicking this <a href='{confirmationLink}'>link</a>.");
 
                     ViewBag.Message = "Registration successful! Please check your email to confirm your account.";
@@ -66,7 +65,7 @@ namespace RG_Store.PLL.Controllers
                     }
                 }
             }
-            
+
             return View(model);
         }
 
@@ -118,6 +117,118 @@ namespace RG_Store.PLL.Controllers
 
             ViewBag.Message = "Invalid or expired token!";
             return View(model: token);
+        }
+
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                ModelState.AddModelError(string.Empty, "Please provide your email address.");
+                return View();
+            }
+
+            await userService.GeneratePasswordResetTokenAsync(email);
+            ViewBag.Message = "If an account with this email exists, a password reset link has been sent.";
+
+            return View();
+        }
+
+        // Step 2: Reset Password
+        [HttpGet]
+        public IActionResult ResetPassword(string token, string email)
+        {
+            if (token == null || email == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var model = new ResetPasswordVM { Token = token, Email = email };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordVM model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var result = await userService.ResetPasswordAsync(model.Email, model.Token, model.Password);
+            if (result)
+            {
+                return RedirectToAction("SignIn");
+            }
+
+            ModelState.AddModelError(string.Empty, "Error resetting your password.");
+            return View(model);
+        }
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword(ChangePasswordVM model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = await userService.GetUserAsync(User);
+
+            if (user == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            var result = await userService.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+
+            if (result.Succeeded)
+            {
+                TempData["SuccessMessage"] = "Your password has been changed successfully!";
+                return RedirectToAction("Index", "Home"); // Redirect to the profile page or wherever you prefer
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+
+            return View(model);
+        }
+
+
+        [HttpGet]
+        public IActionResult Profile()
+        {
+            // Get the logged-in user's ID from the claims
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            // Fetch the user ViewModel using the service
+            var userVM = userService.GetUserVM(userId);
+
+            if (userVM == null)
+            {
+                return NotFound("User not found");
+            }
+
+            return View(userVM);  // Pass the ViewModel to the view
         }
 
 

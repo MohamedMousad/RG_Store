@@ -33,4 +33,9 @@
     <ProjectReference Include="..\RG_Store.BLL\RG_Store.BLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\uploaded_images\items\" />
+    <Folder Include="wwwroot\uploaded_images\users\" />
+  </ItemGroup>
+
 </Project>

@@ -25,47 +25,51 @@ namespace RG_Store.BLL.Service.Implementation
             this.mapper = mapper;
             this.itemService = itemService;
         }
-        public bool AddToCart(int ItemId, int id)
+        public async Task<bool> AddToCart(int ItemId, int id)
         {
-            var item = itemService.GetAllItem(ItemId);
+            var item = itemRepo.GetById(ItemId);
             var Result = mapper.Map<Item>(item);
-            return cartRepo.AddToCart(Result, id);
+            return await cartRepo.AddToCart(Result, id);
+        }
+
+        public Task<bool> AddToCart(Item item, int cartId)
+        {
             throw new NotImplementedException();
         }
 
-        public bool ClearCart(int id)
+        public async Task<bool> ClearCart(int id)
         {
-            return cartRepo.ClearCart(id);
+            return await cartRepo.ClearCart(id);
         }
-
-        public IEnumerable<GetAllItemVM> GetAll(int id)
+        public async Task<IEnumerable<GetAllItemVM>> GetAllItems(int id)
         {
-            var List = cartRepo.GetAllItems(id).ToList();
-            List<GetAllItemVM> Resulte = new();
-            foreach (var item in List)
+            var items = await cartRepo.GetAllItems(id);
+
+            List<GetAllItemVM> result = new();
+            foreach (var item in items)
             {
-                var temp = mapper.Map<GetAllItemVM>(item);
-                Resulte.Add(temp);
-            }
-            return Resulte;
-        }
+                GetAllItemVM temp = new GetAllItemVM
+                {
+                    Name = item.Name,
+                    FinalPrice = (decimal)item.FinalPrice,
+                    IntialPrice = (decimal)item.IntialPrice,
+                    Description = item.Description,
+                    Quantity = item.Quantity,
+                    HasOffer = item.HasOffer,
+                    Offer = item.Offer,
+                    Id = item.Id,
 
-        public decimal? GetCartPrice(int id)
-        {
-            var List = cartRepo.GetAllItems(id).ToList();
-            decimal? Total = 0;
-            foreach(var  item in List)
-            {
-                Total += item.FinalPrice;
+                };
+                result.Add(temp);
             }
-            return Total; 
-        }
 
-        public bool RemoveFromCart(int ItemId, int id)
+            return result;
+        }
+        public async Task<bool> RemoveFromCart(int ItemId, int id)
         {
             var item = itemService.GetAllItem(ItemId);
             var Result = mapper.Map<Item>(item);
-            return cartRepo.RemoveFromCart(Result, id);
+            return await cartRepo.RemoveFromCart(Result.Id, id);
         }
     }
 }

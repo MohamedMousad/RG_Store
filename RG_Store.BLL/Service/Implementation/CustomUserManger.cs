@@ -38,15 +38,26 @@ namespace RG_Store.Services.Implementation
 
             if (result.Succeeded)
             {
-                var favourite = new Favourite();
+               /* var favourite = new Favourite();
                 _context.Favourites.Add(favourite);
-                await _context.SaveChangesAsync();
-                user.Favourite = favourite;
-
+                await _context.SaveChangesAsync();*//*
+                user.Favourite = favourite;*/
                 var cart = new Cart();
                 _context.Carts.Add(cart);
+                cart.UserId = user.Id;
+                _context.Carts.Add(cart);
                 await _context.SaveChangesAsync();
+                user.CartId = cart.Id;
                 user.Cart = cart;
+                _context.Users.Update(user);
+                await _context.SaveChangesAsync();
+                var fav = new Favourite();
+                _context.Favourites.Add(fav);
+                fav.UserId = user.Id;
+                _context.Favourites.Add(fav);
+                await _context.SaveChangesAsync();
+                user.FavouriteId = fav.Id;
+                user.Favourite = fav;
                 _context.Users.Update(user);
                 await _context.SaveChangesAsync();
             }
