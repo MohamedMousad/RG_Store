@@ -24,7 +24,7 @@ namespace Entities
         public int ?FavouriteId { get; set; }
         public Favourite ?Favourite { get; set; }
 
-
+       
 
         public string ?EmailConfirmationToken { get; set; } 
         //public bool IsEmailConfirmed { get; set; } = false;

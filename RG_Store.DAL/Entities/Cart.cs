@@ -21,9 +21,5 @@ namespace RG_Store.DAL.Entities
 
         public IEnumerable<CartItem?> CartItem { get; set; }
 
-        [ForeignKey("Orders")]
-        public int ?OrderId { get; set; }
-
-
     }
 }

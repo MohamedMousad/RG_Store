@@ -24,5 +24,6 @@ namespace Entities
 
         public FavouriteItem FavouriteItem { get; set; }
         public CartItem CartItem { get; set; }
+        public OrderItem OrderItem {  get; set; }    
     }
 }
