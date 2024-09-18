@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RG_Store.DAL.DB;
 
@@ -11,9 +12,11 @@ using RG_Store.DAL.DB;
 namespace RG_Store.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240917212843_fixing_item_image")]
+    partial class fixing_item_image
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,6 +40,9 @@ namespace RG_Store.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("FavouriteId")
+                        .HasColumnType("int");
+
                     b.Property<decimal?>("FinalPrice")
                         .HasColumnType("decimal(18,2)");
 
@@ -48,6 +54,9 @@ namespace RG_Store.DAL.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("ItemImage")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -65,6 +74,8 @@ namespace RG_Store.DAL.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("FavouriteId");
 
                     b.HasIndex("OrderId");
 
@@ -185,6 +196,10 @@ namespace RG_Store.DAL.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FavouriteId")
+                        .IsUnique()
+                        .HasFilter("[FavouriteId] IS NOT NULL");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -374,8 +389,7 @@ namespace RG_Store.DAL.Migrations
 
                     b.HasIndex("CartId");
 
-                    b.HasIndex("ItemId")
-                        .IsUnique();
+                    b.HasIndex("ItemId");
 
                     b.ToTable("CartItems");
                 });
@@ -414,40 +428,9 @@ namespace RG_Store.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
                     b.ToTable("Favourites");
-                });
-
-            modelBuilder.Entity("RG_Store.DAL.Entities.FavouriteItem", b =>
-                {
-                    b.Property<int>("Idt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Idt"));
-
-                    b.Property<int>("FavouriteId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ItemId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Idt");
-
-                    b.HasIndex("FavouriteId");
-
-                    b.HasIndex("ItemId")
-                        .IsUnique();
-
-                    b.ToTable("FavouriteItems");
                 });
 
             modelBuilder.Entity("Entities.Item", b =>
@@ -455,6 +438,10 @@ namespace RG_Store.DAL.Migrations
                     b.HasOne("RG_Store.DAL.Entities.Category", "Category")
                         .WithMany("Items")
                         .HasForeignKey("CategoryId");
+
+                    b.HasOne("RG_Store.DAL.Entities.Favourite", null)
+                        .WithMany("Items")
+                        .HasForeignKey("FavouriteId");
 
                     b.HasOne("Entities.Order", null)
                         .WithMany("Items")
@@ -472,6 +459,15 @@ namespace RG_Store.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Entities.User", b =>
+                {
+                    b.HasOne("RG_Store.DAL.Entities.Favourite", "Favourite")
+                        .WithOne("User")
+                        .HasForeignKey("Entities.User", "FavouriteId");
+
+                    b.Navigation("Favourite");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -545,53 +541,14 @@ namespace RG_Store.DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("Entities.Item", "Item")
-                        .WithOne("CartItem")
-                        .HasForeignKey("RG_Store.DAL.Entities.CartItem", "ItemId")
+                        .WithMany()
+                        .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Cart");
 
                     b.Navigation("Item");
-                });
-
-            modelBuilder.Entity("RG_Store.DAL.Entities.Favourite", b =>
-                {
-                    b.HasOne("Entities.User", "User")
-                        .WithOne("Favourite")
-                        .HasForeignKey("RG_Store.DAL.Entities.Favourite", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("RG_Store.DAL.Entities.FavouriteItem", b =>
-                {
-                    b.HasOne("RG_Store.DAL.Entities.Favourite", "Favourite")
-                        .WithMany("FavouriteItem")
-                        .HasForeignKey("FavouriteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Entities.Item", "Item")
-                        .WithOne("FavouriteItem")
-                        .HasForeignKey("RG_Store.DAL.Entities.FavouriteItem", "ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Favourite");
-
-                    b.Navigation("Item");
-                });
-
-            modelBuilder.Entity("Entities.Item", b =>
-                {
-                    b.Navigation("CartItem")
-                        .IsRequired();
-
-                    b.Navigation("FavouriteItem")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Entities.Order", b =>
@@ -602,8 +559,6 @@ namespace RG_Store.DAL.Migrations
             modelBuilder.Entity("Entities.User", b =>
                 {
                     b.Navigation("Cart");
-
-                    b.Navigation("Favourite");
 
                     b.Navigation("Orders");
                 });
@@ -620,7 +575,9 @@ namespace RG_Store.DAL.Migrations
 
             modelBuilder.Entity("RG_Store.DAL.Entities.Favourite", b =>
                 {
-                    b.Navigation("FavouriteItem");
+                    b.Navigation("Items");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,7 +1,22 @@
-﻿@* @model User *@
+﻿@using RG_Store.BLL.Service.Abstraction.RG_Store.BLL.Service.Abstraction
+@using RG_Store.BLL.ModelVM.UserVM
+@using RG_Store.BLL.Service.Implementation
+@using System.Security.Claims
+@inject IUserService userService
 @{
-    var IsSignedIn = User.Identity.IsAuthenticated;
-}
+    string Role = "";
+    var IsSignedIn = User?.Identity?.IsAuthenticated ?? false;
+    if (IsSignedIn)
+    {
+        var userId = User?.FindFirstValue(ClaimTypes.NameIdentifier); // Get the user ID from the NameIdentifier claim
+        var user = userService.GetUserVM(userId);
+        Role = user.UseRrole.ToString(); // Assuming Roles is a collection of strings representing the roles        
+    }
+ }
+
+@* <!-- Example: Iterating over the roles -->
+    <p>User Role: @Role</p> *@
+
 <!doctype html>
 <html lang="en">
 
@@ -71,11 +86,6 @@
             background-color: white !important;
         }
 
-        .socialMedia {
-            transition-duration: 500ms !important;
-            color: #fd5631 !important;
-        }
-
         a:has(.appStore):hover {
             background-color: #fd390e !important;
             color: #fd5631 !important;
@@ -130,34 +140,24 @@
                     <i class="fi-user me-2"></i>Sign in
                 </a>
             }
-            <a class="btn btn-primary btn-sm ms-2 order-lg-3 makeMeOrangeBG" href="#">b  
-                <i class="button"></i>Cart
-            </a>
+            @if(IsSignedIn)
+            {              
+                <a class="btn btn-primary btn-sm ms-2 order-lg-3 makeMeOrangeBG" href="#">
+                    <i class="button"></i>Cart
+                </a>
+            }
             <div class="collapse navbar-collapse order-lg-2" id="navbarNav">
                 <ul class="navbar-nav navbar-nav-scroll" style="max-height: 35rem;">
-                    <li class="nav-item active"><a class="nav-link" href="#">Home</a></li>
-                    <li class="nav-item active"><a class="nav-link" href="#">Games</a></li>
-                    <li class="nav-item active"><a class="nav-link" href="/Account/Profile">Account</a></li>
+                    <li class="nav-item active"><a class="nav-link" asp-controller="Home" asp-action="index">Home</a></li>
+                    <li class="nav-item active"><a class="nav-link" asp-controller="item" asp-action="index">Games</a></li>
                     <li class="nav-item d-lg-none">
-                        @{
-                            bool isAdmin = User.IsInRole("Admin");
-                        }
-
-                        <!-- ...existing code... -->
-
                     <li class="nav-item active">
-                            @if (isAdmin)
+                            @if (Role == "Admin" )
                             {
-                            <a class="nav-link" asp-controller="admin" asp-action="index">Admin</a>
+                                <a class="nav-link" asp-controller="admin" asp-action="index">Admin</a>
                             }
                     </li>
 
-                    <!-- ...existing code... -->
-                    <li class="nav-item active">
-                        <a class="nav-link" href="account/SignIn">
-                            <i class="fi-user me-2"></i>Sign in
-                        </a>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -194,9 +194,9 @@
                 <div class="col-lg-2 col-md-3 col-sm-6 mb-2 mb-sm-4">
                     <h3 class="fs-base text-light">Profile</h3>
                     <ul class="list-unstyled fs-sm">
-                        <li><a class="nav-link-light" asp-controller="account" asp-action="">My account</a></li>
-                        <li><a class="nav-link-light" asp-controller="account" asp-action="">My Orders</a></li>
-                        <li><a class="nav-link-light" asp-controller="Cart" asp-action="">Cart</a></li>
+                        <li><a class="nav-link-light" asp-controller="account" asp-action="profile">My account</a></li>
+                        <li><a class="nav-link-light" asp-controller="account" asp-action="orders">My Orders</a></li>
+                        <li><a class="nav-link-light" asp-controller="Cart" asp-action="index">Cart</a></li>
                     </ul>
                 </div>
                 <div class="col-xl-2 col-lg-3 col-sm-6 col-md-3 mb-2 mb-sm-4">

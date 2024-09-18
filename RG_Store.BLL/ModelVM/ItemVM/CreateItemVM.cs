@@ -27,8 +27,8 @@ namespace RG_Store.BLL.ModelVM.ItemVM
         [Range(0, int.MaxValue, ErrorMessage = "quantity must be a positive number.")]*/
         public int Quantity { get; set; } = 0;
          public int ?CategoryId { get; set; }
-        public IFormFile ?ItemImage { get; set; }
-        public String ? Image {  get; set; }
+        public IFormFile ?Image { get; set; }
+        public string ? ItemImage {  get; set; }
    
 
     }

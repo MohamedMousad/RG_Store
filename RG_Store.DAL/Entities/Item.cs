@@ -19,12 +19,7 @@ namespace Entities
         public decimal ?Offer { get; set; } = 0;
         public bool IsDeleted { get; set; } = false;
         public int? CategoryId { get; set; }
-    /*    public IEnumerable<CartItem?> CartItem { get; set; }
-        public IEnumerable<FavouriteItem?> FavouriteItem { get; set; }*/
-         public FavouriteItem FavouriteItem { get; set; }    
-        public CartItem CartItem { get; set; }
-        public Category? Category { get; set; }  
-        public String ? Image { get; set; }
-
+        public Category? Category { get; set; }
+        public string? ItemImage { get; set; }
     }
 }

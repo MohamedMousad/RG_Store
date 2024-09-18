@@ -44,13 +44,13 @@ namespace RG_Store.PLL.Controllers
         public IActionResult Create(CreateItemVM itemVM)
         {
            
-            if (itemVM.ItemImage != null)
+            if (itemVM.Image != null)
             {
                
-                var fileName = UploadImage.UploadFile("Items", itemVM.ItemImage);
+                var fileName = UploadImage.UploadFile("items", itemVM.Image);
 
                 
-                itemVM.Image = fileName;
+                itemVM.ItemImage = fileName;
             }
 
             
