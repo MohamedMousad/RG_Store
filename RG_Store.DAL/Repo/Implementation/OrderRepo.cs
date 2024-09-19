@@ -120,7 +120,7 @@ namespace EmployeeSystem.DAL.Repo.Implementation
                 var ret = new List<Order>();
                 foreach (var i in List)
                 {
-                   if(i.UserId==userid) ret.Add(i);
+                  ret.Add(i);
                 }
 
                 return ret;
