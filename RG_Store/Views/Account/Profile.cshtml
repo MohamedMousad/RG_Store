@@ -1,4 +1,5 @@
-﻿@model RG_Store.BLL.ModelVM.UserVM.GetUserVM
+﻿@using RG_Store.DAL.Enums
+@model RG_Store.BLL.ModelVM.UserVM.GetUserVM
 <!doctype html>
 <html lang="en">
 
@@ -162,19 +163,29 @@
                                 <!-- Gender -->
                                 <div class="border-bottom border-light pb-3 mb-3">
                                     <label class="form-label fw-bold text-light">Gender</label>
-                                    <select class="form-select form-select-light mt-3" asp-for="Gender">
-                                        <option value="" disabled selected>Select your gender</option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
+                                    <select  class="form-select form-select-light mt-3" asp-for="Gender">
+                                        @if (Model.Gender == Gender.Male)
+                                        {
+                                            <option value="1" disabled selected>Male</option>
+                                            <option value="2">Female</option>
+                                        }
+                                       else    if (Model.Gender == Gender.Female)
+                                        {
+                                            <option value="1">Male</option>
+                                            <option value="2"disabled selected>Female</option>  
+                                        }
+                                        
                                     </select>
                                 </div>
 
+
+
                                 <!-- Email -->
-                                <div class="border-bottom border-light pb-3 mb-3">
+                            @*     <div class="border-bottom border-light pb-3 mb-3">
                                     <label class="form-label fw-bold text-light">Email</label>
                                     <input class="form-control form-control-light mt-3" type="email" asp-for=Email
                                            value="@Model.Email">
-                                </div>
+                                </div> *@
 
                                 <!-- Upload Profile Picture -->
                                 <div class="filepond--root file-uploader bg-faded-light" style="height: 160px;" enctype="multipart/form-data">
@@ -196,7 +207,9 @@
                             <!-- Action buttons-->
                             <div class="row">
                                 <div class="col-lg-9">
-                                    <button class="btn btn-primary" type="submit" asp-controller="Profile" asp-action="Edit">Save Changes</button>
+                                   @*  <form asp-controller="Profile" asp-action="Update" method="post">
+                                    </form> *@
+                                    <button class="btn btn-primary" type="submit" >Save Changes</button>
                                 </div>
                             </div>
                         </div>

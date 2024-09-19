@@ -104,8 +104,6 @@ namespace EmployeeSystem.DAL.Repo.Implementation
                 var usr = await GetById(user.Id);
                 usr.FirstName = user.FirstName;
                 usr.LastName = user.LastName;
-                user.Email = user.Email;
-                usr.UserName = user.UserName;
                 usr.UserGender = user.UserGender;
                 context.SaveChanges();
                 return true;

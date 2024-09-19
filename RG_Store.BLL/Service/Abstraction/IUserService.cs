@@ -15,7 +15,7 @@ namespace RG_Store.BLL.Service.Abstraction
             public Task SignoutUser();
             public Task<bool> UpdateRole(UpdateRoleVM model, Roles role);
 
-            public Task<bool> UpdateUser(EditUserVM model);
+            public Task<bool> UpdateUser(GetUserVM model);
             public Task<bool> DeleteUser(DeleteUserVM model);
 
             public Task<GetUserVM> GetUserVM(string id);

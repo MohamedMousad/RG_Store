@@ -113,9 +113,17 @@ namespace RG_Store.BLL.Service.Implementation
             return await userRepo.UpdateRole(user, role);
         }
 
-        public async Task<bool> UpdateUser(EditUserVM model)
+        public async Task<bool> UpdateUser(GetUserVM model)
         {
-            var user = mapper.Map<User>(model);
+            User user = new User
+            {
+                Id = model.UserId,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                UserGender = model.Gender,
+                ProfileImage = model.ProfileImage
+            };
+
             return await userRepo.UpdateUser(user);
         }
 
