@@ -22,9 +22,10 @@ namespace RG_Store.PLL.Controllers
 
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index()
         {
-            var res = await cartService.GetAllItems(id);
+            var user =await userManager.GetUserAsync(User);
+            var res = await cartService.GetAllItems(user.CartId??1);
             var ret = res.ToList();
             return View(ret);
         }

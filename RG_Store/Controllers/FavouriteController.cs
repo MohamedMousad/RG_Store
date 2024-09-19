@@ -17,9 +17,10 @@ namespace RG_Store.PLL.Controllers
             this.userManager = userManager;
         }
         [Authorize]
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index()
         {
-            var res = await favouriteService.GetAll(id);
+            var user =await userManager.GetUserAsync(User);
+            var res = await favouriteService.GetAll(user.FavouriteId??1);
             var ret = res.ToList();
             return View(ret);
         }
