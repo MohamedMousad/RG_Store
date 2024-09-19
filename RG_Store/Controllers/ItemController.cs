@@ -1,18 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using RG_Store.BLL.Images;
 using RG_Store.BLL.ModelVM.ItemVM;
 using RG_Store.BLL.Service.Abstraction;
-using RG_Store.BLL.Service.Implementation;
 
 namespace RG_Store.PLL.Controllers
 {
-    public class ItemController:Controller
+    public class ItemController : Controller
     {
         private readonly IItemService itemService;
         private readonly ICategoryService categoryService;
 
-        public ItemController(IItemService itemService , ICategoryService categoryService)
+        public ItemController(IItemService itemService, ICategoryService categoryService)
         {
             this.itemService = itemService;
             this.categoryService = categoryService;
@@ -43,17 +41,17 @@ namespace RG_Store.PLL.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateItemVM itemVM)
         {
-           
+
             if (itemVM.Image != null)
             {
-               
+
                 var fileName = UploadImage.UploadFile("items", itemVM.Image);
 
-                
+
                 itemVM.ItemImage = fileName;
             }
 
-            
+
             if (!await itemService.Create(itemVM))
             {
                 return View(itemVM);
@@ -70,14 +68,14 @@ namespace RG_Store.PLL.Controllers
             return View();
         }
         [HttpPost]
-        public async  Task<IActionResult> Update(UpdateItemVM itemVM)
+        public async Task<IActionResult> Update(UpdateItemVM itemVM)
         {
-            if (! await itemService.Update(itemVM))
+            if (!await itemService.Update(itemVM))
             {
                 return View(itemVM);
             }
-            
-            return RedirectToAction("Index","Home");
+
+            return RedirectToAction("Index", "Home");
         }
         [HttpGet]
         public async Task<IActionResult> Delete()

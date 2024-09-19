@@ -3,12 +3,6 @@ using Entities;
 using RG_Store.BLL.ModelVM.ItemVM;
 using RG_Store.BLL.Service.Abstraction;
 using RG_Store.DAL.Repo.Abstraction;
-using RG_Store.DAL.Repo.Implementation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RG_Store.BLL.Service.Implementation
 {
@@ -32,7 +26,7 @@ namespace RG_Store.BLL.Service.Implementation
             return await cartRepo.AddToCart(Result, id);
         }
 
-       
+
 
         public async Task<bool> ClearCart(int id)
         {
@@ -65,7 +59,7 @@ namespace RG_Store.BLL.Service.Implementation
         }
         public async Task<bool> RemoveFromCart(int ItemId, int id)
         {
-            var item =await itemService.GetAllItem(ItemId);
+            var item = await itemService.GetAllItem(ItemId);
             var Result = mapper.Map<Item>(item);
             return await cartRepo.RemoveFromCart(Result.Id, id);
         }

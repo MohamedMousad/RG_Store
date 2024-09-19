@@ -30,7 +30,7 @@ namespace RG_Store.BLL.Service.Abstraction
             Task<bool> ResetPasswordAsync(string email, string token, string newPassword);
             Task<User> GetUserAsync(ClaimsPrincipal principal);
             Task<IdentityResult> ChangePasswordAsync(User user, string oldPassword, string newPassword);
-  
+
 
         }
     }

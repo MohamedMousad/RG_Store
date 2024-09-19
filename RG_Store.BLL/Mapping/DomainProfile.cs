@@ -1,15 +1,10 @@
 ﻿using AutoMapper;
-using System;
-using RG_Store.DAL.Entities;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Entities;
 using RG_Store.BLL.ModelVM.Category;
 using RG_Store.BLL.ModelVM.ItemVM;
 using RG_Store.BLL.ModelVM.OrderVM;
 using RG_Store.BLL.ModelVM.UserVM;
-using Entities;
+using RG_Store.DAL.Entities;
 
 
 namespace RG_Store.BLL.Mapping
@@ -40,7 +35,7 @@ namespace RG_Store.BLL.Mapping
             CreateMap<GetUserVM, User>();
 
             //User Mapper
-         //   CreateMap<User, CreateUserVM>();
+            //   CreateMap<User, CreateUserVM>();
             CreateMap<User, DeleteUserVM>();
             CreateMap<User, EditUserVM>();
             CreateMap<User, GetUserVM>();
@@ -53,7 +48,7 @@ namespace RG_Store.BLL.Mapping
             CreateMap<Category, DeleteCategoryVM>();
             CreateMap<Category, GetCategoryVM>();
             CreateMap<Category, UpdateCategoryVM>();
-            
+
             //Category Mapper
             CreateMap<Category, AddCategoryVM>();
             CreateMap<Category, DeleteCategoryVM>();
@@ -72,7 +67,7 @@ namespace RG_Store.BLL.Mapping
             CreateMap<Item, GetAllItemVM>();
             CreateMap<Item, UpdateItemVM>();
             CreateMap<Item, DeleteItemVM>();
-            
+
             CreateMap<CreateItemVM, Item>();
             CreateMap<GetAllItemVM, Item>();
             CreateMap<UpdateItemVM, Item>();
@@ -85,14 +80,14 @@ namespace RG_Store.BLL.Mapping
             CreateMap<UpdateCategoryVM, Category>();
 
             //Favourite Mapper
-          /*  CreateMap<Favourite, AddToFavouriteVM>();
-            CreateMap<Favourite, GetFavouriteVM>();
-            CreateMap<Favourite, RemoveFromFavouriteVM>();
+            /*  CreateMap<Favourite, AddToFavouriteVM>();
+              CreateMap<Favourite, GetFavouriteVM>();
+              CreateMap<Favourite, RemoveFromFavouriteVM>();
 
-            CreateMap<AddToFavouriteVM , Favourite>();
-            CreateMap<GetFavouriteVM, Favourite>();
-            CreateMap<RemoveFromFavouriteVM, Favourite>();
-*/
+              CreateMap<AddToFavouriteVM , Favourite>();
+              CreateMap<GetFavouriteVM, Favourite>();
+              CreateMap<RemoveFromFavouriteVM, Favourite>();
+  */
 
             //Order Mapper
             CreateMap<Order, CancelOrderVM>();
@@ -100,7 +95,7 @@ namespace RG_Store.BLL.Mapping
             CreateMap<Order, UpdateOrderVM>();
             CreateMap<Order, GetOrderVM>();
 
-            CreateMap<CancelOrderVM , Order>();
+            CreateMap<CancelOrderVM, Order>();
             CreateMap<CreateOrderVM, Order>();
             CreateMap<UpdateOrderVM, Order>();
             CreateMap<GetOrderVM, Order>();

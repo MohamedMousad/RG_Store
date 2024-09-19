@@ -6,11 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using RG_Store.DAL.DB;
 using RG_Store.DAL.Entities;
 using RG_Store.DAL.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 
@@ -48,12 +43,12 @@ namespace EmployeeSystem.DAL.Repo.Implementation
                 cart.UserId = user.Id;
                 cart.User = user;
 
-            await    context.SaveChangesAsync();
+                await context.SaveChangesAsync();
 
                 //favourite.UserId =user.Id;
                 favourite.User = user;
 
-              await  context.SaveChangesAsync();
+                await context.SaveChangesAsync();
 
                 return true;
             }
@@ -69,7 +64,7 @@ namespace EmployeeSystem.DAL.Repo.Implementation
             {
                 var usr = await context.Users.FirstOrDefaultAsync(x => x.Id == user.Id);
                 usr.IsDeleted = !usr.IsDeleted;
-               await context.SaveChangesAsync();
+                await context.SaveChangesAsync();
                 return true;
             }
             catch (Exception)
@@ -80,15 +75,15 @@ namespace EmployeeSystem.DAL.Repo.Implementation
 
         }
 
-        public async Task<User> GetById(string id) =>await context.Users.Where(u => u.Id == id).Include(u=>u.Orders).FirstOrDefaultAsync();
+        public async Task<User> GetById(string id) => await context.Users.Where(u => u.Id == id).Include(u => u.Orders).FirstOrDefaultAsync();
 
         public async Task<bool> UpdateRole(User user, Roles role)
         {
             try
             {
                 var usr = await GetById(user.Id);
-               usr.UserRole = role;
-             await   context.SaveChangesAsync();
+                usr.UserRole = role;
+                await context.SaveChangesAsync();
                 return true;
             }
             catch (Exception)
@@ -116,7 +111,7 @@ namespace EmployeeSystem.DAL.Repo.Implementation
             }
         }
 
-     public  async Task<IEnumerable<User> >GetAll() =>await context.Users.ToListAsync();
+        public async Task<IEnumerable<User>> GetAll() => await context.Users.ToListAsync();
 
 
         public async Task<User> GetByEmailAsync(string email)
@@ -143,9 +138,9 @@ namespace EmployeeSystem.DAL.Repo.Implementation
 
         public async Task<User> GetUserByTokenAsync(string token)
         {
-           
-                return await context.Users.FirstOrDefaultAsync(u => u.EmailConfirmationToken == token);
-           
+
+            return await context.Users.FirstOrDefaultAsync(u => u.EmailConfirmationToken == token);
+
         }
 
     }

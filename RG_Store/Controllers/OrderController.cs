@@ -18,13 +18,13 @@ namespace RG_Store.PLL.Controllers
 
         public async Task<IActionResult> GetAllOrders()
         {
-           var res = await orderService.GetAllOrders();
+            var res = await orderService.GetAllOrders();
 
             return View(orderService);
         }
         public async Task<IActionResult> Index(string userid)
         {
-            
+
             var orders = await orderService.GetAllUserOrders(userid);
 
             return View(orders);
@@ -52,7 +52,7 @@ namespace RG_Store.PLL.Controllers
                 if (result)
                 {
                     TempData["SuccessMessage"] = "Order added successfully!";
-                  
+
                     return RedirectToAction("Index", "Order", new { id = user.Id });
                 }
                 else
@@ -61,7 +61,7 @@ namespace RG_Store.PLL.Controllers
                 }
 
                 return RedirectToAction("Index", "Home");
-               
+
             }
             catch (Exception)
             {
@@ -71,7 +71,7 @@ namespace RG_Store.PLL.Controllers
         }
         public async Task<IActionResult> Update(int orderid)
         {
-            
+
 
             return View();
         }

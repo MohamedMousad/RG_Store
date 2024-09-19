@@ -17,25 +17,25 @@ namespace RG_Store.PLL.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult Create ()
+        public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
         public IActionResult Create(AddCategoryVM categoryVM)
         {
-            if (categoryService.Create(categoryVM))return RedirectToAction("Index","Home");
+            if (categoryService.Create(categoryVM)) return RedirectToAction("Index", "Home");
             else return View(categoryVM);
         }
         [HttpGet]
-        public IActionResult Update ()
+        public IActionResult Update()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult Update(UpdateCategoryVM categoryVM )
+        public IActionResult Update(UpdateCategoryVM categoryVM)
         {
-            if (categoryService.Update(categoryVM))return RedirectToAction("Index","Home");
+            if (categoryService.Update(categoryVM)) return RedirectToAction("Index", "Home");
             else return View(categoryVM);
         }
         [HttpGet]
@@ -44,9 +44,9 @@ namespace RG_Store.PLL.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Delete(DeleteCategoryVM categoryVM )
+        public IActionResult Delete(DeleteCategoryVM categoryVM)
         {
-            if (categoryService.Delete(categoryVM))return RedirectToAction("Index","Home");
+            if (categoryService.Delete(categoryVM)) return RedirectToAction("Index", "Home");
             else return View(categoryVM);
         }
     }

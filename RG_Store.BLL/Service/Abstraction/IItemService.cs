@@ -1,10 +1,4 @@
-﻿using Entities;
-using RG_Store.BLL.ModelVM.ItemVM;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RG_Store.BLL.ModelVM.ItemVM;
 
 namespace RG_Store.BLL.Service.Abstraction
 {

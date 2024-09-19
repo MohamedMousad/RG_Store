@@ -1,17 +1,10 @@
 ﻿using AutoMapper;
 using EmployeeSystem.DAL.Repo.Abstraction;
-using EmployeeSystem.DAL.Repo.Implementation;
 using Entities;
 using RG_Store.BLL.ModelVM.ItemVM;
 using RG_Store.BLL.ModelVM.OrderVM;
 using RG_Store.BLL.Service.Abstraction;
-using RG_Store.DAL.Entities;
 using RG_Store.DAL.Repo.Abstraction;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RG_Store.BLL.Service.Implementation
 {
@@ -45,7 +38,7 @@ namespace RG_Store.BLL.Service.Implementation
 
             foreach (var item in List)
             {
-                GetAllItemVM temp = new GetAllItemVM 
+                GetAllItemVM temp = new GetAllItemVM
                 {
                     Name = item.Name,
                     FinalPrice = (decimal)item.FinalPrice,
@@ -64,13 +57,13 @@ namespace RG_Store.BLL.Service.Implementation
 
         public async Task<IEnumerable<GetOrderVM>> GetAllOrders()
         {
-            var List =await orderRepo.GetAllOrders();
+            var List = await orderRepo.GetAllOrders();
 
             List<GetOrderVM> Res = new List<GetOrderVM>();
 
             foreach (var item in List)
             {
-                var temp = mapper.Map<GetOrderVM>(item);    
+                var temp = mapper.Map<GetOrderVM>(item);
                 Res.Add(temp);
             }
             return Res;

@@ -1,6 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using RG_Store.DAL.Entities;
 using System.ComponentModel.DataAnnotations;
-using RG_Store.DAL.Entities;
 
 namespace Entities
 {
@@ -24,6 +23,6 @@ namespace Entities
 
         public IEnumerable<FavouriteItem?> FavouriteItem { get; set; }
         public IEnumerable<CartItem?> CartItem { get; set; }
-        public  IEnumerable<OrderItem?> OrderItem { get; set; }
+        public IEnumerable<OrderItem?> OrderItem { get; set; }
     }
 }

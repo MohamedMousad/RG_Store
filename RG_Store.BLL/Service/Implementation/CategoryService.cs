@@ -1,16 +1,8 @@
 ﻿using AutoMapper;
-using EmployeeSystem.DAL.Repo.Implementation;
-using Entities;
 using RG_Store.BLL.ModelVM.Category;
-using RG_Store.BLL.ModelVM.ItemVM;
 using RG_Store.BLL.Service.Abstraction;
 using RG_Store.DAL.Entities;
 using RG_Store.DAL.Repo.Abstraction;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RG_Store.BLL.Service.Implementation
 {

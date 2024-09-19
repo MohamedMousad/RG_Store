@@ -1,8 +1,5 @@
-﻿using Entities;
-using Microsoft.AspNetCore.Mvc;
-using RG_Store.BLL.ModelVM.UserVM;
+﻿using Microsoft.AspNetCore.Mvc;
 using RG_Store.BLL.Service.Abstraction.RG_Store.BLL.Service.Abstraction;
-using RG_Store.BLL.Service.Implementation;
 using System.Security.Claims;
 
 namespace RG_Store.PLL.Controllers
@@ -39,8 +36,8 @@ namespace RG_Store.PLL.Controllers
         {
             if (ModelState.IsValid)
             {
-                
-                
+
+
                 return RedirectToAction("Users");
             }
             return View();

@@ -1,15 +1,9 @@
 ﻿using AutoMapper;
 using Entities;
 using RG_Store.BLL.Images;
-using RG_Store.BLL.Mapping;
 using RG_Store.BLL.ModelVM.ItemVM;
 using RG_Store.BLL.Service.Abstraction;
 using RG_Store.DAL.Repo.Abstraction;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RG_Store.BLL.Service.Implementation
 {
@@ -46,12 +40,12 @@ namespace RG_Store.BLL.Service.Implementation
         public async Task<bool> Delete(DeleteItemVM deleteItem)
         {
             var Result = mapper.Map<Item>(deleteItem);
-            return  await Itemrepo.Delete(Result);
+            return await Itemrepo.Delete(Result);
         }
 
         public async Task<IEnumerable<GetAllItemVM>> GetAll()
         {
-            var List =await Itemrepo.GetAll();
+            var List = await Itemrepo.GetAll();
             List<GetAllItemVM> Result = mapper.Map<List<GetAllItemVM>>(List);
             return Result;
         }

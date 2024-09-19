@@ -3,11 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using RG_Store.DAL.DB;
 using RG_Store.DAL.Entities;
 using RG_Store.DAL.Repo.Abstraction;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RG_Store.DAL.Repo.Implementation
 {
@@ -28,17 +23,17 @@ namespace RG_Store.DAL.Repo.Implementation
             {
                 var existingItem = await context.Items
                     .FirstOrDefaultAsync(i => i.Id == itemid.Id);
-              if (existingItem == null)
+                if (existingItem == null)
                 {
-                      context.Attach(itemid);
-                    existingItem = itemid; 
+                    context.Attach(itemid);
+                    existingItem = itemid;
                 }
 
                 FavouriteItem ci = new FavouriteItem
                 {
                     Favourite = fav,
                     FavouriteId = id,
-                    Item = existingItem 
+                    Item = existingItem
                 };
 
                 await context.FavouriteItems.AddAsync(ci);
@@ -74,13 +69,13 @@ namespace RG_Store.DAL.Repo.Implementation
         {
             return await context.Favourites.Where(i => i.Id == id).FirstOrDefaultAsync();
         }
-        
-        public async Task<bool> Remove(int itemid,int ID)
+
+        public async Task<bool> Remove(int itemid, int ID)
         {
 
             try
             {
-                var itemToRemove =await context.FavouriteItems
+                var itemToRemove = await context.FavouriteItems
                     .FirstOrDefaultAsync(i => i.FavouriteId == ID && i.ItemId == itemid);
 
                 if (itemToRemove != null)

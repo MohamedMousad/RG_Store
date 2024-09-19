@@ -7,13 +7,6 @@ using RG_Store.DAL.DB;
 using RG_Store.DAL.Entities;
 using RG_Store.DAL.Enums;
 using RG_Store.DAL.Repo.Abstraction;
-using RG_Store.DAL.Repo.Implementation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EmployeeSystem.DAL.Repo.Implementation
 {
@@ -34,7 +27,7 @@ namespace EmployeeSystem.DAL.Repo.Implementation
         }
 
         public async Task<bool> CreateOrder(int cartid, string userid)
-            {
+        {
 
             try
             {
@@ -59,7 +52,7 @@ namespace EmployeeSystem.DAL.Repo.Implementation
                     orderItem.Item = Item;
                     orderItem.ItemId = Item.Id;
 
-                    order.TotalCost += (decimal)Item.FinalPrice ;
+                    order.TotalCost += (decimal)Item.FinalPrice;
 
                     await context.OrderItems.AddAsync(orderItem);
 
@@ -124,12 +117,12 @@ namespace EmployeeSystem.DAL.Repo.Implementation
             {
 
                 var List = await GetAllOrders();
-                var ret =new List<Order>();
-                foreach(var i in List)
+                var ret = new List<Order>();
+                foreach (var i in List)
                 {
                     ret.Add(i);
                 }
-                
+
                 return ret;
             }
             catch (Exception)
@@ -151,10 +144,10 @@ namespace EmployeeSystem.DAL.Repo.Implementation
 
                 order.OrderStatus = ordervm.OrderStatus;
 
-                if(order.OrderStatus==OrderStatus.Completed)
+                if (order.OrderStatus == OrderStatus.Completed)
                 {
-                    var items = await context.OrderItems.Include(i=>i.Item).Where(i => i.OrderId == order.Id).ToListAsync();
-                    for (int i = 0; i < items.Count;i++)
+                    var items = await context.OrderItems.Include(i => i.Item).Where(i => i.OrderId == order.Id).ToListAsync();
+                    for (int i = 0; i < items.Count; i++)
                     {
                         items[i].Item.Quantity--;
                         items[i].Item.Quantity = Math.Max(items[i].Item.Quantity, 0);
