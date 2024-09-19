@@ -8,7 +8,7 @@ namespace Pro.ViewModel
 
         public int userid { get; set; }
         [Required]
-        [StringLength(20,ErrorMessage ="Write a valid Name",MinimumLength =3)]
+        [StringLength(20, ErrorMessage = "Write a valid Name", MinimumLength = 3)]
         public string username { get; set; }
         [Required]
         [StringLength(20, ErrorMessage = "Write a valid Address", MinimumLength = 3)]

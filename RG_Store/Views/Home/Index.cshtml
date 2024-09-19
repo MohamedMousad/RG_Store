@@ -1,5 +1,5 @@
 ﻿@using RG_Store.BLL.ModelVM.ItemVM
-        @model List<GetAllItemVM>
+@model List<GetAllItemVM>
 @{
     ViewData["Title"] = "Home";
 }
@@ -19,13 +19,12 @@
         </div>
     </div>
     <div class="container mt-4 mt-sm-3 mt-lg-n3 pb-5 mb-md-4">
-
         <form class="form-group form-group-light d-block">
             <div class="row g-0 ms-lg-n2">
                 <div class="col-lg-2">
                     <div class="input-group border-end-lg border-light">
                         <span class="input-group-text text-muted ps-2 ps-sm-3"><i class="fi-search"></i></span>
-                        <input class="form-control" type="text" name="keywords" placeholder="Keywords...">
+                        <input class="form-control" id="searchBox" type="text" placeholder="Search for games..." onkeyup="filterItems()">
                     </div>
                 </div>
                 <hr class="hr-light d-lg-none my-2">
@@ -51,10 +50,10 @@
                         </button>
                         <input type="hidden" name="model">
                         <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label"><span> Under 2000</span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label"><span> Under 1500 </span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label"><span>Under 1000</span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label"><span>Under 500</span></a></li>
+                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Under 2000</span></a></li>
+                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Under 1500</span></a></li>
+                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Under 1000</span></a></li>
+                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Under 500</span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -69,18 +68,17 @@
 
 <section class="container pb-5 mb-md-4">
     <div class="d-sm-flex align-items-center justify-content-between mb-3 mb-sm-4 pb-sm-2">
-        <h2 class="h3 text-light mb-2 mb-sm-0">Offers</h2><a class="btn btn-link btn-light fw-normal px-0 myHover" href="#">Go to Store<i class="fi-arrow-long-right fs-sm mt-0 ps-1 ms-2"></i></a>
+        <h2 class="h3 text-light mb-2 mb-sm-0">Offers</h2><a class="btn btn-link btn-light fw-normal px-0 myHover" asp-controller="item" asp-action="index">Go to Store<i class="fi-arrow-long-right fs-sm mt-0 ps-1 ms-2"></i></a>
     </div>
     <form>
-
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2 g-md-4">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2 g-md-4" id="itemsContainer">
             @foreach (var item in Model)
             {
                 <!--item-->
-                <div class="col">
+                <div class="col item-card" data-name="@item.Name.ToLower()">
                     <div class="card card-body card-light card-hover bg-transparent border-0 px-0 pt-0 text-center fixed-height">
                         <a class="d-block rounded-3 overflow-hidden" href="#">
-                            <img class="d-block mx-auto fixed-size" src="~/uploaded_images/items/@(item.ItemImage)" alt="@(item.ItemImage)">
+                            <img class="d-block mx-auto fixed-size" src="@Url.Content("~/uploaded_images/items/" + item.ItemImage)" alt="@(item.ItemImage)">
                         </a>
                         <a class="fs-xs text-uppercase text-decoration-none makeMeOrange" href="#">
                             <h4 class="text-center text-light pt-1">
@@ -99,17 +97,21 @@
                             }
                         </a>
                         <div class="mt-2 d-flex justify-content-center">
-                            <button class="btn btn-outline-light me-2" asp-action="AddToFavourite" asp-controller="Favourite">
-                                <i class="fi-heart"></i> Wish List
-                            </button>
+                            <form asp-action="AddToFavourite" asp-controller="Favourite" method="post">
+                                <input type="hidden" name="itemId" value="@item.Id" />
+                                <button type="submit" class="btn btn-outline-light me-2 btn-fixed-height">
+                                    <i class="fi-heart"></i> Wish List
+                                </button>
+                            </form>
                             <form asp-action="AddToCart" asp-controller="Cart" method="post">
                                 @Html.AntiForgeryToken()
                                 <input type="hidden" name="itemId" value="@item.Id" />
-                                <button class="btn btn-outline-light" type="submit">
+                                <button class="btn btn-outline-light btn-fixed-height" type="submit">
                                     <i class="fi-shopping-cart"></i> Add to Cart
                                 </button>
                             </form>
                         </div>
+
                     </div>
                 </div>
                 <!--item-->
@@ -117,6 +119,26 @@
         </div>
     </form>
 </section>
+
+<!-- JavaScript for dynamic search filter -->
+<script>
+    function filterItems() {
+        var input, filter, cards, cardContainer, title, i;
+        input = document.getElementById("searchBox");
+        filter = input.value.toLowerCase();
+        cardContainer = document.getElementById("itemsContainer");
+        cards = cardContainer.getElementsByClassName("item-card");
+
+        for (i = 0; i < cards.length; i++) {
+            title = cards[i].getAttribute("data-name");
+            if (title.includes(filter)) {
+                cards[i].style.display = "";
+            } else {
+                cards[i].style.display = "none";
+            }
+        }
+    }
+</script>
 
 <!-- CSS for fixed-size images, consistent card height, and button styles -->
 <style>
@@ -143,5 +165,9 @@
 
     .fi-heart, .fi-shopping-cart {
         margin-right: 5px;
+    }
+
+    .btn-fixed-height {
+        height: 50px; /* Set a fixed height for both buttons */
     }
 </style>

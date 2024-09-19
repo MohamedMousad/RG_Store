@@ -8,14 +8,17 @@
     var IsSignedIn = User?.Identity?.IsAuthenticated ?? false;
     if (IsSignedIn)
     {
-        var userId = User?.FindFirstValue(ClaimTypes.NameIdentifier); // Get the user ID from the NameIdentifier claim
-        var user = userService.GetUserVM(userId);
-        Role = user.UseRrole.ToString(); // Assuming Roles is a collection of strings representing the roles        
+       var userId = User?.FindFirstValue(ClaimTypes.NameIdentifier); // Get the user ID from the NameIdentifier claim
+       var user = await userService.GetUserVM(userId); // Add 'await' keyword to asynchronously get the user
+       if (user != null) // Check if the user is not null
+       {
+           Role = user.UserRole.ToString(); // Assuming Roles is a collection of strings representing the roles
+       }
     }
- }
+}
 
-@* <!-- Example: Iterating over the roles -->
-    <p>User Role: @Role</p> *@
+ <!-- Example: Iterating over the roles -->
+    <p>User Role: @Role</p> 
 
 <!doctype html>
 <html lang="en">
@@ -140,9 +143,12 @@
                     <i class="fi-user me-2"></i>Sign in
                 </a>
             }
-            <a class="btn btn-primary btn-sm ms-2 order-lg-3 makeMeOrangeBG" href="#">
-                <i class="button"></i>Cart
-            </a>
+            @if(IsSignedIn)
+            {              
+                <a class="btn btn-primary btn-sm ms-2 order-lg-3 makeMeOrangeBG" href="#">
+                    <i class="button"></i>Cart
+                </a>
+            }
             <div class="collapse navbar-collapse order-lg-2" id="navbarNav">
                 <ul class="navbar-nav navbar-nav-scroll" style="max-height: 35rem;">
                     <li class="nav-item active"><a class="nav-link" asp-controller="Home" asp-action="index">Home</a></li>
@@ -191,9 +197,9 @@
                 <div class="col-lg-2 col-md-3 col-sm-6 mb-2 mb-sm-4">
                     <h3 class="fs-base text-light">Profile</h3>
                     <ul class="list-unstyled fs-sm">
-                        <li><a class="nav-link-light" asp-controller="account" asp-action="">My account</a></li>
-                        <li><a class="nav-link-light" asp-controller="account" asp-action="">My Orders</a></li>
-                        <li><a class="nav-link-light" asp-controller="Cart" asp-action="">Cart</a></li>
+                        <li><a class="nav-link-light" asp-controller="account" asp-action="profile">My account</a></li>
+                        <li><a class="nav-link-light" asp-controller="account" asp-action="orders">My Orders</a></li>
+                        <li><a class="nav-link-light" asp-controller="Cart" asp-action="index">Cart</a></li>
                     </ul>
                 </div>
                 <div class="col-xl-2 col-lg-3 col-sm-6 col-md-3 mb-2 mb-sm-4">

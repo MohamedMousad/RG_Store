@@ -1,19 +1,16 @@
 ﻿/*using EmployeeSystem.DAL.Entities;*/
 using Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EmployeeSystem.DAL.Repo.Abstraction
 {
     public interface IOrderRepo
     {
-        public bool CreateOrder(Order order);
-        public bool UpdateOrder(Order order);
-        public bool DeleteOrder(Order order);
-        public IEnumerable<Order> GetAll();
-        public Order GetById(int id);
+        public Task<bool> CreateOrder(int cartid, string userid);
+        public Task<bool> UpdateOrder(Order orderid);
+        public Task<bool> DeleteOrder(int orderid);
+        public Task<IEnumerable<Order>> GetAllOrders();
+        public Task<IEnumerable<Item>> GetAllOrderItem(int id);
+        public Task<IEnumerable<Order>> GetAllUserOrders(string userid);
+        public Task<Order> GetById(int id);
     }
 }

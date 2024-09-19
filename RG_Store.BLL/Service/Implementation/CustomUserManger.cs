@@ -4,11 +4,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RG_Store.DAL.DB;
 using RG_Store.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RG_Store.Services.Implementation
 {
@@ -38,10 +33,10 @@ namespace RG_Store.Services.Implementation
 
             if (result.Succeeded)
             {
-               /* var favourite = new Favourite();
-                _context.Favourites.Add(favourite);
-                await _context.SaveChangesAsync();*//*
-                user.Favourite = favourite;*/
+                /* var favourite = new Favourite();
+                 _context.Favourites.Add(favourite);
+                 await _context.SaveChangesAsync();*//*
+                 user.Favourite = favourite;*/
                 var cart = new Cart();
                 _context.Carts.Add(cart);
                 cart.UserId = user.Id;

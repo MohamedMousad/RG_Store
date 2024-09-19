@@ -1,10 +1,4 @@
 ﻿using RG_Store.BLL.ModelVM.Category;
-using RG_Store.DAL.Migrations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RG_Store.BLL.Service.Abstraction
 {

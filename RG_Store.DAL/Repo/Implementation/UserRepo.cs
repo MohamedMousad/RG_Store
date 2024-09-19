@@ -6,11 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using RG_Store.DAL.DB;
 using RG_Store.DAL.Entities;
 using RG_Store.DAL.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 
@@ -25,35 +20,35 @@ namespace EmployeeSystem.DAL.Repo.Implementation
             this.context = context;
         }
 
-        public bool Create(User user)
+        public async Task<bool> Create(User user)
         {
             try
             {
 
                 Favourite favourite = new Favourite();
                 context.Favourites.Add(favourite);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
                 user.Favourite = favourite;
 
                 Cart cart = new Cart();
-                context.Carts.Add(cart);
+                await context.Carts.AddAsync(cart);
 
-                context.SaveChangesAsync();
+                await context.SaveChangesAsync();
                 user.Cart = cart;
 
-                context.Users.Add(user);
+                await context.Users.AddAsync(user);
 
-                context.SaveChangesAsync();
+                await context.SaveChangesAsync();
 
                 cart.UserId = user.Id;
                 cart.User = user;
 
-                context.SaveChangesAsync();
+                await context.SaveChangesAsync();
 
                 //favourite.UserId =user.Id;
                 favourite.User = user;
 
-                context.SaveChangesAsync();
+                await context.SaveChangesAsync();
 
                 return true;
             }
@@ -63,13 +58,13 @@ namespace EmployeeSystem.DAL.Repo.Implementation
             }
         }
 
-        public bool DeleteUser(User user)
+        public async Task<bool> DeleteUser(User user)
         {
             try
             {
-                var usr = context.Users.FirstOrDefault(x => x.Id == user.Id);
+                var usr = await context.Users.FirstOrDefaultAsync(x => x.Id == user.Id);
                 usr.IsDeleted = !usr.IsDeleted;
-                context.SaveChangesAsync();
+                await context.SaveChangesAsync();
                 return true;
             }
             catch (Exception)
@@ -80,15 +75,15 @@ namespace EmployeeSystem.DAL.Repo.Implementation
 
         }
 
-        public User GetById(string id) => context.Users.Where(u => u.Id == id).FirstOrDefault();
+        public async Task<User> GetById(string id) => await context.Users.Where(u => u.Id == id).Include(u => u.Orders).FirstOrDefaultAsync();
 
-        public bool UpdateRole(User user, Roles role)
+        public async Task<bool> UpdateRole(User user, Roles role)
         {
             try
             {
-                var usr = GetById(user.Id);
+                var usr = await GetById(user.Id);
                 usr.UserRole = role;
-                context.SaveChangesAsync();
+                await context.SaveChangesAsync();
                 return true;
             }
             catch (Exception)
@@ -97,16 +92,16 @@ namespace EmployeeSystem.DAL.Repo.Implementation
             }
         }
 
-        public bool UpdateUser(User user)
+        public async Task<bool> UpdateUser(User user)
         {
             try
             {
-                var usr = GetById(user.Id);
+                var usr = await GetById(user.Id);
                 usr.FirstName = user.FirstName;
                 usr.LastName = user.LastName;
-                user.Email = user.Email;
-                usr.UserName = user.UserName;
                 usr.UserGender = user.UserGender;
+                usr.UserGender = user.UserGender;
+                usr.ProfileImage = user.ProfileImage;
                 context.SaveChanges();
                 return true;
             }
@@ -116,7 +111,7 @@ namespace EmployeeSystem.DAL.Repo.Implementation
             }
         }
 
-        IEnumerable<User> IUserRepo.GetAll() => context.Users.ToList();
+        public async Task<IEnumerable<User>> GetAll() => await context.Users.ToListAsync();
 
 
         public async Task<User> GetByEmailAsync(string email)
@@ -135,18 +130,18 @@ namespace EmployeeSystem.DAL.Repo.Implementation
             }
         }
 
-        public async Task<User> GetUserByTokenAsync(string token)
-        {
-            return await context.Users.FirstOrDefaultAsync(u => u.EmailConfirmationToken == token);
-        }
-
-
         public async Task ConfirmEmailAsync(User user)
         {
             user.EmailConfirmed = true;
             await context.SaveChangesAsync();
         }
 
-       
+        public async Task<User> GetUserByTokenAsync(string token)
+        {
+
+            return await context.Users.FirstOrDefaultAsync(u => u.EmailConfirmationToken == token);
+
+        }
+
     }
 }

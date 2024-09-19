@@ -1,19 +1,17 @@
+using EmployeeSystem.DAL.Repo.Abstraction;
+using EmployeeSystem.DAL.Repo.Implementation;
+using Entities;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RG_Store.BLL.Mapping;
 using RG_Store.BLL.Service.Abstraction;
+using RG_Store.BLL.Service.Abstraction.RG_Store.BLL.Service.Abstraction;
 using RG_Store.BLL.Service.Implementation;
 using RG_Store.DAL.DB;
 using RG_Store.DAL.Repo.Abstraction;
 using RG_Store.DAL.Repo.Implementation;
-using Entities;
-using EmployeeSystem.DAL.Repo.Abstraction;
-using EmployeeSystem.DAL.Repo.Implementation;
 using RG_Store.Services.Implementation;
-using RG_Store.BLL.Service.Abstraction.RG_Store.BLL.Service.Abstraction;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using System.Configuration;
 public class Program
 {
     public static void Main(string[] args)
@@ -45,18 +43,18 @@ public class Program
         .AddDefaultTokenProviders();
 
         builder.Services.AddScoped<UserManager<User>, CustomUserManager>();
-       
+
 
         builder.Services.AddScoped<IUserService, UserService>();
 
 
         builder.Services.AddScoped<CustomUserManager>();
-       
+
 
         builder.Services.AddScoped<CustomUserManager>();
         builder.Services.AddScoped<UserService>();
 
-    
+
 
 
         builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

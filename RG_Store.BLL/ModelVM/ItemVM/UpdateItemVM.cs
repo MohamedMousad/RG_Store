@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RG_Store.BLL.ModelVM.ItemVM
 {
@@ -25,7 +20,7 @@ namespace RG_Store.BLL.ModelVM.ItemVM
         [Range(0, int.MaxValue, ErrorMessage = "quantity must be a positive number.")]
         public int Quantity { get; set; } = 0;
 
-        public IFormFile ?ItemImage { get; set; }
+        public IFormFile? ItemImage { get; set; }
         public bool HasOffer { get; set; } = false;
         public decimal? Offer { get; set; } = 0;
         public int? CategoryId { get; set; }

@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Pro.Models;
-using Pro.ViewModel;
 using RG_Store.BLL.Service.Abstraction;
 using System.Diagnostics;
 
@@ -12,16 +10,16 @@ namespace Product.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IItemService itemService;
 
-        public HomeController(ILogger<HomeController> logger , IItemService itemService)
+        public HomeController(ILogger<HomeController> logger, IItemService itemService)
         {
 
-            this.itemService = itemService; 
+            this.itemService = itemService;
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var Result = itemService.GetAll(); 
+            var Result = await itemService.GetAll();
             return View(Result);
         }
 

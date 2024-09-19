@@ -1,12 +1,8 @@
-﻿using EmployeeSystem.DAL.Repo.Abstraction;
-using Entities;
+﻿using Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RG_Store.BLL.Service.Abstraction;
 using RG_Store.BLL.Service.Abstraction.RG_Store.BLL.Service.Abstraction;
-using RG_Store.DAL.Entities;
-using RG_Store.Services.Implementation;
-using System.Security.Claims;
 
 namespace RG_Store.PLL.Controllers
 {
@@ -37,11 +33,11 @@ namespace RG_Store.PLL.Controllers
             try
             {
                 var user = await userManager.GetUserAsync(User);
-                    if (user == null)
-                    {
-                        TempData["ErrorMessage"] = "User not found!";
-                        return RedirectToAction("Account", "SignUp");
-                    }
+                if (user == null)
+                {
+                    TempData["ErrorMessage"] = "User not found!";
+                    return RedirectToAction("Account", "SignUp");
+                }
 
                 var cartId = user.CartId;
                 if (cartId == null)
@@ -62,10 +58,10 @@ namespace RG_Store.PLL.Controllers
                     TempData["ErrorMessage"] = "Failed to add item to cart!";
                 }
 
-                return RedirectToAction("Index", "item");
+                return RedirectToAction("Index", "Cart", new { id = cartId });
             }
             catch (Exception)
-            { 
+            {
                 TempData["ErrorMessage"] = "An error occurred while processing your request.";
                 return RedirectToAction("Index", "Home");
             }
@@ -93,7 +89,7 @@ namespace RG_Store.PLL.Controllers
             }
 
         }
-
+        [HttpPost]
         public async Task<IActionResult> ClearCart()
         {
             var user = await userManager.GetUserAsync(User);
@@ -101,7 +97,7 @@ namespace RG_Store.PLL.Controllers
 
             var cartId = user.CartId;
 
-            bool result = await cartService.ClearCart(cartId??3004);
+            bool result = await cartService.ClearCart(cartId ?? 3005);
 
             if (result)
             {

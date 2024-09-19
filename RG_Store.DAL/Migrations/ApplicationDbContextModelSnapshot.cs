@@ -59,17 +59,12 @@ namespace RG_Store.DAL.Migrations
                     b.Property<decimal?>("Offer")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("OrderId");
 
                     b.ToTable("Items");
                 });
@@ -341,9 +336,6 @@ namespace RG_Store.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
 
@@ -430,11 +422,11 @@ namespace RG_Store.DAL.Migrations
 
             modelBuilder.Entity("RG_Store.DAL.Entities.FavouriteItem", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("Idt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Idt"));
 
                     b.Property<int>("FavouriteId")
                         .HasColumnType("int");
@@ -442,7 +434,7 @@ namespace RG_Store.DAL.Migrations
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("Idt");
 
                     b.HasIndex("FavouriteId");
 
@@ -451,15 +443,34 @@ namespace RG_Store.DAL.Migrations
                     b.ToTable("FavouriteItems");
                 });
 
+            modelBuilder.Entity("RG_Store.DAL.Entities.OrderItem", b =>
+                {
+                    b.Property<int>("OrderItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderItemId"));
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderItemId");
+
+                    b.HasIndex("ItemId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderItems");
+                });
+
             modelBuilder.Entity("Entities.Item", b =>
                 {
                     b.HasOne("RG_Store.DAL.Entities.Category", "Category")
                         .WithMany("Items")
                         .HasForeignKey("CategoryId");
-
-                    b.HasOne("Entities.Order", null)
-                        .WithMany("Items")
-                        .HasForeignKey("OrderId");
 
                     b.Navigation("Category");
                 });
@@ -586,16 +597,37 @@ namespace RG_Store.DAL.Migrations
                     b.Navigation("Item");
                 });
 
+            modelBuilder.Entity("RG_Store.DAL.Entities.OrderItem", b =>
+                {
+                    b.HasOne("Entities.Item", "Item")
+                        .WithMany("OrderItem")
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Item");
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("Entities.Item", b =>
                 {
                     b.Navigation("CartItem");
 
                     b.Navigation("FavouriteItem");
+
+                    b.Navigation("OrderItem");
                 });
 
             modelBuilder.Entity("Entities.Order", b =>
                 {
-                    b.Navigation("Items");
+                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("Entities.User", b =>

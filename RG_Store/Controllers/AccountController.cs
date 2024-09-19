@@ -1,15 +1,10 @@
 ﻿using Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
+using RG_Store.BLL.Images;
 using RG_Store.BLL.ModelVM.UserVM;
-using RG_Store.BLL.Service.Abstraction;
 using RG_Store.BLL.Service.Abstraction.RG_Store.BLL.Service.Abstraction;
-using RG_Store.BLL.Service.Implementation;
-using RG_Store.Services.Implementation;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using static RG_Store.BLL.ModelVM.UserVM.ForgerPasswordVM;
 
 namespace RG_Store.PLL.Controllers
@@ -18,14 +13,15 @@ namespace RG_Store.PLL.Controllers
     {
         private readonly IUserService userService;
         private readonly SignInManager<User> signInManager;
-       
+        private readonly UserManager<User> userManager;
 
 
-        public AccountController(IUserService userService, SignInManager<User> signInManager )
+
+        public AccountController(IUserService userService, SignInManager<User> signInManager, UserManager<User> userManager)
         {
             this.userService = userService;
             this.signInManager = signInManager;
-            
+            this.userManager = userManager;
         }
 
 
@@ -40,7 +36,7 @@ namespace RG_Store.PLL.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (userService.CreateUser(model, out string[] errors))
+                if (await userService.CreateUser(model))
                 {
                     var user = await userService.GetByEmailAsync(model.Email);
 
@@ -59,10 +55,10 @@ namespace RG_Store.PLL.Controllers
                 }
                 else
                 {
-                    foreach (var error in errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error);
-                    }
+                    /* foreach (var error in errors)
+                     {
+                         ModelState.AddModelError(string.Empty, error);
+                     }*/
                 }
             }
 
@@ -112,7 +108,7 @@ namespace RG_Store.PLL.Controllers
             {
                 ViewBag.Message = "Your email has been confirmed successfully!";
 
-                return View(model: token); 
+                return View(model: token);
             }
 
             ViewBag.Message = "Invalid or expired token!";
@@ -197,7 +193,7 @@ namespace RG_Store.PLL.Controllers
             if (result.Succeeded)
             {
                 TempData["SuccessMessage"] = "Your password has been changed successfully!";
-                return RedirectToAction("Index", "Home"); // Redirect to the profile page or wherever you prefer
+                return RedirectToAction("Index", "Home");
             }
 
             foreach (var error in result.Errors)
@@ -210,9 +206,8 @@ namespace RG_Store.PLL.Controllers
 
 
         [HttpGet]
-        public IActionResult Profile()
+        public async Task<IActionResult> Profile()
         {
-            // Get the logged-in user's ID from the claims
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (userId == null)
@@ -220,15 +215,35 @@ namespace RG_Store.PLL.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            // Fetch the user ViewModel using the service
-            var userVM = userService.GetUserVM(userId);
+
+            var userVM = await userService.GetUserVM(userId);
 
             if (userVM == null)
             {
                 return NotFound("User not found");
             }
 
-            return View(userVM);  // Pass the ViewModel to the view
+            return View(userVM);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Update(GetUserVM model)
+        {
+            var user = await userManager.GetUserAsync(User);
+            model.UserId = user.Id;
+            if (model.Image != null)
+            {
+                var fileName = UploadImage.UploadFile("users", model.Image);
+                model.ProfileImage = fileName;
+            }
+            var res = await userService.UpdateUser(model);
+            if (res)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View(model);
+            }
         }
 
 

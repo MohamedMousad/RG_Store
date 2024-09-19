@@ -1,8 +1,5 @@
-﻿using Entities;
-using Microsoft.AspNetCore.Mvc;
-using RG_Store.BLL.ModelVM.UserVM;
+﻿using Microsoft.AspNetCore.Mvc;
 using RG_Store.BLL.Service.Abstraction.RG_Store.BLL.Service.Abstraction;
-using RG_Store.BLL.Service.Implementation;
 using System.Security.Claims;
 
 namespace RG_Store.PLL.Controllers
@@ -35,18 +32,16 @@ namespace RG_Store.PLL.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditUser(int userId)
+        public IActionResult EditUser(string userId)
         {
             if (ModelState.IsValid)
             {
-                // Add user to the database with the role
-                // Redirect to the Users list or show a success message
+
+
                 return RedirectToAction("Users");
             }
-            return View(/*_userService.getbyid*/);
+            return View();
         }
-
-
         public IActionResult Categories()
         {
             return View();

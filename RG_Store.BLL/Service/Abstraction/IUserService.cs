@@ -2,12 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using RG_Store.BLL.ModelVM.UserVM;
 using RG_Store.DAL.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RG_Store.BLL.Service.Abstraction
 {
@@ -15,31 +10,27 @@ namespace RG_Store.BLL.Service.Abstraction
     {
         public interface IUserService
         {
-         public bool CreateUser(RegisterVM registerVM, out string[] errors);
-            Task<bool> SignInUserAsync(LoginVM model);
-            public void SignoutUser();
-         public bool UpdateRole(UpdateRoleVM model, Roles role);
+            public Task<bool> CreateUser(RegisterVM registerVM/*, out string[] errors*/);
+            public Task<bool> SignInUserAsync(LoginVM model);
+            public Task SignoutUser();
+            public Task<bool> UpdateRole(UpdateRoleVM model, Roles role);
 
-         public bool UpdateUser(EditUserVM model);
-         public bool DeleteUser(DeleteUserVM model);
+            public Task<bool> UpdateUser(GetUserVM model);
+            public Task<bool> DeleteUser(DeleteUserVM model);
 
-         public GetUserVM GetUserVM(string id);
+            public Task<GetUserVM> GetUserVM(string id);
 
-         public IEnumerable<GetUserVM> GetAll();
+            public Task<IEnumerable<GetUserVM>> GetAll();
 
-
-
-            public  Task SendEmailAsync(string to, string subject, string body);
-
-
-            public  Task<bool> ConfirmEmailAsync(string token);
-            public  Task GenerateEmailConfirmationTokenAsync(string id, string token);
-            public  Task<User> GetByEmailAsync(string email);
+            public Task SendEmailAsync(string to, string subject, string body);
+            public Task<bool> ConfirmEmailAsync(string token);
+            public Task GenerateEmailConfirmationTokenAsync(string id, string token);
+            public Task<User> GetByEmailAsync(string email);
             Task<string> GeneratePasswordResetTokenAsync(string email);
             Task<bool> ResetPasswordAsync(string email, string token, string newPassword);
             Task<User> GetUserAsync(ClaimsPrincipal principal);
             Task<IdentityResult> ChangePasswordAsync(User user, string oldPassword, string newPassword);
-            Task SignInUserAsync(User user);
+
 
         }
     }

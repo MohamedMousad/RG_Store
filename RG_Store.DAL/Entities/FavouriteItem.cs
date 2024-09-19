@@ -1,15 +1,12 @@
 ﻿using Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace RG_Store.DAL.Entities
 {
     public class FavouriteItem
     {
-        public int Id { get; set; }
+        [Key]
+        public int Idt { get; set; }
         public int FavouriteId { get; set; }
         public Favourite Favourite { get; set; }
 

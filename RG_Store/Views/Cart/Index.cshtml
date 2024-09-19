@@ -1,101 +1,79 @@
-﻿﻿@using RG_Store.BLL.ModelVM.ItemVM
+﻿@using RG_Store.BLL.ModelVM.ItemVM
 @model List<GetAllItemVM>
 @{
     decimal sum = 0;
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<section class="h-100 gradient-custom" style="margin : 20px ">
+<section class="h-100 gradient-custom" style="margin: 20px">
     <div class="container py-5">
         <div class="row d-flex justify-content-center my-4">
             <div class="col-md-8">
                 <div class="card mb-4">
-                    <div class="card-header py-3">
+                    <div class="card-header py-2">
                         <h5 class="mb-0">Cart - @Model.Count()</h5>
                     </div>
-                    <div class="card-body">
-                        @foreach (var item in Model)
-                        {
+                    @foreach (var item in Model)
+                    {
+                        <div class="card-body p-2">
                             <!-- Single item -->
                             <div class="row">
-                                <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
-                                    <!-- Image -->
-                                    <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                                        <img src="~/images/items/@item.ItemImage"
-                                             class="w-100" alt="@item.Name" />
+                                <div class="col-lg-2 col-md-3 col-sm-4 mb-2">
+                                    <!-- Image with reduced size -->
+                                    <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light" style="max-width: 100px; max-height: 100px;">
+                                        <img src="@Url.Content("~/uploaded_images/items/" + item.ItemImage)" class="w-100 h-100" alt="@item.Name" style="object-fit: cover;" />
                                         <a href="#!">
                                             <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
                                         </a>
                                     </div>
-                                    <!-- Image -->
                                 </div>
 
-                                <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
-                                    <!-- Data -->
-                                    <p><strong>@item.Name</strong></p>
-                                    <p>Description</p>
-                                    <p>@item.Description</p>
-                                    <form asp-controller="Cart" asp-action="RemoveFromCart">
-                                        <input type="hidden" name="itemId" value="@item.Id" />
-                                    <button  type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-sm me-1 mb-2" data-mdb-tooltip-init
-                                            title="Remove item" >
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                    </form>
-                                    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-danger btn-sm mb-2" data-mdb-tooltip-init
-                                            title="Move to the wish list">
-                                        <i class="fas fa-heart"></i>
-                                    </button>
-                                    <!-- Data -->
+                                <div class="col-lg-6 col-md-9 mb-2">
+                                    <!-- Data with less margin -->
+                                    <p class="mb-1" style="font-size: 1rem;"><strong>@item.Name</strong></p>
+                                    <p class="text-muted mb-1" style="font-size: 0.8rem;">@item.Description</p>
+
+                                    <div class="d-flex">
+                                        <!-- Buttons with smaller size -->
+                                        <form asp-controller="Cart" asp-action="RemoveFromCart">
+                                            <input type="hidden" name="itemId" value="@item.Id" />
+                                            <button type="submit" class="btn btn-sm btn-primary me-1" title="Remove item">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+
+                                        <button type="button" class="btn btn-sm btn-danger" title="Move to the wish list">
+                                            <i class="fas fa-heart"></i>
+                                        </button>
+                                    </div>
                                 </div>
 
-                                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                                    <!-- Price -->
-                                    <p class="text-start text-md-center">
-                                        <strong>@item.FinalPrice</strong>
-                                    </p>
-                                    <!-- Price -->
+                                <div class="col-lg-4 col-md-12 mb-2 text-md-end" style="padding-left: 20px;">
+                                    <!-- Price with adjusted left margin -->
+                                    <p class="fw-bold mb-1" style="font-size: 1.1rem;">@item.FinalPrice</p>
                                 </div>
                             </div>
                             <!-- Single item -->
-                        }
 
-                        <hr class="my-4" />
-
-
-                    </div>
-                </div>
-                <div class="card mb-4 mb-lg-0">
-                    <div class="card-body">
-                        <p><strong>We accept</strong></p>
-                        <img class="me-2" width="45px"
-                             src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg"
-                             alt="Visa" />
-                        <img class="me-2" width="45px"
-                             src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg"
-                             alt="American Express" />
-                        <img class="me-2" width="45px"
-                             src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"
-                             alt="Mastercard" />
-                        <img class="me-2" width="45px"
-                             src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce/includes/gateways/paypal/assets/images/paypal.webp"
-                             alt="PayPal acceptance mark" />
-                    </div>
+                            <hr class="my-3" />
+                        </div>
+                    }
                 </div>
             </div>
-            @* counting total price *@
+
+            @* Counting total price *@
             @foreach (var item in Model)
             {
                 sum += item.FinalPrice;
             }
             <div class="col-md-4">
                 <div class="card mb-4">
-                    <div class="card-header py-3">
+                    <div class="card-header py-2">
                         <h5 class="mb-0">Summary</h5>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body p-2">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item d-flex justify-content-between align-items-center border-bottom-1  px-0 pb-0" style="margin-bottom: 3px">
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-bottom-1 px-0 pb-0" style="margin-bottom: 3px">
                                 Products
                                 <span>@sum</span>
                             </li>
@@ -103,27 +81,42 @@
                                 <div>
                                     <strong>Total amount</strong>
                                     <strong>
-                                        <p class="mb-0">(including VAT)</p>
+                                        <p class="mb-0" style="font-size: 0.85rem;">(including VAT)</p>
                                     </strong>
                                 </div>
                                 <span><strong>@sum</strong></span>
                             </li>
                         </ul>
-
-                        <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" asp-controller="Order" , asp-action="Create">
-                            Go to checkout
-                        </button>
-
-
-                        <form   hidden action="/" method="post">
+                        <form method="post" asp-controller="Order" asp-action="Create">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block mb-3">
+                                Go to checkout
+                            </button>
+                        </form>
 
 
-                            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" asp-controller="Cart" , asp-action="ClearCart">
+                        <form asp-controller="Cart" asp-action="ClearCart">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">
                                 Clear Cart
                             </button>
-                        
                         </form>
-                        
+                    </div>
+                </div>
+
+                <!-- Payment options, aligned with the right panel -->
+                <div class="card mb-4 mb-lg-0">
+                    <div class="card-body p-2">
+                        <p><strong>We accept</strong></p>
+                        <div class="d-flex">
+                            <img class="me-2" width="45px"
+                                 src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg"
+                                 alt="Visa" />
+                            <img class="me-2" width="45px"
+                                 src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg"
+                                 alt="American Express" />
+                            <img class="me-2" width="45px"
+                                 src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"
+                                 alt="Mastercard" />
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,33 +1,135 @@
 ﻿@using RG_Store.BLL.ModelVM.ItemVM
 @model List<GetAllItemVM>
-@foreach(var it in Model){
-    <!--item-->
-    <div>
-        <a class="d-block rounded-3 overflow-hidden" href="#">
-            <img class="d-block"
-                 src="~/uploaded_images/items/@(it.ItemImage)" alt="@(it.ItemImage)">
-        </a>
 
-        <div>
-            <a class="fs-xs text-uppercase text-decoration-none makeMeOrange" href="#">
-                <h4 class=" text-center text-light pt-1">
-                    <a class="nav-link" href="#" >@it.Name</a>
-                </h4>
-                <p class="d-none d-md-block" asp-for="Description">
-                    @it.Description
-                </p>
-                <h3 class="text-center" style="color: #fd390e;" >
-                    <s style="color: #9691a4 !important;" asp-for="Price"></s>
-                    @it.FinalPrice
-                </h3>
-            </a>
-            <div class="d-flex justify-content-between">
-                <button type="button" class="btn btn-success col">Add to Cart</button>
-                <button type="button" class="btn btn-danger col-3">
-                    <i class="fa-solid fa-heart"></i>
-                </button>
-            </div>
+<section class="bg-position-top-center bg-repeat-0 pt-5" style="background-image: url(~/images/hero-bg.png); background-size: 1920px 630px;">
+    <div class="container pt-5">
+        <div class="row pt-lg-4 pt-xl-5">
         </div>
     </div>
-    <!--item-->
-}
+    <div class="container mt-4 mt-sm-3 mt-lg-n3 pb-5 mb-md-4">
+        <form class="form-group form-group-light d-block">
+            <div class="row g-0 ms-lg-n2">
+                <div class="col-lg-2">
+                    <div class="input-group border-end-lg border-light">
+                        <span class="input-group-text text-muted ps-2 ps-sm-3"><i class="fi-search"></i></span>
+                        <!-- Updated Search Box -->
+                        <input class="form-control" id="searchBox" type="text" placeholder="Search for games..." onkeyup="filterItems()">
+                    </div>
+                </div>
+                <hr class="hr-light d-lg-none my-2">
+                <div class="col">
+                    <div class="dropdown border-end-sm border-light" data-bs-toggle="select">
+                        <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button" data-bs-toggle="dropdown">
+                            <i class="fi-list me-2"></i><span class="dropdown-toggle-label">Genre</span>
+                        </button>
+                        <input type="hidden" name="make">
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Racing</span></a></li>
+                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Shooting</span></a></li>
+                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Sports</span></a></li>
+                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">RPG</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <hr class="hr-light d-sm-none my-2">
+                <div class="col">
+                    <div class="dropdown border-end-md border-light" data-bs-toggle="select">
+                        <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button" data-bs-toggle="dropdown">
+                            <i class="fi-list me-2"></i><span class="dropdown-toggle-label">Price</span>
+                        </button>
+                        <input type="hidden" name="model">
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Under 2000</span></a></li>
+                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Under 1500</span></a></li>
+                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Under 1000</span></a></li>
+                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Under 500</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <hr class="hr-light d-md-none my-2">
+                <div class="col">
+                    <button class="btn btn-primary w-100 makeMeOrangeBG" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="container pb-5 mb-md-4">
+    <div class="d-sm-flex align-items-center justify-content-between mb-3 mb-sm-4 pb-sm-2">
+        <h2 class="h3 text-light mb-2 mb-sm-0">Offers</h2>
+        <a class="btn btn-link btn-light fw-normal px-0 myHover" href="#">Go to Store<i class="fi-arrow-long-right fs-sm mt-0 ps-1 ms-2"></i></a>
+    </div>
+
+    <!-- Updated Item Cards Container -->
+    <div id="itemsContainer" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+        @foreach (var item in Model)
+        {
+            <!-- item -->
+            <div class="col mb-4 item-card" data-name="@item.Name.ToLower()">
+                <div class="card card-body card-light card-hover bg-transparent border-0 p-3 text-center" style="max-height: 450px;">
+                    <a class="d-block rounded-3 overflow-hidden" href="#">
+                        <img class="d-block mx-auto img-fluid" src="~/uploaded_images/items/@(item.ItemImage)" alt="@(item.ItemImage)" style="max-width: 220px; max-height: 220px; object-fit: cover;">
+                    </a>
+                    <h4 class="text-center text-light pt-2" style="font-size: 1rem;">
+                        <a class="nav-link" href="#">@item.Name</a>
+                    </h4>
+                    <p class="d-none d-md-block text-nowrap text-truncate" style="overflow: hidden; white-space: nowrap; max-width: 200px; font-size: 0.8rem;">@item.Description</p>
+                    @if (item.IntialPrice != null)
+                    {
+                        <h3 class="text-center" style="color: #fd390e; font-size: 1.2rem;">
+                            <s style="color: #9691a4; font-size: 0.9rem;">@item.IntialPrice</s> @item.FinalPrice
+                        </h3>
+                    }
+                    else
+                    {
+                        <h3 class="text-center" style="color: #fd390e; font-size: 1.2rem;">@item.FinalPrice</h3>
+                    }
+
+                    <div class="mt-3 d-flex justify-content-center">
+                        <!-- Wish List Button -->
+                        <form asp-action="AddToFavourite" asp-controller="Favourite" method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="itemId" value="@item.Id" />
+                            <button class="btn btn-outline-light me-2 btn-sm" type="submit">
+                                <i class="fi-heart me-1"></i>
+                                Wish List
+                            </button>
+                        </form>
+
+                        <!-- Add to Cart Button -->
+                        <form asp-action="AddToCart" asp-controller="Cart" method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="itemId" value="@item.Id" />
+                            <button class="btn btn-outline-light btn-sm" type="submit">
+                                <i class="fi-shopping-cart me-1"></i>
+                                Add to Cart
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- item -->
+        }
+    </div>
+</section>
+
+<!-- JavaScript for dynamic search filter -->
+<script>
+    function filterItems() {
+        var input, filter, cards, cardContainer, title, i;
+        input = document.getElementById("searchBox");
+        filter = input.value.toLowerCase();
+        cardContainer = document.getElementById("itemsContainer");
+        cards = cardContainer.getElementsByClassName("item-card");
+
+        for (i = 0; i < cards.length; i++) {
+            title = cards[i].getAttribute("data-name");
+            if (title.includes(filter)) {
+                cards[i].style.display = "";
+            } else {
+                cards[i].style.display = "none";
+            }
+        }
+    }
+</script>
