@@ -27,7 +27,7 @@ namespace RG_Store.BLL.Service.Implementation
         }
         public async Task<bool> CreateUser(RegisterVM registerVM)
         {
-           
+
 
 
             User user = mapper.Map<User>(registerVM);
@@ -75,10 +75,10 @@ namespace RG_Store.BLL.Service.Implementation
         {
             var user = await userRepo.GetById(id);
             GetUserVM result = new();
-            result.UserId=user.Id;
-            result.UserName=user.UserName;
+            result.UserId = user.Id;
+            result.UserName = user.UserName;
             result.FirstName = user.FirstName;
-            result.LastName = user.LastName;    
+            result.LastName = user.LastName;
             result.UserGender = user.UserGender;
             result.Email = user.Email;
             result.ProfileImage = user.ProfileImage;
@@ -126,27 +126,30 @@ namespace RG_Store.BLL.Service.Implementation
             await signInManager.SignOutAsync();
         }
 
-        public async Task<bool> UpdateRole(UpdateRoleVM model, string role)
+        public async Task<bool> UpdateRole(UpdateRoleVM model, Roles rolevm)
         {
             var user = await userRepo.GetById(model.UserId);
             if (user == null)
             {
                 return false;
             }
+            var role = "Customer";
+            if (rolevm == Roles.Admin) role = "Admin";
+            /* var currentRoles = await userManager.GetRolesAsync(user);  */
 
-            var currentRoles = await userManager.GetRolesAsync(user);
+            /* if (currentRoles.Contains(role))
+             {*/
 
-            if (currentRoles.Contains(role))
-            {
-                var result = await userManager.RemoveFromRoleAsync(user, role);
-                if (!result.Succeeded)
-                {
-                   
-                    return false;
-                }
-            }
+            var result = await userManager.RemoveFromRoleAsync(user, role);
+            /*  if (!result.Succeeded)
+              {
 
+                  return false;
+              }*/
+            /*  }*/
+            await userRepo.UpdateRole(user, rolevm);
             var addResult = await userManager.AddToRoleAsync(user, role);
+
             return addResult.Succeeded;
         }
 
@@ -255,6 +258,6 @@ namespace RG_Store.BLL.Service.Implementation
             return result;
         }
 
-     
+
     }
 }

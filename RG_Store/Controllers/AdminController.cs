@@ -64,14 +64,13 @@ namespace RG_Store.PLL.Controllers
             }
 */
 
-            Console.WriteLine($"Updating user with ID: {model.UserId}, Role: {model.UserRole}");
 
-            var res = await _userService.UpdateRole(model, "");
+            var res = await _userService.UpdateRole(model, model.UserRole); 
             Console.WriteLine($"Update Result: {res}");
 
             if (res)
             {
-                return RedirectToAction("Index"); 
+                return RedirectToAction("Index","Admin"); 
             }
 
             ModelState.AddModelError(string.Empty, "Failed to update user role.");
