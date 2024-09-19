@@ -25,6 +25,7 @@ namespace RG_Store.BLL.ModelVM.UserVM
 
         public string Role { get; set; } = Roles.Customer.ToString(); // New property for Role
         public string? MyProperty { get; set; }
-        
+        public Gender UserGender { get; set; }
+
     }
 }

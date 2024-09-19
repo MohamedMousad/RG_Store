@@ -105,6 +105,8 @@ namespace EmployeeSystem.DAL.Repo.Implementation
                 usr.FirstName = user.FirstName;
                 usr.LastName = user.LastName;
                 usr.UserGender = user.UserGender;
+                usr.UserGender = user.UserGender;
+                usr.ProfileImage = user.ProfileImage;
                 context.SaveChanges();
                 return true;
             }

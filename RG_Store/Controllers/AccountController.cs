@@ -1,6 +1,7 @@
 ﻿using Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using RG_Store.BLL.Images;
 using RG_Store.BLL.ModelVM.UserVM;
 using RG_Store.BLL.Service.Abstraction.RG_Store.BLL.Service.Abstraction;
 using System.Security.Claims;
@@ -229,6 +230,11 @@ namespace RG_Store.PLL.Controllers
         {
             var user = await userManager.GetUserAsync(User);
             model.UserId = user.Id;
+            if (model.Image != null)
+            {
+                var fileName = UploadImage.UploadFile("users", model.Image);
+                model.ProfileImage = fileName;
+            }
             var res = await userService.UpdateUser(model);
             if (res)
             {

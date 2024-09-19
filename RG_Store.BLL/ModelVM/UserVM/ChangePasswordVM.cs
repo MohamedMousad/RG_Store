@@ -25,5 +25,10 @@ namespace RG_Store.BLL.ModelVM.UserVM
         [Display(Name = "Confirm new password")]
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+        public string? ProfileImage { get; set; }
+        public string? UserName { get; set; }
+        public string? Email { get; set; }
+
+
     }
 }

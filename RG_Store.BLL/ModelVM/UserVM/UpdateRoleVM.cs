@@ -13,7 +13,7 @@ namespace RG_Store.BLL.ModelVM.UserVM
         public string UserName { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
-        public Roles UseRrole { get; set; }
+        public Roles UserRole { get; set; }
         public string Email { get; set; }
         public string? Image { get; set; }
     }

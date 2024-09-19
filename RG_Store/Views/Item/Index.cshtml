@@ -12,7 +12,8 @@
                 <div class="col-lg-2">
                     <div class="input-group border-end-lg border-light">
                         <span class="input-group-text text-muted ps-2 ps-sm-3"><i class="fi-search"></i></span>
-                        <input class="form-control" type="text" name="keywords" placeholder="Keywords...">
+                        <!-- Updated Search Box -->
+                        <input class="form-control" id="searchBox" type="text" placeholder="Search for games..." onkeyup="filterItems()">
                     </div>
                 </div>
                 <hr class="hr-light d-lg-none my-2">
@@ -60,11 +61,12 @@
         <a class="btn btn-link btn-light fw-normal px-0 myHover" href="#">Go to Store<i class="fi-arrow-long-right fs-sm mt-0 ps-1 ms-2"></i></a>
     </div>
 
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+    <!-- Updated Item Cards Container -->
+    <div id="itemsContainer" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
         @foreach (var item in Model)
         {
             <!-- item -->
-            <div class="col mb-4">
+            <div class="col mb-4 item-card" data-name="@item.Name.ToLower()">
                 <div class="card card-body card-light card-hover bg-transparent border-0 p-3 text-center" style="max-height: 450px;">
                     <a class="d-block rounded-3 overflow-hidden" href="#">
                         <img class="d-block mx-auto img-fluid" src="~/uploaded_images/items/@(item.ItemImage)" alt="@(item.ItemImage)" style="max-width: 220px; max-height: 220px; object-fit: cover;">
@@ -111,3 +113,23 @@
         }
     </div>
 </section>
+
+<!-- JavaScript for dynamic search filter -->
+<script>
+    function filterItems() {
+        var input, filter, cards, cardContainer, title, i;
+        input = document.getElementById("searchBox");
+        filter = input.value.toLowerCase();
+        cardContainer = document.getElementById("itemsContainer");
+        cards = cardContainer.getElementsByClassName("item-card");
+
+        for (i = 0; i < cards.length; i++) {
+            title = cards[i].getAttribute("data-name");
+            if (title.includes(filter)) {
+                cards[i].style.display = "";
+            } else {
+                cards[i].style.display = "none";
+            }
+        }
+    }
+</script>

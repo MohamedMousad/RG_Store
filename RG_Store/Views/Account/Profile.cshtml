@@ -108,7 +108,7 @@
             <aside class="col-lg-4 col-md-5 pe-xl-4 mb-5">
                 <div class="card card-body card-light border-0 shadow-sm pb-1 me-lg-1">
                     <div class="d-flex d-md-block d-lg-flex align-items-start pt-lg-2 mb-4">
-                        <img class="rounded-circle" src="~/uploaded_images/users/@Model.ProfileImage" width="48" alt="Robert Fox">
+                        <img class="rounded-circle" src="~/uploaded_images/users/@Model.ProfileImage" width="48" alt="@Model.ProfileImage">
                         <div class="pt-md-2 pt-lg-0 ps-3 ps-md-0 ps-lg-3">
                             <h2 class="fs-lg text-light mb-0">@Model.UserName</h2>
                             <ul class="list-unstyled fs-sm mt-3 mb-0">
@@ -163,16 +163,16 @@
                                 <!-- Gender -->
                                 <div class="border-bottom border-light pb-3 mb-3">
                                     <label class="form-label fw-bold text-light">Gender</label>
-                                    <select  class="form-select form-select-light mt-3" asp-for="Gender">
-                                        @if (Model.Gender == Gender.Male)
+                                    <select  class="form-select form-select-light mt-3" asp-for="UserGender">
+                                        @if (Model.UserGender == Gender.Male)
                                         {
-                                            <option value="1" disabled selected>Male</option>
+                                            <option value="1" selected>Male</option>
                                             <option value="2">Female</option>
                                         }
-                                       else    if (Model.Gender == Gender.Female)
+                                        else
                                         {
                                             <option value="1">Male</option>
-                                            <option value="2"disabled selected>Female</option>  
+                                            <option value="2" selected>Female</option>  
                                         }
                                         
                                     </select>

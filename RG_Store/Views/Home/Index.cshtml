@@ -68,7 +68,7 @@
 
 <section class="container pb-5 mb-md-4">
     <div class="d-sm-flex align-items-center justify-content-between mb-3 mb-sm-4 pb-sm-2">
-        <h2 class="h3 text-light mb-2 mb-sm-0">Offers</h2><a class="btn btn-link btn-light fw-normal px-0 myHover" href="#">Go to Store<i class="fi-arrow-long-right fs-sm mt-0 ps-1 ms-2"></i></a>
+        <h2 class="h3 text-light mb-2 mb-sm-0">Offers</h2><a class="btn btn-link btn-light fw-normal px-0 myHover" asp-controller="item" asp-action="index">Go to Store<i class="fi-arrow-long-right fs-sm mt-0 ps-1 ms-2"></i></a>
     </div>
     <form>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2 g-md-4" id="itemsContainer">
@@ -99,18 +99,19 @@
                         <div class="mt-2 d-flex justify-content-center">
                             <form asp-action="AddToFavourite" asp-controller="Favourite" method="post">
                                 <input type="hidden" name="itemId" value="@item.Id" />
-                            <button type="submit" class="btn btn-outline-light me-2" >
-                                <i class="fi-heart"></i> Wish List
-                            </button>
-                                </form>
+                                <button type="submit" class="btn btn-outline-light me-2 btn-fixed-height">
+                                    <i class="fi-heart"></i> Wish List
+                                </button>
+                            </form>
                             <form asp-action="AddToCart" asp-controller="Cart" method="post">
-                                @Html.AntiForgeryToken() 
+                                @Html.AntiForgeryToken()
                                 <input type="hidden" name="itemId" value="@item.Id" />
-                                <button class="btn btn-outline-light" type="submit">
+                                <button class="btn btn-outline-light btn-fixed-height" type="submit">
                                     <i class="fi-shopping-cart"></i> Add to Cart
                                 </button>
                             </form>
                         </div>
+
                     </div>
                 </div>
                 <!--item-->
@@ -164,5 +165,9 @@
 
     .fi-heart, .fi-shopping-cart {
         margin-right: 5px;
+    }
+
+    .btn-fixed-height {
+        height: 50px; /* Set a fixed height for both buttons */
     }
 </style>

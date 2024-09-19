@@ -120,7 +120,7 @@ namespace RG_Store.BLL.Service.Implementation
                 Id = model.UserId,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                UserGender = model.Gender,
+                UserGender = model.UserGender,
                 ProfileImage = model.ProfileImage
             };
 
