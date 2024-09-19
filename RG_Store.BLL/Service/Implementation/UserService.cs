@@ -50,20 +50,37 @@ namespace RG_Store.BLL.Service.Implementation
 
         public async Task<IEnumerable<GetUserVM>> GetAll()
         {
-            List<GetUserVM> result = new List<GetUserVM>();
+            List<GetUserVM> resultlist = new List<GetUserVM>();
             var temp = await userRepo.GetAll();
-            foreach (var item in temp)
+            foreach (var user in temp)
             {
-                var user = mapper.Map<GetUserVM>(item);
-                result.Add(user);
+                GetUserVM result = new();
+                result.UserId = user.Id;
+                result.UserName = user.UserName;
+                result.FirstName = user.FirstName;
+                result.LastName = user.LastName;
+                result.UserGender = user.UserGender;
+                result.Email = user.Email;
+                result.ProfileImage = user.ProfileImage;
+                result.UserRole = user.UserRole;
+                resultlist.Add(result);
             }
-            return result;
+            return resultlist;
         }
 
         public async Task<GetUserVM> GetUserVM(string id)
         {
             var user = await userRepo.GetById(id);
-            var result = mapper.Map<GetUserVM>(user);
+            GetUserVM result = new();
+            result.UserId=user.Id;
+            result.UserName=user.UserName;
+            result.FirstName = user.FirstName;
+            result.LastName = user.LastName;    
+            result.UserGender = user.UserGender;
+            result.Email = user.Email;
+            result.ProfileImage = user.ProfileImage;
+            result.UserRole = user.UserRole;
+
             return result;
         }
 
@@ -120,6 +137,7 @@ namespace RG_Store.BLL.Service.Implementation
                 Id = model.UserId,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
+                Email = model.Email,
                 UserGender = model.UserGender,
                 ProfileImage = model.ProfileImage
             };

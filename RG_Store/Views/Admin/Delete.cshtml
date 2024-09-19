@@ -1,28 +1,28 @@
 ﻿@using RG_Store.BLL.ModelVM.UserVM
-@model UpdateRoleVM
+@model DeleteUserVM
 @{
     ViewData["Title"] = "Edit User";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit User</h2>
+<h2>Delete User</h2>
 <div class="container bg-dark text-light d-flex min-vh-100 justify-content-center align-items-center" style="margin-top:30px;">
-    <form asp-action="EditUser" asp-controller="Admin" method="post">
+    <form asp-action="Delete" asp-controller="Admin" method="post">
         <!-- Hidden field to pass the UserId to the controller -->
-        <input type="hidden" asp-for="UserId" />
+        <input type="hidden" asp-for="Id" />
 
         <div class="mb-4">
             <label asp-for="UserName" class="form-label fw-bold text-light"></label>
-            <input  readonly class="form-control form-control-light" type="text" asp-for="UserName" placeholder="Enter New Username" required>
+            <input readonly class="form-control form-control-light" type="text" asp-for="UserName" placeholder="Enter New Username" required>
             <span asp-validation-for="UserName" class="text-danger"></span>
         </div>
-        
+
         <div class="mb-4">
             <label asp-for="FirstName" class="form-label fw-bold text-light"></label>
             <input readonly class="form-control form-control-light" type="text" asp-for="FirstName" placeholder="Enter First Name" required>
             <span asp-validation-for="FirstName" class="text-danger"></span>
         </div>
-        
+
         <div class="mb-4">
             <label asp-for="LastName" class="form-label fw-bold text-light"></label>
             <input readonly class="form-control form-control-light" type="text" asp-for="LastName" placeholder="Enter Last Name" required>
@@ -33,30 +33,8 @@
             <input readonly class="form-control form-control-light" type="text" asp-for="Email" placeholder="Enter Last Name" required>
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
-        <div class="mb-4">
-            <label class="form-label fw-bold text-light">Role</label>
-            <select class="form-select form-select-light mt-3" asp-for="UserRole">
-                @if (Model.UserRole == RG_Store.DAL.Enums.Roles.Customer)
-                {
-                    <option value="1" selected>Customer</option>
-                    <option value="2">Admin</option>
-                }
-                else if (Model.UserRole == RG_Store.DAL.Enums.Roles.Admin)
-                {
-                    <option value="1">Customer</option>
-                    <option value="2" selected>Admin</option>
-                }
-                else
-                {
-                    <option value="1">Customer</option>
-                    <option value="2">Admin</option>
-                }
-            </select>
-            <span asp-validation-for="UserRole" class="text-danger"></span>
-        </div>
 
-
-        <button type="submit" class="btn btn-primary">Edit User</button>
+        <button type="submit" class="btn btn-danger">Delete User</button>
     </form>
 </div>
 

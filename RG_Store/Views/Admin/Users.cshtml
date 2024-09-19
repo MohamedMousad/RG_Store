@@ -1,12 +1,12 @@
-﻿﻿@using RG_Store.BLL.ModelVM.UserVM
+﻿@using RG_Store.BLL.ModelVM.UserVM
 @using System.Security.Claims
-@model EditUserVM
-@{
-    ViewData["Title"] = "Users";
-    Layout = "~/Views/Shared/_DashBoard.cshtml";
-    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-}
+@model List<GetUserVM>
 
+@{
+    // ViewData["Title"] = "Users";
+    // Layout = "~/Views/Shared/_DashBoard.cshtml";
+    // var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+}
 
 <div class="head-title">
     <div class="left">
@@ -21,54 +21,65 @@
             </li>
         </ul>
     </div>
-
 </div>
 
 <div class="table-data">
     <div class="order">
         <div class="head">
             <h3>All Users</h3>
-
             <li class="list-inline-item">
-                <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Create"><i class="fa fa-table"></i></button>
+                <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Create">
+                    <i class="fa fa-table"></i>
+                </button>
             </li>
-
-
         </div>
-        <table class="tablee table-striped">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Rule</th>
+                    <th>Role</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>John Doe</td>
-                    <td>johndoe@example.com</td>
-                    <td>user</td>
-                    <td>
-                        <!-- Call to action buttons -->
-                        <ul class="list-inline m-0">
-
-                            <li class="list-inline-item">
-                                <a asp-controller="Admin" asp-action="EditUser" asp-route-Id="@userId" class="btn btn-success btn-sm rounded-0" data-toggle="tooltip" data-placement="top" title="Edit">
-                                    <i class="fa fa-edit"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-                <!-- Add more rows as needed -->
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.UserId</td>
+                        <td>@user.FirstName @user.LastName</td>
+                        <td>@user.Email</td>
+                        <td>@user.UserRole.Value.ToString()</td>
+                        <td>
+                            <!-- Call to action buttons -->
+                            <ul class="list-inline m-0">
+                                <li class="list-inline-item">
+                                    <a href="EditUser/@user.UserId" class="btn btn-success btn-sm rounded-0" data-toggle="tooltip" data-placement="top" title="Edit">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="Delete/@user.UserId" class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>
-
 </div>
+
+@section Scripts {
+    <!-- Include jQuery and Bootstrap's JS if not already included -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip(); // Initialize tooltips
+        });
+    </script>
+}
