@@ -23,50 +23,56 @@
     </div>
 </div>
 
-<div class="table-data">
+<div class="table-data mt-4">
     <div class="order">
         <div class="head">
             <h3>All Users</h3>
         </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var user in Model)
-                {
+
+        <!-- Table starts here -->
+        <div class="table-responsive">
+            <table class="table table-hover" style="background-color: white; border-collapse: collapse;">
+                <thead style="border-bottom: 1px solid #eeeeee;">
                     <tr>
-                        <td>@user.UserId</td>
-                        <td>@user.FirstName @user.LastName</td>
-                        <td>@user.Email</td>
-                        <td>@user.UserRole.Value.ToString()</td>
-                        <td>
-                            <!-- Call to action buttons -->
-                            <ul class="list-inline m-0">
-                                <li class="list-inline-item">
-                                    <a href="EditUser/@user.UserId" class="btn btn-success btn-sm rounded-0" data-toggle="tooltip" data-placement="top" title="Edit">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="Delete/@user.UserId" class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </td>
+                        <th style="width: 25%; border: none;">ID</th> <!-- 25% width for ID column -->
+                        <th style="width: 20%; border: none;">Name</th> <!-- 20% for Name -->
+                        <th style="width: 25%; border: none;">Email</th> <!-- 25% for Email -->
+                        <th style="width: 15%; border: none;">Role</th> <!-- 15% for Role -->
+                        <th style="width: 15%; border: none;" class="text-center">Actions</th> <!-- 15% for Actions -->
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                        <tr style="border-bottom: 1px solid #f0f0f0;">
+                            <td style="border: none;">@user.UserId</td>
+                            <td style="border: none;">@user.FirstName @user.LastName</td>
+                            <td style="border: none;">@user.Email</td>
+                            <td style="border: none;">@user.UserRole.Value.ToString()</td>
+                            <td class="text-center" style="border: none;">
+                                <!-- Call to action buttons -->
+                                <ul class="list-inline m-0">
+                                    <li class="list-inline-item">
+                                        <a href="EditUser/@user.UserId" class="btn btn-success btn-sm rounded-0" data-toggle="tooltip" data-placement="top" title="Edit">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="Delete/@user.UserId" class="btn btn-danger btn-sm rounded-0" data-toggle="tooltip" data-placement="top" title="Delete">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <!-- Table ends here -->
     </div>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 

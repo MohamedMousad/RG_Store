@@ -2,64 +2,63 @@
 @model UpdateRoleVM
 @{
     ViewData["Title"] = "Edit User";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_DashBoard.cshtml";
 }
 
-<h2>Edit User</h2>
-<div class="container bg-dark text-light d-flex min-vh-100 justify-content-center align-items-center" style="margin-top:30px;">
-    <form asp-action="EditUser" asp-controller="Admin" method="post">
+<h2 class="text-center">Edit User</h2>
+<div class="container d-flex justify-content-center align-items-center" style="margin-top: 100px; max-width: 600px;">
+    <form asp-action="EditUser" asp-controller="Admin" method="post" class="w-100">
         <!-- Hidden field to pass the UserId to the controller -->
         <input type="hidden" asp-for="UserId" />
 
-        <div class="mb-4">
-            <label asp-for="UserName" class="form-label fw-bold text-light"></label>
-            <input  readonly class="form-control form-control-light" type="text" asp-for="UserName" placeholder="Enter New Username" required>
-            <span asp-validation-for="UserName" class="text-danger"></span>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label asp-for="UserName" class="form-label fw-bold"></label>
+                <input readonly class="form-control" type="text" asp-for="UserName" placeholder="Enter New Username" required>
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Role</label>
+                <select class="form-select" asp-for="UserRole">
+                    @if (Model.UserRole == RG_Store.DAL.Enums.Roles.Customer)
+                    {
+                        <option value="1" selected>Customer</option>
+                        <option value="2">Admin</option>
+                    }
+                    else if (Model.UserRole == RG_Store.DAL.Enums.Roles.Admin)
+                    {
+                        <option value="1">Customer</option>
+                        <option value="2" selected>Admin</option>
+                    }
+                    else
+                    {
+                        <option value="1">Customer</option>
+                        <option value="2">Admin</option>
+                    }
+                </select>
+                <span asp-validation-for="UserRole" class="text-danger"></span>
+            </div>
         </div>
-        
-        <div class="mb-4">
-            <label asp-for="FirstName" class="form-label fw-bold text-light"></label>
-            <input readonly class="form-control form-control-light" type="text" asp-for="FirstName" placeholder="Enter First Name" required>
-            <span asp-validation-for="FirstName" class="text-danger"></span>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label asp-for="FirstName" class="form-label fw-bold"></label>
+                <input readonly class="form-control" type="text" asp-for="FirstName" placeholder="Enter First Name" required>
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="LastName" class="form-label fw-bold"></label>
+                <input readonly class="form-control" type="text" asp-for="LastName" placeholder="Enter Last Name" required>
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
         </div>
-        
+
         <div class="mb-4">
-            <label asp-for="LastName" class="form-label fw-bold text-light"></label>
-            <input readonly class="form-control form-control-light" type="text" asp-for="LastName" placeholder="Enter Last Name" required>
-            <span asp-validation-for="LastName" class="text-danger"></span>
-        </div>
-        <div class="mb-4">
-            <label asp-for="Email" class="form-label fw-bold text-light"></label>
-            <input readonly class="form-control form-control-light" type="text" asp-for="Email" placeholder="Enter Last Name" required>
+            <label asp-for="Email" class="form-label fw-bold"></label>
+            <input readonly class="form-control" type="text" asp-for="Email" placeholder="Enter Email" required>
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
-        <div class="mb-4">
-            <label class="form-label fw-bold text-light">Role</label>
-            <select class="form-select form-select-light mt-3" asp-for="UserRole">
-                @if (Model.UserRole == RG_Store.DAL.Enums.Roles.Customer)
-                {
-                    <option value="1" selected>Customer</option>
-                    <option value="2">Admin</option>
-                }
-                else if (Model.UserRole == RG_Store.DAL.Enums.Roles.Admin)
-                {
-                    <option value="1">Customer</option>
-                    <option value="2" selected>Admin</option>
-                }
-                else
-                {
-                    <option value="1">Customer</option>
-                    <option value="2">Admin</option>
-                }
-            </select>
-            <span asp-validation-for="UserRole" class="text-danger"></span>
-        </div>
 
-
-        <button type="submit" class="btn btn-primary">Edit User</button>
+        <button type="submit" class="btn btn-primary w-100">Edit User</button>
     </form>
 </div>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}

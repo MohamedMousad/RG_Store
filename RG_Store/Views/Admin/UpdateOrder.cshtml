@@ -1,7 +1,61 @@
-﻿
-@{
-    ViewData["Title"] = "UpdateOrder";
+﻿@{
+    ViewData["Title"] = "Update Order";
+    Layout = "~/Views/Shared/_DashBoard.cshtml";
 }
 
-<h1>UpdateOrder</h1>
+<div class="container mt-5">
+    <h1 class="text-center">Update Order</h1>
 
+    <div class="row justify-content-center align-items-center">
+        <!-- Order Items on the left side -->
+        <div class="col-md-6">
+            <h3 class="text-center">Order Items</h3>
+            <ul class="list-group">
+                <!-- Example of an order item with an image -->
+                <li class="list-group-item d-flex align-items-center">
+                    <img src="https://via.placeholder.com/50" alt="Item 1" class="img-thumbnail me-3">
+                    <span>Item 1 - $10.00</span>
+                </li>
+                <li class="list-group-item d-flex align-items-center">
+                    <img src="https://via.placeholder.com/50" alt="Item 2" class="img-thumbnail me-3">
+                    <span>Item 2 - $15.50</span>
+                </li>
+                <li class="list-group-item d-flex align-items-center">
+                    <img src="https://via.placeholder.com/50" alt="Item 3" class="img-thumbnail me-3">
+                    <span>Item 3 - $7.25</span>
+                </li>
+                <!-- Loop through actual order items here -->
+            </ul>
+        </div>
+
+        <!-- Update Order Form on the right side -->
+        <div class="col-md-6">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <form method="post" action="/Orders/UpdateOrder">
+                        <div class="form-group mb-3">
+                            <label for="orderId">Order ID</label>
+                            <input type="text" readonly class="form-control" id="orderId" name="orderId" style="border:1px #eeeeee solid ; border-radius:10px" />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="orderStatus">Order Status</label>
+                            <select class="form-control" id="orderStatus" name="orderStatus" style="border:1px #eeeeee solid ; border-radius:10px">
+                                <option value="Pending">Pending</option>
+                                <option value="Delivered">Confairmed</option>
+                                <option value="Canceled">Canceled</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Centered Update Button at the bottom -->
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-4 text-center">
+            <button type="submit" form="orderForm" class="btn btn-primary">Update Order</button>
+        </div>
+    </div>
+</div>
