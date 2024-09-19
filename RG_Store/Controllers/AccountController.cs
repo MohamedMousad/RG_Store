@@ -67,7 +67,7 @@ namespace RG_Store.PLL.Controllers
     <style>
         body {{
             background-color: #1f1b2d;
-            color: #ffffff;
+            color: #9691a4;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
