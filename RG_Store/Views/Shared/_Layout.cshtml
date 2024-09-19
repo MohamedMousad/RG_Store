@@ -8,18 +8,14 @@
     var IsSignedIn = User?.Identity?.IsAuthenticated ?? false;
     if (IsSignedIn)
     {
-       //var userId = User?.FindFirstValue(ClaimTypes.NameIdentifier); // Get the user ID from the NameIdentifier claim
-       //var user = await userService.GetUserVM(userId); // Add 'await' keyword to asynchronously get the user
-       //if (user != null) // Check if the user is not null
-       //{
-       //    Role = user.UserRole.ToString(); // Assuming Roles is a collection of strings representing the roles
-       //}
+       var userId = User?.FindFirstValue(ClaimTypes.NameIdentifier); // Get the user ID from the NameIdentifier claim
+       var user = await userService.GetUserVM(userId); // Add 'await' keyword to asynchronously get the user
+       if (user != null) // Check if the user is not null
+       {
+           Role = user.UserRole.ToString(); // Assuming Roles is a collection of strings representing the roles
+       }
     }
 }
-
- <!-- Example: Iterating over the roles -->
-  @*   <p>User Role: @Role</p>  *@
-
 <!doctype html>
 <html lang="en">
 

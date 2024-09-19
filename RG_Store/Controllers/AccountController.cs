@@ -96,7 +96,7 @@ namespace RG_Store.PLL.Controllers
 
 
         {
-            userService.SignoutUser();
+          await  userService.SignoutUser();
             return await Task.FromResult<IActionResult>(RedirectToAction("Index", "Home"));
         }
 
@@ -167,19 +167,24 @@ namespace RG_Store.PLL.Controllers
             return View(model);
         }
         [HttpGet]
-        public IActionResult ChangePassword()
+        public async Task<IActionResult> ChangePasswordAsync()
         {
-            return View();
+            var user = await userService.GetUserAsync(User);
+            var model =new ChangePasswordVM();
+            model.UserName = user.UserName;
+            model.Email = user.Email;
+            model.ProfileImage = user.ProfileImage;
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangePassword(ChangePasswordVM model)
         {
-            if (!ModelState.IsValid)
+            /*if (!ModelState.IsValid)
             {
                 return View(model);
-            }
+            }*/
 
             var user = await userService.GetUserAsync(User);
 
