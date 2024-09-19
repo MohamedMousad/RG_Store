@@ -120,7 +120,7 @@ namespace EmployeeSystem.DAL.Repo.Implementation
                 var ret = new List<Order>();
                 foreach (var i in List)
                 {
-                    ret.Add(i);
+                   if(i.UserId==userid) ret.Add(i);
                 }
 
                 return ret;
@@ -141,6 +141,8 @@ namespace EmployeeSystem.DAL.Repo.Implementation
             try
             {
                 var order = await GetById(ordervm.Id);
+
+                if (order.OrderStatus == OrderStatus.Completed) return false;
 
                 order.OrderStatus = ordervm.OrderStatus;
 
