@@ -1,11 +1,24 @@
-﻿using Entities;
+﻿using Azure.Core;
+using Entities;
+using Humanizer;
+using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Elfie.Serialization;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using RG_Store.BLL.Images;
 using RG_Store.BLL.ModelVM.UserVM;
 using RG_Store.BLL.Service.Abstraction.RG_Store.BLL.Service.Abstraction;
+using System.ComponentModel;
+using System.Drawing.Printing;
+using System.Drawing;
+using System.Net;
+using System.Numerics;
+using System.Runtime.InteropServices;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using static RG_Store.BLL.ModelVM.UserVM.ForgerPasswordVM;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace RG_Store.PLL.Controllers
 {
@@ -45,9 +58,87 @@ namespace RG_Store.PLL.Controllers
 
                     var confirmationLink = Url.Action("ConfirmEmail", "Account",
                         new { token = token }, protocol: Request.Scheme);
+                    string body = $@"
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Email Confirmation</title>
+    <style>
+        body {{
+            background-color: #1f1b2d;
+            color: #9691a4;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }}
+        .email-container {{
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #0f3460;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        }}
+        .header {{
+            text-align: center;
+            padding-bottom: 20px;
+        }}
+        .header img {{
+            width: 100px;
+        }}
+        .content {{
+            text-align: center;
+        }}
+        .content h1 {{
+            color: #fd5631;
+            margin-bottom: 20px;
+        }}
+        .content p {{
+            color: #ffffff;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }}
+        .confirmation-button {{
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #fd5631;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 20px;
+        }}
+        .confirmation-button:hover {{
+            background-color: #fd390e;
+        }}
+        .footer {{
+            text-align: center;
+            padding-top: 20px;
+            font-size: 12px;
+            color: #a6a6a6;
+        }}
+    </style>
+</head>
+<body>
+    <div class='email-container'>
+        <div class='header'>
+            <img src='https://localhost:7126/images/rg_logo.png' alt='RG Store Logo'>
+        </div>
+        <div class='content'>
+            <h1>Email Confirmation</h1>
+            <p>Please confirm your email address by clicking the button below.</p>
+            <a href='{confirmationLink}' class='confirmation-button'>Confirm Email</a>
+        </div>
+        <div class='footer'>
+            <p>If you did not request this email, please ignore it.</p>
+        </div>
+    </div>
+</body>
+</html>";
 
-                    await userService.SendEmailAsync(user.Email, "Confirm your email",
-                        $"Please confirm your email by clicking this <a href='{confirmationLink}'>link</a>.");
+                    await userService.SendEmailAsync(user.Email, "Confirm your email",body);
 
                     ViewBag.Message = "Registration successful! Please check your email to confirm your account.";
 

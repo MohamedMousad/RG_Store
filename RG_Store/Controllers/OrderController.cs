@@ -79,11 +79,5 @@ namespace RG_Store.PLL.Controllers
 
             return View();
         }
-        [Authorize]
-        public async Task<IActionResult> Delete()
-        {
-            return View();
-        }
-
     }
 }
