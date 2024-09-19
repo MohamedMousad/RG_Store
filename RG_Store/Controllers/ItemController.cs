@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RG_Store.BLL.Images;
 using RG_Store.BLL.ModelVM.ItemVM;
 using RG_Store.BLL.Service.Abstraction;
@@ -15,12 +16,13 @@ namespace RG_Store.PLL.Controllers
             this.itemService = itemService;
             this.categoryService = categoryService;
         }
-
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var res = await itemService.GetAll();
             return View(res);
         }
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -38,6 +40,7 @@ namespace RG_Store.PLL.Controllers
 
         //    return RedirectToAction("Index","Home");
         //} 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create(CreateItemVM itemVM)
         {
@@ -59,6 +62,7 @@ namespace RG_Store.PLL.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+        [Authorize]
 
         [HttpGet]
         public async Task<IActionResult> Update()
@@ -67,6 +71,7 @@ namespace RG_Store.PLL.Controllers
             ViewBag.Categories = categories;
             return View();
         }
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Update(UpdateItemVM itemVM)
         {
@@ -77,6 +82,7 @@ namespace RG_Store.PLL.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Delete()
         {
@@ -84,6 +90,7 @@ namespace RG_Store.PLL.Controllers
             ViewBag.Categories = categories;
             return View();
         }
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Delete(DeleteItemVM itemVM)
         {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RG_Store.BLL.ModelVM.UserVM;
 using RG_Store.BLL.Service.Abstraction.RG_Store.BLL.Service.Abstraction;
 using System.Security.Claims;
@@ -8,17 +9,15 @@ namespace RG_Store.PLL.Controllers
     public class AdminController : Controller
     {
         private readonly IUserService _userService;
+        public AdminController(IUserService userService) => _userService = userService;
 
-        public AdminController(IUserService userService)
-        {
-            _userService = userService;
-        }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             //ViewBag.UserName = username;
             return View();
         }
+        [Authorize(Roles = "Admin")]
         [HttpGet]
 
         public async Task<IActionResult> Users()
@@ -27,7 +26,7 @@ namespace RG_Store.PLL.Controllers
             var users = await _userService.GetAll(); 
             return View(users.ToList()); 
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("admin/EditUser/{userid}")]
         public async Task<IActionResult> EditUser(string userid)
@@ -54,7 +53,7 @@ namespace RG_Store.PLL.Controllers
 
             return View(model);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> EditUser(UpdateRoleVM model)
         {
@@ -67,7 +66,7 @@ namespace RG_Store.PLL.Controllers
 
             Console.WriteLine($"Updating user with ID: {model.UserId}, Role: {model.UserRole}");
 
-            var res = await _userService.UpdateRole(model, model.UserRole);
+            var res = await _userService.UpdateRole(model, "");
             Console.WriteLine($"Update Result: {res}");
 
             if (res)
@@ -78,7 +77,7 @@ namespace RG_Store.PLL.Controllers
             ModelState.AddModelError(string.Empty, "Failed to update user role.");
             return View(model);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("admin/Delete/{userid}")]
         public async Task<IActionResult> Delete(string userid)
@@ -104,7 +103,7 @@ namespace RG_Store.PLL.Controllers
 
             return View(model);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Delete(DeleteUserVM model)
         {
@@ -125,11 +124,12 @@ namespace RG_Store.PLL.Controllers
             ModelState.AddModelError(string.Empty, "Failed to Delete user .");
             return View(model);
         }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult Categories()
         {
             return View();
         }
+        [Authorize(Roles = "Admin")]
         public IActionResult items()
         {
             return View();

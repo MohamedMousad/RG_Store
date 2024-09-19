@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RG_Store.BLL.Service.Abstraction;
@@ -15,13 +16,14 @@ namespace RG_Store.PLL.Controllers
             this.orderService = orderService;
             this.userManager = userManager;
         }
-
+        [Authorize]
         public async Task<IActionResult> GetAllOrders()
         {
             var res = await orderService.GetAllOrders();
 
             return View(orderService);
         }
+        [Authorize]
         public async Task<IActionResult> Index(string userid)
         {
 
@@ -29,6 +31,7 @@ namespace RG_Store.PLL.Controllers
 
             return View(orders);
         }
+        [Authorize]
         public async Task<IActionResult> Create()
         {
             try
@@ -69,12 +72,14 @@ namespace RG_Store.PLL.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+        [Authorize]
         public async Task<IActionResult> Update(int orderid)
         {
 
 
             return View();
         }
+        [Authorize]
         public async Task<IActionResult> Delete()
         {
             return View();

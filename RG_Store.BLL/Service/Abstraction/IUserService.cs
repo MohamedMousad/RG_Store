@@ -13,7 +13,7 @@ namespace RG_Store.BLL.Service.Abstraction
             public Task<bool> CreateUser(RegisterVM registerVM/*, out string[] errors*/);
             public Task<bool> SignInUserAsync(LoginVM model);
             public Task SignoutUser();
-            public Task<bool> UpdateRole(UpdateRoleVM model, Roles role);
+            public Task<bool> UpdateRole(UpdateRoleVM model, string role);
 
             public Task<bool> UpdateUser(GetUserVM model);
             public Task<bool> DeleteUser(DeleteUserVM model);

@@ -27,10 +27,13 @@ namespace RG_Store.BLL.Service.Implementation
         }
         public async Task<bool> CreateUser(RegisterVM registerVM)
         {
+           
+
+
             User user = mapper.Map<User>(registerVM);
 
-            var result = userManager.CreateAsync(user, registerVM.Password).GetAwaiter().GetResult();
-
+            var result = await userManager.CreateAsync(user, registerVM.Password);
+            await userManager.AddToRoleAsync(user, "Customer");
             if (result.Succeeded)
             {
                 return true;
@@ -123,11 +126,28 @@ namespace RG_Store.BLL.Service.Implementation
             await signInManager.SignOutAsync();
         }
 
-        public async Task<bool> UpdateRole(UpdateRoleVM model, Roles role)
+        public async Task<bool> UpdateRole(UpdateRoleVM model, string role)
         {
             var user = await userRepo.GetById(model.UserId);
+            if (user == null)
+            {
+                return false;
+            }
 
-            return await userRepo.UpdateRole(user, role);
+            var currentRoles = await userManager.GetRolesAsync(user);
+
+            if (currentRoles.Contains(role))
+            {
+                var result = await userManager.RemoveFromRoleAsync(user, role);
+                if (!result.Succeeded)
+                {
+                   
+                    return false;
+                }
+            }
+
+            var addResult = await userManager.AddToRoleAsync(user, role);
+            return addResult.Succeeded;
         }
 
         public async Task<bool> UpdateUser(GetUserVM model)
@@ -235,6 +255,6 @@ namespace RG_Store.BLL.Service.Implementation
             return result;
         }
 
-
+     
     }
 }
