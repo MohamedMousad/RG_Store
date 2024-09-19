@@ -1,8 +1,9 @@
-﻿﻿@{
+﻿@using RG_Store.BLL.ModelVM.ItemVM
+﻿@{
     ViewData["Title"] = "items";
     Layout = "~/Views/Shared/_DashBoard.cshtml";
 }
-
+@model List<GetAllItemVM>
 
 
 <div class="head-title">
@@ -36,32 +37,36 @@
                 <tr>
                     <th>ID</th>
                     <th>Item Name</th>
-                    <th>FinalPrice</th>
+                    <th>Final Price</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Crash Bandi</td>
-                    <td>10.5</td>
-
-                    <td>
-                        <!-- Call to action buttons -->
-                        <ul class="list-inline m-0">
-                            <li class="list-inline-item">
-                                <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
-                            </li>
-                            <li class="list-inline-item">
-                                <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>@item.FinalPrice</td>
+                        <td>
+                            <!-- Call to action buttons -->
+                            <ul class="list-inline m-0">
+                                <li class="list-inline-item">
+                                    <a href="UpdateItem/@item.Id" class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="DeleteItem/@item.Id" class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                }
                 <!-- Add more rows as needed -->
-
             </tbody>
         </table>
+
     </div>
 
 </div>

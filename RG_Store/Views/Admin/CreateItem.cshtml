@@ -17,7 +17,7 @@
         <div class="row mx-0 w-100" style="max-width: 1800px;">
             <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5">
                 <!-- Corrected Form Tag -->
-                <form class="needs-validation d-flex flex-row gap-3 justify-content-center" novalidate asp-action="CreateItem" asp-controller="Admin" method="post" enctype="multipart/form-data">
+                <form class="needs-validation d-flex flex-row gap-3 justify-content-center" novalidate asp-action="Create" asp-controller="Item" method="post" enctype="multipart/form-data">
                     <div class="col-5">
                         <!-- Game Name -->
                         <div class="mb-4">
@@ -62,15 +62,15 @@
                             </div>
                         </div>
                         <!-- Category Selection -->
-                      @*   <div class="mb-4">
-                            <label class="form-label text-light mb-2" for="item-category">Category</label>
-                            <select class="form-select form-select-light mt-3" id="item-category" asp-for="CategoryId">
-                                <option value="" disabled selected>Select Category</option>
-                                @foreach (var itm in categories)
-                                {
-                                    <option value="@itm.Id">@itm.Name</option>
-                                }
-@*                             </select>
+                        @*   <div class="mb-4">
+                        <label class="form-label text-light mb-2" for="item-category">Category</label>
+                        <select class="form-select form-select-light mt-3" id="item-category" asp-for="CategoryId">
+                        <option value="" disabled selected>Select Category</option>
+                        @foreach (var itm in categories)
+                        {
+                        <option value="@itm.Id">@itm.Name</option>
+                        }
+                        @*                             </select>
                         </div> *@
                         <!-- Photo Upload -->
                         <div class="mb-4">
@@ -89,6 +89,6 @@
     </div>
     <!-- Include your scripts -->
 </body>
-</html> 
+</html>
 
 

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RG_Store.BLL.ModelVM.ItemVM;
 using RG_Store.BLL.ModelVM.UserVM;
+using RG_Store.BLL.Service.Abstraction;
 using RG_Store.BLL.Service.Abstraction.RG_Store.BLL.Service.Abstraction;
 using System.Security.Claims;
 
@@ -9,7 +11,13 @@ namespace RG_Store.PLL.Controllers
     public class AdminController : Controller
     {
         private readonly IUserService _userService;
-        public AdminController(IUserService userService) => _userService = userService;
+        private readonly IItemService ItemService;
+        public AdminController(IUserService userService, IItemService ItemService)
+        {
+            this._userService = userService;
+            this.ItemService = ItemService;
+            
+        }
 
         [Authorize(Roles = "Admin")]
         public IActionResult Index()
@@ -129,10 +137,84 @@ namespace RG_Store.PLL.Controllers
             return View();
         }
         [Authorize(Roles = "Admin")]
-        public IActionResult items()
+        public async Task<IActionResult> items()
+        {
+            var items =await ItemService.GetAll();
+            return View(items.ToList());
+        }
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> CreateItem()
         {
             return View();
         }
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> CreateItem(CreateItemVM model)
+        {
+            var res =await ItemService.Create(model);
+            if (res)
+            {
+                return RedirectToAction("Items", "Admin");
+            }
+            return View(model);
+        }
 
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateItem(int id)
+        {
+            var item =await ItemService.GetAllItem(id);
+            UpdateItemVM model = new();
+            model.Id = id;
+            model.Name = item.Name;
+            model.Description = item.Description;
+            model.IntialPrice = item.IntialPrice;
+            model.FinalPrice = item.FinalPrice;
+            model.Quantity = item.Quantity;
+            model.Image = model.Image;
+
+            return View(model);
+        }
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateItem(UpdateItemVM model)
+        {
+            
+            var res = await ItemService.Update(model);
+            if (res)
+            {
+                return RedirectToAction("Items", "Admin");
+            }
+            return View(model);
+        }
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteItem(int id)
+        {
+            var item =await ItemService.GetAllItem(id);
+            DeleteItemVM model = new();
+            model.Id = id;
+            model.Name = item.Name;
+            model.Description = item.Description;
+            model.IntialPrice = item.IntialPrice;
+            model.FinalPrice = item.FinalPrice;
+            model.Quantity = item.Quantity;
+            model.Image = model.Image;
+
+            return View(model);
+        }
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteItem(DeleteItemVM model)
+        {
+            
+            var res = await ItemService.Delete(model);
+            if (res)
+            {
+                return RedirectToAction("Items", "Admin");
+            }
+            return View(model);
+        }
     }
 }

@@ -19,8 +19,13 @@ namespace RG_Store.PLL.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            var res = await itemService.GetAll();
-            return View(res);
+            var Result = await itemService.GetAll();
+            List<GetAllItemVM> view = new();
+            foreach (var item in Result)
+            {
+                if (item.Quantity > 0 && !item.IsDeleted) view.Add(item);
+            }
+            return View(view);
         }
         [Authorize]
         [HttpGet]
