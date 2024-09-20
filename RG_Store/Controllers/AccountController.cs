@@ -87,12 +87,12 @@ namespace RG_Store.PLL.Controllers
 
 
         [HttpGet]
-        public IActionResult SignIn()
+        public IActionResult Login()
         {
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> SignIn(LoginVM model)
+        public async Task<IActionResult> Login(LoginVM model)
         {
             if (ModelState.IsValid)
             {
@@ -270,6 +270,10 @@ namespace RG_Store.PLL.Controllers
             {
                 return View(model);
             }
+        }
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
 
 
