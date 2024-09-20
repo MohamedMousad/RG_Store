@@ -23,7 +23,7 @@ namespace RG_Store.BLL.ModelVM.ItemVM
         [Required(ErrorMessage = "Please enter the initial  quantity.")]
         [Range(0, int.MaxValue, ErrorMessage = "quantity must be a positive number.")]
         public int Quantity { get; set; } = 0;
-
+        public bool IsDelted { get; set; }
         public IFormFile? ItemImage { get; set; }
         public string? Image { get; set; }
         public bool HasOffer { get; set; } = false;

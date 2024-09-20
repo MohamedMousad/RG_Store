@@ -1,8 +1,38 @@
-﻿@{
+﻿@using RG_Store.BLL.ModelVM.ItemVM
+@using RG_Store.BLL.ModelVM.OrderVM
+@{
     ViewData["Title"] = "Update Order";
     Layout = "~/Views/Shared/_DashBoard.cshtml";
-}
+    List<GetAllItemVM?> items = ViewBag.items;
+    items.ToList();
 
+}
+@model UpdateOrderVM
+<style>
+    /* Base styling for status */
+    .status {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 0.875em;
+        font-weight: 600;
+        color: #fff; /* Default text color */
+    }
+
+        /* Styling for canceled status */
+        .status.canceled {
+            background-color: #e74c3c; /* Red background color */
+        }
+
+        /* Additional styles for other statuses */
+        .status.completed {
+            background-color: #2ecc71; /* Green background color */
+        }
+
+        .status.pending {
+            background-color: #f39c12; /* Orange background color */
+        }
+</style>
 <div class="container mt-5">
     <h1 class="text-center">Update Order</h1>
 
@@ -12,18 +42,16 @@
             <h3 class="text-center">Order Items</h3>
             <ul class="list-group">
                 <!-- Example of an order item with an image -->
-                <li class="list-group-item d-flex align-items-center">
-                    <img src="https://via.placeholder.com/50" alt="Item 1" class="img-thumbnail me-3">
-                    <span>Item 1 - $10.00</span>
-                </li>
-                <li class="list-group-item d-flex align-items-center">
-                    <img src="https://via.placeholder.com/50" alt="Item 2" class="img-thumbnail me-3">
-                    <span>Item 2 - $15.50</span>
-                </li>
-                <li class="list-group-item d-flex align-items-center">
-                    <img src="https://via.placeholder.com/50" alt="Item 3" class="img-thumbnail me-3">
-                    <span>Item 3 - $7.25</span>
-                </li>
+               
+                @foreach(var item in items)
+                {
+                    <li class="list-group-item d-flex align-items-center">
+                        <img src ="~/uploaded_images/items/@(item.ItemImage)" alt="Item 1" class="img-thumbnail me-3">
+                        <span>@item.Name - @item.FinalPrice</span>
+                    </li>
+                }
+
+
                 <!-- Loop through actual order items here -->
             </ul>
         </div>
@@ -32,20 +60,46 @@
         <div class="col-md-6">
             <div class="row justify-content-center">
                 <div class="col-md-8">
-                    <form method="post" action="/Orders/UpdateOrder">
+                    <form method="post" asp-action="UpdateOrder" asp-asp-controller="Admin">
                         <div class="form-group mb-3">
                             <label for="orderId">Order ID</label>
-                            <input type="text" readonly class="form-control" id="orderId" name="orderId" style="border:1px #eeeeee solid ; border-radius:10px" />
+                            <input type="text" readonly class="form-control" id="orderId" name="orderId" style="border:1px #eeeeee solid ; border-radius:10px" asp-for="OrderId" />
                         </div>
+                        @if (Model.OrderStatus == RG_Store.DAL.Enums.OrderStatus.pending)
+                        {
+                            <div class="form-group mb-3">
+                                <label for="orderStatus">Order Status</label>
+                                <select class="form-control" id="orderStatus" name="orderStatus" style="border:1px #eeeeee solid; border-radius:10px" asp-for="OrderStatus">
+                                    @foreach (var status in Enum.GetValues(typeof(RG_Store.DAL.Enums.OrderStatus)))
+                                    {
+                                        var statusValue = (int)status;
+                                        var statusName = Enum.GetName(typeof(RG_Store.DAL.Enums.OrderStatus), status);
+                                        <option value="@statusValue">@statusName</option>
+                                    }
+                                </select>
+                            </div>
+                        }
+                        else
+                        {
+                            if (Model.OrderStatus == RG_Store.DAL.Enums.OrderStatus.Completed)
+                            {
+                                <span class="status completed">Completed</span>
+                            }
+                            else
+                            {
+                                <span class="status canceled">Canceld</span>
+                            }
+                        }
 
-                        <div class="form-group mb-3">
-                            <label for="orderStatus">Order Status</label>
-                            <select class="form-control" id="orderStatus" name="orderStatus" style="border:1px #eeeeee solid ; border-radius:10px">
-                                <option value="Pending">Pending</option>
-                                <option value="Delivered">Confairmed</option>
-                                <option value="Canceled">Canceled</option>
-                            </select>
+                       
+                        @if (Model.OrderStatus == RG_Store.DAL.Enums.OrderStatus.pending)
+                        {
+                            <div class="row justify-content-center mt-4">
+                                <div class="col-md-4 text-center">
+                                <button type="submit" @* form="orderForm" *@ class="btn btn-primary">Update Order</button>
+                            </div>
                         </div>
+                        }
                     </form>
                 </div>
             </div>
@@ -53,9 +107,5 @@
     </div>
 
     <!-- Centered Update Button at the bottom -->
-    <div class="row justify-content-center mt-4">
-        <div class="col-md-4 text-center">
-            <button type="submit" form="orderForm" class="btn btn-primary">Update Order</button>
-        </div>
-    </div>
+    
 </div>

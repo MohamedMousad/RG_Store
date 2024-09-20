@@ -40,11 +40,14 @@
                                             <button type="submit" class="btn btn-sm btn-primary me-1" title="Remove item">
                                                 <i class="fas fa-trash"></i>
                                             </button>
+                                        </form> 
+                                        <form asp-controller="Favourite" asp-action="AddToFavourite">
+                                            <input type="hidden" name="itemId" value="@item.Id" />
+                                            <button type="submit" class="btn btn-sm btn-danger" title="Move to the wish list">
+                                                <i class="fas fa-heart"></i>
+                                            </button>
                                         </form>
-
-                                        <button type="button" class="btn btn-sm btn-danger" title="Move to the wish list">
-                                            <i class="fas fa-heart"></i>
-                                        </button>
+                    
                                     </div>
                                 </div>
 

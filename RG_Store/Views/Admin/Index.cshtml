@@ -1,10 +1,36 @@
 ﻿﻿@using RG_Store.BLL.ModelVM.OrderVM
-@model GetOrderVM
+@model List<GetOrderVM>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_DashBoard.cshtml";
 }
+<style>
 
+    /* Base styling for status */
+    .status {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 0.875em;
+        font-weight: 600;
+        color: #fff; /* Default text color */
+    }
+
+        /* Styling for canceled status */
+        .status.canceled {
+            background-color: #e74c3c; /* Red background color */
+        }
+
+        /* Additional styles for other statuses */
+        .status.completed {
+            background-color: #2ecc71; /* Green background color */
+        }
+
+        .status.pending {
+            background-color: #f39c12; /* Orange background color */
+        }
+
+</style>
 <div class="head-title">
     <div class="left">
         <h1>Orders</h1>
@@ -44,21 +70,22 @@
         </span>
     </li>
 </ul>
-
 <div class="table-data">
     <div class="order">
         <div class="head">
             <h3>Recent Orders</h3>
             @* Create Orders
             <li class="list-inline-item">
-            <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Add"><i class="fa fa-table"></i></button>
+            <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Add">
+            <i class="fa fa-table"></i>
+            </button>
             </li>
             *@
         </div>
         <table>
             <thead>
                 <tr>
-                    <th>User</th>
+                    <th>User Name</th>
                     <th>Order Id</th>
                     <th>Date Order</th>
                     <th>Status</th>
@@ -66,28 +93,45 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Name</td>
-                    <td>
-                        @*                         <img src="img/people.png"> *@
-                        <p>Model.OrderId</p>
-                    </td>
-                    <td>Model.CreatedOn</td>
-                    <td>
-                        
-                        <span class="status completed">Model.OrderStatus</span>
-                    </td>
-                    <td>
-                        <!-- Call to action buttons -->
-                        <ul class="list-inline m-0">
-                            <li class="list-inline-item">
-                                <a asp-controller="Admin"  asp-action="UpdateOrder" class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td>@order.userName</td>
+                        <td>
+                            <p>@order.OrderId</p>
+                        </td>
+                        <td>@order.CreatedOn</td>
+                        <td>
+                            @if (order.OrderStatus == RG_Store.DAL.Enums.OrderStatus.Completed)
+                            {
+                                <span class="status completed">Completed</span>
+                            }
+                            else if (order.OrderStatus == RG_Store.DAL.Enums.OrderStatus.pending) @* Note case sensitivity in Enum *@
+                            {
+                                <span class="status pending">Pending</span>
+                            }
+                            else
+                            {
+                                <span class="status canceled">Canceled</span>
+                            }
+                        </td>
+                        <td>
+                            <!-- Call to action buttons -->
+                            <ul class="list-inline m-0">
+                                <li class="list-inline-item">
+                                    <a href="/Admin/UpdateOrder/@order.OrderId" class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
+    </div>
+</div>
+
     </div>
 
 </div>

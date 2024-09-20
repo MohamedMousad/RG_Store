@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RG_Store.BLL.ModelVM.ItemVM;
+using RG_Store.BLL.ModelVM.OrderVM;
 using RG_Store.BLL.ModelVM.UserVM;
 using RG_Store.BLL.Service.Abstraction;
 using RG_Store.BLL.Service.Abstraction.RG_Store.BLL.Service.Abstraction;
@@ -11,11 +12,12 @@ namespace RG_Store.PLL.Controllers
     {
         private readonly IUserService _userService;
         private readonly IItemService ItemService;
-        public AdminController(IUserService userService, IItemService ItemService)
+        private readonly IOrderService orderService;
+        public AdminController(IUserService userService, IItemService ItemService, IOrderService orderService)
         {
             this._userService = userService;
             this.ItemService = ItemService;
-
+            this.orderService = orderService;
         }
 
         #region Order
@@ -23,17 +25,36 @@ namespace RG_Store.PLL.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
-            //ViewBag.UserName = username;
-            return View();
+            var orders = await orderService.GetAllOrders();
+            return View(orders.ToList());
         }
-
-        public async Task<IActionResult> UpdateOrder()
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public async Task<IActionResult> UpdateOrder(int id)
         {
-            //ViewBag.UserName = username;
-            return View();
-        }
+           var it = await orderService.GetAllOrderItem(id);
+            ViewBag.Items = it.ToList();
 
-        
+           var res = await orderService.GetById(id);
+
+            UpdateOrderVM model = new();
+            model.OrderStatus = res.OrderStatus;
+            model.OrderId = res.OrderId;
+            model.CreatedOn = res.CreatedOn;
+            model.TotalCost = res.TotalCost;
+            return View(model);
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public async Task<IActionResult> UpdateOrder(UpdateOrderVM model)
+        {
+            var it = await orderService.GetAllOrderItem(model.OrderId);
+            ViewBag.Items = it.ToList();
+
+            var res = await orderService.UpdateOrder(model);
+            if (res) return RedirectToAction("Index", "Admin");
+            return View(model);
+        }
 
 
 
@@ -162,16 +183,6 @@ namespace RG_Store.PLL.Controllers
 
 
 
-        /*[Authorize(Roles = "Admin")]
-        public IActionResult Categories()
-        {
-            return View();
-        }
-*/
-
-
-
-
         #region Item
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> items()
@@ -237,7 +248,7 @@ namespace RG_Store.PLL.Controllers
             model.IntialPrice = item.IntialPrice;
             model.FinalPrice = item.FinalPrice;
             model.Quantity = item.Quantity;
-            model.Image = model.Image;
+            model.IsDelted = item.IsDeleted;
 
             return View(model);
         }

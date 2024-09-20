@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EmployeeSystem.DAL.Repo.Abstraction;
 using Entities;
+using Microsoft.AspNetCore.Identity;
 using RG_Store.BLL.ModelVM.ItemVM;
 using RG_Store.BLL.ModelVM.OrderVM;
 using RG_Store.BLL.Service.Abstraction;
@@ -12,9 +13,9 @@ namespace RG_Store.BLL.Service.Implementation
     {
         private readonly IOrderRepo orderRepo;
         private readonly IMapper mapper;
-        private readonly ICartRepo cartRepo;
+        private readonly IUserRepo cartRepo;
 
-        public OrderService(IOrderRepo orderRepo, IMapper mapper, ICartRepo cartRepo)
+        public OrderService(IOrderRepo orderRepo, IMapper mapper, IUserRepo cartRepo)
         {
             this.orderRepo = orderRepo;
             this.mapper = mapper;
@@ -23,6 +24,7 @@ namespace RG_Store.BLL.Service.Implementation
 
         public async Task<bool> CreateOrder(int cartid, string userid)
         {
+
             return await orderRepo.CreateOrder(cartid, userid);
         }
 
@@ -64,6 +66,10 @@ namespace RG_Store.BLL.Service.Implementation
             foreach (var item in List)
             {
                 var temp = mapper.Map<GetOrderVM>(item);
+                var user = await cartRepo.GetById(item.UserId);
+                temp.OrderId = item.Id;
+
+                temp.userName = user.UserName??""; 
                 Res.Add(temp);
             }
             return Res;
@@ -73,25 +79,36 @@ namespace RG_Store.BLL.Service.Implementation
         public async Task<IEnumerable<GetOrderVM>> GetAllUserOrders(string userid)
         {
             var List = await orderRepo.GetAllUserOrders(userid);
+       /*     var user = await cartRepo.GetById(userid);*/
 
             List<GetOrderVM> Res = new List<GetOrderVM>();
 
             foreach (var item in List)
             {
                 var temp = mapper.Map<GetOrderVM>(item);
+                temp.OrderId = item.Id;
+                /*temp.userName = user.UserName ?? "";*/
                 Res.Add(temp);
             }
             return Res;
         }
 
-        public async Task<Order> GetById(int id)
+        public async Task<GetOrderVM> GetById(int id)
         {
-            return await orderRepo.GetById(id);
+            var ord = await orderRepo.GetById(id);
+            var user = await cartRepo.GetById(ord.UserId);
+            var res = mapper.Map<GetOrderVM>(ord);
+            res.OrderId = ord.Id;
+            res.userName = user.UserName ?? "Not Found";
+
+            return res; 
         }
 
-        public async Task<bool> UpdateOrder(Order orderid)
+        public async Task<bool> UpdateOrder(UpdateOrderVM orderid)
         {
-            return await orderRepo.UpdateOrder(orderid);
+            var ord = await orderRepo.GetById(orderid.OrderId);
+            ord.OrderStatus = orderid.OrderStatus;
+            return await orderRepo.UpdateOrder(ord);
         }
 
     }

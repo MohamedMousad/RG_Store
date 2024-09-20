@@ -25,6 +25,7 @@ namespace RG_Store.BLL.Service.Implementation
             this.mapper = mapper;
             this.userRepo = userRepo;
         }
+
         public async Task<bool> CreateUser(RegisterVM registerVM)
         {
 
@@ -89,9 +90,9 @@ namespace RG_Store.BLL.Service.Implementation
 
         public async Task<bool> SignInUserAsync(LoginVM model)
         {
-            var uservm = GetByEmailAsync(model.Email);
-
-            var result = await signInManager.PasswordSignInAsync(uservm.Result.UserName, model.Password, isPersistent: false, lockoutOnFailure: false);
+            var uservm =await GetByEmailAsync(model.Email);
+            if (uservm.IsDeleted) return false;
+            var result = await signInManager.PasswordSignInAsync(uservm.UserName, model.Password, isPersistent: false, lockoutOnFailure: false);
             if (result.Succeeded)
             {
                 Console.WriteLine("Login successful.");
@@ -229,85 +230,12 @@ namespace RG_Store.BLL.Service.Implementation
 
 
             var resetLink = $"https://localhost:7126/Account/ResetPassword?token={Uri.EscapeDataString(token)}&email={email}";
-            await SendEmailAsync(user.Email, "Reset your password", $@"
-<html>
-<head>
-    <meta charset='UTF-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <title>Email Confirmation</title>
-    <style>
-        body {{
-            background-color: #1f1b2d;
-            color: #9691a4;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }}
-        .email-container {{
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #0f3460;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-        }}
-        .header {{
-            text-align: center;
-            padding-bottom: 20px;
-        }}
-        .header img {{
-            width: 100px;
-        }}
-        .content {{
-            text-align: center;
-        }}
-        .content h1 {{
-            color: #fd5631;
-            margin-bottom: 20px;
-        }}
-        .content p {{
-            color: #ffffff;
-            font-size: 16px;
-            margin-bottom: 30px;
-        }}
-        .confirmation-button {{
-            display: inline-block;
-            padding: 15px 30px;
-            font-size: 16px;
-            color: #ffffff;
-            background-color: #fd5631;
-            border-radius: 5px;
-            text-decoration: none;
-            margin-top: 20px;
-        }}
-        .confirmation-button:hover {{
-            background-color: #fd390e;
-        }}
-        .footer {{
-            text-align: center;
-            padding-top: 20px;
-            font-size: 12px;
-            color: #a6a6a6;
-        }}
-    </style>
-</head>
-<body>
-    <div class='email-container'>
-        <div class='header'>
-            <img src='https://localhost:7126/images/rg_logo.png' alt='RG Store Logo'>
-        </div>
-        <div class='content'>
-            <h1>Reset Password</h1>
-            <p>Please reset your password by clicking the button below.</p>
-            <a href='{resetLink}' class='confirmation-button'>Reset Password</a>
-        </div>
-        <div class='footer'>
-            <p>If you did not request this email, please ignore it.</p>
-        </div>
-    </div>
-</body>
-</html>");
+            string baseDirectory = AppContext.BaseDirectory;
+            string templatePath = Path.Combine(baseDirectory, "..", "..", "..", "Views", "EmailTemplates", "ResetPass.cshtml");
+
+            var body = await File.ReadAllTextAsync(templatePath);
+            body = body.Replace("{{ResetLink}}", resetLink);
+            await SendEmailAsync(user.Email, "Reset your password", body);
 
             return token;
         }

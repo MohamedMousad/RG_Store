@@ -58,85 +58,14 @@ namespace RG_Store.PLL.Controllers
 
                     var confirmationLink = Url.Action("ConfirmEmail", "Account",
                         new { token = token }, protocol: Request.Scheme);
-                    string body = $@"
-<html>
-<head>
-    <meta charset='UTF-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <title>Email Confirmation</title>
-    <style>
-        body {{
-            background-color: #1f1b2d;
-            color: #9691a4;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }}
-        .email-container {{
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #0f3460;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-        }}
-        .header {{
-            text-align: center;
-            padding-bottom: 20px;
-        }}
-        .header img {{
-            width: 100px;
-        }}
-        .content {{
-            text-align: center;
-        }}
-        .content h1 {{
-            color: #fd5631;
-            margin-bottom: 20px;
-        }}
-        .content p {{
-            color: #ffffff;
-            font-size: 16px;
-            margin-bottom: 30px;
-        }}
-        .confirmation-button {{
-            display: inline-block;
-            padding: 15px 30px;
-            font-size: 16px;
-            color: #ffffff;
-            background-color: #fd5631;
-            border-radius: 5px;
-            text-decoration: none;
-            margin-top: 20px;
-        }}
-        .confirmation-button:hover {{
-            background-color: #fd390e;
-        }}
-        .footer {{
-            text-align: center;
-            padding-top: 20px;
-            font-size: 12px;
-            color: #a6a6a6;
-        }}
-    </style>
-</head>
-<body>
-    <div class='email-container'>
-        <div class='header'>
-            <img src='https://localhost:7126/images/rg_logo.png' alt='RG Store Logo'>
-        </div>
-        <div class='content'>
-            <h1>Email Confirmation</h1>
-            <p>Please confirm your email address by clicking the button below.</p>
-            <a href='{confirmationLink}' class='confirmation-button'>Confirm Email</a>
-        </div>
-        <div class='footer'>
-            <p>If you did not request this email, please ignore it.</p>
-        </div>
-    </div>
-</body>
-</html>";
+                    string baseDirectory = AppContext.BaseDirectory;
+
+                    string templatePath = Path.Combine(baseDirectory, "..", "..", "..", "Views", "EmailTemplates", "EmailConfirmation.cshtml");
+                    string body = await System.IO.File.ReadAllTextAsync(templatePath);
+
+                    // Replace placeholders with actual values
+                    body = body.Replace("{{logoUrl}}", "https://localhost:7126/images/rg_logo.png")
+                               .Replace("{{confirmationLink}}", confirmationLink);
 
                     await userService.SendEmailAsync(user.Email, "Confirm your email",body);
 
@@ -158,12 +87,12 @@ namespace RG_Store.PLL.Controllers
 
 
         [HttpGet]
-        public IActionResult SignIn()
+        public IActionResult Login()
         {
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> SignIn(LoginVM model)
+        public async Task<IActionResult> Login(LoginVM model)
         {
             if (ModelState.IsValid)
             {
@@ -251,6 +180,7 @@ namespace RG_Store.PLL.Controllers
             var result = await userService.ResetPasswordAsync(model.Email, model.Token, model.Password);
             if (result)
             {
+                TempData["SuccessMessage"] = "Your password has been reset successfully. Please log in with your new password.";
                 return RedirectToAction("SignIn");
             }
 
@@ -340,6 +270,10 @@ namespace RG_Store.PLL.Controllers
             {
                 return View(model);
             }
+        }
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
 
 
