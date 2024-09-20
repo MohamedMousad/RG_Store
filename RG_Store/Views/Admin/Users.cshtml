@@ -6,6 +6,13 @@
     ViewData["Title"] = "Users";
     Layout = "~/Views/Shared/_DashBoard.cshtml";
     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+
+var Sales = ViewBag.TotalSales;
+var ordercount =   ViewBag.OrderCount;
+ var usercount= ViewBag.UsrsCount;
+
+
 }
 
 <div class="head-title">

@@ -45,7 +45,11 @@ namespace RG_Store.BLL.Service.Implementation
                 return false;
             }
         }
-
+        public async Task<int> GetUserCount()
+        {
+            var list = await GetAll();
+            return list.Count();
+        }
         public async Task<bool> DeleteUser(DeleteUserVM model)
         {
             var user = mapper.Map<User>(model);
@@ -58,16 +62,19 @@ namespace RG_Store.BLL.Service.Implementation
             var temp = await userRepo.GetAll();
             foreach (var user in temp)
             {
-                GetUserVM result = new();
-                result.UserId = user.Id;
-                result.UserName = user.UserName;
-                result.FirstName = user.FirstName;
-                result.LastName = user.LastName;
-                result.UserGender = user.UserGender;
-                result.Email = user.Email;
-                result.ProfileImage = user.ProfileImage;
-                result.UserRole = user.UserRole;
-                resultlist.Add(result);
+                if (user.IsDeleted == false)
+                {
+                   GetUserVM result = new();
+                    result.UserId = user.Id;
+                    result.UserName = user.UserName;
+                    result.FirstName = user.FirstName;
+                    result.LastName = user.LastName;
+                    result.UserGender = user.UserGender;
+                    result.Email = user.Email;
+                    result.ProfileImage = user.ProfileImage;
+                    result.UserRole = user.UserRole;
+                    resultlist.Add(result);
+                }
             }
             return resultlist;
         }

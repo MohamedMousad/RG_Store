@@ -20,6 +20,8 @@ namespace RG_Store.BLL.Service.Abstraction
 
             public Task<GetUserVM> GetUserVM(string id);
 
+            public Task<int> GetUserCount();
+
             public Task<IEnumerable<GetUserVM>> GetAll();
 
             public Task SendEmailAsync(string to, string subject, string body);

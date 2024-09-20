@@ -12,6 +12,8 @@ namespace RG_Store.BLL.Service.Abstraction
         public Task<IEnumerable<GetOrderVM>> GetAllOrders();
         public Task<IEnumerable<GetOrderVM>> GetAllUserOrders(string userid);
         public Task<IEnumerable<GetAllItemVM>> GetAllOrderItem(int id);
+        public Task<int> GetOrderCounts();
+        public Task<decimal> GetTotalSales();
         public Task<GetOrderVM> GetById(int id);
 
     }
