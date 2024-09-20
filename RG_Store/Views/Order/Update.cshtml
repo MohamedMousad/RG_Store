@@ -1,7 +1,36 @@
-﻿@{
+﻿@using RG_Store.BLL.ModelVM.ItemVM
+@using RG_Store.BLL.ModelVM.OrderVM
+@{
     ViewData["Title"] = "Update";
+    List<GetAllItemVM?> items = ViewBag.items;
+    items.ToList();
 }
+@model UpdateOrderVM 
+<style>
+    /* Base styling for status */
+    .status {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 0.875em;
+        font-weight: 600;
+        color: #fff; /* Default text color */
+    }
 
+        /* Styling for canceled status */
+        .status.canceled {
+            background-color: #e74c3c; /* Red background color */
+        }
+
+        /* Additional styles for other statuses */
+        .status.completed {
+            background-color: #2ecc71; /* Green background color */
+        }
+
+        .status.pending {
+            background-color: #f39c12; /* Orange background color */
+        }
+</style>
 <div class="container pt-5 mt-5 mb-sm-2">
     <!-- Breadcrumb-->
     <nav class="mb-4 pt-md-3" aria-label="Breadcrumb">
@@ -35,42 +64,72 @@
         </aside>
         <!-- Content-->
         <div class="col-lg-8 col-md-7 mb-5">
-            <div class="d-flex justify-content-between mb-3">
-                <div class="w-50 pe-2">
-                    <label for="orderId" class="form-label" style="color:white">Order ID</label>
-                    <input type="text" readonly class="form-control" id="orderId" name="orderId" style="color : #454056;border:1px #eeeeee solid; border-radius:10px" />
+           <form asp-action="Update" asp-controller="Order" method="post">
+
+                <div class="d-flex justify-content-between mb-3">
+                    <div class="w-50 pe-2">
+                        <label for="orderId" class="form-label" style="color:white">Order ID</label>
+                        <input type="text" readonly class="form-control" id="orderId" name="orderId" style="color : #454056;border:1px #eeeeee solid; border-radius:10px" asp-for="OrderId" />
+                    </div>
+                    @if (Model.OrderStatus == RG_Store.DAL.Enums.OrderStatus.pending)
+                    {
+                        <div class="form-group mb-3">
+                            <label for="orderStatus">Order Status</label>
+                            <select class="form-control" id="orderStatus" name="orderStatus" style="border:1px #eeeeee solid; border-radius:10px" asp-for="OrderStatus">
+                                @foreach (var status in Enum.GetValues(typeof(RG_Store.DAL.Enums.OrderStatus)))
+                                {
+                                    if ((RG_Store.DAL.Enums.OrderStatus)status != RG_Store.DAL.Enums.OrderStatus.Completed)
+                                    {
+                                        var statusValue = (int)status;
+                                        var statusName = Enum.GetName(typeof(RG_Store.DAL.Enums.OrderStatus), status);
+                                        <option value="@statusValue">@statusName</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    }
+                    else
+                    {
+                        if (Model.OrderStatus == RG_Store.DAL.Enums.OrderStatus.Completed)
+                        {
+                            <span class="status completed">Completed</span>
+                        }
+                        else
+                        {
+                            <span class="status canceled">Canceld</span>
+                        }
+                    }
+
+
+                    @if (Model.OrderStatus == RG_Store.DAL.Enums.OrderStatus.pending)
+                    {
+                        <div class="row justify-content-center mt-4">
+                            <div class="col-md-4 text-center">
+                                <button type="submit" @* form="orderForm" *@ class="btn btn-primary">Update Order</button>
+                            </div>
+                        </div>
+                    }
                 </div>
-                <div class="w-50 ps-2">
-                    <label for="orderStatus" class="form-label" style="color:white">Order Status</label>
-                    <select class="form-control" id="orderStatus" name="orderStatus" style="border:1px #eeeeee solid; border-radius:10px">
-                        <option value="Pending">Pending</option>
-                        <option value="Delivered">Confirmed</option>
-                        <option value="Canceled">Canceled</option>
-                    </select>
-                </div>
-            </div>
+          
+           </form>
 
             <ul class="list-group">
-                <li class="list-group-item d-flex align-items-center">
-                    <img src="https://via.placeholder.com/50" alt="Item 1" class="img-thumbnail me-3">
-                    <span>Item 1 - $10.00</span>
-                </li>
-                <li class="list-group-item d-flex align-items-center">
-                    <img src="https://via.placeholder.com/50" alt="Item 2" class="img-thumbnail me-3">
-                    <span>Item 2 - $15.50</span>
-                </li>
-                <li class="list-group-item d-flex align-items-center">
-                    <img src="https://via.placeholder.com/50" alt="Item 3" class="img-thumbnail me-3">
-                    <span>Item 3 - $7.25</span>
-                </li>
+                @foreach(var item in items)
+                {
+                    <li class="list-group-item d-flex align-items-center">
+                        <img src="~/uploaded_images/items/@item.ItemImage"  alt="Item 1" class="img-thumbnail me-3">
+                        <span>@item.Name - @item.FinalPrice</span>
+                    </li>
+                }
+
             </ul>
 
             <!-- Centered Update Button at the bottom -->
-            <div class="row justify-content-center mt-4">
+           @*  <div class="row justify-content-center mt-4">
                 <div class="col-md-4 text-center">
                     <button type="submit" form="orderForm" class="btn btn-primary">Update Order</button>
                 </div>
-            </div>
+            </div> *@
         </div>
     </div>
 </div>

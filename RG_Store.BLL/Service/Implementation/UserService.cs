@@ -90,9 +90,9 @@ namespace RG_Store.BLL.Service.Implementation
 
         public async Task<bool> SignInUserAsync(LoginVM model)
         {
-            var uservm = GetByEmailAsync(model.Email);
-
-            var result = await signInManager.PasswordSignInAsync(uservm.Result.UserName, model.Password, isPersistent: false, lockoutOnFailure: false);
+            var uservm =await GetByEmailAsync(model.Email);
+            if (uservm.IsDeleted) return false;
+            var result = await signInManager.PasswordSignInAsync(uservm.UserName, model.Password, isPersistent: false, lockoutOnFailure: false);
             if (result.Succeeded)
             {
                 Console.WriteLine("Login successful.");

@@ -41,7 +41,14 @@
 
 
                 <div class="d-flex justify-content-center mt-3">
-                    <button class="btn btn-danger btn-lg me-2" style="width: 35%" type="submit">Delete Item</button>
+                    @if (Model.IsDelted)
+                    {
+                        <button class="btn btn-danger btn-lg me-2" style="width: 35%" type="submit">Restore Item</button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-primary btn-lg me-2" style="width: 35%" type="submit">Delete Item</button>
+                    }
                     <a href="@Url.Action("items", "Admin")" style="width: 35%" class="btn btn-secondary btn-lg">Cancel</a>
                 </div>
             </form>

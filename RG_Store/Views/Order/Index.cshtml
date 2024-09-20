@@ -179,18 +179,40 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach (var item in Model)
+                        @foreach (var order in Model)
                         {
                             <tr>
-                                <th scope="row">@item.OrderId</th>
-                                <td>@item.CreatedOn </td>
-                                <td>$120.00</td>
-                                <td><span class="badge badge-success">@item.OrderStatus.ToString()</span></td>
-                                <td class="action-icons">
-                                    <a asp-controller="Order" asp-action="Update" class="edit"><i class="fas fa-edit"></i></a>
+                                <td>
+                                    <p>@order.OrderId</p>
+                                </td>
+                                <td>@order.CreatedOn</td>
+                                <td>@order.TotalCost</td>
+                                <td>
+                                    @if (order.OrderStatus == RG_Store.DAL.Enums.OrderStatus.Completed)
+                                    {
+                                        <span class="status completed">Completed</span>
+                                    }
+                                    else if (order.OrderStatus == RG_Store.DAL.Enums.OrderStatus.pending) @* Note case sensitivity in Enum *@
+                                    {
+                                        <span class="status pending">Pending</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="status canceled">Canceled</span>
+                                    }
+                                </td>
+                                <td>
+                                    <!-- Call to action buttons -->
+                                    <ul class="list-inline m-0">
+                                        <li class="list-inline-item">
+                                            <a href="/order/Update/@order.OrderId" class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </td>
                             </tr>
-                            }
+                        }
                         </tbody>
                     </table>
 

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using RG_Store.BLL.ModelVM.OrderVM;
 using RG_Store.BLL.Service.Abstraction;
 
 namespace RG_Store.PLL.Controllers
@@ -29,7 +30,7 @@ namespace RG_Store.PLL.Controllers
 
             var orders = await orderService.GetAllUserOrders(userid);
 
-            return View(orders);
+            return View(orders.ToList());
         }
         [Authorize]
         public async Task<IActionResult> Create()
@@ -51,7 +52,6 @@ namespace RG_Store.PLL.Controllers
                 }
 
                 bool result = await orderService.CreateOrder(cartId ?? 3005, user.Id);
-                Console.WriteLine(result);
                 if (result)
                 {
                     TempData["SuccessMessage"] = "Order added successfully!";
@@ -73,11 +73,30 @@ namespace RG_Store.PLL.Controllers
             }
         }
         [Authorize]
-        public async Task<IActionResult> Update(int orderid)
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
         {
+            var it = await orderService.GetAllOrderItem(id);
+            ViewBag.Items = it.ToList();
 
+            var res = await orderService.GetById(id);
 
-            return View();
+            UpdateOrderVM model = new();
+            model.OrderStatus = res.OrderStatus;
+            model.OrderId = res.OrderId;
+            model.CreatedOn = res.CreatedOn;
+            model.TotalCost = res.TotalCost;
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Update(UpdateOrderVM model)
+        {
+            var it = await orderService.GetAllOrderItem(model.OrderId);
+            ViewBag.Items = it.ToList();
+
+            var res = await orderService.UpdateOrder(model);
+            if (res) return RedirectToAction("Index", "Admin");
+            return View(model);
         }
     }
 }

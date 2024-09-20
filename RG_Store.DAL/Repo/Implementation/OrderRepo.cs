@@ -32,8 +32,11 @@ namespace EmployeeSystem.DAL.Repo.Implementation
             try
             {
                 var items = await cartRepo.GetAllItems(cartid);
-
+            
                 var user = await userRepo.GetById(userid);
+
+                var t = items.ToList();
+                if (t.Count == 0) return false; 
 
                 Order order = new Order();
 
@@ -142,7 +145,7 @@ namespace EmployeeSystem.DAL.Repo.Implementation
             {
                 var order = await GetById(ordervm.Id);
 
-                if (order.OrderStatus == OrderStatus.Completed) return false;
+               /* if (order.OrderStatus == OrderStatus.Completed) return false;*/
 
                 order.OrderStatus = ordervm.OrderStatus;
 
