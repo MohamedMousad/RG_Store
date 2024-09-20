@@ -5,7 +5,8 @@
     List<GetAllItemVM?> items = ViewBag.items;
     items.ToList();
 }
-@model UpdateOrderVM 
+@model UpdateOrderVM
+
 <style>
     /* Base styling for status */
     .status {
@@ -22,15 +23,26 @@
             background-color: #e74c3c; /* Red background color */
         }
 
-        /* Additional styles for other statuses */
+        /* Styling for completed status */
         .status.completed {
             background-color: #2ecc71; /* Green background color */
         }
 
+        /* Styling for pending status */
         .status.pending {
             background-color: #f39c12; /* Orange background color */
         }
+
+    /* Additional styling */
+    .form-container {
+        margin-bottom: 20px;
+    }
+
+    .order-items {
+        margin-bottom: 20px;
+    }
 </style>
+
 <div class="container pt-5 mt-5 mb-sm-2">
     <!-- Breadcrumb-->
     <nav class="mb-4 pt-md-3" aria-label="Breadcrumb">
@@ -40,6 +52,7 @@
             <li class="breadcrumb-item active" aria-current="page">Order Details</li>
         </ol>
     </nav>
+
     <!-- Page content-->
     <div class="row" style="margin-bottom:50px">
         <!-- Sidebar-->
@@ -62,18 +75,20 @@
                 </div>
             </div>
         </aside>
+
         <!-- Content-->
         <div class="col-lg-8 col-md-7 mb-5">
-           <form asp-action="Update" asp-controller="Order" method="post">
+            <form asp-action="Update" asp-controller="Order" method="post" class="form-container">
 
+                <!-- Order ID and Status on top of the items list -->
                 <div class="d-flex justify-content-between mb-3">
                     <div class="w-50 pe-2">
                         <label for="orderId" class="form-label" style="color:white">Order ID</label>
-                        <input type="text" readonly class="form-control" id="orderId" name="orderId" style="color : #454056;border:1px #eeeeee solid; border-radius:10px" asp-for="OrderId" />
+                        <input type="text" readonly class="form-control" id="orderId" name="orderId" style="color: #454056 !important; border:1px #eeeeee solid; border-radius:10px" asp-for="OrderId" />
                     </div>
                     @if (Model.OrderStatus == RG_Store.DAL.Enums.OrderStatus.pending)
                     {
-                        <div class="form-group mb-3">
+                        <div class="form-group " style="width:250px">
                             <label for="orderStatus">Order Status</label>
                             <select class="form-control" id="orderStatus" name="orderStatus" style="border:1px #eeeeee solid; border-radius:10px" asp-for="OrderStatus">
                                 @foreach (var status in Enum.GetValues(typeof(RG_Store.DAL.Enums.OrderStatus)))
@@ -90,46 +105,38 @@
                     }
                     else
                     {
-                        if (Model.OrderStatus == RG_Store.DAL.Enums.OrderStatus.Completed)
+                        @if (Model.OrderStatus == RG_Store.DAL.Enums.OrderStatus.Completed)
                         {
-                            <span class="status completed">Completed</span>
+                            <span class="status completed" style="height:44px;line-height: 38px ;width:110px ; text-align:center !important; margin-top:23px ">Completed</span>
                         }
                         else
                         {
-                            <span class="status canceled">Canceld</span>
+                            <span class="status canceled" style="height:44px;line-height: 38px ;width:110px ; text-align:center !important; margin-top:23px ">Canceled</span>
                         }
                     }
+                </div>
 
-
-                    @if (Model.OrderStatus == RG_Store.DAL.Enums.OrderStatus.pending)
+                <!-- Order items list -->
+                <ul class="list-group order-items">
+                    @foreach (var item in items)
                     {
-                        <div class="row justify-content-center mt-4">
-                            <div class="col-md-4 text-center">
-                                <button type="submit" @* form="orderForm" *@ class="btn btn-primary">Update Order</button>
-                            </div>
-                        </div>
+                        <li class="list-group-item d-flex align-items-center">
+                            <img src="~/uploaded_images/items/@item.ItemImage" alt="Item" class="img-thumbnail me-3" style="max-width: 50px;">
+                            <span>@item.Name - @item.FinalPrice</span>
+                        </li>
                     }
-                </div>
-          
-           </form>
+                </ul>
 
-            <ul class="list-group">
-                @foreach(var item in items)
+                <!-- Centered Update Button at the bottom -->
+                @if (Model.OrderStatus == RG_Store.DAL.Enums.OrderStatus.pending)
                 {
-                    <li class="list-group-item d-flex align-items-center">
-                        <img src="~/uploaded_images/items/@item.ItemImage"  alt="Item 1" class="img-thumbnail me-3">
-                        <span>@item.Name - @item.FinalPrice</span>
-                    </li>
+                    <div class="row justify-content-center mt-4">
+                        <div class="col-md-4 text-center">
+                            <button type="submit" class="btn btn-primary">Update Order</button>
+                        </div>
+                    </div>
                 }
-
-            </ul>
-
-            <!-- Centered Update Button at the bottom -->
-           @*  <div class="row justify-content-center mt-4">
-                <div class="col-md-4 text-center">
-                    <button type="submit" form="orderForm" class="btn btn-primary">Update Order</button>
-                </div>
-            </div> *@
+            </form>
         </div>
     </div>
 </div>

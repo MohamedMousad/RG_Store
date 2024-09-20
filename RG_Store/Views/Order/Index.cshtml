@@ -108,6 +108,29 @@
             color: #777;
         }
 
+    .status {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 0.875em;
+        font-weight: 600;
+        color: #fff; /* Default text color */
+    }
+
+        /* Styling for canceled status */
+        .status.canceled {
+            background-color: #e74c3c; /* Red background color */
+        }
+
+        /* Additional styles for other statuses */
+        .status.completed {
+            background-color: #2ecc71; /* Green background color */
+        }
+
+        .status.pending {
+            background-color: #f39c12; /* Orange background color */
+        }
+
 </style>
 
 <div class="container pt-5  mt-5 mb-sm-2">
@@ -163,22 +186,22 @@
         </aside>
         <!-- Content-->
 
-        <div class="col-lg-8 col-md-7 mb-5" >
+        <div class="col-lg-8 col-md-7 mb-5">
             <h1 class="h2 text-light">Your Order History</h1>
 
-            <form class="needs-validation pb-4" novalidate >
+            <form class="needs-validation pb-4" novalidate>
 
-                <table class="table" >
-                        <thead>
-                            <tr>
+                <table class="table">
+                    <thead>
+                        <tr>
                             <th scope="col" style="color :white !important;">Order ID</th>
-                                <th scope="col" style="color :white !important;" >Order Date</th>
-                                <th scope="col" style="color :white !important;" >Total Amount</th>
-                                <th scope="col" style="color :white !important;" >Status</th>
-                                <th scope="col" style="color :white !important;" >Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                            <th scope="col" style="color :white !important;">Order Date</th>
+                            <th scope="col" style="color :white !important;">Total Amount</th>
+                            <th scope="col" style="color :white !important;">Status</th>
+                            <th scope="col" style="color :white !important;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         @foreach (var order in Model)
                         {
                             <tr>
@@ -213,8 +236,8 @@
                                 </td>
                             </tr>
                         }
-                        </tbody>
-                    </table>
+                    </tbody>
+                </table>
 
             </form>
         </div>
