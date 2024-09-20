@@ -17,6 +17,7 @@ namespace RG_Store.BLL.Service.Implementation
         private readonly CustomUserManager userManager;
         private readonly IMapper mapper;
         private readonly SignInManager<User> signInManager;
+
         private readonly IUserRepo userRepo;
         public UserService(CustomUserManager userManager, IMapper mapper, SignInManager<User> signInManager, IUserRepo userRepo)
         {
