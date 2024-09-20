@@ -25,10 +25,10 @@ namespace RG_Store.PLL.Controllers
             return View(orderService);
         }
         [Authorize]
-        public async Task<IActionResult> Index(string userid)
+        public async Task<IActionResult> Index()
         {
-
-            var orders = await orderService.GetAllUserOrders(userid);
+            var user =await userManager.GetUserAsync(User);
+            var orders = await orderService.GetAllUserOrders(user.Id);
 
             return View(orders.ToList());
         }
@@ -96,7 +96,7 @@ namespace RG_Store.PLL.Controllers
             ViewBag.Items = it.ToList();
 
             var res = await orderService.UpdateOrder(model);
-            if (res) return RedirectToAction("Index", "Admin");
+            if (res) return RedirectToAction("Index", "Order");
             return View(model);
         }
     }

@@ -23,6 +23,7 @@ namespace RG_Store.BLL.Service.Implementation
         {
             var item = await itemService.GetAllItem(ItemId);
             var Result = mapper.Map<Item>(item);
+            Result.ItemImage = item.ItemImage;
             return await favouriteRepo.Add(Result, id);
         }
 
@@ -33,6 +34,7 @@ namespace RG_Store.BLL.Service.Implementation
             foreach (var item in List)
             {
                 var temp = mapper.Map<GetAllItemVM>(item);
+                temp.ItemImage = item.ItemImage;
                 Resulte.Add(temp);
             }
             return Resulte;

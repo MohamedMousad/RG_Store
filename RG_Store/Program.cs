@@ -129,6 +129,10 @@ public class Program
                 user.Email = email; 
                 user.UserName = email;
                 user.EmailConfirmed = true;
+                user.IsDeleted = false;
+                user.UserGender = RG_Store.DAL.Enums.Gender.Male;
+                user.FirstName = user.LastName = "Admin";
+                user.UserRole = RG_Store.DAL.Enums.Roles.Admin; 
                 await  userManger.CreateAsync(user, password);
                 await userManger.AddToRoleAsync(user,"Admin");
             }

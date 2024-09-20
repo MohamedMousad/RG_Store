@@ -97,7 +97,11 @@ namespace EmployeeSystem.DAL.Repo.Implementation
 
         public async Task<IEnumerable<Item>> GetAllOrderItem(int id)
         {
-            return await context.OrderItems.Select(i => i.Item).Where(order => order.Id == id).ToListAsync();
+            return await context.OrderItems
+            .Where(orderItem => orderItem.Order.Id == id)
+            .Select(orderItem => orderItem.Item)
+             .ToListAsync();
+
         }
 
         public async Task<IEnumerable<Order>> GetAllOrders()
@@ -123,7 +127,7 @@ namespace EmployeeSystem.DAL.Repo.Implementation
                 var ret = new List<Order>();
                 foreach (var i in List)
                 {
-                  ret.Add(i);
+                    if(i.UserId==userid) ret.Add(i);
                 }
 
                 return ret;
