@@ -181,7 +181,7 @@ namespace RG_Store.PLL.Controllers
             if (result)
             {
                 TempData["SuccessMessage"] = "Your password has been reset successfully. Please log in with your new password.";
-                return RedirectToAction("SignIn");
+                return RedirectToAction("Login");
             }
 
             ModelState.AddModelError(string.Empty, "Error resetting your password.");
