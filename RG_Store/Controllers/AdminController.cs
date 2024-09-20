@@ -25,6 +25,10 @@ namespace RG_Store.PLL.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
+            ViewBag.TotalSales =await orderService.GetTotalSales();
+            ViewBag.OrderCount =await orderService.GetOrderCounts();
+            ViewBag.UsrsCount =await _userService.GetUserCount();
+
             var orders = await orderService.GetAllOrders();
             return View(orders.ToList());
         }
@@ -74,7 +78,9 @@ namespace RG_Store.PLL.Controllers
 
         public async Task<IActionResult> Users()
         {
-
+            ViewBag.TotalSales = await orderService.GetTotalSales();
+            ViewBag.OrderCount = await orderService.GetOrderCounts();
+            ViewBag.UsrsCount = await _userService.GetUserCount();
             var users = await _userService.GetAll();
             return View(users.ToList());
         }
@@ -187,6 +193,10 @@ namespace RG_Store.PLL.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> items()
         {
+            ViewBag.TotalSales = await orderService.GetTotalSales();
+            ViewBag.OrderCount = await orderService.GetOrderCounts();
+            ViewBag.UsrsCount = await _userService.GetUserCount();
+
             var items = await ItemService.GetAll();
             return View(items.ToList());
         }

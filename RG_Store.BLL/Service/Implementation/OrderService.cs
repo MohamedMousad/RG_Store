@@ -6,6 +6,7 @@ using RG_Store.BLL.ModelVM.ItemVM;
 using RG_Store.BLL.ModelVM.OrderVM;
 using RG_Store.BLL.Service.Abstraction;
 using RG_Store.DAL.Repo.Abstraction;
+using System.Collections.Generic;
 
 namespace RG_Store.BLL.Service.Implementation
 {
@@ -32,7 +33,26 @@ namespace RG_Store.BLL.Service.Implementation
         {
             return await orderRepo.DeleteOrder(orderid);
         }
-
+        public async Task<int> GetOrderCounts()
+        {
+            var list =await GetAllOrders();
+            int cnt = 0;
+            foreach(var order in list)
+            {
+                if(order.OrderStatus==DAL.Enums.OrderStatus.Completed) cnt++;              
+            }
+            return cnt; 
+        }
+        public async Task<decimal> GetTotalSales()
+        {
+            var list = await GetAllOrders();
+            decimal Total = 0;
+            foreach (var order in list)
+            {
+                if (order.OrderStatus == DAL.Enums.OrderStatus.Completed) Total += order.TotalCost;
+            }
+            return Total; 
+        }
         public async Task<IEnumerable<GetAllItemVM>> GetAllOrderItem(int id)
         {
             var List = await orderRepo.GetAllOrderItem(id);

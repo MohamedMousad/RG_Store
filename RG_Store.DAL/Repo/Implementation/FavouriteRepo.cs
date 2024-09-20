@@ -28,7 +28,12 @@ namespace RG_Store.DAL.Repo.Implementation
                     context.Attach(itemid);
                     existingItem = itemid;
                 }
-
+                var list =await GetAll(id);
+                var ii = list.FirstOrDefault(i => i.Id==itemid.Id);
+                if (ii != null)
+                {
+                    return true; 
+                }
                 FavouriteItem ci = new FavouriteItem
                 {
                     Favourite = fav,
