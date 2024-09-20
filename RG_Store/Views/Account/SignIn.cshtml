@@ -1,6 +1,29 @@
 ﻿﻿@using RG_Store.BLL.ModelVM.UserVM
 @model LoginVM
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="toast-container position-fixed p-3" style="top: 0; left: 0; z-index: 1050;">
+        <div id="successToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
+            <div class="d-flex">
+                <div class="toast-body">
+                    @TempData["SuccessMessage"]
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.onload = function() {
+            var toastEl = document.getElementById('successToast');
+            var toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        };
+    </script>
+}
+
+
+
 <div class="container-fluid bg-dark text-light min-vh-100 d-flex justify-content-center align-items-center">
     <div class="row mx-0 w-100" style="max-width: 950px;">
         <!-- Left Column -->
