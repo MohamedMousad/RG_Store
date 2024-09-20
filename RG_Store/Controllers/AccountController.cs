@@ -58,7 +58,9 @@ namespace RG_Store.PLL.Controllers
 
                     var confirmationLink = Url.Action("ConfirmEmail", "Account",
                         new { token = token }, protocol: Request.Scheme);
-                    string templatePath = "D:\\ITI\\RG_Store\\RG_Store\\Views\\EmailTemplates\\EmailConfirmation.cshtml";
+                    string baseDirectory = AppContext.BaseDirectory;
+
+                    string templatePath = Path.Combine(baseDirectory, "..", "..", "..", "Views", "EmailTemplates", "EmailConfirmation.cshtml");
                     string body = await System.IO.File.ReadAllTextAsync(templatePath);
 
                     // Replace placeholders with actual values

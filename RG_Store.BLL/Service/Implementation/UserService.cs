@@ -230,7 +230,9 @@ namespace RG_Store.BLL.Service.Implementation
 
 
             var resetLink = $"https://localhost:7126/Account/ResetPassword?token={Uri.EscapeDataString(token)}&email={email}";
-            var templatePath = "D:\\ITI\\RG_Store\\RG_Store\\Views\\EmailTemplates\\ResetPass.cshtml";
+            string baseDirectory = AppContext.BaseDirectory;
+            string templatePath = Path.Combine(baseDirectory, "..", "..", "..", "Views", "EmailTemplates", "ResetPass.cshtml");
+
             var body = await File.ReadAllTextAsync(templatePath);
             body = body.Replace("{{ResetLink}}", resetLink);
             await SendEmailAsync(user.Email, "Reset your password", body);
