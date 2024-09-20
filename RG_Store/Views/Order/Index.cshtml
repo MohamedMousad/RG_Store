@@ -116,7 +116,7 @@
         <ol class="breadcrumb breadcrumb-light">
             <li class="breadcrumb-item"><a href="car-finder-home.html">Home</a></li>
             <li class="breadcrumb-item"><a href="car-finder-account-info.html">Account</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Password & Security</li>
+            <li class="breadcrumb-item active" aria-current="page">My Orders</li>
         </ol>
     </nav>
     <!-- Page content-->
@@ -187,42 +187,10 @@
                                 <td>$120.00</td>
                                 <td><span class="badge badge-success">@item.OrderStatus.ToString()</span></td>
                                 <td class="action-icons">
-                                    <a href="/Order/Edit/1001" class="edit"><i class="fas fa-edit"></i></a>
-                                    <a href="/Order/Delete/1001" class="delete"><i class="fas fa-trash-alt"></i></a>
+                                    <a asp-controller="Order" asp-action="Update" class="edit"><i class="fas fa-edit"></i></a>
                                 </td>
                             </tr>
                             }
-                            @* <tr>
-                                <th scope="row">1002</th>
-                                <td>September 10, 2024</td>
-                                <td>$75.50</td>
-                                <td><span class="badge badge-secondary">Shipped</span></td>
-                                <td class="action-icons">
-                                    <a href="/Order/Edit/1002" class="edit"><i class="fas fa-edit"></i></a>
-                                    <a href="/Order/Delete/1002" class="delete"><i class="fas fa-trash-alt"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1003</th>
-                                <td>August 30, 2024</td>
-                                <td>$200.25</td>
-                                <td><span class="badge badge-warning">Processing</span></td>
-                                <td class="action-icons">
-                                    <a href="/Order/Edit/1003" class="edit"><i class="fas fa-edit"></i></a>
-                                    <a href="/Order/Delete/1003" class="delete"><i class="fas fa-trash-alt"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1003</th>
-                                <td>August 30, 2024</td>
-                                <td>$200.25</td>
-                                <td><span class="badge badge-warning">Processing</span></td>
-                                <td class="action-icons">
-                                    <a href="/Order/Edit/1003" class="edit"><i class="fas fa-edit"></i></a>
-                                    <a href="/Order/Delete/1003" class="delete"><i class="fas fa-trash-alt"></i></a>
-                                </td>
-                            </tr> *@
-
                         </tbody>
                     </table>
 

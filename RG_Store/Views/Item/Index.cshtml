@@ -3,8 +3,7 @@
 
 <section class="bg-position-top-center bg-repeat-0 pt-5" style="background-image: url(~/images/hero-bg.png); background-size: 1920px 630px;">
     <div class="container pt-5">
-        <div class="row pt-lg-4 pt-xl-5">
-        </div>
+        <div class="row pt-lg-4 pt-xl-5"></div>
     </div>
     <div class="container mt-4 mt-sm-3 mt-lg-n3 pb-5 mb-md-4">
         <form class="form-group form-group-light d-block">
@@ -12,7 +11,6 @@
                 <div class="col-lg-2">
                     <div class="input-group border-end-lg border-light">
                         <span class="input-group-text text-muted ps-2 ps-sm-3"><i class="fi-search"></i></span>
-                        <!-- Updated Search Box -->
                         <input class="form-control" id="searchBox" type="text" placeholder="Search for games..." onkeyup="filterItems()">
                     </div>
                 </div>
@@ -58,18 +56,15 @@
 <section class="container pb-5 mb-md-4">
     <div class="d-sm-flex align-items-center justify-content-between mb-3 mb-sm-4 pb-sm-2">
         <h2 class="h3 text-light mb-2 mb-sm-0">Offers</h2>
-        <a class="btn btn-link btn-light fw-normal px-0 myHover" href="/Home">Go to Store<i class="fi-arrow-long-right fs-sm mt-0 ps-1 ms-2"></i></a>
     </div>
 
-    <!-- Updated Item Cards Container -->
     <div id="itemsContainer" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
         @foreach (var item in Model)
         {
-            <!-- item -->
             <div class="col mb-4 item-card" data-name="@item.Name.ToLower()">
-                <div class="card card-body card-light card-hover bg-transparent border-0 p-3 text-center" style="max-height: 450px;">
-                    <a class="d-block rounded-3 overflow-hidden" href="#">
-                        <img class="d-block mx-auto img-fluid" src="~/uploaded_images/items/@(item.ItemImage)" alt="@(item.ItemImage)" style="max-width: 220px; max-height: 220px; object-fit: cover;">
+                <div class="card card-body card-light card-hover bg-transparent border-0 text-center" style="height: 450px;;">
+                    <a class="d-block rounded-3 overflow-hidden">
+                        <img class="d-block mx-auto img-fluid" src="~/uploaded_images/items/@(item.ItemImage)" alt="@(item.ItemImage)" style="width: 220px;white-space:nowrap ;height: 220px; object-fit: contain;">
                     </a>
                     <h4 class="text-center text-light pt-2" style="font-size: 1rem;">
                         <a class="nav-link" href="#">@item.Name</a>
@@ -87,34 +82,27 @@
                     }
 
                     <div class="mt-3 d-flex justify-content-center">
-                        <!-- Wish List Button -->
                         <form asp-action="AddToFavourite" asp-controller="Favourite" method="post">
                             @Html.AntiForgeryToken()
                             <input type="hidden" name="itemId" value="@item.Id" />
                             <button class="btn btn-outline-light me-2 btn-sm" type="submit">
-                                <i class="fi-heart me-1"></i>
-                                Wish List
+                                <i class="fi-heart me-1"></i> Wish List
                             </button>
                         </form>
-
-                        <!-- Add to Cart Button -->
                         <form asp-action="AddToCart" asp-controller="Cart" method="post">
                             @Html.AntiForgeryToken()
                             <input type="hidden" name="itemId" value="@item.Id" />
                             <button class="btn btn-outline-light btn-sm" type="submit">
-                                <i class="fi-shopping-cart me-1"></i>
-                                Add to Cart
+                                <i class="fi-shopping-cart me-1"></i> Add to Cart
                             </button>
                         </form>
                     </div>
                 </div>
             </div>
-            <!-- item -->
         }
     </div>
 </section>
 
-<!-- JavaScript for dynamic search filter -->
 <script>
     function filterItems() {
         var input, filter, cards, cardContainer, title, i;
