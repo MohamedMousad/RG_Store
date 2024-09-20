@@ -88,6 +88,7 @@ namespace RG_Store.PLL.Controllers
             model.TotalCost = res.TotalCost;
             return View(model);
         }
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Update(UpdateOrderVM model)
         {

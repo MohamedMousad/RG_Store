@@ -28,6 +28,7 @@ namespace RG_Store.PLL.Controllers
             var orders = await orderService.GetAllOrders();
             return View(orders.ToList());
         }
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> UpdateOrder(int id)
         {
@@ -43,6 +44,7 @@ namespace RG_Store.PLL.Controllers
             model.TotalCost = res.TotalCost;
             return View(model);
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> UpdateOrder(UpdateOrderVM model)
         {
