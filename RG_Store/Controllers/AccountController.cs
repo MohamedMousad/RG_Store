@@ -15,15 +15,12 @@ namespace RG_Store.PLL.Controllers
         private readonly SignInManager<User> signInManager;
         private readonly UserManager<User> userManager;
 
-
-
         public AccountController(IUserService userService, SignInManager<User> signInManager, UserManager<User> userManager)
         {
             this.userService = userService;
             this.signInManager = signInManager;
             this.userManager = userManager;
         }
-
 
         [HttpGet]
         public IActionResult SignUp()
@@ -36,10 +33,27 @@ namespace RG_Store.PLL.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userExists = await userManager.FindByEmailAsync(model.Email);
+                if (userExists != null)
+                {
+                    ModelState.AddModelError("Email", "Email already exists.");
+                    return View(model);
+                }
+
+                var passwordValidator = new PasswordValidator<User>();
+                var passwordResult = await passwordValidator.ValidateAsync(userManager, null, model.Password);
+                if (!passwordResult.Succeeded)
+                {
+                    foreach (var error in passwordResult.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                    return View(model);
+                }
+
                 if (await userService.CreateUser(model))
                 {
                     var user = await userService.GetByEmailAsync(model.Email);
-
                     string token = Guid.NewGuid().ToString();
                     await userService.GenerateEmailConfirmationTokenAsync(user.Id, token);
 
@@ -50,47 +64,49 @@ namespace RG_Store.PLL.Controllers
                         $"Please confirm your email by clicking this <a href='{confirmationLink}'>link</a>.");
 
                     ViewBag.Message = "Registration successful! Please check your email to confirm your account.";
-
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    /* foreach (var error in errors)
-                     {
-                         ModelState.AddModelError(string.Empty, error);
-                     }*/
+                    foreach (var error in ModelState.Values.SelectMany(e => e.Errors))
+                    {
+                        ModelState.AddModelError(string.Empty, error.ErrorMessage);
+                    }
                 }
             }
 
             return View(model);
         }
-
 
         [HttpGet]
         public IActionResult SignIn()
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> SignIn(LoginVM model)
         {
             if (ModelState.IsValid)
             {
-                var result = await userService.SignInUserAsync(model);
-                Console.WriteLine(model.Email);
-                Console.WriteLine(model.Password);
+                var user = await userManager.FindByEmailAsync(model.Email);
+                if (user == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt. Email not found.");
+                    return View(model);
+                }
 
-                if (result)
+                var result = await signInManager.PasswordSignInAsync(user, model.Password, isPersistent: false, lockoutOnFailure: false);
+                if (result.Succeeded)
                 {
                     return RedirectToAction("Index", "Home");
                 }
 
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                ModelState.AddModelError(string.Empty, "Invalid login attempt. Incorrect password.");
             }
 
             return View(model);
         }
-
 
         public async Task<IActionResult> Logout()
 
@@ -99,7 +115,6 @@ namespace RG_Store.PLL.Controllers
           await  userService.SignoutUser();
             return await Task.FromResult<IActionResult>(RedirectToAction("Index", "Home"));
         }
-
 
         public async Task<IActionResult> ConfirmEmail(string token)
         {
@@ -136,7 +151,6 @@ namespace RG_Store.PLL.Controllers
             return View();
         }
 
-        // Step 2: Reset Password
         [HttpGet]
         public IActionResult ResetPassword(string token, string email)
         {
@@ -181,10 +195,10 @@ namespace RG_Store.PLL.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangePassword(ChangePasswordVM model)
         {
-            /*if (!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(model);
-            }*/
+            }
 
             var user = await userService.GetUserAsync(User);
 
