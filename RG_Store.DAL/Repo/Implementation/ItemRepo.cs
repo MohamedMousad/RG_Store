@@ -62,7 +62,10 @@ namespace EmployeeSystem.DAL.Repo.Implementation
                 itm.HasOffer = item.HasOffer;
                 itm.Offer = item.Offer;
                 itm.Description = item.Description;
-                //itm.ItemImage = item.ItemImage; 
+                if (item.ItemImage != null)
+                {
+                    itm.ItemImage = item.ItemImage;
+                }
                 await context.SaveChangesAsync();
                 return true;
             }
