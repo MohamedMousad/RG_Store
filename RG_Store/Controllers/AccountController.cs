@@ -109,15 +109,9 @@ namespace RG_Store.PLL.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await userManager.FindByEmailAsync(model.Email);
-                if (user == null)
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt. Email not found.");
-                    return View(model);
-                }
 
-                var result = await signInManager.PasswordSignInAsync(user, model.Password, isPersistent: false, lockoutOnFailure: false);
-                if (result.Succeeded)
+                var result = await userService.SignInUserAsync(model);
+                if (result)
                 {
                     return RedirectToAction("Index", "Home");
                 }

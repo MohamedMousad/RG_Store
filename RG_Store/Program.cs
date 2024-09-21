@@ -136,6 +136,7 @@ public class Program
                 await  userManger.CreateAsync(user, password);
                 await userManger.AddToRoleAsync(user,"Admin");
             }
+            
         }
 
         app.Run();
