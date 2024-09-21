@@ -16,7 +16,6 @@ This is a full-featured online store application that allows users to browse and
 
 - [.NET SDK 6.0](https://dotnet.microsoft.com/download/dotnet/6.0)
 - [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) or other supported database.
-- [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/) for frontend dependencies (if applicable).
 
 ## Setup and Installation
 
