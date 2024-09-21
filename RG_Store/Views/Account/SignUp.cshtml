@@ -19,7 +19,6 @@
             <div class="text-light mt-sm-4 pt-md-3 text-center">
                 <span class="opacity-60">Already have an account?</span>
                 <a asp-action="Login" asp-controller="Account" class="btn btn-link p-0">Sign in</a>
-
             </div>
         </div>
 
@@ -57,8 +56,8 @@
                         <input class="form-control form-control-light" type="password" asp-for="Password" id="signup-password" name="Password" minlength="8" required>
                         <span class="input-group-text bg-dark text-light">
                             <i class="fas fa-eye password-toggle-icon" style="cursor:pointer;"></i>
+                            <div class="invalid-feedback">Please provide a password.</div>
                         </span>
-                        <div class="invalid-feedback">Please provide a password.</div>
                     </div>
                 </div>
                 <!-- Confirm Password -->
