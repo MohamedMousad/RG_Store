@@ -88,7 +88,7 @@ namespace RG_Store.BLL.Service.Implementation
                 var temp = mapper.Map<GetOrderVM>(item);
                 var user = await cartRepo.GetById(item.UserId);
                 temp.OrderId = item.Id;
-
+                temp.CreatedOn = item.OrederDate;
                 temp.userName = user.UserName??""; 
                 Res.Add(temp);
             }
@@ -107,6 +107,7 @@ namespace RG_Store.BLL.Service.Implementation
             {
                 var temp = mapper.Map<GetOrderVM>(item);
                 temp.OrderId = item.Id;
+                temp.CreatedOn = item.OrederDate;
                 /*temp.userName = user.UserName ?? "";*/
                 Res.Add(temp);
             }
