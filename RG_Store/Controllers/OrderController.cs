@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RG_Store.BLL.ModelVM.OrderVM;
 using RG_Store.BLL.Service.Abstraction;
+using RG_Store.BLL.Service.Abstraction.RG_Store.BLL.Service.Abstraction;
 
 namespace RG_Store.PLL.Controllers
 {
@@ -11,11 +12,13 @@ namespace RG_Store.PLL.Controllers
     {
         IOrderService orderService;
         private readonly UserManager<User> userManager;
+        private readonly IUserService userService;
 
-        public OrderController(IOrderService orderService, UserManager<User> userManager)
+        public OrderController(IOrderService orderService, UserManager<User> userManager , IUserService userService)
         {
             this.orderService = orderService;
             this.userManager = userManager;
+            this.userService = userService;
         }
         [Authorize]
         public async Task<IActionResult> GetAllOrders()
@@ -29,7 +32,8 @@ namespace RG_Store.PLL.Controllers
         {
             var user =await userManager.GetUserAsync(User);
             var orders = await orderService.GetAllUserOrders(user.Id);
-
+            var usr = new User { Email = user.Email, UserName = user.UserName, ProfileImage = user.ProfileImage };
+            ViewBag.User = usr;
             return View(orders.ToList());
         }
         [Authorize]

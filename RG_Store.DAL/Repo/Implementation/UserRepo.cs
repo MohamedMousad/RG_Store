@@ -120,7 +120,10 @@ namespace EmployeeSystem.DAL.Repo.Implementation
                 usr.LastName = user.LastName;
                 usr.UserGender = user.UserGender;
                 usr.UserGender = user.UserGender;
-                usr.ProfileImage = user.ProfileImage;
+                if (user.ProfileImage != null)
+                {
+                    usr.ProfileImage = user.ProfileImage;
+                }
                 context.SaveChanges();
                 return true;
             }
