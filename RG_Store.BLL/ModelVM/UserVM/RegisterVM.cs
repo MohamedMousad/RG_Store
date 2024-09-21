@@ -30,9 +30,9 @@ namespace RG_Store.BLL.ModelVM.UserVM
 
         public Roles UserRole { get; set; } = Roles.Customer;
 
-        [Required(ErrorMessage = "Phone Number is required.")]
+        /*[Required(ErrorMessage = "Phone Number is required.")]
         [DisplayName("Phone Number")]
-        public string? PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }*/
 
         [Required(ErrorMessage = "Email Address is required.")]
         [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Invalid Email Format.")]
