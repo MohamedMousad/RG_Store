@@ -2,93 +2,56 @@
 @model DeleteItemVM
 @{
     var categories = ViewBag.Categories;
+    Layout = "~/Views/Shared/_DashBoard.cshtml";
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Your head content -->
-    <title>Admin Hub</title>
-    <!-- Include your styles and scripts -->
-</head>
-<body>
-    <!-- Full Page Form -->
-    <div class="container-fluid bg-dark text-light min-vh-100 d-flex justify-content-center align-items-center">
-        <div class="row mx-0 w-100" style="max-width: 1800px;">
-            <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5">
-                <!-- Corrected Form Tag -->
-                <form class="needs-validation d-flex flex-row gap-3 justify-content-center" novalidate asp-action="DeleteItem" asp-controller="Admin" method="post" enctype="multipart/form-data">
-                    <div class="col-5">
-                        <!-- Game Name -->
-                        <div class="mb-4">
-                            <label class="form-label text-light mb-2" for="item-name">Game (required)</label>
-                            <input class="form-control form-control-light" type="text" id="item-name" placeholder="Enter game name" required asp-for="Name">
-                            <div class="invalid-feedback">
-                                Please provide a valid game name!
-                            </div>
-                        </div>
-                        <!-- Game Description -->
-                        <div class="mb-4">
-                            <label class="form-label text-light mb-2" for="item-description">Game Description</label>
-                            <input class="form-control form-control-light" type="text" id="item-description" placeholder="Enter game description" required asp-for="Description">
-                            <div class="invalid-feedback">
-                                Please provide a valid game description!
-                            </div>
-                        </div>
-                        <!-- Price -->
-                        <div class="mb-4">
-                            <label class="form-label text-light mb-2" for="item-finalprice">Price (Required)</label>
-                            <input class="form-control form-control-light" type="number" id="item-finalprice" placeholder="Enter game price" required asp-for="FinalPrice">
-                            <div class="invalid-feedback">
-                                Please provide a valid price!
-                            </div>
-                        </div>
-                        <!-- Old Price -->
-                        <div class="mb-4">
-                            <label class="form-label text-light mb-2" for="item-initialprice">Old Price</label>
-                            <input class="form-control form-control-light" type="number" id="item-initialprice" placeholder="Enter game old price" asp-for="IntialPrice">
-                            <div class="invalid-feedback">
-                                Please provide a valid old price!
-                            </div>
-                        </div>
+<div class="container d-flex justify-content-center align-items-center max-vh-100">
+    <div class="row mx-0 w-100" style="max-width: 600px;">
+        <div class="col-md-12 px-4 pt-2 pb-4">
+            <h2 class="text-center mb-4" style="margin-bottom:100px !important">Delete Item</h2>
+            <form class="needs-validation" novalidate asp-action="DeleteItem" asp-controller="Admin" method="post" enctype="multipart/form-data">
+                <input type="hidden" asp-for="Id" />
+
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <label class="form-label mb-2" for="item-name">Game Name</label>
+                        <input class="form-control" type="text" id="item-name" placeholder="Enter game name" readonly asp-for="Name">
+                        <div class="invalid-feedback">Please provide a valid game name!</div>
                     </div>
-                    <div class="col-6">
-                        <!-- Quantity -->
-                        <div class="mb-4">
-                            <label class="form-label text-light mb-2" for="item-quantity">Quantity</label>
-                            <input class="form-control form-control-light" type="number" id="item-quantity" placeholder="Enter game quantity" asp-for="Quantity">
-                            <div class="invalid-feedback">
-                                Please provide a valid quantity!
-                            </div>
-                        </div>
-                        <!-- Category Selection -->
-                        @*   <div class="mb-4">
-                        <label class="form-label text-light mb-2" for="item-category">Category</label>
-                        <select class="form-select form-select-light mt-3" id="item-category" asp-for="CategoryId">
-                        <option value="" disabled selected>Select Category</option>
-                        @foreach (var itm in categories)
-                        {
-                        <option value="@itm.Id">@itm.Name</option>
-                        }
-                        @*                             </select>
-                        </div> *@
-                        <!-- Photo Upload -->
-                        <div class="mb-4">
-                            <label class="form-label text-light mb-2" for="item-image">Photo</label>
-                            <input class="form-control" type="file" id="item-image" accept="image/png,image/jpeg" asp-for="Image">
-                        </div>
-                        <!-- Submit and Reset Buttons -->
-                        <div class="d-flex justify-content-between">
-                            <button class="btn btn-primary btn-lg w-50" type="submit">Add</button>
-                            <button type="reset" class="btn btn-secondary btn-lg w-50">Cancel</button>
-                        </div>
+                    <div class="col-6 mb-3">
+                        <label class="form-label mb-2" for="item-finalprice">Price</label>
+                        <input class="form-control" type="number" id="item-finalprice" placeholder="Enter game price" readonly asp-for="FinalPrice">
+                        <div class="invalid-feedback">Please provide a valid price!</div>
                     </div>
-                </form>
-            </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <label class="form-label mb-2" for="item-description">Game Description</label>
+                        <input class="form-control" type="text" id="item-description" placeholder="Enter game description" readonly asp-for="Description">
+                        <div class="invalid-feedback">Please provide a valid game description!</div>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label class="form-label mb-2" for="item-quantity">Quantity</label>
+                        <input class="form-control" type="number" id="item-quantity" placeholder="Enter game quantity" readonly asp-for="Quantity">
+                        <div class="invalid-feedback">Please provide a valid quantity!</div>
+                    </div>
+                </div>
+
+
+
+                <div class="d-flex justify-content-center mt-3">
+                    @if (Model.IsDelted)
+                    {
+                        <button class="btn btn-danger btn-lg me-2" style="width: 35%" type="submit">Restore Item</button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-primary btn-lg me-2" style="width: 35%" type="submit">Delete Item</button>
+                    }
+                    <a href="@Url.Action("items", "Admin")" style="width: 35%" class="btn btn-secondary btn-lg">Cancel</a>
+                </div>
+            </form>
         </div>
     </div>
-    <!-- Include your scripts -->
-</body>
-</html>
-
-
+</div>

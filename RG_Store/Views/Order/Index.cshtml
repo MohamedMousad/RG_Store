@@ -108,6 +108,29 @@
             color: #777;
         }
 
+    .status {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 0.875em;
+        font-weight: 600;
+        color: #fff; /* Default text color */
+    }
+
+        /* Styling for canceled status */
+        .status.canceled {
+            background-color: #e74c3c; /* Red background color */
+        }
+
+        /* Additional styles for other statuses */
+        .status.completed {
+            background-color: #2ecc71; /* Green background color */
+        }
+
+        .status.pending {
+            background-color: #f39c12; /* Orange background color */
+        }
+
 </style>
 
 <div class="container pt-5  mt-5 mb-sm-2">
@@ -116,7 +139,7 @@
         <ol class="breadcrumb breadcrumb-light">
             <li class="breadcrumb-item"><a href="car-finder-home.html">Home</a></li>
             <li class="breadcrumb-item"><a href="car-finder-account-info.html">Account</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Password & Security</li>
+            <li class="breadcrumb-item active" aria-current="page">My Orders</li>
         </ol>
     </nav>
     <!-- Page content-->
@@ -126,10 +149,17 @@
             <!-- Account nav-->
             <div class="card card-body card-light border-0 shadow-sm pb-1 me-lg-1">
                 <div class="d-flex d-md-block d-lg-flex align-items-start pt-lg-2 mb-4">
-                    <img class="rounded-circle"
-                         src="~/images/wagon.svg" width="48" alt="Robert Fox">
+                    <img class="rounded-circle" src="~/images/wagon.svg" width="48" alt="Robert Fox">
+@*                     @if (Model.ProfileImage != null)
+                    {
+                        <img class="rounded-circle" src="~/uploaded_images/users/@Model.ProfileImage" style="object-fit: cover;  width: 48px" alt="@Model.ProfileImage">
+                    }
+                    else
+                    {
+                        <img class="rounded-circle" src="~/images/01.jpg" style="object-fit: cover;  width: 48px" alt="@Model.ProfileImage">
+                    } *@
                     <div class="pt-md-2 pt-lg-0 ps-3 ps-md-0 ps-lg-3">
-                        <h2 class="fs-lg text-light mb-0">Robert Fox</h2>
+                        <h2 class="fs-lg text-light mb-0">RG Store</h2>
                         <ul class="list-unstyled fs-sm mt-3 mb-0">
                             <!-- <li><a class="nav-link-light fw-normal" href="tel:3025550107"><i
                                         class="fi-phone opacity-60 me-2"></i>(302) 555-0107</a></li> -->
@@ -145,16 +175,16 @@
                         <a class="card-nav-link " href="/Account/Profile">
                             <i class="fi-user me-2"></i>Personal Info
                         </a>
-                        <a class="card-nav-link " href="/Profile/ChangePassword">
+                        <a class="card-nav-link " href="/Account/ChangePassword">
                             <i class="fi-lock me-2"></i>Password &amp;
                             Security
                         </a>
-                        <a class="card-nav-link active" href="/Profile/Orders">
+                        <a class="card-nav-link active" href="/order/index">
                             <i class="fi-car me-2"></i>My
                             Orders
                         </a>
-                        <a class="card-nav-link" href="/Favourite">
-                            <i class="fi-heart me-2"></i>Wishlist<span class="badge bg-faded-light ms-2">4</span>
+                        <a class="card-nav-link" href="/Favourite/index">
+                            <i class="fi-heart me-2"></i>Wishlist
                         </a><a class="card-nav-link"
                                href="/Account/LogOut"><i class="fi-logout me-2"></i>Sign Out</a>
                     </div>
@@ -163,68 +193,58 @@
         </aside>
         <!-- Content-->
 
-        <div class="col-lg-8 col-md-7 mb-5" >
+        <div class="col-lg-8 col-md-7 mb-5">
             <h1 class="h2 text-light">Your Order History</h1>
 
-            <form class="needs-validation pb-4" novalidate >
+            <form class="needs-validation pb-4" novalidate>
 
-                <table class="table" >
-                        <thead>
-                            <tr>
+                <table class="table">
+                    <thead>
+                        <tr>
                             <th scope="col" style="color :white !important;">Order ID</th>
-                                <th scope="col" style="color :white !important;" >Order Date</th>
-                                <th scope="col" style="color :white !important;" >Total Amount</th>
-                                <th scope="col" style="color :white !important;" >Status</th>
-                                <th scope="col" style="color :white !important;" >Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        @foreach (var item in Model)
+                            <th scope="col" style="color :white !important;">Order Date</th>
+                            <th scope="col" style="color :white !important;">Total Amount</th>
+                            <th scope="col" style="color :white !important;">Status</th>
+                            <th scope="col" style="color :white !important;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var order in Model)
                         {
                             <tr>
-                                <th scope="row">@item.OrderId</th>
-                                <td>@item.CreatedOn </td>
-                                <td>$120.00</td>
-                                <td><span class="badge badge-success">@item.OrderStatus.ToString()</span></td>
-                                <td class="action-icons">
-                                    <a href="/Order/Edit/1001" class="edit"><i class="fas fa-edit"></i></a>
-                                    <a href="/Order/Delete/1001" class="delete"><i class="fas fa-trash-alt"></i></a>
+                                <td>
+                                    <p>@order.OrderId</p>
+                                </td>
+                                <td>@order.CreatedOn</td>
+                                <td>@order.TotalCost</td>
+                                <td>
+                                    @if (order.OrderStatus == RG_Store.DAL.Enums.OrderStatus.Completed)
+                                    {
+                                        <span class="status completed">Completed</span>
+                                    }
+                                    else if (order.OrderStatus == RG_Store.DAL.Enums.OrderStatus.pending) @* Note case sensitivity in Enum *@
+                                    {
+                                        <span class="status pending">Pending</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="status canceled">Canceled</span>
+                                    }
+                                </td>
+                                <td>
+                                    <!-- Call to action buttons -->
+                                    <ul class="list-inline m-0">
+                                        <li class="list-inline-item">
+                                            <a href="/order/Update/@order.OrderId" class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </td>
                             </tr>
-                            }
-                            @* <tr>
-                                <th scope="row">1002</th>
-                                <td>September 10, 2024</td>
-                                <td>$75.50</td>
-                                <td><span class="badge badge-secondary">Shipped</span></td>
-                                <td class="action-icons">
-                                    <a href="/Order/Edit/1002" class="edit"><i class="fas fa-edit"></i></a>
-                                    <a href="/Order/Delete/1002" class="delete"><i class="fas fa-trash-alt"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1003</th>
-                                <td>August 30, 2024</td>
-                                <td>$200.25</td>
-                                <td><span class="badge badge-warning">Processing</span></td>
-                                <td class="action-icons">
-                                    <a href="/Order/Edit/1003" class="edit"><i class="fas fa-edit"></i></a>
-                                    <a href="/Order/Delete/1003" class="delete"><i class="fas fa-trash-alt"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1003</th>
-                                <td>August 30, 2024</td>
-                                <td>$200.25</td>
-                                <td><span class="badge badge-warning">Processing</span></td>
-                                <td class="action-icons">
-                                    <a href="/Order/Edit/1003" class="edit"><i class="fas fa-edit"></i></a>
-                                    <a href="/Order/Delete/1003" class="delete"><i class="fas fa-trash-alt"></i></a>
-                                </td>
-                            </tr> *@
-
-                        </tbody>
-                    </table>
+                        }
+                    </tbody>
+                </table>
 
             </form>
         </div>

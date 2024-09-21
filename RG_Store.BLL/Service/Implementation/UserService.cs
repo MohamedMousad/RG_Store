@@ -17,6 +17,7 @@ namespace RG_Store.BLL.Service.Implementation
         private readonly CustomUserManager userManager;
         private readonly IMapper mapper;
         private readonly SignInManager<User> signInManager;
+
         private readonly IUserRepo userRepo;
         public UserService(CustomUserManager userManager, IMapper mapper, SignInManager<User> signInManager, IUserRepo userRepo)
         {
@@ -25,6 +26,7 @@ namespace RG_Store.BLL.Service.Implementation
             this.mapper = mapper;
             this.userRepo = userRepo;
         }
+
         public async Task<bool> CreateUser(RegisterVM registerVM)
         {
 
@@ -44,7 +46,11 @@ namespace RG_Store.BLL.Service.Implementation
                 return false;
             }
         }
-
+        public async Task<int> GetUserCount()
+        {
+            var list = await GetAll();
+            return list.Count();
+        }
         public async Task<bool> DeleteUser(DeleteUserVM model)
         {
             var user = mapper.Map<User>(model);
@@ -57,16 +63,19 @@ namespace RG_Store.BLL.Service.Implementation
             var temp = await userRepo.GetAll();
             foreach (var user in temp)
             {
-                GetUserVM result = new();
-                result.UserId = user.Id;
-                result.UserName = user.UserName;
-                result.FirstName = user.FirstName;
-                result.LastName = user.LastName;
-                result.UserGender = user.UserGender;
-                result.Email = user.Email;
-                result.ProfileImage = user.ProfileImage;
-                result.UserRole = user.UserRole;
-                resultlist.Add(result);
+                if (user.IsDeleted == false)
+                {
+                   GetUserVM result = new();
+                    result.UserId = user.Id;
+                    result.UserName = user.UserName;
+                    result.FirstName = user.FirstName;
+                    result.LastName = user.LastName;
+                    result.UserGender = user.UserGender;
+                    result.Email = user.Email;
+                    result.ProfileImage = user.ProfileImage;
+                    result.UserRole = user.UserRole;
+                    resultlist.Add(result);
+                }
             }
             return resultlist;
         }
@@ -89,9 +98,9 @@ namespace RG_Store.BLL.Service.Implementation
 
         public async Task<bool> SignInUserAsync(LoginVM model)
         {
-            var uservm = GetByEmailAsync(model.Email);
-
-            var result = await signInManager.PasswordSignInAsync(uservm.Result.UserName, model.Password, isPersistent: false, lockoutOnFailure: false);
+            var uservm =await GetByEmailAsync(model.Email);
+            if (uservm.IsDeleted) return false;
+            var result = await signInManager.PasswordSignInAsync(uservm.UserName, model.Password, isPersistent: false, lockoutOnFailure: false);
             if (result.Succeeded)
             {
                 Console.WriteLine("Login successful.");
@@ -229,7 +238,12 @@ namespace RG_Store.BLL.Service.Implementation
 
 
             var resetLink = $"https://localhost:7126/Account/ResetPassword?token={Uri.EscapeDataString(token)}&email={email}";
-            await SendEmailAsync(user.Email, "Reset your password", $"Click <a href='{resetLink}'>here</a> to reset your password.");
+            string baseDirectory = AppContext.BaseDirectory;
+            string templatePath = Path.Combine(baseDirectory, "..", "..", "..", "Views", "EmailTemplates", "ResetPass.cshtml");
+
+            var body = await File.ReadAllTextAsync(templatePath);
+            body = body.Replace("{{ResetLink}}", resetLink);
+            await SendEmailAsync(user.Email, "Reset your password", body);
 
             return token;
         }

@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RG_Store.BLL.ModelVM.ItemVM;
+using RG_Store.BLL.ModelVM.OrderVM;
 using RG_Store.BLL.ModelVM.UserVM;
 using RG_Store.BLL.Service.Abstraction;
 using RG_Store.BLL.Service.Abstraction.RG_Store.BLL.Service.Abstraction;
-using System.Security.Claims;
 
 namespace RG_Store.PLL.Controllers
 {
@@ -12,27 +12,77 @@ namespace RG_Store.PLL.Controllers
     {
         private readonly IUserService _userService;
         private readonly IItemService ItemService;
-        public AdminController(IUserService userService, IItemService ItemService)
+        private readonly IOrderService orderService;
+        public AdminController(IUserService userService, IItemService ItemService, IOrderService orderService)
         {
             this._userService = userService;
             this.ItemService = ItemService;
-            
+            this.orderService = orderService;
         }
 
+        #region Order
+
         [Authorize(Roles = "Admin")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            //ViewBag.UserName = username;
-            return View();
+            ViewBag.TotalSales =await orderService.GetTotalSales();
+            ViewBag.OrderCount =await orderService.GetOrderCounts();
+            ViewBag.UsrsCount =await _userService.GetUserCount();
+
+            var orders = await orderService.GetAllOrders();
+            return View(orders.ToList());
         }
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public async Task<IActionResult> UpdateOrder(int id)
+        {
+           var it = await orderService.GetAllOrderItem(id);
+            ViewBag.Items = it.ToList();
+
+           var res = await orderService.GetById(id);
+
+            UpdateOrderVM model = new();
+            model.OrderStatus = res.OrderStatus;
+            model.OrderId = res.OrderId;
+            model.CreatedOn = res.CreatedOn;
+            model.TotalCost = res.TotalCost;
+            return View(model);
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public async Task<IActionResult> UpdateOrder(UpdateOrderVM model)
+        {
+            var it = await orderService.GetAllOrderItem(model.OrderId);
+            ViewBag.Items = it.ToList();
+
+            var res = await orderService.UpdateOrder(model);
+            if (res) return RedirectToAction("Index", "Admin");
+            return View(model);
+        }
+
+
+
+
+
+        #endregion
+
+
+
+
+
+
+
+        #region User
         [Authorize(Roles = "Admin")]
         [HttpGet]
 
         public async Task<IActionResult> Users()
         {
-            
-            var users = await _userService.GetAll(); 
-            return View(users.ToList()); 
+            ViewBag.TotalSales = await orderService.GetTotalSales();
+            ViewBag.OrderCount = await orderService.GetOrderCounts();
+            ViewBag.UsrsCount = await _userService.GetUserCount();
+            var users = await _userService.GetAll();
+            return View(users.ToList());
         }
         [Authorize(Roles = "Admin")]
         [HttpGet]
@@ -56,7 +106,7 @@ namespace RG_Store.PLL.Controllers
                 FirstName = user.FirstName,
                 Email = user.Email,
                 LastName = user.LastName,
-                UserRole = (user.UserRole.Value)  
+                UserRole = (user.UserRole.Value)
             };
 
             return View(model);
@@ -65,20 +115,20 @@ namespace RG_Store.PLL.Controllers
         [HttpPost]
         public async Task<IActionResult> EditUser(UpdateRoleVM model)
         {
-           /* if (!ModelState.IsValid)
-            {
-                // Return the same view with the existing model if validation fails
-                return View(model);
-            }
-*/
+            /* if (!ModelState.IsValid)
+             {
+                 // Return the same view with the existing model if validation fails
+                 return View(model);
+             }
+ */
 
 
-            var res = await _userService.UpdateRole(model, model.UserRole); 
+            var res = await _userService.UpdateRole(model, model.UserRole);
             Console.WriteLine($"Update Result: {res}");
 
             if (res)
             {
-                return RedirectToAction("Index","Admin"); 
+                return RedirectToAction("Index", "Admin");
             }
 
             ModelState.AddModelError(string.Empty, "Failed to update user role.");
@@ -131,15 +181,23 @@ namespace RG_Store.PLL.Controllers
             ModelState.AddModelError(string.Empty, "Failed to Delete user .");
             return View(model);
         }
-        [Authorize(Roles = "Admin")]
-        public IActionResult Categories()
-        {
-            return View();
-        }
+
+        #endregion
+
+
+
+
+
+
+        #region Item
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> items()
         {
-            var items =await ItemService.GetAll();
+            ViewBag.TotalSales = await orderService.GetTotalSales();
+            ViewBag.OrderCount = await orderService.GetOrderCounts();
+            ViewBag.UsrsCount = await _userService.GetUserCount();
+
+            var items = await ItemService.GetAll();
             return View(items.ToList());
         }
         [HttpGet]
@@ -152,7 +210,7 @@ namespace RG_Store.PLL.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateItem(CreateItemVM model)
         {
-            var res =await ItemService.Create(model);
+            var res = await ItemService.Create(model);
             if (res)
             {
                 return RedirectToAction("Items", "Admin");
@@ -164,7 +222,7 @@ namespace RG_Store.PLL.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateItem(int id)
         {
-            var item =await ItemService.GetAllItem(id);
+            var item = await ItemService.GetAllItem(id);
             UpdateItemVM model = new();
             model.Id = id;
             model.Name = item.Name;
@@ -180,7 +238,7 @@ namespace RG_Store.PLL.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateItem(UpdateItemVM model)
         {
-            
+
             var res = await ItemService.Update(model);
             if (res)
             {
@@ -192,7 +250,7 @@ namespace RG_Store.PLL.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteItem(int id)
         {
-            var item =await ItemService.GetAllItem(id);
+            var item = await ItemService.GetAllItem(id);
             DeleteItemVM model = new();
             model.Id = id;
             model.Name = item.Name;
@@ -200,7 +258,7 @@ namespace RG_Store.PLL.Controllers
             model.IntialPrice = item.IntialPrice;
             model.FinalPrice = item.FinalPrice;
             model.Quantity = item.Quantity;
-            model.Image = model.Image;
+            model.IsDelted = item.IsDeleted;
 
             return View(model);
         }
@@ -208,7 +266,7 @@ namespace RG_Store.PLL.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteItem(DeleteItemVM model)
         {
-            
+
             var res = await ItemService.Delete(model);
             if (res)
             {
@@ -217,4 +275,6 @@ namespace RG_Store.PLL.Controllers
             return View(model);
         }
     }
+    #endregion
+
 }

@@ -1,0 +1,129 @@
+﻿@using RG_Store.BLL.ModelVM.ItemVM
+@using RG_Store.BLL.ModelVM.OrderVM
+@{
+    ViewData["Title"] = "Update Order";
+    Layout = "~/Views/Shared/_DashBoard.cshtml";
+    List<GetAllItemVM?> items = ViewBag.items;
+    items.ToList();
+}
+@model UpdateOrderVM
+
+<style>
+    /* Base styling for status */
+    .status {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 1em;
+        font-weight: 600;
+        color: #fff;
+        text-align: center;
+        width: 100%;
+    }
+
+        /* Styling for canceled status */
+        .status.canceled {
+            background-color: #e74c3c; /* Red background color */
+        }
+
+        /* Styling for completed status */
+        .status.completed {
+            background-color: #2ecc71; /* Green background color */
+        }
+
+        /* Styling for pending status */
+        .status.pending {
+            background-color: #f39c12; /* Orange background color */
+        }
+
+    /* Align form to the middle of the left-side list */
+    .form-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%; /* Full height for alignment */
+    }
+
+    /* Ensures the right side is aligned to the middle of the left-side content */
+    .middle-align {
+        display: flex;
+        align-items: center;
+        min-height: 100%; /* Full height to match the left side */
+    }
+
+    /* Matching left column height to its content */
+    .order-items {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 100%;
+    }
+
+</style>
+
+<div class="container mt-5">
+    <h1 class="text-center">Update Order</h1>
+
+    <div class="row">
+        <!-- Order Items on the left side -->
+        <div class="col-md-6 order-items">
+            <h3 class="text-center">Order Items</h3>
+            <ul class="list-group">
+                @foreach (var item in items)
+                {
+                    <li class="list-group-item d-flex align-items-center">
+                        <img src="~/uploaded_images/items/@(item.ItemImage)" alt="Item Image" class="img-thumbnail me-3" style="max-width: 50px;">
+                        <span>@item.Name - @item.FinalPrice</span>
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <!-- Update Order Form aligned to the middle of the left-side items -->
+        <div class="col-md-6 middle-align" style="margin-top:92px">
+            <div class="form-container">
+                <form method="post" asp-action="UpdateOrder" asp-asp-controller="Admin" class="text-center">
+                    <div class="form-group mb-3">
+                        <label for="orderId">Order ID</label>
+                        <input type="text" readonly class="form-control text-center" id="orderId" name="orderId" style="border:1px #eeeeee solid; border-radius:10px" asp-for="OrderId" />
+                    </div>
+
+                    @if (Model.OrderStatus == RG_Store.DAL.Enums.OrderStatus.pending)
+                    {
+                        <div class="form-group mb-3">
+                            <label for="orderStatus">Order Status</label>
+                            <select class="form-control" id="orderStatus" name="orderStatus" style="border:1px #eeeeee solid; border-radius:10px" asp-for="OrderStatus">
+                                @foreach (var status in Enum.GetValues(typeof(RG_Store.DAL.Enums.OrderStatus)))
+                                {
+                                    var statusValue = (int)status;
+                                    var statusName = Enum.GetName(typeof(RG_Store.DAL.Enums.OrderStatus), status);
+                                    <option value="@statusValue">@statusName</option>
+                                }
+                            </select>
+                        </div>
+                    }
+                    else
+                    {
+                        @if (Model.OrderStatus == RG_Store.DAL.Enums.OrderStatus.Completed)
+                        {
+                            <span class="status completed">Completed</span>
+                        }
+                        else
+                        {
+                            <span class="status canceled">Canceled</span>
+                        }
+                    }
+
+                    @if (Model.OrderStatus == RG_Store.DAL.Enums.OrderStatus.pending)
+                    {
+                        <div class="row justify-content-center mt-4">
+                            <div class="col-md-4 text-center">
+                                <button type="submit" class="btn btn-primary">Update Order</button>
+                            </div>
+                        </div>
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

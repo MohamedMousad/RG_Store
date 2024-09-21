@@ -97,6 +97,10 @@ namespace EmployeeSystem.DAL.Repo.Implementation
             try
             {
                 var usr = await GetById(user.Id);
+                if (role == Roles.Customer&&user.UserRole ==Roles.Admin )
+                {
+                    user.IsDeleted = true;
+                }
                 usr.UserRole = role;
                 await context.SaveChangesAsync();
                 return true;
