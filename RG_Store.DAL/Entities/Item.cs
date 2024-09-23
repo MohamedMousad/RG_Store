@@ -20,9 +20,10 @@ namespace Entities
         public Category? Category { get; set; }
         public string? ItemImage { get; set; }
 
-
         public IEnumerable<FavouriteItem?> FavouriteItem { get; set; }
         public IEnumerable<CartItem?> CartItem { get; set; }
         public IEnumerable<OrderItem?> OrderItem { get; set; }
+        public IEnumerable<Image?> Images { get; set; } = Enumerable.Empty<Image?>();
+
     }
 }
