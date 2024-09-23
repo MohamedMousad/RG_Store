@@ -16,14 +16,12 @@ namespace Entities
         public bool HasOffer { get; set; } = false;
         public decimal? Offer { get; set; } = 0;
         public bool IsDeleted { get; set; } = false;
-        public int? CategoryId { get; set; }
-        public Category? Category { get; set; }
         public string? ItemImage { get; set; }
 
         public IEnumerable<FavouriteItem?> FavouriteItem { get; set; }
         public IEnumerable<CartItem?> CartItem { get; set; }
         public IEnumerable<OrderItem?> OrderItem { get; set; }
-        public IEnumerable<Image?> Images { get; set; } = Enumerable.Empty<Image?>();
 
+        public IEnumerable<CategoryItem?>? CategoryItems { get; set; }
     }
 }

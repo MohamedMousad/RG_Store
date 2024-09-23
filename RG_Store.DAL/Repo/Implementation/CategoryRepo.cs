@@ -46,8 +46,9 @@ namespace RG_Store.DAL.Repo.Implementation
         public IEnumerable<Item> GetAllItems(int id)
         {
             var Cat = GetById(id);
-            var Items = Cat.Items.ToList();
-            return Items;
+            /*  var Items = Cat.CategoryItems.ToList();*/
+            List < Item > x= new();
+            return x;
         }
         public IEnumerable<Category> GetAll() => context.Categories.ToList();
 

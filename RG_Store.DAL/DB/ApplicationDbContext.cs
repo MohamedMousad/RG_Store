@@ -7,6 +7,8 @@ namespace RG_Store.DAL.DB
 {
     public class ApplicationDbContext : IdentityDbContext<User>
     {
+        /*      public DbSet<Item> Items { get; set; }
+               public DbSet<Order> Orders { get; set; }*/
         public DbSet<User> Users { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -16,7 +18,7 @@ namespace RG_Store.DAL.DB
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<FavouriteItem> FavouriteItems { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
-        public DbSet<Image> Images { get; set; }
+        public DbSet<CategoryItem> CategoryItems { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -49,18 +51,15 @@ namespace RG_Store.DAL.DB
           .WithOne(oi => oi.Order)
           .HasForeignKey(oi => oi.OrderId);
 
+            modelBuilder.Entity<CategoryItem>()
+              .HasOne(ci => ci.Category)
+              .WithMany(c => c.CategoryItems)
+              .HasForeignKey(ci => ci.CategoryId);
 
-            modelBuilder.Entity<Item>()
-        .HasMany(i => i.Images)
-        .WithOne(img => img.Item)
-        .HasForeignKey(img => img.ItemId);
-
-            modelBuilder.Entity<Category>()
-                .HasMany(c => c.Items)
-                .WithOne(i => i.Category)
-                .HasForeignKey(i => i.CategoryId);
-
-
+            modelBuilder.Entity<CategoryItem>()
+                .HasOne(ci => ci.Item)
+                .WithMany(i => i.CategoryItems)
+                .HasForeignKey(ci => ci.ItemId);
 
 
             base.OnModelCreating(modelBuilder);
