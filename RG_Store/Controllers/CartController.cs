@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RG_Store.BLL.Service.Abstraction;
@@ -19,14 +20,17 @@ namespace RG_Store.PLL.Controllers
             this.userService = userService;
         }
 
+        [Authorize]
         [HttpGet]
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index()
         {
-            var res = await cartService.GetAllItems(id);
+            var user =await userManager.GetUserAsync(User);
+            var res = await cartService.GetAllItems(user.CartId??1);
             var ret = res.ToList();
             return View(ret);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddToCart(int itemId)
         {
@@ -67,6 +71,7 @@ namespace RG_Store.PLL.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> RemoveFromCart(int itemId)
         {
@@ -89,6 +94,7 @@ namespace RG_Store.PLL.Controllers
             }
 
         }
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> ClearCart()
         {

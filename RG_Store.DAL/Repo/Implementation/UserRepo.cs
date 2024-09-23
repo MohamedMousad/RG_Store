@@ -62,7 +62,7 @@ namespace EmployeeSystem.DAL.Repo.Implementation
         {
             try
             {
-                var usr = await context.Users.FirstOrDefaultAsync(x => x.Id == user.Id);
+                var usr = await GetById(user.Id);
                 usr.IsDeleted = !usr.IsDeleted;
                 await context.SaveChangesAsync();
                 return true;
@@ -75,13 +75,32 @@ namespace EmployeeSystem.DAL.Repo.Implementation
 
         }
 
-        public async Task<User> GetById(string id) => await context.Users.Where(u => u.Id == id).Include(u => u.Orders).FirstOrDefaultAsync();
+        public async Task<User> GetById(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                Console.WriteLine("Invalid ID provided to GetById.");
+                return null;
+            }
+
+            var user = await context.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
+            if (user == null)
+            {
+                Console.WriteLine($"User with ID '{id}' not found.");
+            }
+            return user;
+        }
+
 
         public async Task<bool> UpdateRole(User user, Roles role)
         {
             try
             {
                 var usr = await GetById(user.Id);
+                if (role == Roles.Customer&&user.UserRole ==Roles.Admin )
+                {
+                    user.IsDeleted = true;
+                }
                 usr.UserRole = role;
                 await context.SaveChangesAsync();
                 return true;
@@ -101,7 +120,10 @@ namespace EmployeeSystem.DAL.Repo.Implementation
                 usr.LastName = user.LastName;
                 usr.UserGender = user.UserGender;
                 usr.UserGender = user.UserGender;
-                usr.ProfileImage = user.ProfileImage;
+                if (user.ProfileImage != null)
+                {
+                    usr.ProfileImage = user.ProfileImage;
+                }
                 context.SaveChanges();
                 return true;
             }

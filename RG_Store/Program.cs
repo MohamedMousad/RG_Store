@@ -14,7 +14,7 @@ using RG_Store.DAL.Repo.Implementation;
 using RG_Store.Services.Implementation;
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
@@ -25,10 +25,23 @@ public class Program
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-
+        builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+        .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
+            options =>
+            {
+                options.LoginPath = new PathString("/Account/SignIn");
+                options.AccessDeniedPath = new PathString("/Account/SignIn");
+            });
 
 
         builder.Services.AddScoped<SignInManager<User>>();
+
+
+
+        builder.Services.AddIdentityCore<User>(options => options.SignIn.RequireConfirmedAccount = true)
+                                .AddRoles<IdentityRole>()
+                        .AddEntityFrameworkStores<ApplicationDbContext>()
+                        .AddTokenProvider<DataProtectorTokenProvider<User>>(TokenOptions.DefaultProvider);
         builder.Services.AddIdentity<User, IdentityRole>(options =>
         {
             // Allow any password with at least one character
@@ -56,14 +69,7 @@ public class Program
 
 
 
-
-        builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie(options =>
-            {
-                options.LoginPath = "/Account/SignIn";
-                options.AccessDeniedPath = "/Account/SignIn";
-            });
-
+        
         builder.Services.AddScoped<IItemRepo, ItemRepo>();
         builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
         builder.Services.AddScoped<IUserRepo, UserRepo>();
@@ -96,6 +102,42 @@ public class Program
         app.MapControllerRoute(
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+
+        using (var scope = app.Services.CreateScope())
+        {
+                var rolesManger =
+                scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var roles = new[] { "Admin", "Customer" };
+
+            foreach(var role in roles)
+            {
+                if(! await rolesManger.RoleExistsAsync(role))
+                    await rolesManger.CreateAsync(new  IdentityRole(role));
+            }
+        }
+        using(var scope = app.Services.CreateScope())
+        {
+                var userManger =
+                scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+            string email = "Admin@admin.com";
+            string password = "adminadmin123";
+            if (await userManger.FindByEmailAsync(email) == null)
+            {
+                User user = new();
+                user.Email = email; 
+                user.UserName = email;
+                user.EmailConfirmed = true;
+                user.IsDeleted = false;
+                user.UserGender = RG_Store.DAL.Enums.Gender.Male;
+                user.FirstName = user.LastName = "Admin";
+                user.UserRole = RG_Store.DAL.Enums.Roles.Admin; 
+                await  userManger.CreateAsync(user, password);
+                await userManger.AddToRoleAsync(user,"Admin");
+            }
+            
+        }
 
         app.Run();
     }

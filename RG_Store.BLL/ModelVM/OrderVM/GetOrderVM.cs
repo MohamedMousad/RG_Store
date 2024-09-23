@@ -11,5 +11,7 @@ namespace RG_Store.BLL.ModelVM.OrderVM
         public DateTime CreatedOn { get; set; }
         public OrderStatus OrderStatus { get; set; }
         public IEnumerable<GetAllItemVM?> Items { get; set; }
+
+        public string userName { get; set; } 
     }
 }

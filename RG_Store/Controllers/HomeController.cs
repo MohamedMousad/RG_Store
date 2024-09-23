@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Pro.Models;
+using RG_Store.BLL.ModelVM.ItemVM;
 using RG_Store.BLL.Service.Abstraction;
 using System.Diagnostics;
 
@@ -20,7 +21,12 @@ namespace Product.Controllers
         public async Task<IActionResult> Index()
         {
             var Result = await itemService.GetAll();
-            return View(Result);
+            List<GetAllItemVM> view =  new();
+            foreach(var item in Result)
+            {
+                if (item.Quantity > 0 && !item.IsDeleted) view.Add(item);
+            }
+            return View(view);
         }
 
         public IActionResult Privacy()

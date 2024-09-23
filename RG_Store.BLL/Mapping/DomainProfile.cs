@@ -31,6 +31,7 @@ namespace RG_Store.BLL.Mapping
             CreateMap<User, LoginVM>();
             CreateMap<User, GetUserVM>();
             CreateMap<User, DeleteUserVM>();
+            CreateMap<DeleteUserVM, User>();
             CreateMap<User, EditUserVM>();
             CreateMap<GetUserVM, User>();
 

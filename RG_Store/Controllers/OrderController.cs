@@ -1,7 +1,10 @@
 ﻿using Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using RG_Store.BLL.ModelVM.OrderVM;
 using RG_Store.BLL.Service.Abstraction;
+using RG_Store.BLL.Service.Abstraction.RG_Store.BLL.Service.Abstraction;
 
 namespace RG_Store.PLL.Controllers
 {
@@ -9,26 +12,31 @@ namespace RG_Store.PLL.Controllers
     {
         IOrderService orderService;
         private readonly UserManager<User> userManager;
+        private readonly IUserService userService;
 
-        public OrderController(IOrderService orderService, UserManager<User> userManager)
+        public OrderController(IOrderService orderService, UserManager<User> userManager , IUserService userService)
         {
             this.orderService = orderService;
             this.userManager = userManager;
+            this.userService = userService;
         }
-
+        [Authorize]
         public async Task<IActionResult> GetAllOrders()
         {
             var res = await orderService.GetAllOrders();
 
             return View(orderService);
         }
-        public async Task<IActionResult> Index(string userid)
+        [Authorize]
+        public async Task<IActionResult> Index()
         {
-
-            var orders = await orderService.GetAllUserOrders(userid);
-
-            return View(orders);
+            var user =await userManager.GetUserAsync(User);
+            var orders = await orderService.GetAllUserOrders(user.Id);
+            var usr = new User { Email = user.Email, UserName = user.UserName, ProfileImage = user.ProfileImage };
+            ViewBag.User = usr;
+            return View(orders.ToList());
         }
+        [Authorize]
         public async Task<IActionResult> Create()
         {
             try
@@ -48,7 +56,6 @@ namespace RG_Store.PLL.Controllers
                 }
 
                 bool result = await orderService.CreateOrder(cartId ?? 3005, user.Id);
-                Console.WriteLine(result);
                 if (result)
                 {
                     TempData["SuccessMessage"] = "Order added successfully!";
@@ -69,16 +76,32 @@ namespace RG_Store.PLL.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-        public async Task<IActionResult> Update(int orderid)
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
         {
+            var it = await orderService.GetAllOrderItem(id);
+            ViewBag.Items = it.ToList();
 
+            var res = await orderService.GetById(id);
 
-            return View();
+            UpdateOrderVM model = new();
+            model.OrderStatus = res.OrderStatus;
+            model.OrderId = res.OrderId;
+            model.CreatedOn = res.CreatedOn;
+            model.TotalCost = res.TotalCost;
+            return View(model);
         }
-        public async Task<IActionResult> Delete()
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Update(UpdateOrderVM model)
         {
-            return View();
-        }
+            var it = await orderService.GetAllOrderItem(model.OrderId);
+            ViewBag.Items = it.ToList();
 
+            var res = await orderService.UpdateOrder(model);
+            if (res) return RedirectToAction("Index", "Order");
+            return View(model);
+        }
     }
 }

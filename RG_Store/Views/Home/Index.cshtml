@@ -3,6 +3,26 @@
 @{
     ViewData["Title"] = "Home";
 }
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="toast-container position-fixed p-3" style="top: 0; left: 0; z-index: 1050;">
+        <div id="successToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
+            <div class="d-flex">
+                <div class="toast-body">
+                    @TempData["SuccessMessage"]
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.onload = function () {
+            var toastEl = document.getElementById('successToast');
+            var toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        };
+    </script>
+}
 
 <h1>Home</h1>
 
@@ -11,7 +31,7 @@
         <div class="row pt-lg-4 pt-xl-5">
             <div class="col-lg-4 col-md-5 pt-3 pt-md-4 pt-lg-5">
                 <h1 class="display-4 text-light pb-2 mb-4 me-md-n5">Enjoy Latest Games Released</h1>
-                <p class="fs-lg text-light opacity-70">Order, Pay, Enjoy your favorite Games</p>
+                <p class="fs-lg text-light opacity-70">Order, Pay, Enjoy your favourite Games</p>
             </div>
             <div class="col-lg-8 col-md-7 pt-md-4 pt-lg-5" style="margin-left: -50px; margin-top: -50px;">
                 <img class="d-block mt-2 ms-auto" src="~/images/Crash.png" width="400" height="200" alt="Car">

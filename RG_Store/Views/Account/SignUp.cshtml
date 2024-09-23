@@ -18,8 +18,7 @@
             <img class="d-block mx-auto" src="~/images/signup-dark.svg" width="344" alt="Illustration">
             <div class="text-light mt-sm-4 pt-md-3 text-center">
                 <span class="opacity-60">Already have an account?</span>
-                <a asp-action="SignIn" asp-controller="Account" class="btn btn-link p-0">Sign in</a>
-
+                <a asp-action="Login" asp-controller="Account" class="btn btn-link p-0">Sign in</a>
             </div>
         </div>
 
@@ -30,25 +29,25 @@
                 <div class="mb-4">
                     <label class="form-label text-light mb-2" for="signup-firstname">First name</label>
                     <input class="form-control form-control-light" asp-for="FirstName" type="text" id="signup-firstname" name="FirstName" placeholder="Enter your first name" required>
-                    <div class="invalid-feedback">Please provide your First name.</div>
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
                 </div>
                 <!-- Last Name -->
                 <div class="mb-4">
                     <label class="form-label text-light mb-2" for="signup-lastname">Last name</label>
                     <input class="form-control form-control-light" asp-for="LastName" type="text" id="signup-lastname" name="LastName" placeholder="Enter your last name" required>
-                    <div class="invalid-feedback">Please provide your Last name.</div>
+                    <span asp-validation-for="LastName" class="text-danger"></span>
                 </div>
                 <!-- Username -->
                 <div class="mb-4">
                     <label class="form-label text-light mb-2" for="signup-username">User Name</label>
                     <input class="form-control form-control-light" asp-for="UserName" type="text" id="signup-username" name="UserName" placeholder="Enter your user name" required>
-                    <div class="invalid-feedback">Please provide your User Name.</div>
+                    <span asp-validation-for="UserName" class="text-danger"></span>
                 </div>
                 <!-- Email -->
                 <div class="mb-4">
                     <label class="form-label text-light mb-2" for="signup-email">Email address</label>
                     <input class="form-control form-control-light" asp-for="Email" type="email" id="signup-email" name="Email" placeholder="Enter your email" required>
-                    <div class="invalid-feedback">Please provide a valid email address.</div>
+                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <!-- Password -->
                 <div class="mb-4">
@@ -58,19 +57,20 @@
                         <span class="input-group-text bg-dark text-light">
                             <i class="fas fa-eye password-toggle-icon" style="cursor:pointer;"></i>
                         </span>
-                        <div class="invalid-feedback">Please provide a password.</div>
+                        
                     </div>
+                        <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
                 <!-- Confirm Password -->
                 <div class="mb-4">
                     <label class="form-label text-light mb-2" for="signup-password-confirm">Confirm password</label>
                     <div class="password-toggle input-group">
-                        <input class="form-control form-control-light" type="password" id="signup-password-confirm" name="PasswordConfirm" minlength="8" required>
+                        <input class="form-control form-control-light" type="password" asp-for="Password" id="signup-password-confirm" name="PasswordConfirm" minlength="8" required>
                         <span class="input-group-text bg-dark text-light">
                             <i class="fas fa-eye password-toggle-icon" style="cursor:pointer;"></i>
                         </span>
-                        <div class="invalid-feedback">Please confirm your password.</div>
                     </div>
+                        <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
                 <!-- Agree to Terms -->
                 <div class="form-check form-check-light mb-4">

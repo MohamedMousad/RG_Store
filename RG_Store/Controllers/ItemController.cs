@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RG_Store.BLL.Images;
 using RG_Store.BLL.ModelVM.ItemVM;
 using RG_Store.BLL.Service.Abstraction;
@@ -15,87 +16,17 @@ namespace RG_Store.PLL.Controllers
             this.itemService = itemService;
             this.categoryService = categoryService;
         }
-
+        [Authorize]
         public async Task<IActionResult> Index()
         {
-            var res = await itemService.GetAll();
-            return View(res);
-        }
-        [HttpGet]
-        public async Task<IActionResult> Create()
-        {
-            var categories = categoryService.GetAll();
-            ViewBag.Categories = categories;
-            return View();
-        }
-        //[HttpPost]
-        //public IActionResult Create(CreateItemVM itemVM)
-        //{
-        //    if (!itemService.Create(itemVM))
-        //    {
-        //        return View(itemVM);
-        //    }
-
-        //    return RedirectToAction("Index","Home");
-        //} 
-        [HttpPost]
-        public async Task<IActionResult> Create(CreateItemVM itemVM)
-        {
-
-            if (itemVM.Image != null)
+            var Result = await itemService.GetAll();
+            List<GetAllItemVM> view = new();
+            foreach (var item in Result)
             {
-
-                var fileName = UploadImage.UploadFile("items", itemVM.Image);
-
-
-                itemVM.ItemImage = fileName;
+                if (item.Quantity > 0 && !item.IsDeleted) view.Add(item);
             }
-
-
-            if (!await itemService.Create(itemVM))
-            {
-                return View(itemVM);
-            }
-
-            return RedirectToAction("Index", "Home");
+            return View(view);
         }
-
-        [HttpGet]
-        public async Task<IActionResult> Update()
-        {
-            var categories = categoryService.GetAll();
-            ViewBag.Categories = categories;
-            return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> Update(UpdateItemVM itemVM)
-        {
-            if (!await itemService.Update(itemVM))
-            {
-                return View(itemVM);
-            }
-
-            return RedirectToAction("Index", "Home");
-        }
-        [HttpGet]
-        public async Task<IActionResult> Delete()
-        {
-            var categories = categoryService.GetAll();
-            ViewBag.Categories = categories;
-            return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> Delete(DeleteItemVM itemVM)
-        {
-            if (!await itemService.Delete(itemVM))
-            {
-                return View(itemVM);
-            }
-
-            return RedirectToAction("Index", "Home");
-        }
-
-
 
     }
 }

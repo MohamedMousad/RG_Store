@@ -1,0 +1,60 @@
+﻿@using RG_Store.BLL.ModelVM.ItemVM
+@model UpdateItemVM
+@{
+    var categories = ViewBag.Categories;
+    Layout = "~/Views/Shared/_DashBoard.cshtml";
+}
+
+<div class="container d-flex justify-content-center align-items-center max-vh-100">
+    <div class="row mx-0 w-100" style="max-width: 800px;">
+        <div class="col-md-12 px-4 pt-2 pb-4">
+            <h2 class="text-center mb-4" style="margin-bottom:100px !important">Update Item</h2>
+            <form class="needs-validation" novalidate asp-action="UpdateItem" asp-controller="Admin" method="post" enctype="multipart/form-data">
+                <input type="hidden" asp-for="Id" />
+
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <label class="form-label mb-2" for="item-name">Game (required)</label>
+                        <input class="form-control" type="text" id="item-name" placeholder="Enter game name" required asp-for="Name">
+                        <div class="invalid-feedback">Please provide a valid game name!</div>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label class="form-label mb-2" for="item-quantity">Quantity</label>
+                        <input class="form-control" type="number" id="item-quantity" placeholder="Enter game quantity" asp-for="Quantity">
+                        <div class="invalid-feedback">Please provide a valid quantity!</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <label class="form-label mb-2" for="item-initialprice">Old Price</label>
+                        <input class="form-control" type="number" id="item-initialprice" placeholder="Enter game old price" asp-for="IntialPrice">
+                        <div class="invalid-feedback">Please provide a valid old price!</div>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label class="form-label mb-2" for="item-finalprice">Price (Required)</label>
+                        <input class="form-control" type="number" id="item-finalprice" placeholder="Enter game price" required asp-for="FinalPrice">
+                        <div class="invalid-feedback">Please provide a valid price!</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <label class="form-label mb-2" for="item-description">Game Description</label>
+                        <input class="form-control" type="text" id="item-description" placeholder="Enter game description" required asp-for="Description">
+                        <div class="invalid-feedback">Please provide a valid game description!</div>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label class="form-label mb-2" for="item-image">Photo</label>
+                        <input class="form-control" type="file" id="item-image" accept="image/png,image/jpeg" asp-for="Image">
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center mt-3">
+                    <button class="btn btn-primary" style="width: 35%; margin-right: 10px;" type="submit">Update</button>
+                    <a href="@Url.Action("items", "Admin")" class="btn btn-secondary" style="width: 35%;">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

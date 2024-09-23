@@ -1,0 +1,45 @@
+﻿@using RG_Store.BLL.ModelVM.UserVM
+@model DeleteUserVM
+@{
+    ViewData["Title"] = "Delete User";
+    Layout = "~/Views/Shared/_DashBoard.cshtml";
+}
+
+<h2 class="text-center">Delete User</h2>
+<div class="container d-flex flex-column justify-content-center align-items-center" style="margin-top: 100px; max-width: 600px;">
+    <form asp-action="Delete" asp-controller="Admin" method="post" class="w-100">
+        <!-- Hidden field to pass the UserId to the controller -->
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-3">
+            <label asp-for="UserName" class="form-label fw-bold"></label>
+            <input readonly class="form-control" type="text" asp-for="UserName" required>
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="FirstName" class="form-label fw-bold"></label>
+            <input readonly class="form-control" type="text" asp-for="FirstName" required>
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="LastName" class="form-label fw-bold"></label>
+            <input readonly class="form-control" type="text" asp-for="LastName" required>
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="Email" class="form-label fw-bold"></label>
+            <input readonly class="form-control" type="text" asp-for="Email" required>
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-danger w-100">Delete User</button>
+        <a href="/Admin/Users" class="btn btn-secondary w-100 mt-2">Cancel</a>
+    </form>
+</div>
+
+@* @section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+} *@

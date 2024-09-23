@@ -59,6 +59,10 @@ namespace RG_Store.BLL.Service.Implementation
 
         public async Task<bool> Update(UpdateItemVM updateItem)
         {
+            if (updateItem.Image != null)
+            {
+                updateItem.ItemImage = UploadImage.UploadFile("items", updateItem.Image);
+            }
             var Result = mapper.Map<Item>(updateItem);
             return await Itemrepo.Update(Result);
         }

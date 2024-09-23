@@ -1,9 +1,9 @@
-﻿﻿@{
+﻿@using RG_Store.BLL.ModelVM.ItemVM
+@{
     ViewData["Title"] = "items";
     Layout = "~/Views/Shared/_DashBoard.cshtml";
 }
-
-
+@model List<GetAllItemVM>
 
 <div class="head-title">
     <div class="left">
@@ -18,50 +18,59 @@
             </li>
         </ul>
     </div>
-
 </div>
 
 <div class="table-data">
     <div class="order">
         <div class="head">
             <h3>All Items</h3>
-
             <li class="list-inline-item">
-                <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Create"><i class="fa fa-table"></i></button>
+                <a class="btn btn-primary btn-sm rounded-0" asp-controller="Admin" asp-action="CreateItem" data-toggle="tooltip" data-placement="top" title="Create"><i class="fa fa-table"></i></a>
             </li>
-
         </div>
         <table class="tablee table-striped">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Item Name</th>
-                    <th>FinalPrice</th>
-                    <th>Actions</th>
+                    <th style="width: 10%;">ID</th>
+                    <th style="width: 40%;">Item Name</th>
+                    <th style="width: 30%;">Final Price</th>
+                    <th style="width: 20%;">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Crash Bandi</td>
-                    <td>10.5</td>
-
-                    <td>
-                        <!-- Call to action buttons -->
-                        <ul class="list-inline m-0">
-                            <li class="list-inline-item">
-                                <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
-                            </li>
-                            <li class="list-inline-item">
-                                <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>@item.FinalPrice</td>
+                        <td>
+                            <!-- Call to action buttons -->
+                            <ul class="list-inline m-0">
+                               
+                                <li class="list-inline-item">
+                                    <a href="UpdateItem/@item.Id" class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                </li>
+                                @if (item.IsDeleted)
+                                {
+                                    <li class="list-inline-item">
+                                        <a href="DeleteItem/@item.Id" class="btn btn-secondary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete">  <i class="fa fa-undo"></i></a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="list-inline-item">
+                                        <a href="DeleteItem/@item.Id" class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
+                                </li>
+                                }
+                            </ul>
+                        </td>
+                    </tr>
+                }
                 <!-- Add more rows as needed -->
-
             </tbody>
         </table>
     </div>
-
 </div>

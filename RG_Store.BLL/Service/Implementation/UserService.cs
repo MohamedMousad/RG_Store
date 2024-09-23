@@ -17,6 +17,7 @@ namespace RG_Store.BLL.Service.Implementation
         private readonly CustomUserManager userManager;
         private readonly IMapper mapper;
         private readonly SignInManager<User> signInManager;
+
         private readonly IUserRepo userRepo;
         public UserService(CustomUserManager userManager, IMapper mapper, SignInManager<User> signInManager, IUserRepo userRepo)
         {
@@ -25,12 +26,16 @@ namespace RG_Store.BLL.Service.Implementation
             this.mapper = mapper;
             this.userRepo = userRepo;
         }
+
         public async Task<bool> CreateUser(RegisterVM registerVM)
         {
+
+
+
             User user = mapper.Map<User>(registerVM);
 
-            var result = userManager.CreateAsync(user, registerVM.Password).GetAwaiter().GetResult();
-
+            var result = await userManager.CreateAsync(user, registerVM.Password);
+            await userManager.AddToRoleAsync(user, "Customer");
             if (result.Succeeded)
             {
                 return true;
@@ -41,7 +46,11 @@ namespace RG_Store.BLL.Service.Implementation
                 return false;
             }
         }
-
+        public async Task<int> GetUserCount()
+        {
+            var list = await GetAll();
+            return list.Count();
+        }
         public async Task<bool> DeleteUser(DeleteUserVM model)
         {
             var user = mapper.Map<User>(model);
@@ -50,28 +59,48 @@ namespace RG_Store.BLL.Service.Implementation
 
         public async Task<IEnumerable<GetUserVM>> GetAll()
         {
-            List<GetUserVM> result = new List<GetUserVM>();
+            List<GetUserVM> resultlist = new List<GetUserVM>();
             var temp = await userRepo.GetAll();
-            foreach (var item in temp)
+            foreach (var user in temp)
             {
-                var user = mapper.Map<GetUserVM>(item);
-                result.Add(user);
+                if (user.IsDeleted == false)
+                {
+                   GetUserVM result = new();
+                    result.UserId = user.Id;
+                    result.UserName = user.UserName;
+                    result.FirstName = user.FirstName;
+                    result.LastName = user.LastName;
+                    result.UserGender = user.UserGender;
+                    result.Email = user.Email;
+                    result.ProfileImage = user.ProfileImage;
+                    result.UserRole = user.UserRole;
+                    resultlist.Add(result);
+                }
             }
-            return result;
+            return resultlist;
         }
 
         public async Task<GetUserVM> GetUserVM(string id)
         {
             var user = await userRepo.GetById(id);
-            var result = mapper.Map<GetUserVM>(user);
+            GetUserVM result = new();
+            result.UserId = user.Id;
+            result.UserName = user.UserName;
+            result.FirstName = user.FirstName;
+            result.LastName = user.LastName;
+            result.UserGender = user.UserGender;
+            result.Email = user.Email;
+            result.ProfileImage = user.ProfileImage;
+            result.UserRole = user.UserRole;
+
             return result;
         }
 
         public async Task<bool> SignInUserAsync(LoginVM model)
         {
-            var uservm = GetByEmailAsync(model.Email);
-
-            var result = await signInManager.PasswordSignInAsync(uservm.Result.UserName, model.Password, isPersistent: false, lockoutOnFailure: false);
+            var uservm =await GetByEmailAsync(model.Email);
+            if (uservm.IsDeleted) return false;
+            var result = await signInManager.PasswordSignInAsync(uservm.UserName, model.Password, isPersistent: false, lockoutOnFailure: false);
             if (result.Succeeded)
             {
                 Console.WriteLine("Login successful.");
@@ -106,11 +135,31 @@ namespace RG_Store.BLL.Service.Implementation
             await signInManager.SignOutAsync();
         }
 
-        public async Task<bool> UpdateRole(UpdateRoleVM model, Roles role)
+        public async Task<bool> UpdateRole(UpdateRoleVM model, Roles rolevm)
         {
             var user = await userRepo.GetById(model.UserId);
+            if (user == null)
+            {
+                return false;
+            }
+            var role = "Customer";
+            if (rolevm == Roles.Admin) role = "Admin";
+            /* var currentRoles = await userManager.GetRolesAsync(user);  */
 
-            return await userRepo.UpdateRole(user, role);
+            /* if (currentRoles.Contains(role))
+             {*/
+
+            var result = await userManager.RemoveFromRoleAsync(user, role);
+            /*  if (!result.Succeeded)
+              {
+
+                  return false;
+              }*/
+            /*  }*/
+            await userRepo.UpdateRole(user, rolevm);
+            var addResult = await userManager.AddToRoleAsync(user, role);
+
+            return addResult.Succeeded;
         }
 
         public async Task<bool> UpdateUser(GetUserVM model)
@@ -120,6 +169,7 @@ namespace RG_Store.BLL.Service.Implementation
                 Id = model.UserId,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
+                Email = model.Email,
                 UserGender = model.UserGender,
                 ProfileImage = model.ProfileImage
             };
@@ -188,7 +238,12 @@ namespace RG_Store.BLL.Service.Implementation
 
 
             var resetLink = $"https://localhost:7126/Account/ResetPassword?token={Uri.EscapeDataString(token)}&email={email}";
-            await SendEmailAsync(user.Email, "Reset your password", $"Click <a href='{resetLink}'>here</a> to reset your password.");
+            string baseDirectory = AppContext.BaseDirectory;
+            string templatePath = Path.Combine(baseDirectory, "..", "..", "..", "Views", "EmailTemplates", "ResetPass.cshtml");
+
+            var body = await File.ReadAllTextAsync(templatePath);
+            body = body.Replace("{{ResetLink}}", resetLink);
+            await SendEmailAsync(user.Email, "Reset your password", body);
 
             return token;
         }

@@ -1,10 +1,11 @@
-﻿﻿@using RG_Store.BLL.ModelVM.ItemVM
+﻿@using RG_Store.BLL.ModelVM.ItemVM
 @model List<GetAllItemVM>
 @{
     decimal sum = 0;
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <section class="h-100 gradient-custom" style="margin: 20px;">
     <div class="container py-5">
         <div class="row d-flex justify-content-center my-4">
@@ -17,57 +18,65 @@
                         @foreach (var item in Model)
                         {
                             <!-- Single item -->
-                            <div class="row">
-                                <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
-                                    <!-- Image -->
+                            <div class="row mb-4">
+                                <div class="col-lg-3 col-md-12 mb-4 mb-lg-0 d-flex justify-content-center align-items-center">
+                                    <!-- Image Container -->
                                     <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                                        <img src="~/images/crash-bandicoot-4-ride-i99518 (2).jpg"
-                                             class="w-100" alt="CrashBandicate" />
+                                        <img src="~/uploaded_images/items/@item.ItemImage" class="w-100 img-fluid fixed-size-img" alt="@item.Name" />
                                         <a href="#!">
                                             <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
                                         </a>
                                     </div>
-                                    <!-- Image -->
                                 </div>
 
-                                <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                                <div class="col-lg-5 col-md-6 mb-4 mb-lg-0 d-flex flex-column justify-content-center">
                                     <!-- Data -->
-                                    <p><strong>@item.Name</strong></p>
-                                    <p>Description</p>
+                                    <p>
+                                        <strong style="font-size: 1.5rem; color: gray; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                                            @item.Name
+                                        </strong>
+                                    </p>
                                     <p>@item.Description</p>
                                     <form asp-controller="Favourite" asp-action="RemoveFromFavourite">
                                         <input type="hidden" name="itemId" value="@item.Id" />
-                                        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-sm me-1 mb-2" data-mdb-tooltip-init
-                                                title="Remove item">
+                                        <button type="submit" class="btn btn-primary btn-sm me-1 mb-2" title="Remove item">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
-                                    <!-- Removed wishlist icon here -->
                                 </div>
 
-                                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0 d-flex align-items-end justify-content-center">
+                                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0 d-flex flex-column align-items-end justify-content-center">
                                     <!-- Price -->
-                                    <p class="text-center" style="color: orangered;font-size:17px; margin-bottom: 30px;">
+                                    <p class="text-center" style="color: orangered; font-size: 17px; margin-bottom: 30px;">
                                         <strong>Price: @item.FinalPrice</strong>
                                     </p>
-                                    <!-- Price -->
                                 </div>
                             </div>
-                            <!-- Single item -->
+
+                            <!-- Add break between items -->
+                            <br />
                         }
 
                         <hr class="my-4" />
-
                     </div>
                 </div>
             </div>
 
-            @* counting total price *@
+            @* Counting total price *@
             @foreach (var item in Model)
             {
                 sum += item.FinalPrice;
             }
-
         </div>
     </div>
 </section>
+
+<!-- CSS for fixed image size -->
+<style>
+    .fixed-size-img {
+        width: 150px; /* Set a fixed width */
+        height: 150px; /* Set a fixed height */
+        object-fit: cover; /* Maintain aspect ratio and cover the given dimensions */
+        border-radius: 5px; /* Optional: rounded corners */
+    }
+</style>

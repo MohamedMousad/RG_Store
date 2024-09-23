@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RG_Store.BLL.Service.Abstraction;
@@ -15,13 +16,15 @@ namespace RG_Store.PLL.Controllers
             this.favouriteService = favouriteService;
             this.userManager = userManager;
         }
-
-        public async Task<IActionResult> Index(int id)
+        [Authorize]
+        public async Task<IActionResult> Index()
         {
-            var res = await favouriteService.GetAll(id);
+            var user =await userManager.GetUserAsync(User);
+            var res = await favouriteService.GetAll(user.FavouriteId??1);
             var ret = res.ToList();
             return View(ret);
         }
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddToFavourite(int itemid)
         {
@@ -62,6 +65,7 @@ namespace RG_Store.PLL.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+        [Authorize]
         public async Task<IActionResult> RemoveFromFavourite(int itemid)
         {
 
