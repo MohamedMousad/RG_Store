@@ -1,5 +1,5 @@
 # RG_Store![Logo](https://i.imgur.com/Tgv4OVi.png)
-<nav><img href="https://i.imgur.com/Tgv4OVi.png" alt="RG Logo" width="50" height="50"/></nav>
+<img href="https://i.imgur.com/Tgv4OVi.png" alt="RG Logo" width="10" height="10"/>
 ## Project Overview
 
 This is a full-featured online store application that allows users to browse and purchase various products, including games, services, subscriptions, and more. The application is built using ASP.NET Core for the backend and includes a user-friendly frontend interface.
