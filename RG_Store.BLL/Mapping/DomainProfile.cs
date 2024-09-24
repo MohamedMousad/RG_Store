@@ -14,15 +14,7 @@ namespace RG_Store.BLL.Mapping
         public DomainProfile()
         {
             //Cart Mapper
-            /*  CreateMap<Cart, AddToCartVM>();
-              CreateMap<Cart, ClearCartVM>();
-              CreateMap<Cart, GetCartVM>();
-              CreateMap<Cart, RemoveFromCartVM>();
-
-              CreateMap<AddToCartVM, Cart>();
-              CreateMap<ClearCartVM, Cart>();
-              CreateMap<GetCartVM, Cart>();
-              CreateMap<RemoveFromCartVM, Cart>();*/
+            
 
             // User Mapper
             CreateMap<User, RegisterVM>();
@@ -79,6 +71,13 @@ namespace RG_Store.BLL.Mapping
             CreateMap<DeleteCategoryVM, Category>();
             CreateMap<GetCategoryVM, Category>();
             CreateMap<UpdateCategoryVM, Category>();
+
+
+            CreateMap<Category, AddCategoryVM>();
+            CreateMap<Category, DeleteCategoryVM>();
+            CreateMap<Category, GetCategoryVM>();
+            CreateMap<Category, UpdateCategoryVM>();
+
 
             //Favourite Mapper
             /*  CreateMap<Favourite, AddToFavouriteVM>();

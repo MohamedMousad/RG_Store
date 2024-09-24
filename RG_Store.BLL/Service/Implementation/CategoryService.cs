@@ -20,44 +20,66 @@ namespace RG_Store.BLL.Service.Implementation
             this.itemRepo = itemRepo;   
         }
 
-        public Task<bool> AddToCategory(GetAllItemVM item, int id)
+        public async Task<bool> AddToCategory(int itemid, int id)
         {
-            throw new NotImplementedException();
+            var itm = await itemRepo.GetById(itemid);
+            return await categoryRepo.AddToCategory(itm, id);
         }
 
-        public Task<bool> Create(AddCategoryVM CategoryVM)
+        public async Task<bool> Create(AddCategoryVM CategoryVM)
         {
-            throw new NotImplementedException();
+            var cat = mapper.Map<Category>(CategoryVM);
+            return await categoryRepo.Create(cat);  
         }
 
-        public Task<bool> Delete(DeleteCategoryVM CategoryVM)
+        public async Task<bool> Delete(DeleteCategoryVM CategoryVM)
         {
-            throw new NotImplementedException();
+           return await categoryRepo.Delete(CategoryVM.Id);
         }
 
-        public GetCategoryVM Get(int id)
+        public async Task<GetCategoryVM> Get(int id)
         {
-            throw new NotImplementedException();
+            var cat = await categoryRepo.GetById(id) ;
+            var ret = mapper.Map<GetCategoryVM>(cat);
+            return ret; 
         }
 
-        public Task<IEnumerable<GetCategoryVM>> GetAll()
+        public async Task<IEnumerable<GetCategoryVM>> GetAll()
         {
-            throw new NotImplementedException();
+            var list =await categoryRepo.GetAll();
+            List<GetCategoryVM> ret =  new();
+            foreach(var item in list) {
+                var temp = mapper.Map<GetCategoryVM>(item);
+                ret.Add(temp);
+            
+            }
+            return ret;
+
         }
 
-        public Task<IEnumerable<GetAllItemVM>> GetAllItems(int id)
+        public async Task<IEnumerable<GetAllItemVM>> GetAllItems(int id)
         {
-            throw new NotImplementedException();
+            var list = await categoryRepo.GetAllItems(id);
+            List<GetAllItemVM> ret = new();
+            foreach (var item in list)
+            {
+                var temp = mapper.Map<GetAllItemVM>(item);
+                ret.Add(temp);
+
+            }
+            return ret;
         }
 
-        public Task<bool> RemoveCategory(int itemid, int id)
+        public async Task<bool> RemoveCategory(int itemid, int id)
         {
-            throw new NotImplementedException();
+            var itm = await itemRepo.GetById(itemid);
+            return await categoryRepo.RemoveFromCategory(itm, id);
         }
 
-        public Task<bool> Update(UpdateCategoryVM CategoryVM)
+        public async Task<bool> Update(UpdateCategoryVM CategoryVM)
         {
-            throw new NotImplementedException();
+            var cat = mapper.Map<Category>(CategoryVM);
+            return await categoryRepo.Update(cat);
         }
     }
 }
