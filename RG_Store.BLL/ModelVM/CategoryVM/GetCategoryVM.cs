@@ -1,4 +1,4 @@
-﻿namespace RG_Store.BLL.ModelVM.Category
+﻿namespace RG_Store.BLL.ModelVM.CategoryVM
 {
     public class GetCategoryVM
     {

@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using RG_Store.BLL.ModelVM.ItemVM;
 using RG_Store.BLL.ModelVM.OrderVM;
 using RG_Store.BLL.ModelVM.UserVM;
+using RG_Store.BLL.ModelVM.CategoryVM;
 using RG_Store.BLL.Service.Abstraction;
 using RG_Store.BLL.Service.Abstraction.RG_Store.BLL.Service.Abstraction;
+using RG_Store.BLL.Service.Implementation;
 
 namespace RG_Store.PLL.Controllers
 {
@@ -13,11 +15,14 @@ namespace RG_Store.PLL.Controllers
         private readonly IUserService _userService;
         private readonly IItemService ItemService;
         private readonly IOrderService orderService;
-        public AdminController(IUserService userService, IItemService ItemService, IOrderService orderService)
+        private readonly ICategoryService categoryService;
+
+        public AdminController(IUserService userService, IItemService ItemService, IOrderService orderService, ICategoryService categoryService)
         {
             this._userService = userService;
             this.ItemService = ItemService;
             this.orderService = orderService;
+            this.categoryService = categoryService;
         }
 
         #region Order
@@ -25,21 +30,23 @@ namespace RG_Store.PLL.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
-            ViewBag.TotalSales =await orderService.GetTotalSales();
-            ViewBag.OrderCount =await orderService.GetOrderCounts();
-            ViewBag.UsrsCount =await _userService.GetUserCount();
+            ViewBag.TotalSales = await orderService.GetTotalSales();
+            ViewBag.OrderCount = await orderService.GetOrderCounts();
+            ViewBag.UsrsCount = await _userService.GetUserCount();
+            ViewBag.CategoryCount = await categoryService.GetAll();
 
             var orders = await orderService.GetAllOrders();
             return View(orders.ToList());
         }
+
         [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> UpdateOrder(int id)
         {
-           var it = await orderService.GetAllOrderItem(id);
+            var it = await orderService.GetAllOrderItem(id);
             ViewBag.Items = it.ToList();
 
-           var res = await orderService.GetById(id);
+            var res = await orderService.GetById(id);
 
             UpdateOrderVM model = new();
             model.OrderStatus = res.OrderStatus;
@@ -48,6 +55,7 @@ namespace RG_Store.PLL.Controllers
             model.TotalCost = res.TotalCost;
             return View(model);
         }
+
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> UpdateOrder(UpdateOrderVM model)
@@ -60,22 +68,12 @@ namespace RG_Store.PLL.Controllers
             return View(model);
         }
 
-
-
-
-
         #endregion
 
-
-
-
-
-
-
         #region User
+
         [Authorize(Roles = "Admin")]
         [HttpGet]
-
         public async Task<IActionResult> Users()
         {
             ViewBag.TotalSales = await orderService.GetTotalSales();
@@ -84,6 +82,7 @@ namespace RG_Store.PLL.Controllers
             var users = await _userService.GetAll();
             return View(users.ToList());
         }
+
         [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("admin/EditUser/{userid}")]
@@ -111,18 +110,11 @@ namespace RG_Store.PLL.Controllers
 
             return View(model);
         }
+
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> EditUser(UpdateRoleVM model)
         {
-            /* if (!ModelState.IsValid)
-             {
-                 // Return the same view with the existing model if validation fails
-                 return View(model);
-             }
- */
-
-
             var res = await _userService.UpdateRole(model, model.UserRole);
             Console.WriteLine($"Update Result: {res}");
 
@@ -134,6 +126,7 @@ namespace RG_Store.PLL.Controllers
             ModelState.AddModelError(string.Empty, "Failed to update user role.");
             return View(model);
         }
+
         [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("admin/Delete/{userid}")]
@@ -160,16 +153,11 @@ namespace RG_Store.PLL.Controllers
 
             return View(model);
         }
+
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Delete(DeleteUserVM model)
         {
-            /* if (!ModelState.IsValid)
-             {
-                 // Return the same view with the existing model if validation fails
-                 return View(model);
-             }
- */
             var res = await _userService.DeleteUser(model);
             Console.WriteLine($"Update Result: {res}");
 
@@ -184,14 +172,10 @@ namespace RG_Store.PLL.Controllers
 
         #endregion
 
-
-
-
-
-
         #region Item
+
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> items()
+        public async Task<IActionResult> Items()
         {
             ViewBag.TotalSales = await orderService.GetTotalSales();
             ViewBag.OrderCount = await orderService.GetOrderCounts();
@@ -200,12 +184,14 @@ namespace RG_Store.PLL.Controllers
             var items = await ItemService.GetAll();
             return View(items.ToList());
         }
+
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateItem()
         {
             return View();
         }
+
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateItem(CreateItemVM model)
@@ -234,11 +220,11 @@ namespace RG_Store.PLL.Controllers
 
             return View(model);
         }
+
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateItem(UpdateItemVM model)
         {
-
             var res = await ItemService.Update(model);
             if (res)
             {
@@ -246,6 +232,7 @@ namespace RG_Store.PLL.Controllers
             }
             return View(model);
         }
+
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteItem(int id)
@@ -262,11 +249,11 @@ namespace RG_Store.PLL.Controllers
 
             return View(model);
         }
+
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteItem(DeleteItemVM model)
         {
-
             var res = await ItemService.Delete(model);
             if (res)
             {
@@ -274,7 +261,59 @@ namespace RG_Store.PLL.Controllers
             }
             return View(model);
         }
-    }
-    #endregion
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateCategory (int id)
+        {
+            var category = await categoryService.Get(id);
+            UpdateCategoryVM model = new();
+            model.Name = category.Name;
+            model.Description = category.Description;
 
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateItem(UpdateItemVM model)
+        {
+            var res = await ItemService.Update(model);
+            if (res)
+            {
+                return RedirectToAction("Items", "Admin");
+            }
+            return View(model);
+        }
+
+        #endregion
+
+        #region Category
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Categories()
+        {
+            var categories = await categoryService.GetAll();
+            return View(categories.ToList());
+        }
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> CreateCategory()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> CreateCategory(AddCategoryVM model)
+        {
+            var res = await categoryService.Create(model);
+            if (res)
+            {
+                return RedirectToAction("Categories", "Admin");
+            }
+            return View(model);
+        }
+        #endregion
+
+    }
 }

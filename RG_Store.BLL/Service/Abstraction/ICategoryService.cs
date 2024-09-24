@@ -1,4 +1,4 @@
-﻿using RG_Store.BLL.ModelVM.Category;
+﻿using RG_Store.BLL.ModelVM.CategoryVM;
 using RG_Store.BLL.ModelVM.ItemVM;
 
 namespace RG_Store.BLL.Service.Abstraction

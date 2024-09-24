@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RG_Store.BLL.ModelVM.Category
+namespace RG_Store.BLL.ModelVM.CategoryVM
 {
     public class AddCategoryVM
     {

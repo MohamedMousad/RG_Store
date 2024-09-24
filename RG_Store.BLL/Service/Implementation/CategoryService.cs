@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using RG_Store.BLL.ModelVM.Category;
+using RG_Store.BLL.ModelVM.CategoryVM;
 using RG_Store.BLL.ModelVM.ItemVM;
 using RG_Store.BLL.Service.Abstraction;
 using RG_Store.DAL.Entities;
