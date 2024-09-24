@@ -12,7 +12,7 @@ namespace RG_Store.PLL.Controllers
         {
             this.categoryService = categoryService;
         }
-        [Authorize]
+       /* [Authorize]
         public IActionResult Index()
         {
             return View();
@@ -27,7 +27,7 @@ namespace RG_Store.PLL.Controllers
         [Authorize]
         public IActionResult Create(AddCategoryVM categoryVM)
         {
-            if (categoryService.Create(categoryVM)) return RedirectToAction("Index", "Home");
+            if ( categoryService.Create(categoryVM)) return RedirectToAction("Index", "Home");
             else return View(categoryVM);
         }
         [HttpGet]
@@ -55,6 +55,6 @@ namespace RG_Store.PLL.Controllers
         {
             if (categoryService.Delete(categoryVM)) return RedirectToAction("Index", "Home");
             else return View(categoryVM);
-        }
+        }*/
     }
 }

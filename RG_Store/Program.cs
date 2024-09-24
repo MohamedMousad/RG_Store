@@ -36,12 +36,12 @@ public class Program
 
         builder.Services.AddScoped<SignInManager<User>>();
 
-
-
         builder.Services.AddIdentityCore<User>(options => options.SignIn.RequireConfirmedAccount = true)
                                 .AddRoles<IdentityRole>()
                         .AddEntityFrameworkStores<ApplicationDbContext>()
                         .AddTokenProvider<DataProtectorTokenProvider<User>>(TokenOptions.DefaultProvider);
+
+
         builder.Services.AddIdentity<User, IdentityRole>(options =>
         {
             // Allow any password with at least one character
@@ -55,19 +55,6 @@ public class Program
         .AddEntityFrameworkStores<ApplicationDbContext>()
         .AddDefaultTokenProviders();
 
-        builder.Services.AddScoped<UserManager<User>, CustomUserManager>();
-
-
-        builder.Services.AddScoped<IUserService, UserService>();
-
-
-        builder.Services.AddScoped<CustomUserManager>();
-
-
-        builder.Services.AddScoped<CustomUserManager>();
-        builder.Services.AddScoped<UserService>();
-
-
 
         
         builder.Services.AddScoped<IItemRepo, ItemRepo>();
@@ -77,13 +64,18 @@ public class Program
         builder.Services.AddScoped<IOrderRepo, OrderRepo>();
         builder.Services.AddScoped<IFavouriteRepo, FavouriteRepo>();
 
+        builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<IItemService, ItemService>();
         builder.Services.AddScoped<ICategoryService, CategoryService>();
-
-
         builder.Services.AddScoped<ICartService, CartService>();
         builder.Services.AddScoped<IOrderService, OrderService>();
         builder.Services.AddScoped<IFavouriteService, FavouriteService>();
+
+
+        builder.Services.AddScoped<UserManager<User>, CustomUserManager>();
+        builder.Services.AddScoped<CustomUserManager>();
+        builder.Services.AddScoped<UserService>();
+
 
         var app = builder.Build();
 
@@ -117,6 +109,9 @@ public class Program
                     await rolesManger.CreateAsync(new  IdentityRole(role));
             }
         }
+
+
+
         using(var scope = app.Services.CreateScope())
         {
                 var userManger =

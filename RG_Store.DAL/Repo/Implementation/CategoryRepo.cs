@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Microsoft.EntityFrameworkCore;
 using RG_Store.DAL.DB;
 using RG_Store.DAL.Entities;
 using RG_Store.DAL.Repo.Abstraction;
@@ -14,12 +15,45 @@ namespace RG_Store.DAL.Repo.Implementation
             this.context = context;
         }
 
-        public bool Create(Category category)
+        public async Task<bool> AddToCategory(Item item, int id)
         {
             try
             {
-                context.Categories.Add(category);
-                context.SaveChanges();
+                var ci = new CategoryItem();
+                ci.CategoryId = id;
+                ci.ItemId = item.Id;
+                ci.Item = item;
+                await context.CategoryItems.AddAsync(ci);
+                await context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+
+        public async Task<bool> Create(Category category)
+        {
+            try
+            {
+                await context.AddAsync(category);
+                await context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }  
+        }
+
+        public async Task<bool> Delete(int id)
+        {
+            try
+            {
+                var c = await GetById(id);
+                c.IsDeleted = !c.IsDeleted;
                 return true;
             }
             catch (Exception)
@@ -27,14 +61,31 @@ namespace RG_Store.DAL.Repo.Implementation
                 return false;
             }
         }
-        public bool Delete(Category category)
-        {
 
+        public async Task<IEnumerable<Category>> GetAll()
+        {
+            return await context.Categories.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Item>> GetAllItems(int id)
+        {
+         return await context.CategoryItems.Include(c=>c.Item).Where(Item => Item.Id == id).Select(c=>c.Item).ToListAsync();
+        }
+
+        public async Task<Category> GetById(int id)
+        {
+            return await context.Categories.FirstOrDefaultAsync(c => c.Id == id);
+        }
+
+        public async Task<bool> RemoveFromCategory(Item item, int id)
+        {
             try
             {
-                var cat = GetById(category.Id);
-                cat.IsDeleted = !cat.IsDeleted;
-                context.SaveChanges();
+                var ItemToRemove =await context.Items.FirstOrDefaultAsync(i=> i.Id == item.Id);
+                var ci = await context.CategoryItems.FirstOrDefaultAsync(i => i.ItemId == item.Id);
+                context.Remove(ci);
+                await context.SaveChangesAsync();
+                        
                 return true;
             }
             catch (Exception)
@@ -43,58 +94,16 @@ namespace RG_Store.DAL.Repo.Implementation
             }
         }
 
-        public IEnumerable<Item> GetAllItems(int id)
-        {
-            var Cat = GetById(id);
-            /*  var Items = Cat.CategoryItems.ToList();*/
-            List < Item > x= new();
-            return x;
-        }
-        public IEnumerable<Category> GetAll() => context.Categories.ToList();
-
-        public Category GetById(int id) => context.Categories.Where(c => c.Id == id).FirstOrDefault();
-
-
-        public bool Update(Category category)
+        public async Task<bool> Update(Category category)
         {
             try
             {
-                var cat = GetById(category.Id);
+                var cat =await GetById(category.Id);
                 cat.Name = category.Name;
                 cat.Description = category.Description;
-                context.SaveChanges();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
-        public bool AddToCategory(Item item, int id)
-        {
-            try
-            {
-                var CategoryItems = GetAllItems(id).ToList();
-                CategoryItems.Add(item);
-                context.SaveChanges();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
-        public bool RemoveFromCategory(Item item, int id)
-        {
-
-            try
-            {
-                var CategoryItems = GetAllItems(id).ToList();
-                var itemToRemove = CategoryItems.FirstOrDefault(i => i.Id == item.Id);
-                CategoryItems.Remove(itemToRemove);
-                context.SaveChanges();
+                context.Update(cat);
+                await context.SaveChangesAsync();
+               
                 return true;
             }
             catch (Exception)

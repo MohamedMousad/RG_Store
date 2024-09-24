@@ -1,13 +1,17 @@
 ﻿using RG_Store.BLL.ModelVM.Category;
+using RG_Store.BLL.ModelVM.ItemVM;
 
 namespace RG_Store.BLL.Service.Abstraction
 {
     public interface ICategoryService
     {
-        public bool Create(AddCategoryVM CategoryVM);
+        public Task<bool> Create(AddCategoryVM CategoryVM);
         public GetCategoryVM Get(int id);
-        public bool Update(UpdateCategoryVM CategoryVM);
-        public bool Delete(DeleteCategoryVM CategoryVM);
-        public IEnumerable<GetCategoryVM> GetAll();
+        public Task<bool> Update(UpdateCategoryVM CategoryVM);
+        public Task<bool> Delete(DeleteCategoryVM CategoryVM);
+        public Task< IEnumerable<GetCategoryVM>> GetAll();
+        public Task<bool> AddToCategory(GetAllItemVM item,int id);
+        public Task<bool> RemoveCategory(int itemid,int id);
+        public Task<IEnumerable<GetAllItemVM>> GetAllItems(int id);
     }
 }

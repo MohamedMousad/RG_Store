@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using RG_Store.BLL.ModelVM.Category;
+using RG_Store.BLL.ModelVM.ItemVM;
 using RG_Store.BLL.Service.Abstraction;
 using RG_Store.DAL.Entities;
 using RG_Store.DAL.Repo.Abstraction;
@@ -10,47 +11,53 @@ namespace RG_Store.BLL.Service.Implementation
     {
         private readonly IMapper mapper;
         private readonly ICategoryRepo categoryRepo;
+        private readonly IItemRepo itemRepo;
 
-        public CategoryService(ICategoryRepo categoryRepo, IMapper mapper)
+        public CategoryService(ICategoryRepo categoryRepo, IMapper mapper, IItemRepo itemRepo)
         {
             this.categoryRepo = categoryRepo;
             this.mapper = mapper;
+            this.itemRepo = itemRepo;   
         }
 
-        public bool Create(AddCategoryVM CategoryVM)
+        public Task<bool> AddToCategory(GetAllItemVM item, int id)
         {
-            var Result = mapper.Map<Category>(CategoryVM);
-            return categoryRepo.Create(Result);
+            throw new NotImplementedException();
         }
 
-        public bool Delete(DeleteCategoryVM CategoryVM)
+        public Task<bool> Create(AddCategoryVM CategoryVM)
         {
-            var Result = mapper.Map<Category>(CategoryVM);
-            return categoryRepo.Delete(Result);
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> Delete(DeleteCategoryVM CategoryVM)
+        {
+            throw new NotImplementedException();
         }
 
         public GetCategoryVM Get(int id)
         {
-            var Item = categoryRepo.GetById(id);
-            var Result = mapper.Map<GetCategoryVM>(Item);
-            return Result;
+            throw new NotImplementedException();
         }
 
-        public IEnumerable<GetCategoryVM> GetAll()
+        public Task<IEnumerable<GetCategoryVM>> GetAll()
         {
-            var List = categoryRepo.GetAll().ToList();
-            List<GetCategoryVM> Result = new();
-            foreach (var item in List)
-            {
-                var temp = mapper.Map<GetCategoryVM>(item);
-                Result.Add(temp);
-            }
-            return Result;
+            throw new NotImplementedException();
         }
-        public bool Update(UpdateCategoryVM CategoryVM)
+
+        public Task<IEnumerable<GetAllItemVM>> GetAllItems(int id)
         {
-            var Result = mapper.Map<Category>(CategoryVM);
-            return categoryRepo.Update(Result);
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> RemoveCategory(int itemid, int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> Update(UpdateCategoryVM CategoryVM)
+        {
+            throw new NotImplementedException();
         }
     }
 }

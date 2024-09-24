@@ -5,13 +5,13 @@ namespace RG_Store.DAL.Repo.Abstraction
 {
     public interface ICategoryRepo
     {
-        public bool Create(Category category);
-        public bool AddToCategory(Item category, int id);
-        public bool RemoveFromCategory(Item category, int id);
-        public bool Update(Category category);
-        public bool Delete(Category category);
-        public IEnumerable<Item> GetAllItems(int id);
-        public IEnumerable<Category> GetAll();
-        public Category GetById(int id);
+        public Task<bool> Create(Category category);
+        public Task<bool> AddToCategory(Item category, int id);
+        public Task<bool> RemoveFromCategory(Item category, int id);
+        public Task<bool> Update(Category category);
+        public Task<bool> Delete(int id);
+        public Task<IEnumerable<Item>>GetAllItems(int id);
+        public Task<IEnumerable<Category>> GetAll();
+        public Task<Category> GetById(int id);
     }
 }
