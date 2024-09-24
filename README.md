@@ -1,5 +1,5 @@
-# RG_Store
-
+# RG_Store![Logo](https://i.imgur.com/Tgv4OVi.png)
+<img href="https://i.imgur.com/Tgv4OVi.png" alt="RG Logo" width="50" height="50"/>
 ## Project Overview
 
 This is a full-featured online store application that allows users to browse and purchase various products, including games, services, subscriptions, and more. The application is built using ASP.NET Core for the backend and includes a user-friendly frontend interface.
@@ -23,5 +23,5 @@ This is a full-featured online store application that allows users to browse and
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/Mohamed-Elbhairy/RG_Store.git
+git clone https://github.com/MohamedMousad/RG_Store.git
 cd RG_Store
