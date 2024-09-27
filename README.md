@@ -1,4 +1,4 @@
-# <img src="https://i.imgur.com/Tgv4OVi.png" alt="RG Logo" width="30" height="30" style="vertical-align:middle;"/> RG_Store
+ <img src="https://i.imgur.com/Tgv4OVi.png" alt="RG Logo" width="30" height="30" style="vertical-align:middle;"/> RG_Store
 
 ## Project Overview
 
