@@ -10,7 +10,7 @@
             <div class="row g-0 ms-lg-n2">
                 <div class="col-lg-2">
                     <div class="input-group border-end-lg border-light">
-                        <span class="input-group-text text-muted ps-2 ps-sm-3"><i class="fi-search"></i></span>
+                        <span class="input-group-text text-muted ps-2 ps-sm-3"><i class="fa-brands fa-searchengin"></i></span>
                         <input class="form-control" id="searchBox" type="text" placeholder="Search for games..." onkeyup="filterItems()">
                     </div>
                 </div>
@@ -18,7 +18,7 @@
                 <div class="col">
                     <div class="dropdown border-end-sm border-light" data-bs-toggle="select">
                         <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button" data-bs-toggle="dropdown">
-                            <i class="fi-list me-2"></i><span class="dropdown-toggle-label">Genre</span>
+                            <i class="fa-solid fa-list-ul me-2"></i><span class="dropdown-toggle-label">Genre</span>
                         </button>
                         <input type="hidden" name="make">
                         <ul class="dropdown-menu dropdown-menu-dark">
@@ -33,7 +33,7 @@
                 <div class="col">
                     <div class="dropdown border-end-md border-light" data-bs-toggle="select">
                         <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button" data-bs-toggle="dropdown">
-                            <i class="fi-list me-2"></i><span class="dropdown-toggle-label">Price</span>
+                            <i class="fa-solid fa-list-ul me-2"></i><span class="dropdown-toggle-label">Price</span>
                         </button>
                         <input type="hidden" name="model">
                         <ul class="dropdown-menu dropdown-menu-dark">
@@ -86,7 +86,7 @@
                             @Html.AntiForgeryToken()
                             <input type="hidden" name="itemId" value="@item.Id" />
                             <button class="btn btn-outline-light me-2 btn-sm" type="submit">
-                                <i class="fi-heart me-1"></i> Wish List
+                                <i class="fa-solid fa-heart me-1"></i> Wish List
                             </button>
                         </form>
                         <form asp-action="AddToCart" asp-controller="Cart" method="post">
