@@ -8,6 +8,7 @@ using RG_Store.BLL.Service.Abstraction.RG_Store.BLL.Service.Abstraction;
 
 namespace RG_Store.PLL.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
         IOrderService orderService;
@@ -20,14 +21,13 @@ namespace RG_Store.PLL.Controllers
             this.userManager = userManager;
             this.userService = userService;
         }
-        [Authorize]
+       
         public async Task<IActionResult> GetAllOrders()
         {
             var res = await orderService.GetAllOrders();
 
             return View(orderService);
         }
-        [Authorize]
         public async Task<IActionResult> Index()
         {
             var user =await userManager.GetUserAsync(User);
@@ -36,7 +36,6 @@ namespace RG_Store.PLL.Controllers
             ViewBag.User = usr;
             return View(orders.ToList());
         }
-        [Authorize]
         public async Task<IActionResult> Create()
         {
             try
@@ -76,7 +75,6 @@ namespace RG_Store.PLL.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
@@ -92,7 +90,6 @@ namespace RG_Store.PLL.Controllers
             model.TotalCost = res.TotalCost;
             return View(model);
         }
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Update(UpdateOrderVM model)
         {

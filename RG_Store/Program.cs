@@ -18,7 +18,7 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddAutoMapper(typeof(DomainProfile));
+        builder.Services.AddAutoMapper(action => action.AddProfile<DomainProfile>());
 
         builder.Services.AddControllersWithViews();
 

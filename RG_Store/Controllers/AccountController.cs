@@ -1,24 +1,12 @@
-﻿using Azure.Core;
-using Entities;
-using Humanizer;
-using Microsoft.AspNetCore.Components.Routing;
+﻿using Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.Elfie.Serialization;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using RG_Store.BLL.Images;
 using RG_Store.BLL.ModelVM.UserVM;
 using RG_Store.BLL.Service.Abstraction.RG_Store.BLL.Service.Abstraction;
-using System.ComponentModel;
-using System.Drawing.Printing;
-using System.Drawing;
-using System.Net;
-using System.Numerics;
-using System.Runtime.InteropServices;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using static RG_Store.BLL.ModelVM.UserVM.ForgerPasswordVM;
-using static System.Net.Mime.MediaTypeNames;
+
 
 namespace RG_Store.PLL.Controllers
 {

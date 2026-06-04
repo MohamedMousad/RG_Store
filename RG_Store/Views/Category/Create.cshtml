@@ -1,5 +1,5 @@
-﻿@using RG_Store.BLL.ModelVM.Category
-@model AddCategoryVM
+﻿@* @using RG_Store.BLL.ModelVM.Category *@
+@* @model AddCategoryVM *@
 
 <!DOCTYPE html>
 <html lang="en">
@@ -104,70 +104,70 @@
     <title> Add Category</title>
 </head>
 
-<body>
-    <!-- Full Page Sign In -->
-    <div class="container-fluid bg-dark text-light min-vh-100 d-flex justify-content-center align-items-center">
-        <div class="row mx-0 w-100" style="max-width: 950px;">
+@* <body> *@
+@*     <!-- Full Page Sign In --> *@
+@*     <div class="container-fluid bg-dark text-light min-vh-100 d-flex justify-content-center align-items-center"> *@
+@*         <div class="row mx-0 w-100" style="max-width: 950px;"> *@
 
-            <!-- Right Column -->
-            <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5">
+@*             <!-- Right Column --> *@
+@*             <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5"> *@
 
-                <form class="needs-validation" novalidate asp-action="Create" asp-controller="Category">
-                    <div class="mb-4">
-                        <label class="form-label text-light mb-2" for="signin-email">Category Name(required)</label>
-                        <input class="form-control form-control-light" type="text" id="signin-email" name="email"
-                               placeholder="Enter game name" required asp-for=Name>
-                        <div class="invalid-feedback">
-                            Please provide a valid game name!
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label text-light mb-2" for="signin-email">Category Description</label>
-                        <input class="form-control form-control-light" type="text" id="signin-email" name="email"
-                               placeholder="Enter game Description" required asp-for=Description>
-                        <div class="invalid-feedback">
-                            Please provide a valid Discription!
-                        </div>
-                    </div>
+@*                 <form class="needs-validation" novalidate asp-action="Create" asp-controller="Category"> *@
+@*                     <div class="mb-4"> *@
+@*                         <label class="form-label text-light mb-2" for="signin-email">Category Name(required)</label> *@
+@*                         <input class="form-control form-control-light" type="text" id="signin-email" name="email" *@
+@*                                placeholder="Enter game name" required asp-for=Name> *@
+@*                         <div class="invalid-feedback"> *@
+@*                             Please provide a valid game name! *@
+@*                         </div> *@
+@*                     </div> *@
+@*                     <div class="mb-4"> *@
+@*                         <label class="form-label text-light mb-2" for="signin-email">Category Description</label> *@
+@*                         <input class="form-control form-control-light" type="text" id="signin-email" name="email" *@
+@*                                placeholder="Enter game Description" required asp-for=Description> *@
+@*                         <div class="invalid-feedback"> *@
+@*                             Please provide a valid Discription! *@
+@*                         </div> *@
+@*                     </div> *@
 
-                    <div class="filepond--root file-uploader border-light bg-faded-light filepond--hopper"
-                         data-style-panel-layout="compact" data-style-button-remove-item-position="left"
-                         data-style-button-process-item-position="right" data-style-load-indicator-position="right"
-                         data-style-progress-indicator-position="right" data-style-button-remove-item-align="false"
-                         style="height: 160px;">
-                        <input class="filepond--browser" type="file"
-                               id="filepond--browser-j1prg4puv" name="filepond"
-                               aria-controls="filepond--assistant-j1prg4puv"
-                               aria-labelledby="filepond--drop-label-j1prg4puv" accept="image/png,image/jpeg"><a class="filepond--credits" aria-hidden="true" href="https://pqina.nl/" target="_blank"
-                                                                                                                 rel="noopener noreferrer" style="transform: translateY(152px);">Powered by PQINA</a>
-                        <div class="filepond--drop-label" style="transform: translate3d(0px, 0px, 0px); opacity: 1;">
-                            <label for="filepond--browser-j1prg4puv" id="filepond--drop-label-j1prg4puv"
-                                   aria-hidden="true">
-                                <i class="d-inline-block fi-camera-plus fs-2 text-light text-muted mb-2"></i><br><span class="fw-bold text-light opacity-70">Change picture</span>
-                            </label>
-                        </div>
-                        <div class="filepond--list-scroller" style="transform: translate3d(0px, 0px, 0px);">
-                            <ul class="filepond--list" role="list"></ul>
-                        </div>
-                        <div class="filepond--panel filepond--panel-root" data-scalable="true">
-                            <div class="filepond--panel-top filepond--panel-root"></div>
-                            <div class="filepond--panel-center filepond--panel-root"
-                                 style="transform: translate3d(0px, 8px, 0px) scale3d(1, 1.44, 1);"></div>
-                            <div class="filepond--panel-bottom filepond--panel-root"
-                                 style="transform: translate3d(0px, 152px, 0px);"></div>
-                        </div><span class="filepond--assistant" id="filepond--assistant-j1prg4puv" role="status"
-                                    aria-live="polite" aria-relevant="additions"></span>
-                        <div class="filepond--drip"></div>
-                        <fieldset class="filepond--data"></fieldset>
-                    </div>
-                    <button class="btn btn-primary btn-lg w-50" type="submit">Add</button>@* ><button type="reset" asp-controller="Home" asp-action="index" class="btn btn-secondary btn-lg w-50">Cancel</button> *@
-                </form>
-            </div>
-        </div>
-    </div>
+@*                     <div class="filepond--root file-uploader border-light bg-faded-light filepond--hopper" *@
+@*                          data-style-panel-layout="compact" data-style-button-remove-item-position="left" *@
+@*                          data-style-button-process-item-position="right" data-style-load-indicator-position="right" *@
+@*                          data-style-progress-indicator-position="right" data-style-button-remove-item-align="false" *@
+@*                          style="height: 160px;"> *@
+@*                         <input class="filepond--browser" type="file" *@
+@*                                id="filepond--browser-j1prg4puv" name="filepond" *@
+@*                                aria-controls="filepond--assistant-j1prg4puv" *@
+@*                                aria-labelledby="filepond--drop-label-j1prg4puv" accept="image/png,image/jpeg"><a class="filepond--credits" aria-hidden="true" href="https://pqina.nl/" target="_blank" *@
+@*                                                                                                                  rel="noopener noreferrer" style="transform: translateY(152px);">Powered by PQINA</a> *@
+@*                         <div class="filepond--drop-label" style="transform: translate3d(0px, 0px, 0px); opacity: 1;"> *@
+@*                             <label for="filepond--browser-j1prg4puv" id="filepond--drop-label-j1prg4puv" *@
+@*                                    aria-hidden="true"> *@
+@*                                 <i class="d-inline-block fi-camera-plus fs-2 text-light text-muted mb-2"></i><br><span class="fw-bold text-light opacity-70">Change picture</span> *@
+@*                             </label> *@
+@*                         </div> *@
+@*                         <div class="filepond--list-scroller" style="transform: translate3d(0px, 0px, 0px);"> *@
+@*                             <ul class="filepond--list" role="list"></ul> *@
+@*                         </div> *@
+@*                         <div class="filepond--panel filepond--panel-root" data-scalable="true"> *@
+@*                             <div class="filepond--panel-top filepond--panel-root"></div> *@
+@*                             <div class="filepond--panel-center filepond--panel-root" *@
+@*                                  style="transform: translate3d(0px, 8px, 0px) scale3d(1, 1.44, 1);"></div> *@
+@*                             <div class="filepond--panel-bottom filepond--panel-root" *@
+@*                                  style="transform: translate3d(0px, 152px, 0px);"></div> *@
+@*                         </div><span class="filepond--assistant" id="filepond--assistant-j1prg4puv" role="status" *@
+@*                                     aria-live="polite" aria-relevant="additions"></span> *@
+@*                         <div class="filepond--drip"></div> *@
+@*                         <fieldset class="filepond--data"></fieldset> *@
+@*                     </div> *@
+@*                     <button class="btn btn-primary btn-lg w-50" type="submit">Add</button>@* ><button type="reset" asp-controller="Home" asp-action="index" class="btn btn-secondary btn-lg w-50">Cancel</button> *@
+@*                 </form> *@
+@*             </div> *@
+@*         </div> *@
+@*     </div> *@
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"></script>
-</body>
+@*     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" *@
+@*             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" *@
+@*             crossorigin="anonymous"></script> *@
+@* </body> *@
 </html>

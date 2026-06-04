@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Entities;
-using RG_Store.BLL.ModelVM.Category;
+using RG_Store.BLL.ModelVM.CategoryVM;
 using RG_Store.BLL.ModelVM.ItemVM;
 using RG_Store.BLL.ModelVM.OrderVM;
 using RG_Store.BLL.ModelVM.UserVM;
@@ -86,8 +86,7 @@ namespace RG_Store.BLL.Mapping
 
               CreateMap<AddToFavouriteVM , Favourite>();
               CreateMap<GetFavouriteVM, Favourite>();
-              CreateMap<RemoveFromFavouriteVM, Favourite>();
-  */
+              CreateMap<RemoveFromFavouriteVM, Favourite>();*/
 
             //Order Mapper
             CreateMap<Order, CancelOrderVM>();

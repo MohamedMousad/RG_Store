@@ -273,17 +273,17 @@ namespace RG_Store.PLL.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> UpdateItem(UpdateItemVM model)
-        {
-            var res = await ItemService.Update(model);
-            if (res)
-            {
-                return RedirectToAction("Items", "Admin");
-            }
-            return View(model);
-        }
+        //[HttpPost]
+        //[Authorize(Roles = "Admin")]
+        //public async Task<IActionResult> UpdateItem(UpdateItemVM model)
+        //{
+        //    var res = await ItemService.Update(model);
+        //    if (res)
+        //    {
+        //        return RedirectToAction("Items", "Admin");
+        //    }
+        //    return View(model);
+        //}
 
         #endregion
 

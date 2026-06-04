@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RG_Store.BLL.ModelVM.Category;
+using RG_Store.BLL.ModelVM.CategoryVM;
 using RG_Store.BLL.Service.Abstraction;
 namespace RG_Store.PLL.Controllers
 {
