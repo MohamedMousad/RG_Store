@@ -1,17 +1,4 @@
-﻿//using Microsoft.AspNetCore.Http;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-
-//namespace RG_Store.BLL.Images
-//{
-//    internal class UploadImage
-//    {
-//    }
-//}
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace RG_Store.BLL.Images
 {

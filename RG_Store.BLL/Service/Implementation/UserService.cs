@@ -103,28 +103,10 @@ namespace RG_Store.BLL.Service.Implementation
             var result = await signInManager.PasswordSignInAsync(uservm.UserName, model.Password, isPersistent: false, lockoutOnFailure: false);
             if (result.Succeeded)
             {
-                Console.WriteLine("Login successful.");
+               
                 return true;
             }
-            else
-            {
-                if (result.IsLockedOut)
-                {
-                    Console.WriteLine("User is locked out.");
-                }
-                else if (result.RequiresTwoFactor)
-                {
-                    Console.WriteLine("Two-factor authentication required.");
-                }
-                else if (result.IsNotAllowed)
-                {
-                    Console.WriteLine("Login not allowed. Likely due to unconfirmed email.");
-                }
-                else
-                {
-                    Console.WriteLine("Login failed. Incorrect email or password.");
-                }
-            }
+           
 
             return false;
         }
@@ -144,18 +126,9 @@ namespace RG_Store.BLL.Service.Implementation
             }
             var role = "Customer";
             if (rolevm == Roles.Admin) role = "Admin";
-            /* var currentRoles = await userManager.GetRolesAsync(user);  */
-
-            /* if (currentRoles.Contains(role))
-             {*/
-
+           
             var result = await userManager.RemoveFromRoleAsync(user, role);
-            /*  if (!result.Succeeded)
-              {
-
-                  return false;
-              }*/
-            /*  }*/
+           
             await userRepo.UpdateRole(user, rolevm);
             var addResult = await userManager.AddToRoleAsync(user, role);
 
@@ -204,7 +177,6 @@ namespace RG_Store.BLL.Service.Implementation
             catch (Exception ex)
             {
 
-                Console.WriteLine($"Exception occurred in SendEmail: {ex.Message}");
 
             }
         }

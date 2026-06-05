@@ -18,13 +18,6 @@ namespace RG_Store.BLL.Service.Implementation
             this.Itemrepo = Itemrepo;
         }
 
-        //public bool Create(CreateItemVM createItemVM)
-        //{
-        //    createItemVM.Image = UploadImage.UploadFile("images", createItemVM.ItemImage);
-        //    var Result = mapper.Map<Item>(createItemVM);
-
-        //    return Itemrepo.Create(Result);
-        //}
 
         public async Task<bool> Create(CreateItemVM createItemVM)
         {

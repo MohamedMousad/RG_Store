@@ -7,8 +7,7 @@ namespace RG_Store.DAL.DB
 {
     public class ApplicationDbContext : IdentityDbContext<User>
     {
-        /*      public DbSet<Item> Items { get; set; }
-               public DbSet<Order> Orders { get; set; }*/
+    
         public DbSet<User> Users { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -32,6 +31,7 @@ namespace RG_Store.DAL.DB
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
             // Configure one-to-one relationship
             modelBuilder.Entity<User>()
                 .HasOne(u => u.Cart)
@@ -62,7 +62,6 @@ namespace RG_Store.DAL.DB
                 .HasForeignKey(ci => ci.ItemId);
 
 
-            base.OnModelCreating(modelBuilder);
         }
     }
 }

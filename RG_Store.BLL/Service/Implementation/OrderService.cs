@@ -99,7 +99,7 @@ namespace RG_Store.BLL.Service.Implementation
         public async Task<IEnumerable<GetOrderVM>> GetAllUserOrders(string userid)
         {
             var List = await orderRepo.GetAllUserOrders(userid);
-       /*     var user = await cartRepo.GetById(userid);*/
+     
 
             List<GetOrderVM> Res = new List<GetOrderVM>();
 
@@ -108,7 +108,7 @@ namespace RG_Store.BLL.Service.Implementation
                 var temp = mapper.Map<GetOrderVM>(item);
                 temp.OrderId = item.Id;
                 temp.CreatedOn = item.OrederDate;
-                /*temp.userName = user.UserName ?? "";*/
+              
                 Res.Add(temp);
             }
             return Res;

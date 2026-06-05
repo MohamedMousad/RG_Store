@@ -33,10 +33,7 @@ namespace RG_Store.Services.Implementation
 
             if (result.Succeeded)
             {
-                /* var favourite = new Favourite();
-                 _context.Favourites.Add(favourite);
-                 await _context.SaveChangesAsync();*//*
-                 user.Favourite = favourite;*/
+
                 var cart = new Cart();
                 _context.Carts.Add(cart);
                 cart.UserId = user.Id;
